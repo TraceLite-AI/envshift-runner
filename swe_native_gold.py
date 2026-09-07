@@ -62,8 +62,20 @@ elif a.arm == "openclaw":
     ws = str(TB).replace("\\", "/")
     cfg = {"models": {"providers": {"llmgateway": {"baseUrl": a.base, "apiKey": key, "api": "openai-completions", "models": [{"id": a.model, "name": a.model}]}}},
            "agents": {"defaults": {"workspace": ws, "model": {"primary": f"llmgateway/{a.model}"}, "models": {f"llmgateway/{a.model}": {"alias": a.model}}}},
-           "gateway": {"mode": "local", "bind": "loopback", "port": 18789, "auth": {"mode": "token"}}}
+           "gateway": {"mode": "local", "bind": "loopback", "port": 18789, "auth": {"mode": "token"}},
+           "tools": {"deny": ["web_search", "web_fetch", "browser"]}}
     (st / "openclaw.json").write_text(json.dumps(cfg), encoding="utf-8")
+    # 净化(与容器版 oc_agent2.sh 一致):修剪 git 历史(去掉未来提交/tags)+ agent 阶段屏蔽 github/pypi;判分前恢复。ENVSHIFT_SANITIZE=0 可关(仅调试)
+    SAN = os.environ.get("ENVSHIFT_SANITIZE", "1") != "0"
+    HERE = pathlib.Path(__file__).resolve().parent
+    HOSTS = "/c/Windows/System32/drivers/etc/hosts" if os.name == "nt" else "/etc/hosts"
+    SUDO = "" if os.name == "nt" else "sudo -n "
+    if SAN:
+        z = sh(f"bash '{HERE / 'sanitize_testbed.sh'}' '{ws}'"); (outd / "sanitize.log").write_text(z.stdout + z.stderr, encoding="utf-8")
+        print((z.stdout + z.stderr).strip()[-300:])
+        if z.returncode != 0: print("SANITIZE-FAIL"); sys.exit(9)
+        z = sh(f"{SUDO}bash '{HERE / 'netblock.sh'}' on '{HOSTS}'; curl -sS -m 6 -o /dev/null -w 'selfcheck raw=%{{http_code}}' https://raw.githubusercontent.com/ 2>&1 | tail -c 60; echo; curl -sS -m 6 -o /dev/null -w 'selfcheck pypi=%{{http_code}}' https://pypi.org/simple/ 2>&1 | tail -c 60")
+        (outd / "sanitize.log").open("a", encoding="utf-8").write(z.stdout + z.stderr); print((z.stdout + z.stderr).strip()[-300:])
     token = os.urandom(24).hex()
     env = dict(os.environ, HOME=str(oh), USERPROFILE=str(oh), OPENCLAW_STATE_DIR=str(st), OPENCLAW_CONFIG_PATH=str(st / "openclaw.json"), OPENCLAW_CONFIG=str(st / "openclaw.json"),
                OPENCLAW_WORKSPACE_DIR=ws, OPENCLAW_GATEWAY_TOKEN=token, OPENCLAW_EXEC_SHELL_SNAPSHOT="off", NO_PROXY="127.0.0.1,localhost", no_proxy="127.0.0.1,localhost")
@@ -83,7 +95,11 @@ elif a.arm == "openclaw":
     (outd / "agent.json").write_text(ag.stdout, encoding="utf-8"); (outd / "agent.stderr").write_text(ag.stderr, encoding="utf-8")
     print("openclaw agent rc", ag.returncode, "elapsed", int(time.time() - ta), "s |", ag.stdout[:200].replace("\n", " "))
     gw.kill()
+    if SAN:
+        z = sh(f"{SUDO}bash '{HERE / 'netblock.sh'}' off '{HOSTS}'"); (outd / "sanitize.log").open("a", encoding="utf-8").write(z.stdout + z.stderr); print((z.stdout + z.stderr).strip()[-120:])
     try: shutil.copytree(st, outd / "oc-state", dirs_exist_ok=True); (outd / "oc-state" / "openclaw.json").unlink(missing_ok=True)
+    except Exception: pass
+    try: shutil.copy(outd / "sanitize.log", "native_sanitize.log")
     except Exception: pass
 # 4) 官方 eval 脚本(改路径不改逻辑)
 e = sh(adapt(row["eval_script"]), timeout=3000); log = e.stdout + e.stderr
