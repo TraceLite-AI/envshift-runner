@@ -29,6 +29,10 @@ ts = make_test_spec(row)
 def adapt(script):
     s = script.replace("/testbed", str(TB).replace("\\", "/")).replace("/opt/miniconda3", str(CONDA).replace("\\", "/"))
     s = s.replace("source /root/.bashrc", ":")
+    if os.name == "nt":
+        # Windows 的 miniconda 没有 bin/activate;Git Bash 下的官方入口是 etc/profile.d/conda.sh(路径适配,不动逻辑)
+        c = str(CONDA).replace("\\", "/")
+        s = s.replace(f"source {c}/bin/activate", f"source {c}/etc/profile.d/conda.sh")
     return s
 print("平台:", platform.platform(), platform.machine(), "| conda:", CONDA, "| python 规格:", re.search(r"python=([\d.]+)", ts.setup_env_script or "").group(1) if re.search(r"python=([\d.]+)", ts.setup_env_script or "") else "?")
 t0 = time.time()
