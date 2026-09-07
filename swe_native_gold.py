@@ -7,7 +7,9 @@ import argparse, json, os, pathlib, platform, re, shutil, subprocess, sys, tempf
 for _st in (sys.stdout, sys.stderr):
     try: _st.reconfigure(encoding="utf-8", errors="replace")   # Windows 控制台 cp1252 印中文会崩(老坑)
     except Exception: pass
-ap = argparse.ArgumentParser(); ap.add_argument("instance"); ap.add_argument("--arm", default="gold"); a = ap.parse_args()
+ap = argparse.ArgumentParser(); ap.add_argument("instance"); ap.add_argument("--arm", default="gold", choices=["gold", "openclaw", "null"])
+ap.add_argument("--model", default="deepseek-v4-pro"); ap.add_argument("--base", default="https://api.llmgateway.io/v1"); ap.add_argument("--timeout", type=int, default=1800)
+a = ap.parse_args()
 HOME = pathlib.Path.home(); TB = HOME / "testbed"; CONDA = pathlib.Path(os.environ.get("CONDA", "")) if os.environ.get("CONDA") else HOME / "miniconda3"
 def _bash():
     # Windows 上裸 `bash` 会解析到 WSL 启动器(没装发行版就报错);必须显式用 Git Bash(跨 OS 那轮的老坑)
@@ -52,6 +54,37 @@ if a.arm == "gold":
     (TB / ".gold.diff").write_text(row["patch"], encoding="utf-8")
     g = sh(f"cd '{TB}' && git apply -v .gold.diff")
     if g.returncode != 0: print("GOLD-APPLY-FAIL", g.stderr[-300:]); sys.exit(4)
+elif a.arm == "openclaw":
+    # 原生 OpenClaw(npm -g 装在 runner 上):与容器版 oc_agent.sh 同一套配法,workspace=本机 testbed
+    key = os.environ.get("ENVSHIFT_API_KEY", "")
+    if not key: print("NO-API-KEY"); sys.exit(5)
+    st = HOME / "oc-state"; oh = HOME / "oc-home"; outd = pathlib.Path("oc_out"); [d.mkdir(parents=True, exist_ok=True) for d in (st, oh, outd)]
+    ws = str(TB).replace("\\", "/")
+    cfg = {"models": {"providers": {"llmgateway": {"baseUrl": a.base, "apiKey": key, "api": "openai-completions", "models": [{"id": a.model, "name": a.model}]}}},
+           "agents": {"defaults": {"workspace": ws, "model": {"primary": f"llmgateway/{a.model}"}, "models": {f"llmgateway/{a.model}": {"alias": a.model}}}},
+           "gateway": {"mode": "local", "bind": "loopback", "port": 18789, "auth": {"mode": "token"}}}
+    (st / "openclaw.json").write_text(json.dumps(cfg), encoding="utf-8")
+    token = os.urandom(24).hex()
+    env = dict(os.environ, HOME=str(oh), USERPROFILE=str(oh), OPENCLAW_STATE_DIR=str(st), OPENCLAW_CONFIG_PATH=str(st / "openclaw.json"), OPENCLAW_CONFIG=str(st / "openclaw.json"),
+               OPENCLAW_WORKSPACE_DIR=ws, OPENCLAW_GATEWAY_TOKEN=token, OPENCLAW_EXEC_SHELL_SNAPSHOT="off", NO_PROXY="127.0.0.1,localhost", no_proxy="127.0.0.1,localhost")
+    oc = shutil.which("openclaw") or shutil.which("openclaw.cmd") or "openclaw"
+    prompt = "下面是一个真实仓库里的 issue。仓库已经在 " + ws + ",请直接修改源码解决它。\n只改实现代码,不要改测试文件。完成后不需要提交,把文件改好即可。\n\n" + (row["problem_statement"] or "")
+    gw = subprocess.Popen([oc, "gateway", "run", "--bind", "loopback", "--port", "18789", "--auth", "token"], stdout=open(outd / "gateway.log", "w"), stderr=subprocess.STDOUT, env=env, cwd=str(TB))
+    import socket
+    ok = False
+    for _ in range(90):
+        if gw.poll() is not None: break
+        try: socket.create_connection(("127.0.0.1", 18789), timeout=1).close(); ok = True; break
+        except OSError: time.sleep(1)
+    if not ok: print("GATEWAY-NOT-READY", open(outd / "gateway.log", errors="replace").read()[-400:].replace("\n", " ")); gw.kill(); sys.exit(3)
+    ta = time.time()
+    ag = subprocess.run([oc, "agent", "--session-id", f"envshift-{os.getpid()}", "--message", prompt, "--thinking", "off", "--timeout", str(a.timeout), "--json"],
+                        capture_output=True, text=True, env=env, cwd=str(TB), timeout=a.timeout + 300)
+    (outd / "agent.json").write_text(ag.stdout, encoding="utf-8"); (outd / "agent.stderr").write_text(ag.stderr, encoding="utf-8")
+    print("openclaw agent rc", ag.returncode, "elapsed", int(time.time() - ta), "s |", ag.stdout[:200].replace("\n", " "))
+    gw.kill()
+    try: shutil.copytree(st, outd / "oc-state", dirs_exist_ok=True); (outd / "oc-state" / "openclaw.json").unlink(missing_ok=True)
+    except Exception: pass
 # 4) 官方 eval 脚本(改路径不改逻辑)
 e = sh(adapt(row["eval_script"]), timeout=3000); log = e.stdout + e.stderr
 pathlib.Path("native_eval.log").write_text(log, encoding="utf-8")
