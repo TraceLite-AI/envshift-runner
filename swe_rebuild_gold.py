@@ -4,6 +4,9 @@
    目的:实测"在别的 OS/架构上重建"到底难不难 —— 官方解在重建环境里过不过,就是闸门。"""
 import argparse, inspect, json, os, platform, subprocess, sys, tempfile, pathlib, time, urllib.request
 ap = argparse.ArgumentParser(); ap.add_argument("instance"); ap.add_argument("ubuntu"); ap.add_argument("tag"); ap.add_argument("--jsonl", default="")
+ap.add_argument("--arm", default="gold", choices=["gold", "agent", "null"])
+ap.add_argument("--kit", default=os.path.expanduser("~/tbkit"), help="含 bridge.mjs/cordis.yaml/drive_dsh.py/node_modules/node/bin/node 的目录")
+ap.add_argument("--model", default="deepseek-v4-pro"); ap.add_argument("--base", default="https://api.llmgateway.io/v1"); ap.add_argument("--timeout", type=int, default=1800)
 a = ap.parse_args()
 def sh(c, **k): return subprocess.run(c, shell=True, capture_output=True, text=True, **k)
 # ---- 取实例 ----
@@ -43,8 +46,32 @@ print("容器内:", sh(f"docker exec {c} sh -c 'uname -m; . /etc/os-release; ech
 t = pathlib.Path(tempfile.mkdtemp())
 (t / "patch.diff").write_text(row["patch"], encoding="utf-8"); (t / "eval.sh").write_text(row["eval_script"], encoding="utf-8")
 sh(f"docker cp {t}/patch.diff {c}:/tmp/patch.diff"); sh(f"docker cp {t}/eval.sh {c}:/eval.sh")
-g = sh(f"docker exec {c} sh -c 'cd /testbed && git apply -v /tmp/patch.diff'")
-if g.returncode != 0: print("GOLD-APPLY-FAIL", g.stderr[-300:]); sh(f"docker rm -f {c}"); sys.exit(4)
+agent_s = 0
+if a.arm == "gold":
+    g = sh(f"docker exec {c} sh -c 'cd /testbed && git apply -v /tmp/patch.diff'")
+    if g.returncode != 0: print("GOLD-APPLY-FAIL", g.stderr[-300:]); sh(f"docker rm -f {c}"); sys.exit(4)
+elif a.arm == "agent":
+    # 与容器版执行器同一套:kit 拷进容器,DSH 在 /testbed 里干活;key 走文件不走命令行(㊴)
+    key = os.environ.get("ENVSHIFT_API_KEY", "")
+    if not key: print("NO-API-KEY"); sh(f"docker rm -f {c}"); sys.exit(5)
+    (t / "prompt.md").write_text("下面是一个真实仓库里的 issue。仓库已经在 /testbed,请直接修改源码解决它。\n只改实现代码,不要改测试文件。完成后不需要提交,把文件改好即可。\n\n" + (row["problem_statement"] or ""), encoding="utf-8")
+    (t / ".k").write_text(key, encoding="utf-8")
+    sh(f"docker exec {c} sh -c 'mkdir -p /opt/tbkit /tmp/dshrt /tmp/dsh-home /rout'")
+    sh(f"docker cp {a.kit}/. {c}:/opt/tbkit"); sh(f"docker cp {t}/prompt.md {c}:/tmp/.prompt.md"); sh(f"docker cp {t}/.k {c}:/tmp/.k")
+    sh(f"docker exec {c} sh -c 'cp /opt/tbkit/bridge.mjs /opt/tbkit/cordis.yaml /opt/tbkit/drive_dsh.py /tmp/dshrt/ && ln -sfn /opt/tbkit/node_modules /tmp/dshrt/node_modules && chmod +x /opt/tbkit/node/bin/node'")
+    ta = time.time()
+    cmd = (f"docker exec -e DSH_NM=/opt/tbkit/node_modules -e DSH_BRIDGE=/tmp/dshrt/bridge.mjs -e DSH_CONFIG=/tmp/dshrt/cordis.yaml "
+           f"-e DSH_HOME_DIR=/tmp/dsh-home -e DSH_NODE_BIN=/opt/tbkit/node/bin/node -e DSH_RUN_TIMEOUT={a.timeout} -e DSH_SESSION_ROOT=/tmp/dsh-sessions "
+           f"-e DSH_MAX_TOKENS=131072 {c} sh -c \"cd /testbed && PATH=/opt/tbkit/node/bin:\\$PATH timeout {a.timeout + 180} "
+           f"python3 /tmp/dshrt/drive_dsh.py /testbed '{a.model}' '{a.base}' \\\"\\$(cat /tmp/.k)\\\" /rout /tmp/.prompt.md > /rout/driver.log 2>&1; rm -f /tmp/.k /tmp/.prompt.md; echo \\$?\"")
+    rc = sh(cmd, timeout=a.timeout + 600).stdout.strip(); agent_s = int(time.time() - ta)
+    sh(f"docker cp {c}:/rout {t}/rout"); (pathlib.Path(".") / f"agent_{a.instance}_{a.tag}").mkdir(exist_ok=True)
+    sh(f"cp -r {t}/rout/. agent_{a.instance}_{a.tag}/")
+    dl = pathlib.Path(f"agent_{a.instance}_{a.tag}/driver.log"); print("agent rc", rc, "|", (dl.read_text(errors="replace")[:160].replace(chr(10), " ") if dl.exists() else "无 driver.log"))
+    # 断粮/通道空跑标记(与主线 triage 同口径)
+    txt = dl.read_text(errors="replace") if dl.exists() else ""
+    if any(k in txt for k in ("Insufficient Balance", "RATE_LIMIT", "Too many requests", "TRANSPORT", "MISSING_CREDENTIAL")):
+        print("DEAD-RUN", [k for k in ("Insufficient Balance", "RATE_LIMIT", "TRANSPORT", "MISSING_CREDENTIAL") if k in txt])
 e = sh(f"docker exec {c} bash /eval.sh", timeout=3000); log = e.stdout + e.stderr
 sh(f"docker rm -f {c}")
 import importlib
@@ -58,5 +85,5 @@ L = lambda v: json.loads(v) if isinstance(v, str) else list(v)   # parquet 里�
 f2p = L(row["FAIL_TO_PASS"]); p2p = L(row["PASS_TO_PASS"])
 fo = sum(status.get(x) == "PASSED" for x in f2p); po = sum(status.get(x) == "PASSED" for x in p2p)
 res = int(fo == len(f2p) and po == len(p2p) and len(f2p) > 0)
-print(f"RESULT {a.instance} arch={ts.arch} ubuntu={a.ubuntu} resolved={res} f2p={fo}/{len(f2p)} p2p={po}/{len(p2p)}")
-pathlib.Path(f"rebuild_{ts.arch}_u{a.ubuntu}.json").write_text(json.dumps({"instance": a.instance, "arch": ts.arch, "ubuntu": a.ubuntu, "resolved": res, "f2p": f"{fo}/{len(f2p)}", "p2p": f"{po}/{len(p2p)}", "status": status, "build_s": int(time.time()-t0)}), encoding="utf-8")
+print(f"RESULT {a.instance} arm={a.arm} arch={ts.arch} ubuntu={a.ubuntu} resolved={res} f2p={fo}/{len(f2p)} p2p={po}/{len(p2p)} agent_s={agent_s}")
+pathlib.Path(f"rebuild_{a.arm}_{ts.arch}_u{a.ubuntu}.json").write_text(json.dumps({"instance": a.instance, "arm": a.arm, "arch": ts.arch, "ubuntu": a.ubuntu, "resolved": res, "f2p": f"{fo}/{len(f2p)}", "p2p": f"{po}/{len(p2p)}", "status": status, "build_s": int(time.time()-t0)}), encoding="utf-8")
