@@ -10,9 +10,12 @@ def sh(c, **k): return subprocess.run(c, shell=True, capture_output=True, text=T
 if a.jsonl:
     row = next(json.loads(l) for l in open(a.jsonl, encoding="utf-8") if json.loads(l)["instance_id"] == a.instance)
 else:
-    q = urllib.request.quote(f'"{a.instance}"')
-    u = f"https://datasets-server.huggingface.co/filter?dataset=SWE-bench/SWE-bench_Verified&config=default&split=test&where=instance_id={q}"
-    row = json.load(urllib.request.urlopen(u, timeout=120))["rows"][0]["row"]
+    import pyarrow.parquet as pq
+    pq_path = pathlib.Path(tempfile.gettempdir()) / "swe_verified.parquet"
+    if not pq_path.exists():
+        urllib.request.urlretrieve("https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified/resolve/main/data/test-00000-of-00001.parquet", pq_path)
+    row = next((r for r in pq.read_table(pq_path).to_pylist() if r["instance_id"] == a.instance), None)
+    if row is None: raise SystemExit(f"没有这道题: {a.instance}")
 # ---- 官方构建器:改 ubuntu 版本(这是官方模板自带的参数),架构随宿主 ----
 import swebench.harness.constants as C
 for name in dir(C):
@@ -22,20 +25,15 @@ for name in dir(C):
 from swebench.harness.test_spec.test_spec import make_test_spec
 import docker
 client = docker.from_env()
-ts = make_test_spec(row, base_image_tag=a.tag, env_image_tag=a.tag, instance_image_tag=a.tag)
+# 官方一体化构建:base → env → instance。base/env 用官方默认 tag(镜像名本身含架构),instance 用本次 tag。
+# ★同一架构上换 ubuntu 版本会覆盖同名 base/env 镜像,所以 force_rebuild=True,并在结果里记录 ubuntu 版本。
+ts = make_test_spec(row, instance_image_tag=a.tag)
 print("宿主架构:", platform.machine(), "| 官方 spec 架构:", ts.arch, ts.platform)
 print("镜像名:", ts.base_image_key, "|", ts.env_image_key, "|", ts.instance_image_key)
 from swebench.harness import docker_build as DB
-import logging; logging.basicConfig(level=logging.INFO)
+import logging; logging.basicConfig(level=logging.WARNING)
 t0 = time.time()
-# 官方三层构建:base → env → instance(用官方函数,按签名自适应)
-def call(fn, **kw):
-    sig = inspect.signature(fn); use = {k: v for k, v in kw.items() if k in sig.parameters}
-    return fn(**use)
-call(DB.build_base_images, client=client, dataset=[row], force_rebuild=False, tag=a.tag)
-call(DB.build_env_images, client=client, dataset=[row], force_rebuild=False, max_workers=2, tag=a.tag)
-logger = logging.getLogger("build")
-call(DB.build_instance_image, test_spec=ts, client=client, logger=logger, nocache=False)
+DB.build_instance_images(client=client, dataset=[row], force_rebuild=True, max_workers=2, namespace=None, tag=a.tag)
 print("构建耗时 %ds" % (time.time() - t0))
 img = ts.instance_image_key
 # ---- gold + 官方 eval ----

@@ -6,9 +6,16 @@ import json, os, subprocess, sys, tempfile, pathlib, urllib.request
 iid = sys.argv[1]; arch = sys.argv[2] if len(sys.argv) > 2 else "arm64"
 def sh(c, **k): return subprocess.run(c, shell=True, capture_output=True, text=True, **k)
 # 取该实例数据(HF datasets-server 行查询)
-q = urllib.request.quote(f'"{iid}"')
-u = f"https://datasets-server.huggingface.co/filter?dataset=SWE-bench/SWE-bench_Verified&config=default&split=test&where=instance_id={q}"
-row = json.load(urllib.request.urlopen(u, timeout=120))["rows"][0]["row"]
+def fetch_row(iid):
+    """HF 的 filter 接口对这种查询回 422;改为直接下载官方 parquet(6MB)本地筛。"""
+    import pyarrow.parquet as pq
+    pq_path = pathlib.Path(tempfile.gettempdir()) / "swe_verified.parquet"
+    if not pq_path.exists():
+        urllib.request.urlretrieve("https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified/resolve/main/data/test-00000-of-00001.parquet", pq_path)
+    for r in pq.read_table(pq_path).to_pylist():
+        if r["instance_id"] == iid: return r
+    raise SystemExit(f"没有这道题: {iid}")
+row = fetch_row(iid)
 img = f"swebench/sweb.eval.{arch}.{iid.replace('__', '_1776_')}:latest"
 print("镜像:", img)
 p = sh(f"docker pull -q {img}")

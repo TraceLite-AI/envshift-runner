@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: '3.11' }
       - name: official swebench v4.0.4 builder
-        run: pip install -q "git+https://github.com/SWE-bench/SWE-bench@v4.0.4" docker
+        run: pip install -q "git+https://github.com/SWE-bench/SWE-bench@v4.0.4" docker pyarrow
       - name: rebuild with official pipeline, then gold + official eval
         run: python swe_rebuild_gold.py "${{ inputs.instance }}" "${{ inputs.ubuntu }}" rb 2>&1 | grep -v "^INFO" | tail -30
       - uses: actions/upload-artifact@v4

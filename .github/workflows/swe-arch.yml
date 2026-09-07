@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: '3.11' }
       - name: official swebench package
-        run: pip install -q swebench==5.0.2
+        run: pip install -q swebench==5.0.2 pyarrow
       - name: gold patch on official ${{ matrix.arch }} image
         run: python swe_arm_gold.py "${{ inputs.instance }}" ${{ matrix.arch }}
       - uses: actions/upload-artifact@v4
