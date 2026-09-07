@@ -33,7 +33,7 @@ print("镜像名:", ts.base_image_key, "|", ts.env_image_key, "|", ts.instance_i
 from swebench.harness import docker_build as DB
 import logging; logging.basicConfig(level=logging.WARNING)
 t0 = time.time()
-DB.build_instance_images(client=client, dataset=[row], force_rebuild=True, max_workers=2, namespace=None, tag=a.tag)
+DB.build_instance_images(client=client, dataset=[row], force_rebuild=os.environ.get("FORCE_REBUILD", "0") == "1", max_workers=2, namespace=None, tag=a.tag)
 print("构建耗时 %ds" % (time.time() - t0))
 img = ts.instance_image_key
 # ---- gold + 官方 eval ----
@@ -54,7 +54,8 @@ if parser is None:
     parser = MAP_REPO_TO_PARSER[row["repo"]]
 try: status = parser(log, row)
 except TypeError: status = parser(log)
-f2p = json.loads(row["FAIL_TO_PASS"]); p2p = json.loads(row["PASS_TO_PASS"])
+L = lambda v: json.loads(v) if isinstance(v, str) else list(v)   # parquet 里已是列表,jsonl 里是字符串
+f2p = L(row["FAIL_TO_PASS"]); p2p = L(row["PASS_TO_PASS"])
 fo = sum(status.get(x) == "PASSED" for x in f2p); po = sum(status.get(x) == "PASSED" for x in p2p)
 res = int(fo == len(f2p) and po == len(p2p) and len(f2p) > 0)
 print(f"RESULT {a.instance} arch={ts.arch} ubuntu={a.ubuntu} resolved={res} f2p={fo}/{len(f2p)} p2p={po}/{len(p2p)}")
