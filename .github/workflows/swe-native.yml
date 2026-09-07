@@ -46,7 +46,7 @@ jobs:
           tar czf oc_out.tgz oc_out 2>/dev/null || true
           OPENSSL=$(command -v openssl || echo /usr/bin/openssl)
           "$OPENSSL" enc -aes-256-cbc -pbkdf2 -salt -pass env:ARTIFACT_PASS -in oc_out.tgz -out native_oc.tgz.enc || echo "encrypt failed (non-fatal)"
-          rm -rf oc_out oc_out.tgz
+          rm -rf oc_out oc_out.tgz 2>/dev/null || true
       - uses: actions/upload-artifact@v4
         if: always()
         with: { name: "native-${{ matrix.os }}-${{ matrix.instance }}", path: "native_*" }

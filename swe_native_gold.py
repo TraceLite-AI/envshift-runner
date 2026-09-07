@@ -95,6 +95,9 @@ elif a.arm == "openclaw":
     (outd / "agent.json").write_text(ag.stdout, encoding="utf-8"); (outd / "agent.stderr").write_text(ag.stderr, encoding="utf-8")
     print("openclaw agent rc", ag.returncode, "elapsed", int(time.time() - ta), "s |", ag.stdout[:200].replace("\n", " "))
     gw.kill()
+    if os.name == "nt":   # Windows 上 Popen.kill 只杀 openclaw.cmd 壳,node 子进程还攥着 gateway.log(收尾 rm 报 Device or resource busy)
+        subprocess.run(["taskkill", "/F", "/T", "/PID", str(gw.pid)], capture_output=True)
+        subprocess.run(["taskkill", "/F", "/IM", "node.exe"], capture_output=True)
     if SAN:
         z = sh(f"{SUDO}bash '{HERE / 'netblock.sh'}' off '{HOSTS}'"); (outd / "sanitize.log").open("a", encoding="utf-8").write(z.stdout + z.stderr); print((z.stdout + z.stderr).strip()[-120:])
     try: shutil.copytree(st, outd / "oc-state", dirs_exist_ok=True); (outd / "oc-state" / "openclaw.json").unlink(missing_ok=True)
