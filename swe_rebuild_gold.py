@@ -30,8 +30,10 @@ for name in dir(C):
 from swebench.harness.test_spec.test_spec import make_test_spec
 import docker
 client = docker.from_env()
-# 官方一体化构建:base → env → instance。base/env 用官方默认 tag(镜像名本身含架构),instance 用本次 tag。
-# ★同一架构上换 ubuntu 版本会覆盖同名 base/env 镜像,所以 force_rebuild=True,并在结果里记录 ubuntu 版本。
+# 官方一体化构建:base → env → instance。★三层镜像 tag 都带本次 tag(=ubuntu 版本):官方 base/env 镜像名不含 ubuntu 版本,
+# 不这样做的话换版本会复用/覆盖同名底座(2026-09-08 亲验:标 22.04 的格 13/21 实跑 24.04)。
+# 做法:改 make_test_spec 的默认参数(namespace, base_image_tag, env_image_tag, instance_image_tag),让构建器内部所有调用一致生效。
+_d = list(make_test_spec.__defaults__); _d[1] = a.tag; _d[2] = a.tag; make_test_spec.__defaults__ = tuple(_d)
 ts = make_test_spec(row, instance_image_tag=a.tag)
 print("宿主架构:", platform.machine(), "| 官方 spec 架构:", ts.arch, ts.platform)
 print("镜像名:", ts.base_image_key, "|", ts.env_image_key, "|", ts.instance_image_key)
@@ -45,6 +47,9 @@ img = ts.instance_image_key
 c = f"swe-rebuild-{os.getpid()}"
 sh(f"docker rm -f {c}"); sh(f"docker run -d --name {c} " + (f"-v {a.ockit}:/opt/ockit:ro " if a.arm == "openclaw" else "") + f"{img} sleep {a.timeout + 3600}")
 print("容器内:", sh(f"docker exec {c} sh -c 'uname -m; . /etc/os-release; echo $PRETTY_NAME'").stdout.strip().replace("\n", " | "))
+os_actual = sh(f"docker exec {c} sh -c '. /etc/os-release; echo $VERSION_ID'").stdout.strip()
+if os_actual != a.ubuntu:   # ★硬断言:环境=X 必须从容器里读回来,标签不算数
+    print(f"OS-MISMATCH requested={a.ubuntu} actual={os_actual}"); sh(f"docker rm -f {c}"); sys.exit(7)
 t = pathlib.Path(tempfile.mkdtemp())
 (t / "patch.diff").write_text(row["patch"], encoding="utf-8"); (t / "eval.sh").write_text(row["eval_script"], encoding="utf-8")
 sh(f"docker cp {t}/patch.diff {c}:/tmp/patch.diff"); sh(f"docker cp {t}/eval.sh {c}:/eval.sh")
@@ -100,5 +105,5 @@ L = lambda v: json.loads(v) if isinstance(v, str) else list(v)   # parquet 里�
 f2p = L(row["FAIL_TO_PASS"]); p2p = L(row["PASS_TO_PASS"])
 fo = sum(status.get(x) == "PASSED" for x in f2p); po = sum(status.get(x) == "PASSED" for x in p2p)
 res = int(fo == len(f2p) and po == len(p2p) and len(f2p) > 0)
-print(f"RESULT {a.instance} arm={a.arm} arch={ts.arch} ubuntu={a.ubuntu} resolved={res} f2p={fo}/{len(f2p)} p2p={po}/{len(p2p)} agent_s={agent_s}")
-pathlib.Path(f"rebuild_{a.instance}_{a.arm}_{ts.arch}_u{a.ubuntu}.json").write_text(json.dumps({"instance": a.instance, "arm": a.arm, "arch": ts.arch, "ubuntu": a.ubuntu, "resolved": res, "f2p": f"{fo}/{len(f2p)}", "p2p": f"{po}/{len(p2p)}", "status": status, "build_s": int(time.time()-t0)}), encoding="utf-8")
+print(f"RESULT {a.instance} arm={a.arm} arch={ts.arch} ubuntu={a.ubuntu} resolved={res} f2p={fo}/{len(f2p)} p2p={po}/{len(p2p)} agent_s={agent_s} os_actual={os_actual}")
+pathlib.Path(f"rebuild_{a.instance}_{a.arm}_{ts.arch}_u{a.ubuntu}.json").write_text(json.dumps({"os_actual": os_actual, "instance": a.instance, "arm": a.arm, "arch": ts.arch, "ubuntu": a.ubuntu, "resolved": res, "f2p": f"{fo}/{len(f2p)}", "p2p": f"{po}/{len(p2p)}", "status": status, "build_s": int(time.time()-t0)}), encoding="utf-8")
