@@ -37,14 +37,14 @@ jobs:
         shell: bash
         run: |
           npm install -g openclaw@2026.6.9 2>&1 | tail -1
-          mkdir -p ockit/node/bin ockit/lib && cp "$(which node)" ockit/node/bin/node && cp -r "$(npm root -g)/openclaw" ockit/lib/openclaw && cp oc_agent.sh ockit/
+          mkdir -p ockit/node/bin ockit/lib && cp "$(which node)" ockit/node/bin/node && cp -r "$(npm root -g)/openclaw" ockit/lib/openclaw && cp oc_agent.sh oc_agent2.sh sanitize_testbed.sh netblock.sh ockit/
           ockit/node/bin/node ockit/lib/openclaw/openclaw.mjs --version
       - name: rebuild with official pipeline, run the model, official eval
         shell: bash
         env: { ENVSHIFT_API_KEY: "${{ secrets.ENVSHIFT_API_KEY }}" }
         run: |
           set -o pipefail
-          if [ "${{ inputs.harness }}" = "openclaw" ]; then ARM="--arm openclaw --ockit $PWD/ockit"; else ARM="--arm agent --kit kit"; fi
+          if [ "${{ inputs.harness }}" = "openclaw" ]; then ARM="--arm openclaw --ockit $PWD/ockit --sanitize"; else ARM="--arm agent --kit kit"; fi
           python swe_rebuild_gold.py "${{ matrix.instance }}" "${{ inputs.ubuntu }}" rb $ARM --timeout ${{ inputs.timeout }} 2>&1 | grep -v "^INFO" | grep -E "RESULT|FAIL|DEAD-RUN|agent rc|openclaw rc|GATEWAY|容器内|构建耗时"
       - name: encrypt artifacts (公开仓:轨迹不能明文上传)
         if: always()

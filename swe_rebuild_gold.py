@@ -5,10 +5,11 @@
 import argparse, inspect, json, os, platform, subprocess, sys, tempfile, pathlib, time, urllib.request
 ap = argparse.ArgumentParser(); ap.add_argument("instance"); ap.add_argument("ubuntu"); ap.add_argument("tag"); ap.add_argument("--jsonl", default="")
 ap.add_argument("--arm", default="gold", choices=["gold", "agent", "openclaw", "null"])
-ap.add_argument("--ockit", default=os.path.expanduser("~/ockit"))
+ap.add_argument("--sanitize", action="store_true", help="起跑前修剪 git 历史+屏蔽 github/pypi+禁 web 工具(oc_agent2.sh)"); ap.add_argument("--ockit", default=os.path.expanduser("~/ockit"))
 ap.add_argument("--kit", default=os.path.expanduser("~/tbkit"), help="含 bridge.mjs/cordis.yaml/drive_dsh.py/node_modules/node/bin/node 的目录")
 ap.add_argument("--model", default="deepseek-v4-pro"); ap.add_argument("--base", default="https://api.llmgateway.io/v1"); ap.add_argument("--timeout", type=int, default=1800)
 a = ap.parse_args()
+OCS = "oc_agent2.sh" if a.sanitize else "oc_agent.sh"
 def sh(c, **k): return subprocess.run(c, shell=True, capture_output=True, text=True, **k)
 # ---- 取实例 ----
 if a.jsonl:
@@ -58,7 +59,7 @@ elif a.arm == "openclaw":
     (t / ".k").write_text(key, encoding="utf-8")
     sh(f"docker cp {t}/prompt.md {c}:/tmp/.prompt.md"); sh(f"docker cp {t}/.k {c}:/tmp/.k")
     ta = time.time()
-    r2 = sh(f"docker exec {c} bash -c 'bash /opt/ockit/oc_agent.sh /testbed llmgateway {a.base} /tmp/.k {a.model} /tmp/.prompt.md /rout/oc {a.timeout}; rm -f /tmp/.k /tmp/.prompt.md'", timeout=a.timeout + 900)
+    r2 = sh(f"docker exec {c} bash -c 'bash /opt/ockit/{OCS} /testbed llmgateway {a.base} /tmp/.k {a.model} /tmp/.prompt.md /rout/oc {a.timeout}; rm -f /tmp/.k /tmp/.prompt.md'", timeout=a.timeout + 900)
     agent_s = int(time.time() - ta)
     od = pathlib.Path(f"agent_{a.instance}_{a.tag}_openclaw"); od.mkdir(exist_ok=True)
     (od / "driver.log").write_text(r2.stdout + r2.stderr, encoding="utf-8"); sh(f"docker cp {c}:/rout/oc {od}/oc")
