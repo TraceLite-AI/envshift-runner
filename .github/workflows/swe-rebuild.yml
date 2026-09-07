@@ -1,0 +1,24 @@
+name: swe-rebuild
+on:
+  workflow_dispatch:
+    inputs:
+      instance: { description: "SWE-bench 实例 id", default: "django__django-13363" }
+      ubuntu: { description: "重建用的 ubuntu 版本", default: "22.04" }
+jobs:
+  rebuild:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04-arm, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: official swebench v4.0.4 builder
+        run: pip install -q "git+https://github.com/SWE-bench/SWE-bench@v4.0.4" docker
+      - name: rebuild with official pipeline, then gold + official eval
+        run: python swe_rebuild_gold.py "${{ inputs.instance }}" "${{ inputs.ubuntu }}" rb 2>&1 | grep -v "^INFO" | tail -30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "rebuild-${{ matrix.os }}-${{ inputs.instance }}", path: rebuild_*.json }
