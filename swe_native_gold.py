@@ -4,6 +4,9 @@
    /testbed、/opt/miniconda3 换成本机路径,其余一字不改;gold 补丁 + 官方 parser 判分。
    用法: swe_native_gold.py <instance_id> [--arm gold|null]"""
 import argparse, json, os, pathlib, platform, re, shutil, subprocess, sys, tempfile, time, urllib.request
+for _st in (sys.stdout, sys.stderr):
+    try: _st.reconfigure(encoding="utf-8", errors="replace")   # Windows 控制台 cp1252 印中文会崩(老坑)
+    except Exception: pass
 ap = argparse.ArgumentParser(); ap.add_argument("instance"); ap.add_argument("--arm", default="gold"); a = ap.parse_args()
 HOME = pathlib.Path.home(); TB = HOME / "testbed"; CONDA = pathlib.Path(os.environ.get("CONDA", "")) if os.environ.get("CONDA") else HOME / "miniconda3"
 def sh(c, **k): return subprocess.run(["bash", "-lc", c], capture_output=True, text=True, **k)
