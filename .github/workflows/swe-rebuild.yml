@@ -28,4 +28,5 @@ jobs:
           name: "rebuild-${{ matrix.os }}-${{ matrix.instance }}"
           path: |
             rebuild_*.json
+            eval_*.log
             logs/build_images/**/*.log

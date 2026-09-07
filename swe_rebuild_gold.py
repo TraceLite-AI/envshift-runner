@@ -86,6 +86,7 @@ elif a.arm == "agent":
     if any(k in txt for k in ("Insufficient Balance", "RATE_LIMIT", "Too many requests", "TRANSPORT", "MISSING_CREDENTIAL")):
         print("DEAD-RUN", [k for k in ("Insufficient Balance", "RATE_LIMIT", "TRANSPORT", "MISSING_CREDENTIAL") if k in txt])
 e = sh(f"docker exec {c} bash /eval.sh", timeout=3000); log = e.stdout + e.stderr
+pathlib.Path(f"eval_{a.instance}_{a.arm}_{ts.arch}_u{a.ubuntu}.log").write_text(log, encoding="utf-8")
 sh(f"docker rm -f {c}")
 import importlib
 LP = importlib.import_module("swebench.harness.log_parsers"); parser = getattr(LP, row["log_parser"], None)
@@ -99,4 +100,4 @@ f2p = L(row["FAIL_TO_PASS"]); p2p = L(row["PASS_TO_PASS"])
 fo = sum(status.get(x) == "PASSED" for x in f2p); po = sum(status.get(x) == "PASSED" for x in p2p)
 res = int(fo == len(f2p) and po == len(p2p) and len(f2p) > 0)
 print(f"RESULT {a.instance} arm={a.arm} arch={ts.arch} ubuntu={a.ubuntu} resolved={res} f2p={fo}/{len(f2p)} p2p={po}/{len(p2p)} agent_s={agent_s}")
-pathlib.Path(f"rebuild_{a.arm}_{ts.arch}_u{a.ubuntu}.json").write_text(json.dumps({"instance": a.instance, "arm": a.arm, "arch": ts.arch, "ubuntu": a.ubuntu, "resolved": res, "f2p": f"{fo}/{len(f2p)}", "p2p": f"{po}/{len(p2p)}", "status": status, "build_s": int(time.time()-t0)}), encoding="utf-8")
+pathlib.Path(f"rebuild_{a.instance}_{a.arm}_{ts.arch}_u{a.ubuntu}.json").write_text(json.dumps({"instance": a.instance, "arm": a.arm, "arch": ts.arch, "ubuntu": a.ubuntu, "resolved": res, "f2p": f"{fo}/{len(f2p)}", "p2p": f"{po}/{len(p2p)}", "status": status, "build_s": int(time.time()-t0)}), encoding="utf-8")
