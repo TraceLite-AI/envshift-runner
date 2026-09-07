@@ -2,7 +2,7 @@ name: xos-tasks
 on:
   workflow_dispatch:
     inputs:
-      os: { description: "runner", default: "macos-14" }
+      os: { description: "runner(可选 ubuntu-24.04 / ubuntu-24.04-arm / windows-2022 / windows-11-arm / macos-14)", default: "macos-14" }
       arms: { description: "臂(逗号分隔)", default: "oracle,naive" }
       tasks: { description: "任务 JSON 数组", default: '["E3-archive-audit","E4-vault-compliance","E5-retention-plan","E6-contact-merge","E7-publish-shared","E8-report-extend","E9-latest-extend","E10-dupes-extend","E11-export-extend","E12-publish-extend"]' }
 jobs:
