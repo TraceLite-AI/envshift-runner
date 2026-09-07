@@ -1,0 +1,33 @@
+name: swe-native
+on:
+  workflow_dispatch:
+    inputs:
+      instances: { description: "SWE-bench 实例 id 的 JSON 数组", default: '["django__django-13363"]' }
+      oslist: { description: "runner 列表(JSON 数组)", default: '["macos-14","windows-2022"]' }
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        instance: ${{ fromJSON(inputs.instances) }}
+        os: ${{ fromJSON(inputs.oslist) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with: { miniconda-version: "latest", auto-activate-base: true, activate-environment: "" }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: official swebench v4.0.4 (for make_test_spec + parsers)
+        shell: bash
+        run: pip install -q "git+https://github.com/SWE-bench/SWE-bench@v4.0.4" pyarrow
+      - name: native gold gate (official scripts, paths adapted only)
+        shell: bash
+        run: |
+          set -o pipefail
+          export CONDA="$CONDA"
+          python swe_native_gold.py "${{ matrix.instance }}" --arm gold 2>&1 | grep -v "^INFO" | tail -12
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "native-${{ matrix.os }}-${{ matrix.instance }}", path: "native_*" }
