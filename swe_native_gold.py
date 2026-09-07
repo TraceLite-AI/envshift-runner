@@ -9,7 +9,13 @@ for _st in (sys.stdout, sys.stderr):
     except Exception: pass
 ap = argparse.ArgumentParser(); ap.add_argument("instance"); ap.add_argument("--arm", default="gold"); a = ap.parse_args()
 HOME = pathlib.Path.home(); TB = HOME / "testbed"; CONDA = pathlib.Path(os.environ.get("CONDA", "")) if os.environ.get("CONDA") else HOME / "miniconda3"
-def sh(c, **k): return subprocess.run(["bash", "-lc", c], capture_output=True, text=True, **k)
+def _bash():
+    # Windows 上裸 `bash` 会解析到 WSL 启动器(没装发行版就报错);必须显式用 Git Bash(跨 OS 那轮的老坑)
+    if os.name == "nt":
+        for c in (r"C:\Program Files\Git\bin\bash.exe", r"C:\Program Files\Git\usr\bin\bash.exe"):
+            if pathlib.Path(c).exists(): return c
+    return "bash"
+def sh(c, **k): return subprocess.run([_bash(), "-lc", c], capture_output=True, text=True, **k)
 import pyarrow.parquet as pq
 pqp = pathlib.Path(tempfile.gettempdir()) / "swe_verified.parquet"
 if not pqp.exists(): urllib.request.urlretrieve("https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified/resolve/main/data/test-00000-of-00001.parquet", pqp)
