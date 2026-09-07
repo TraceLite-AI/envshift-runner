@@ -33,7 +33,7 @@ jobs:
           ../kit/node/bin/node -v
       - name: rebuild with official pipeline, run the model, official eval
         env: { ENVSHIFT_API_KEY: "${{ secrets.ENVSHIFT_API_KEY }}" }
-        run: python swe_rebuild_gold.py "${{ matrix.instance }}" "${{ inputs.ubuntu }}" rb --arm agent --kit kit --timeout ${{ inputs.timeout }} 2>&1 | grep -v "^INFO" | grep -E "RESULT|FAIL|DEAD-RUN|agent rc|容器内|构建耗时" 
+        run: set -o pipefail; python swe_rebuild_gold.py "${{ matrix.instance }}" "${{ inputs.ubuntu }}" rb --arm agent --kit kit --timeout ${{ inputs.timeout }} 2>&1 | grep -v "^INFO" | grep -E "RESULT|FAIL|DEAD-RUN|agent rc|容器内|构建耗时" 
       - name: encrypt artifacts (公开仓:轨迹不能明文上传)
         if: always()
         shell: bash

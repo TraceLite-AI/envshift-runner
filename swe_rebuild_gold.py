@@ -4,7 +4,8 @@
    目的:实测"在别的 OS/架构上重建"到底难不难 —— 官方解在重建环境里过不过,就是闸门。"""
 import argparse, inspect, json, os, platform, subprocess, sys, tempfile, pathlib, time, urllib.request
 ap = argparse.ArgumentParser(); ap.add_argument("instance"); ap.add_argument("ubuntu"); ap.add_argument("tag"); ap.add_argument("--jsonl", default="")
-ap.add_argument("--arm", default="gold", choices=["gold", "agent", "null"])
+ap.add_argument("--arm", default="gold", choices=["gold", "agent", "openclaw", "null"])
+ap.add_argument("--ockit", default=os.path.expanduser("~/ockit"))
 ap.add_argument("--kit", default=os.path.expanduser("~/tbkit"), help="含 bridge.mjs/cordis.yaml/drive_dsh.py/node_modules/node/bin/node 的目录")
 ap.add_argument("--model", default="deepseek-v4-pro"); ap.add_argument("--base", default="https://api.llmgateway.io/v1"); ap.add_argument("--timeout", type=int, default=1800)
 a = ap.parse_args()
@@ -41,7 +42,7 @@ print("构建耗时 %ds" % (time.time() - t0))
 img = ts.instance_image_key
 # ---- gold + 官方 eval ----
 c = f"swe-rebuild-{os.getpid()}"
-sh(f"docker rm -f {c}"); sh(f"docker run -d --name {c} {img} sleep 3600")
+sh(f"docker rm -f {c}"); sh(f"docker run -d --name {c} " + (f"-v {a.ockit}:/opt/ockit:ro " if a.arm == "openclaw" else "") + f"{img} sleep {a.timeout + 3600}")
 print("容器内:", sh(f"docker exec {c} sh -c 'uname -m; . /etc/os-release; echo $PRETTY_NAME'").stdout.strip().replace("\n", " | "))
 t = pathlib.Path(tempfile.mkdtemp())
 (t / "patch.diff").write_text(row["patch"], encoding="utf-8"); (t / "eval.sh").write_text(row["eval_script"], encoding="utf-8")
@@ -50,6 +51,18 @@ agent_s = 0
 if a.arm == "gold":
     g = sh(f"docker exec {c} sh -c 'cd /testbed && git apply -v /tmp/patch.diff'")
     if g.returncode != 0: print("GOLD-APPLY-FAIL", g.stderr[-300:]); sh(f"docker rm -f {c}"); sys.exit(4)
+elif a.arm == "openclaw":
+    key = os.environ.get("ENVSHIFT_API_KEY", "")
+    if not key: print("NO-API-KEY"); sh(f"docker rm -f {c}"); sys.exit(5)
+    (t / "prompt.md").write_text("下面是一个真实仓库里的 issue。仓库已经在 /testbed,请直接修改源码解决它。\n只改实现代码,不要改测试文件。完成后不需要提交,把文件改好即可。\n\n" + (row["problem_statement"] or ""), encoding="utf-8")
+    (t / ".k").write_text(key, encoding="utf-8")
+    sh(f"docker cp {t}/prompt.md {c}:/tmp/.prompt.md"); sh(f"docker cp {t}/.k {c}:/tmp/.k")
+    ta = time.time()
+    r2 = sh(f"docker exec {c} bash -c 'bash /opt/ockit/oc_agent.sh /testbed llmgateway {a.base} /tmp/.k {a.model} /tmp/.prompt.md /rout/oc {a.timeout}; rm -f /tmp/.k /tmp/.prompt.md'", timeout=a.timeout + 900)
+    agent_s = int(time.time() - ta)
+    od = pathlib.Path(f"agent_{a.instance}_{a.tag}_openclaw"); od.mkdir(exist_ok=True)
+    (od / "driver.log").write_text(r2.stdout + r2.stderr, encoding="utf-8"); sh(f"docker cp {c}:/rout/oc {od}/oc")
+    print("openclaw rc", r2.returncode, "|", (r2.stdout + r2.stderr)[-200:].replace(chr(10), " "))
 elif a.arm == "agent":
     # 与容器版执行器同一套:kit 拷进容器,DSH 在 /testbed 里干活;key 走文件不走命令行(㊴)
     key = os.environ.get("ENVSHIFT_API_KEY", "")
