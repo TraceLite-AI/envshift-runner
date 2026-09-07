@@ -12,6 +12,9 @@ pqp = pathlib.Path(tempfile.gettempdir()) / "swe_verified.parquet"
 if not pqp.exists(): urllib.request.urlretrieve("https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified/resolve/main/data/test-00000-of-00001.parquet", pqp)
 row = next((r for r in pq.read_table(pqp).to_pylist() if r["instance_id"] == a.instance), None)
 if row is None: raise SystemExit("没有这道题")
+if os.name == "nt":
+    # 官方 swebench 包自己 import resource(Unix 专有),Windows 上连导入都过不去;塞一个空垫片,不改任何任务/判分逻辑
+    import types; _r = types.ModuleType("resource"); _r.getrlimit = lambda *a, **k: (0, 0); _r.setrlimit = lambda *a, **k: None; _r.RLIMIT_NOFILE = 7; sys.modules["resource"] = _r
 from swebench.harness.test_spec.test_spec import make_test_spec
 ts = make_test_spec(row)
 def adapt(script):
