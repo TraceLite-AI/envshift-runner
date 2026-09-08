@@ -90,9 +90,15 @@ def apply_spec_fixes(plat):
 
 
 # ── 安装失败后的等价重试(只在原方式已挂时启用,记进 applied) ────────────────
+def _to_develop(m):
+    """把 pip 的可编辑安装翻成等价的 setup.py 写法;extras(.[test])要翻成 easy_install 的写法而不是硬拼在 develop 后面。"""
+    extras = m.group("extras") or ""
+    return "python setup.py develop" + (f" && python -m pip install -e .{extras} --no-deps --no-build-isolation" if extras else "")
+
+
 RETRIES = [
     ("build_editable",
-     [(r"python -m pip install (-v )?(--no-build-isolation )?-e \.", "python setup.py develop")],
+     [(r"python -m pip install (?:-v |--verbose )?(?:--no-build-isolation )?-e \.(?P<extras>\[[^\]]*\])?", _to_develop)],
      "A", "老式打包后端不支持新版 pip 的可编辑安装,改用同义的 setup.py develop"),
 ]
 
