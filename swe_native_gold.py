@@ -26,6 +26,10 @@ if row is None: raise SystemExit("没有这道题")
 if os.name == "nt":
     # 官方 swebench 包自己 import resource(Unix 专有),Windows 上连导入都过不去;塞一个空垫片,不改任何任务/判分逻辑
     import types; _r = types.ModuleType("resource"); _r.getrlimit = lambda *a, **k: (0, 0); _r.setrlimit = lambda *a, **k: None; _r.RLIMIT_NOFILE = 7; sys.modules["resource"] = _r
+from spec_fixes import apply_spec_fixes, retry_variant
+PLAT = "win" if os.name == "nt" else ("mac" if platform.system() == "Darwin" else "linux")
+FIXES = apply_spec_fixes(PLAT)
+print("适配层:", FIXES or "(本题无需适配)")
 from swebench.harness.test_spec.test_spec import make_test_spec
 ts = make_test_spec(row)
 def adapt(script):
@@ -40,12 +44,27 @@ print("平台:", platform.platform(), platform.machine(), "| conda:", CONDA, "| 
 t0 = time.time()
 # 1) 官方 env 脚本(conda create + 依赖)
 r = sh(adapt(ts.setup_env_script)); (pathlib.Path("native_setup_env.log")).write_text(r.stdout + r.stderr, encoding="utf-8")
+if r.returncode != 0 and PLAT == "mac" and re.search(r"PackagesNotFound|Unsatisfiable|does not exist", r.stdout + r.stderr):
+    # B 类适配:苹果芯片的软件仓库没有老版本包(python<=3.7 / scipy<1.7 等),换成 x86 包走 Rosetta 转译,
+    # 依赖版本与 Linux 完全一致,只是指令集不同;记进结果 json 备查。
+    print("B:osx-arm64 缺老版本包,改用 osx-64 包(Rosetta 转译)重试")
+    sh("conda config --env --set subdir osx-64 2>/dev/null; true")
+    r = sh("export CONDA_SUBDIR=osx-64\n" + adapt(ts.setup_env_script))
+    (pathlib.Path("native_setup_env.log")).write_text(r.stdout + r.stderr, encoding="utf-8")
+    if r.returncode == 0: FIXES.append("B:苹果芯片改用 osx-64 包经 Rosetta 转译(依赖版本与 Linux 一致)")
 if r.returncode != 0:
     print("ENV-FAIL rc", r.returncode, "|", (r.stdout + r.stderr)[-400:].replace("\n", " ")); sys.exit(4)
 print("env 建好 %ds" % (time.time() - t0))
 # 2) 官方 repo 脚本(clone + checkout base_commit + install)
 if TB.exists(): shutil.rmtree(TB, ignore_errors=True)
 r = sh(adapt(ts.install_repo_script)); (pathlib.Path("native_install_repo.log")).write_text(r.stdout + r.stderr, encoding="utf-8")
+if r.returncode != 0:
+    alt, why = retry_variant(adapt(ts.install_repo_script), r.stdout + r.stderr)
+    if alt:
+        print("适配重试:", why)
+        if TB.exists(): shutil.rmtree(TB, ignore_errors=True)
+        r = sh(alt); (pathlib.Path("native_install_repo.log")).write_text(r.stdout + r.stderr, encoding="utf-8")
+        if r.returncode == 0: FIXES.append(why)
 if r.returncode != 0:
     print("REPO-FAIL rc", r.returncode, "|", (r.stdout + r.stderr)[-400:].replace("\n", " ")); sys.exit(4)
 print("repo 装好 %ds" % (time.time() - t0))
@@ -116,4 +135,4 @@ f2p, p2p = L(row["FAIL_TO_PASS"]), L(row["PASS_TO_PASS"])
 fo = sum(status.get(x) == "PASSED" for x in f2p); po = sum(status.get(x) == "PASSED" for x in p2p)
 res = int(fo == len(f2p) and po == len(p2p) and len(f2p) > 0)
 print(f"RESULT {a.instance} arm={a.arm} platform={platform.system()}-{platform.machine()} resolved={res} f2p={fo}/{len(f2p)} p2p={po}/{len(p2p)} total_s={int(time.time()-t0)}")
-pathlib.Path(f"native_{platform.system()}_{platform.machine()}.json").write_text(json.dumps({"instance": a.instance, "arm": a.arm, "platform": platform.platform(), "resolved": res, "f2p": f"{fo}/{len(f2p)}", "p2p": f"{po}/{len(p2p)}", "status": status}), encoding="utf-8")
+pathlib.Path(f"native_{platform.system()}_{platform.machine()}.json").write_text(json.dumps({"fixes": FIXES, "instance": a.instance, "arm": a.arm, "platform": platform.platform(), "resolved": res, "f2p": f"{fo}/{len(f2p)}", "p2p": f"{po}/{len(p2p)}", "status": status}), encoding="utf-8")

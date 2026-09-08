@@ -27,6 +27,9 @@ for name in dir(C):
     v = getattr(C, name)
     if isinstance(v, dict) and v.get("ubuntu_version"):
         v["ubuntu_version"] = a.ubuntu; print(f"官方模板参数 {name}.ubuntu_version -> {a.ubuntu}")
+from spec_fixes import apply_spec_fixes
+FIXES = apply_spec_fixes("linux")   # 与 mac/Windows 同一份 A 类改动,保证四平台配方一致
+print("适配层:", FIXES or "(本题无需适配)")
 from swebench.harness.test_spec.test_spec import make_test_spec
 import docker
 client = docker.from_env()
@@ -111,4 +114,4 @@ f2p = L(row["FAIL_TO_PASS"]); p2p = L(row["PASS_TO_PASS"])
 fo = sum(status.get(x) == "PASSED" for x in f2p); po = sum(status.get(x) == "PASSED" for x in p2p)
 res = int(fo == len(f2p) and po == len(p2p) and len(f2p) > 0)
 print(f"RESULT {a.instance} arm={a.arm} arch={ts.arch} ubuntu={a.ubuntu} resolved={res} f2p={fo}/{len(f2p)} p2p={po}/{len(p2p)} agent_s={agent_s} os_actual={os_actual}")
-pathlib.Path(f"rebuild_{a.instance}_{a.arm}_{ts.arch}_u{a.ubuntu}.json").write_text(json.dumps({"os_actual": os_actual, "instance": a.instance, "arm": a.arm, "arch": ts.arch, "ubuntu": a.ubuntu, "resolved": res, "f2p": f"{fo}/{len(f2p)}", "p2p": f"{po}/{len(p2p)}", "status": status, "build_s": int(time.time()-t0)}), encoding="utf-8")
+pathlib.Path(f"rebuild_{a.instance}_{a.arm}_{ts.arch}_u{a.ubuntu}.json").write_text(json.dumps({"fixes": FIXES, "os_actual": os_actual, "instance": a.instance, "arm": a.arm, "arch": ts.arch, "ubuntu": a.ubuntu, "resolved": res, "f2p": f"{fo}/{len(f2p)}", "p2p": f"{po}/{len(p2p)}", "status": status, "build_s": int(time.time()-t0)}), encoding="utf-8")
