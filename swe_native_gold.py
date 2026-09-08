@@ -19,10 +19,19 @@ def _bash():
     return "bash"
 def sh(c, **k): return subprocess.run([_bash(), "-lc", c], capture_output=True, text=True, **k)
 import pyarrow.parquet as pq
-pqp = pathlib.Path(tempfile.gettempdir()) / "swe_verified.parquet"
-if not pqp.exists(): urllib.request.urlretrieve("https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified/resolve/main/data/test-00000-of-00001.parquet", pqp)
-row = next((r for r in pq.read_table(pqp).to_pylist() if r["instance_id"] == a.instance), None)
-if row is None: raise SystemExit("没有这道题")
+def _find_row(iid):
+    """先在 Verified(500 道,6MB)里找;找不到再拉完整版(2294 道,33MB)。
+    ★接触面达标的题多数只存在于完整版里,只读 Verified 会让它们全部报「没有这道题」。"""
+    import subprocess
+    for name, url in (("swe_verified.parquet", "https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified/resolve/main/data/test-00000-of-00001.parquet"), ("swe_full.parquet", "https://huggingface.co/datasets/SWE-bench/SWE-bench/resolve/main/data/test-00000-of-00001.parquet")):
+        f = pathlib.Path(tempfile.gettempdir()) / name
+        if not f.exists():
+            subprocess.run(["curl", "-sL", "-o", str(f), url], check=True)
+        for r in pq.read_table(f).to_pylist():
+            if r["instance_id"] == iid: return r
+    return None
+row = _find_row(a.instance)
+if row is None: raise SystemExit("没有这道题: " + a.instance)
 if os.name == "nt":
     # 官方 swebench 包自己 import resource(Unix 专有),Windows 上连导入都过不去;塞一个空垫片,不改任何任务/判分逻辑
     import types; _r = types.ModuleType("resource"); _r.getrlimit = lambda *a, **k: (0, 0); _r.setrlimit = lambda *a, **k: None; _r.RLIMIT_NOFILE = 7; sys.modules["resource"] = _r

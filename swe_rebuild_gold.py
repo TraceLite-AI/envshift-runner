@@ -20,6 +20,11 @@ else:
     if not pq_path.exists():
         urllib.request.urlretrieve("https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified/resolve/main/data/test-00000-of-00001.parquet", pq_path)
     row = next((r for r in pq.read_table(pq_path).to_pylist() if r["instance_id"] == a.instance), None)
+    if row is None:   # ★接触面达标的题多数只在完整版里,只读 Verified 会全部报「没有这道题」
+        _full = pq_path.parent / "swe_full.parquet"
+        if not _full.exists():
+            import subprocess; subprocess.run(["curl", "-sL", "-o", str(_full), "https://huggingface.co/datasets/SWE-bench/SWE-bench/resolve/main/data/test-00000-of-00001.parquet"], check=True)
+        row = next((r for r in pq.read_table(_full).to_pylist() if r["instance_id"] == a.instance), None)
     if row is None: raise SystemExit(f"没有这道题: {a.instance}")
 # ---- 官方构建器:改 ubuntu 版本(这是官方模板自带的参数),架构随宿主 ----
 import swebench.harness.constants as C

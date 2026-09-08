@@ -12,7 +12,13 @@ def fetch_row(iid):
     pq_path = pathlib.Path(tempfile.gettempdir()) / "swe_verified.parquet"
     if not pq_path.exists():
         urllib.request.urlretrieve("https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified/resolve/main/data/test-00000-of-00001.parquet", pq_path)
+    _full = pq_path.parent / "swe_full.parquet"
     for r in pq.read_table(pq_path).to_pylist():
+        if r["instance_id"] == iid: return r
+    _full = pq_path.parent / "swe_full.parquet"   # ★兜底:完整版 2294 道
+    if not _full.exists():
+        import subprocess; subprocess.run(["curl", "-sL", "-o", str(_full), "https://huggingface.co/datasets/SWE-bench/SWE-bench/resolve/main/data/test-00000-of-00001.parquet"], check=True)
+    for r in pq.read_table(_full).to_pylist():
         if r["instance_id"] == iid: return r
     raise SystemExit(f"没有这道题: {iid}")
 row = fetch_row(iid)
