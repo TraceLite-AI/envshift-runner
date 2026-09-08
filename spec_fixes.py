@@ -10,6 +10,13 @@
 """
 import re
 
+APPLIED = []          # 本次运行实际生效的改动(去重、保序);yml/requirements 是延迟读取的,所以必须共享同一个列表
+
+
+def _note(kind, why):
+    e = f"{kind}:{why}"
+    if e not in APPLIED: APPLIED.append(e)
+
 # ── A 类:配方过时,所有平台都改 ──────────────────────────────────────────────
 DROP_PKGS = {
     # 只在 linux-64 有构建的包(气候数据库),xarray 的测试遇不到它会自动跳过
@@ -22,29 +29,32 @@ FLAG_FIXES = [
 ]
 
 
-def _fix_text(s, plat, applied):
+def _fix_text(s, plat, applied=None):
     """plat: 'linux' | 'mac' | 'win'"""
     if not isinstance(s, str) or not s:
         return s
     out = s
     for pat, rep, why in FLAG_FIXES:
         if re.search(pat, out):
-            out = re.sub(pat, rep, out); applied.append(("A", why))
+            out = re.sub(pat, rep, out); _note("A", why)
     for pkg, why in DROP_PKGS.items():
         # 先删 environment.yml 里的整行("  - pkg"),否则下面的 token 规则会把包名抹成空行
         n = re.subn(r"(?m)^[ \t]*-[ \t]*%s(?:[=<>!\[][^\n]*)?[ \t]*\n" % re.escape(pkg), "", out)
-        if n[1]: out = n[0]; applied.append(("A", f"去掉 {pkg}:{why}"))
+        if n[1]: out = n[0]; _note("A", f"去掉 {pkg}:{why}")
+        # requirements.txt:整行就是包名
+        n = re.subn(r"(?m)^[ \t]*%s(?:[=<>!~][^\n]*)?[ \t]*\n" % re.escape(pkg), "", out)
+        if n[1]: out = n[0]; _note("A", f"去掉 {pkg}:{why}")
         # 再删 conda create / pip install 命令行里的裸 token(连同版本号与前面多余空格)
         n = re.subn(r"[ \t]+(?<![\w-])%s(?:[=<>!][^\s]*)?(?![\w-])" % re.escape(pkg), "", out)
-        if n[1]: out = n[0]; applied.append(("A", f"去掉 {pkg}:{why}"))
+        if n[1]: out = n[0]; _note("A", f"去掉 {pkg}:{why}")
     # ── B 类:平台差异,把 Linux 写法翻成本平台等价写法 ──────────────────────
     if plat == "win":
         n = re.subn(r"(?m)^(\s*)(sudo\s+)?apt-get\b[^\n]*", r"\1true  # envshift: Windows 无 apt-get", out)
-        if n[1]: out = n[0]; applied.append(("B", "Windows 没有 apt-get,跳过装系统包这步"))
+        if n[1]: out = n[0]; _note("B", "Windows 没有 apt-get,跳过装系统包这步")
     return out
 
 
-def _walk(o, plat, applied):
+def _walk(o, plat, applied=None):
     if isinstance(o, str): return _fix_text(o, plat, applied)
     if isinstance(o, list): return [_walk(x, plat, applied) for x in o]
     if isinstance(o, tuple): return tuple(_walk(x, plat, applied) for x in o)
@@ -53,21 +63,30 @@ def _walk(o, plat, applied):
 
 
 def apply_spec_fixes(plat):
-    """就地改写官方 constants 里的安装配方,返回 applied 记录。必须在 make_test_spec 之前调用。"""
+    """就地改写官方安装配方,返回 applied 记录。必须在 make_test_spec 之前调用。
+    两个入口都要改:① constants 里写死的 conda/pip 命令;② 从仓库现抓的 environment.yml / requirements.txt
+    (cdms2、wxpython 就写在仓库自己的 environment.yml 里,只改 constants 是改不到的)。"""
     import swebench.harness.constants as C
-    applied = []
+    # ② 从仓库现抓的依赖文件:包一层,在出口处做同样的文本改写
+    try:
+        import swebench.harness.test_spec.python as P
+        for fn in ("get_environment_yml", "get_requirements"):
+            orig = getattr(P, fn, None)
+            if orig is None or getattr(orig, "_envshift", False): continue
+            def wrap(orig=orig):
+                def inner(*a, **k): return _fix_text(orig(*a, **k), plat)
+                inner._envshift = True
+                return inner
+            setattr(P, fn, wrap())
+    except Exception as e:
+        _note("!", f"包装依赖文件读取失败:{e}")
     for name in dir(C):
         if not name.startswith("MAP_"): continue
         v = getattr(C, name)
         if not isinstance(v, dict): continue
         try: setattr(C, name, _walk(v, plat, applied))
         except Exception: pass
-    # 去重保序
-    seen, out = set(), []
-    for kind, why in applied:
-        if (kind, why) in seen: continue
-        seen.add((kind, why)); out.append(f"{kind}:{why}")
-    return out
+    return APPLIED   # 返回活列表:make_test_spec 时才读的 yml/requirements 改动也会出现在里面
 
 
 # ── 安装失败后的等价重试(只在原方式已挂时启用,记进 applied) ────────────────
@@ -95,8 +114,8 @@ if __name__ == "__main__":   # 自测:纯文本改写不依赖 swebench 包
         "pre_install": ["apt-get -y update && apt-get -y install gcc", "echo ok"],
         "env_yml": "dependencies:\n  - numpy\n  - cdms2\n  - wxpython\n  - pandas\n"}}}}
     for plat in ("linux", "mac", "win"):
-        ap = []
-        out = _walk(demo, plat, ap)["MAP_X"]["repo"]["1.0"]
+        APPLIED.clear()
+        out = _walk(demo, plat)["MAP_X"]["repo"]["1.0"]
         print(f"\n── {plat}")
         for k, v in out.items(): print("  ", k, "=", v)
-        print("   改动:", sorted({f"{a}:{b}" for a, b in ap}))
+        print("   改动:", APPLIED)
