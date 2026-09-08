@@ -5,6 +5,7 @@ on:
       instances: { description: "SWE-bench 实例 id 的 JSON 数组", default: '["django__django-13363"]' }
       oslist: { description: "runner 列表(JSON 数组)", default: '["macos-14","windows-2022"]' }
       arm: { description: "gold | openclaw", default: "gold" }
+      model: { description: "模型名(留空用默认 deepseek-v4-pro)", default: "deepseek-v4-pro" }
 jobs:
   native:
     strategy:
@@ -46,7 +47,7 @@ jobs:
         run: |
           set -o pipefail
           export CONDA="$CONDA"
-          python swe_native_gold.py "${{ matrix.instance }}" --arm ${{ inputs.arm }} 2>&1 | grep -v "^INFO" | tail -14
+          python swe_native_gold.py "${{ matrix.instance }}" --arm ${{ inputs.arm }} --model "${{ inputs.model }}" 2>&1 | grep -v "^INFO" | tail -14
       - name: encrypt agent artifacts
         if: ${{ always() && inputs.arm == 'openclaw' }}
         shell: bash
