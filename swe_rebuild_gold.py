@@ -48,9 +48,11 @@ print("构建耗时 %ds" % (time.time() - t0))
 img = ts.instance_image_key
 if not client.images.list(name=img):   # 构建失败就明说,别让后面的 OS 断言误报
     import glob as _g
-    bl = sorted(_g.glob(f"logs/build_images/instances/*{a.instance}*/build_image.log"), key=os.path.getmtime)
+    # 环境镜像(env)先于实例镜像构建;env 挂了就没有实例日志,两处都要找
+    bl = sorted(_g.glob("logs/build_images/**/build_image.log", recursive=True), key=os.path.getmtime)
     tail = open(bl[-1], errors="replace").read()[-600:].replace("\n", " ") if bl else ""
-    print(f"BUILD-FAIL {a.instance} ubuntu={a.ubuntu}: {tail}"); sys.exit(6)
+    key = [l for l in tail.split(" ") if any(k in l for k in ("PackagesNotFound","Unsatisfiable","nothing", "conflict"))]
+    print(f"BUILD-FAIL {a.instance} ubuntu={a.ubuntu} log={bl[-1] if bl else 'none'}: {tail[-500:]}"); sys.exit(6)
 # ---- gold + 官方 eval ----
 c = f"swe-rebuild-{os.getpid()}"
 sh(f"docker rm -f {c}"); sh(f"docker run -d --name {c} " + (f"-v {a.ockit}:/opt/ockit:ro " if a.arm == "openclaw" else "") + f"{img} sleep {a.timeout + 3600}")
