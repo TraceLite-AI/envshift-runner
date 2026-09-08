@@ -34,6 +34,11 @@ from swebench.harness.test_spec.test_spec import make_test_spec
 ts = make_test_spec(row)
 def adapt(script):
     s = script.replace("/testbed", str(TB).replace("\\", "/")).replace("/opt/miniconda3", str(CONDA).replace("\\", "/"))
+    gnu = os.environ.get("ENVSHIFT_GNUBIN")
+    if gnu:
+        # macOS 的登录 shell(bash -lc)会跑 path_helper 重排 PATH,把 /usr/bin 顶到最前,
+        # GITHUB_PATH 里加的 GNU 工具目录会被冲掉 —— 必须在脚本内部再置一次。
+        s = f'export PATH="{gnu}:$PATH"\n' + s
     s = s.replace("source /root/.bashrc", ":")
     if os.name == "nt":
         # Windows 的 miniconda 没有 bin/activate;Git Bash 下的官方入口是 etc/profile.d/conda.sh(路径适配,不动逻辑)
