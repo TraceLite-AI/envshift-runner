@@ -70,7 +70,8 @@ jobs:
 
       - name: 跨系统评分器认不认得各自的路径
         shell: bash
-        run: python 04-装置/gui_grade.py list || python gui_grade.py list
+        env: { PYTHONUTF8: '1', PYTHONIOENCODING: 'utf-8' }
+        run: python gui_grade.py list
 
       - uses: actions/upload-artifact@v4
         if: always()

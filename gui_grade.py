@@ -19,6 +19,9 @@ OSWorld 官方评分器绑在 Linux 虚拟机上(pkill chrome / google-chrome / 
 用法: gui_grade.py <判据名> <参数 json>   → 打印 PASS/FAIL 并返回退出码 0/1
 """
 import json, os, pathlib, platform, sqlite3, sys, shutil, tempfile
+for _st in (sys.stdout, sys.stderr):   # Windows 控制台默认 cp1252,打中文会崩(老坑)
+    try: _st.reconfigure(encoding="utf-8", errors="replace")
+    except Exception: pass
 
 SYS = platform.system()          # Linux / Darwin / Windows
 HOME = pathlib.Path.home()
