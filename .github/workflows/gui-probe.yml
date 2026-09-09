@@ -1,0 +1,77 @@
+name: gui-probe
+# 探路:三个系统上能不能装起 Chrome + VS Code + 桌面(Linux 要虚拟显示),
+# 并让跨系统评分器把各自的配置目录认出来。装置成立与否先由这一步判定。
+on:
+  workflow_dispatch:
+    inputs:
+      oslist: { description: "runner 列表(JSON 数组)", default: '["ubuntu-24.04","macos-15","windows-2022"]' }
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.oslist) }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+
+      - name: 装 Chrome
+        shell: bash
+        run: |
+          set -x
+          case "${{ runner.os }}" in
+            Linux)   sudo apt-get update -qq && sudo apt-get install -y -qq google-chrome-stable || \
+                     { wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt-get install -y -qq ./google-chrome-stable_current_amd64.deb; } ;;
+            macOS)   brew install --cask google-chrome || brew list --cask google-chrome ;;
+            Windows) choco install googlechrome -y --no-progress --ignore-checksums || true ;;
+          esac
+          echo "--- Chrome 位置:"
+          case "${{ runner.os }}" in
+            Linux)   which google-chrome || which google-chrome-stable || echo "没找到" ;;
+            macOS)   ls -d "/Applications/Google Chrome.app" 2>/dev/null || echo "没找到" ;;
+            Windows) ls "/c/Program Files/Google/Chrome/Application/chrome.exe" 2>/dev/null || ls "/c/Program Files (x86)/Google/Chrome/Application/chrome.exe" 2>/dev/null || echo "没找到" ;;
+          esac
+
+      - name: 装 VS Code
+        shell: bash
+        run: |
+          set -x
+          case "${{ runner.os }}" in
+            Linux)   sudo snap install code --classic 2>/dev/null || { wget -qO code.deb "https://update.code.visualstudio.com/latest/linux-deb-x64/stable" && sudo apt-get install -y -qq ./code.deb; } ;;
+            macOS)   brew install --cask visual-studio-code || brew list --cask visual-studio-code ;;
+            Windows) choco install vscode -y --no-progress || true ;;
+          esac
+          which code || echo "code 命令不在 PATH"
+
+      - name: 桌面 / 虚拟显示（只有 Linux 需要）
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y -qq xvfb x11-utils
+          Xvfb :99 -screen 0 1920x1080x24 &
+          sleep 3
+          echo "DISPLAY=:99" >> $GITHUB_ENV
+          DISPLAY=:99 xdpyinfo | head -3
+
+      - name: 起一次 Chrome 让它生成配置目录
+        shell: bash
+        env: { DISPLAY: ':99' }
+        run: |
+          set -x
+          case "${{ runner.os }}" in
+            Linux)   (google-chrome --no-sandbox --disable-gpu --remote-debugging-port=1337 about:blank &) ;;
+            macOS)   (open -a "Google Chrome" --args --remote-debugging-port=1337 about:blank &) ;;
+            Windows) (start "" "/c/Program Files/Google/Chrome/Application/chrome.exe" --remote-debugging-port=1337 about:blank &) ;;
+          esac
+          sleep 20
+          curl -s -m 5 http://127.0.0.1:1337/json/version || echo "远程调试端口没起来"
+
+      - name: 跨系统评分器认不认得各自的路径
+        shell: bash
+        run: python 04-装置/gui_grade.py list || python gui_grade.py list
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "gui-probe-${{ matrix.os }}", path: "*.log" }
