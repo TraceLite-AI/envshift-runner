@@ -124,11 +124,21 @@ def is_shortcut_on_desktop(args):
 
 
 def is_extension_installed(args):
+    """先问 VS Code 自己(与 OSWorld 原判据一致:`code --list-extensions`),问不到再看扩展目录。"""
+    want = args["id"].lower()
+    import subprocess
+    code = shutil.which("code") or shutil.which("code.cmd")
+    if code:
+        try:
+            out = subprocess.run([code, "--list-extensions"], capture_output=True, text=True, timeout=60).stdout.lower()
+            if out.strip():
+                return (want in out), f"code --list-extensions: {out.split()} 匹配 {want}={want in out}"
+        except Exception:
+            pass
     d = vscode_ext_dir()
     if not d.exists():
-        return False, f"扩展目录不存在 {d}"
+        return False, f"扩展目录不存在 {d}(且 code 命令不可用)"
     got = [x.name for x in d.iterdir() if x.is_dir()]
-    want = args["id"].lower()
     return any(want in g.lower() for g in got), f"已装扩展 {len(got)} 个,匹配 {want}={[g for g in got if want in g.lower()]}"
 
 

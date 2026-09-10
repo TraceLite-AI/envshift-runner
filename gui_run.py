@@ -24,8 +24,12 @@ TASKS = json.load(open(HERE / "gui_tasks.json", encoding="utf-8"))
 if a.arm == "list":
     for i, t in enumerate(TASKS, 1): print(i, t["id"], t["app"], t["instruction"][:70])
     sys.exit(0)
-task = next((t for t in TASKS if t["id"] == a.task or t["id"].startswith(a.task)), None) or TASKS[int(a.task) - 1]
+if a.task.isdigit():                      # 纯数字 = 序号;别拿它去做 id 前缀匹配("3" 会撞上 "35253b65…")
+    task = TASKS[int(a.task) - 1]
+else:
+    task = next(t for t in TASKS if t["id"] == a.task or t["id"].startswith(a.task))
 log = lambda *x: print("[gui]", *x, flush=True)
+OUTD = pathlib.Path("gui_out"); OUTD.mkdir(exist_ok=True)
 
 
 # ── Chrome 生命周期(唯一按平台分支的地方) ─────────────────────────────────────
@@ -40,13 +44,23 @@ def chrome_bin():
 
 
 def chrome_start(url="about:blank"):
-    args = [chrome_bin(), f"--remote-debugging-port={a.port}", "--no-first-run", "--no-default-browser-check", url]
-    if SYS == "Linux": args[1:1] = ["--no-sandbox", "--disable-gpu"]
+    """按探路时验证过的方式起 Chrome(经 shell、后台),把它的 stdout/stderr 留到 gui_out/chrome.log 供排障。"""
+    flags = f"--remote-debugging-port={a.port} --remote-allow-origins=* --no-first-run --no-default-browser-check {url}"
     env = dict(os.environ); env.setdefault("DISPLAY", ":99")
-    subprocess.Popen(args, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    for _ in range(40):
-        if G._cdp_tabs(a.port) is not None: return True
+    logf = open(OUTD / "chrome.log", "a")
+    if SYS == "Windows":
+        cmd = f'start "" "{chrome_bin()}" {flags}'
+        subprocess.Popen(cmd, shell=True, env=env, stdout=logf, stderr=logf)
+    elif SYS == "Darwin":
+        subprocess.Popen(f'"{chrome_bin()}" {flags} &', shell=True, env=env, stdout=logf, stderr=logf)
+    else:
+        subprocess.Popen(f'{chrome_bin()} --no-sandbox --disable-gpu --disable-dev-shm-usage {flags} &', shell=True, env=env, stdout=logf, stderr=logf)
+    for i in range(60):
+        if G._cdp_tabs(a.port) is not None:
+            log(f"Chrome 远程调试端口 {a.port} 就绪({i}s)"); return True
         time.sleep(1)
+    try: log("chrome.log 尾部:", (OUTD / "chrome.log").read_text(errors="replace")[-600:].replace("\n", " ⏎ "))
+    except Exception: pass
     return False
 
 
@@ -66,6 +80,8 @@ def cdp(path, method="GET"):
 
 # ── 初始状态 ────────────────────────────────────────────────────────────────
 def setup(s):
+    # 真实桌面系统都有 ~/Desktop(Linux 由 xdg-user-dirs 建);CI 的 Linux runner 没有,补上以对齐真实环境
+    G.desktop_dir().mkdir(parents=True, exist_ok=True)
     if s.get("inject_prefs"):                        # 要在 Chrome 关着时改 Preferences
         chrome_start(); time.sleep(3); chrome_stop()
         p = G.chrome_profile() / "Preferences"; d = G._load_json(p) or {}
@@ -100,7 +116,7 @@ def setup(s):
 def run_agent(instruction):
     key = os.environ.get("ENVSHIFT_API_KEY", "")
     if not key: log("NO-API-KEY"); return {"rc": -1}
-    st = HOME / "oc-state-gui"; oh = HOME / "oc-home-gui"; ws = HOME / "gui-workspace"; outd = pathlib.Path("gui_out")
+    st = HOME / "oc-state-gui"; oh = HOME / "oc-home-gui"; ws = HOME / "gui-workspace"; outd = OUTD
     for d in (st, oh, ws, outd): d.mkdir(parents=True, exist_ok=True)
     cfg = {"models": {"providers": {"llmgateway": {"baseUrl": a.base, "apiKey": key, "api": "openai-completions", "models": [{"id": a.model, "name": a.model}]}}},
            "agents": {"defaults": {"workspace": str(ws), "model": {"primary": f"llmgateway/{a.model}"}, "models": {f"llmgateway/{a.model}": {"alias": a.model}}}},
