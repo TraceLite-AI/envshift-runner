@@ -27,17 +27,26 @@ SYS = platform.system()          # Linux / Darwin / Windows
 HOME = pathlib.Path.home()
 
 
-def chrome_profile():
-    """Chrome 默认配置目录:三个系统位置完全不同,这正是环境敏感面本身。"""
+PROFILE_NAME = os.environ.get("ENVSHIFT_CHROME_PROFILE", "EnvShift")
+
+
+def chrome_user_data_root():
+    """Chrome 用户数据的系统约定根目录:三个系统位置完全不同,这正是环境敏感面本身。"""
     if SYS == "Darwin":
-        return HOME / "Library/Application Support/Google/Chrome/Default"
+        return HOME / "Library/Application Support/Google/Chrome"
     if SYS == "Windows":
-        return pathlib.Path(os.environ.get("LOCALAPPDATA", HOME / "AppData/Local")) / "Google/Chrome/User Data/Default"
-    for c in ("google-chrome", "chromium", "google-chrome-stable"):
-        p = HOME / ".config" / c / "Default"
-        if p.exists():
-            return p
-    return HOME / ".config/google-chrome/Default"
+        return pathlib.Path(os.environ.get("LOCALAPPDATA", HOME / "AppData/Local")) / "Google/Chrome/User Data"
+    return HOME / ".config/google-chrome"
+
+
+def chrome_user_data_dir():
+    """Chrome 136 起,默认数据目录不再开放远程调试端口,必须显式指定一个命名的数据目录。
+    我们把它放在系统约定根目录之下(根目录随系统不同,目录名固定),环境差异保留在「根在哪」上。"""
+    return chrome_user_data_root() / PROFILE_NAME
+
+
+def chrome_profile():
+    return chrome_user_data_dir() / "Default"
 
 
 def desktop_dir():

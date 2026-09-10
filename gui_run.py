@@ -45,7 +45,9 @@ def chrome_bin():
 
 def chrome_start(url="about:blank"):
     """按探路时验证过的方式起 Chrome(经 shell、后台),把它的 stdout/stderr 留到 gui_out/chrome.log 供排障。"""
-    flags = f"--remote-debugging-port={a.port} --remote-allow-origins=* --no-first-run --no-default-browser-check {url}"
+    udd = G.chrome_user_data_dir(); udd.mkdir(parents=True, exist_ok=True)
+    # Chrome 136+:默认数据目录不开放远程调试端口,必须显式给一个数据目录(放在系统约定根目录下,见 gui_grade)
+    flags = f'--user-data-dir="{udd}" --remote-debugging-port={a.port} --remote-allow-origins=* --no-first-run --no-default-browser-check {url}'
     env = dict(os.environ); env.setdefault("DISPLAY", ":99")
     logf = open(OUTD / "chrome.log", "a")
     if SYS == "Windows":
@@ -94,7 +96,8 @@ def setup(s):
         dest = G.desktop_dir() / (f.get("path", url).split("/")[-1] if isinstance(f, dict) else url.split("/")[-1])
         dest.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(["curl", "-sL", "-o", str(dest), url], check=False); log("已下载到桌面:", dest.name)
-    ok = chrome_start(); log("Chrome 起来了" if ok else "⚠ Chrome 远程调试端口没起来")
+    ok = chrome_start(); log("Chrome 起来了" if ok else "SETUP-FAIL Chrome 远程调试端口没起来")
+    global SETUP_OK; SETUP_OK = ok
     for u in s.get("open_tabs", []):
         try: cdp("/json/new?" + u, "PUT"); time.sleep(2)
         except Exception as e: log("开标签失败", u, e)
@@ -152,7 +155,9 @@ def run_agent(instruction):
 
 # ── 主流程 ──────────────────────────────────────────────────────────────────
 t0 = time.time()
+SETUP_OK = False
 log("平台", platform.platform(), "| 题", task["id"][:8], task["app"], "|", task["instruction"][:70])
+log("Chrome 数据目录:", G.chrome_user_data_dir())
 setup(task.get("setup", {}))
 res = {"rc": 0, "agent_s": 0}
 if a.arm == "openclaw":
@@ -164,7 +169,7 @@ if g["func"] in ("is_expected_tabs",):
 else:
     chrome_stop(); ok, why = G.FUNCS[g["func"]](g["args"])
 out = {"instance": f"gui__{task['app']}-{task['id'][:8]}", "task_id": task["id"], "arm": a.arm, "platform": platform.platform(),
-       "resolved": int(ok), "grade": g["func"], "why": why, "agent_rc": res.get("rc"), "agent_s": res.get("agent_s"),
+       "resolved": int(ok), "setup_ok": SETUP_OK, "grade": g["func"], "why": why, "agent_rc": res.get("rc"), "agent_s": res.get("agent_s"),
        "total_s": int(time.time() - t0), "model": a.model}
-print(f"RESULT {out['instance']} arm={a.arm} platform={platform.system()}-{platform.machine()} resolved={out['resolved']} grade={g['func']} | {why[:120]}")
+print(f"RESULT {out['instance']} arm={a.arm} platform={platform.system()}-{platform.machine()} resolved={out['resolved']} setup_ok={int(SETUP_OK)} grade={g['func']} | {why[:120]}")
 pathlib.Path(f"gui_{platform.system()}_{platform.machine()}.json").write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
