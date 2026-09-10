@@ -171,6 +171,44 @@ def check_history_deleted(args):
     return (len(rows) == 0), f"匹配 {args['pattern']} 的历史残留 {len(rows)} 条"
 
 
+def _cdp_tabs(port=1337):
+    """通过 Chrome 远程调试端口列出打开的标签页(三系统同一接口)。"""
+    import urllib.request
+    try:
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/json", timeout=5) as r:
+            return [t for t in json.load(r) if t.get("type") == "page"]
+    except Exception:
+        return None
+
+
+def is_expected_tabs(args):
+    """args: {"urls": [片段...]} 每个片段都得在某个打开的标签页 URL 里出现"""
+    tabs = _cdp_tabs(args.get("port", 1337))
+    if tabs is None:
+        return False, "Chrome 远程调试端口不可用(Chrome 没在跑?)"
+    got = [t.get("url", "") for t in tabs]
+    miss = [u for u in args["urls"] if not any(u in g for g in got)]
+    return (not miss), f"打开的标签={got} 缺={miss}"
+
+
+def startup_page_cleared(args):
+    """启动页里不再包含 args['bad'](或启动模式已不是「打开指定页」)"""
+    p = _prefs()
+    mode = _dig(p, "session.restore_on_startup")
+    urls = _dig(p, "session.startup_urls", []) or []
+    bad = [u for u in urls if args["bad"] in u]
+    ok = (mode != 4) or (not bad)
+    return ok, f"restore_on_startup={mode} startup_urls={urls}"
+
+
+def unpacked_extension_loaded(args):
+    """Preferences 的 extensions.settings 里有某个从本地目录加载的扩展,其路径含 args['name']"""
+    p = _prefs()
+    ext = _dig(p, "extensions.settings", {}) or {}
+    hits = [k for k, v in ext.items() if isinstance(v, dict) and args["name"].lower() in str(v.get("path", "")).lower()]
+    return bool(hits), f"从本地加载且路径含 {args['name']} 的扩展={hits}"
+
+
 FUNCS = {k: v for k, v in list(globals().items()) if callable(v) and not k.startswith("_") and k[0].islower()
          and k not in ("chrome_profile", "desktop_dir", "vscode_ext_dir", "vscode_settings")}
 
