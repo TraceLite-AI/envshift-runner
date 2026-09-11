@@ -17,7 +17,7 @@ HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 ap = argparse.ArgumentParser()
-ap.add_argument("task"); ap.add_argument("--arm", default="openclaw", choices=["openclaw", "null", "list"])
+ap.add_argument("task"); ap.add_argument("--arm", default="openclaw", choices=["openclaw", "null", "gold", "list"])
 ap.add_argument("--model", default="deepseek-v4-pro"); ap.add_argument("--base", default="https://api.llmgateway.io/v1")
 ap.add_argument("--timeout", type=int, default=1200)
 a = ap.parse_args()
@@ -80,7 +80,14 @@ def openclaw_cmd():
 
 
 res = {"rc": 0, "agent_s": 0}
-if a.arm == "openclaw":
+if a.arm == "gold":
+    # 量具自检:把官方参考文件当成 agent 的产出,判分应当满分。不满分说明判分链路本身有问题,
+    # 那样再跑 agent 是白跑(「agent 做对了也判 0」这种坑必须先排掉)。
+    ref0 = WORK / "_goldcopy"
+    if not fetch(task["grade"]["expected_url"], ref0): print("SETUP-FAIL 参考文件下载失败"); sys.exit(4)
+    shutil.copy(ref0, WORK / task["grade"].get("result_file", task["files"][0]["name"]))
+    log("gold 自检:已用官方参考文件覆盖结果文件")
+elif a.arm == "openclaw":
     key = os.environ.get("ENVSHIFT_API_KEY", "")
     if not key: print("NO-API-KEY"); sys.exit(5)
     st = HOME / "oc-state-office"; st.mkdir(parents=True, exist_ok=True)
