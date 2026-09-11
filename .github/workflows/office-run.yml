@@ -25,7 +25,16 @@ jobs:
         with: { node-version: '22' }
 
       - name: 官方 metrics 的依赖(判分侧)
-        run: pip install -q openpyxl pandas python-pptx python-docx odfpy rapidfuzz formulas scikit-image Pillow lxml
+        run: |
+          pip install -q openpyxl pandas python-pptx python-docx odfpy rapidfuzz formulas scikit-image Pillow lxml xmldiff
+          python - <<'EOF'
+          import sys; sys.path.insert(0,"osw_metrics_pkg")
+          for m in ("table","slides"):
+              try:
+                  __import__(f"desktop_env.evaluators.metrics.{m}", fromlist=["x"]); print(f"  {m}: 导入 OK")
+              except Exception as e:
+                  print(f"  {m}: 导入失败 {type(e).__name__}: {e}"); raise SystemExit(1)
+          EOF
 
       - name: LibreOffice(agent 侧可用的办公工具)
         shell: bash

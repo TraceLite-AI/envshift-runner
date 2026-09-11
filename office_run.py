@@ -42,12 +42,19 @@ def fetch(url, dest):
 
 
 def official_metric(name):
-    """按名字取 OSWorld 官方判分函数(osw_metrics/ 是原样 vendored 的官方模块)。"""
+    """按名字取 OSWorld 官方判分函数(osw_metrics_pkg/ 是原样 vendored 的官方模块)。
+    ★别吞导入异常:找不到函数时必须说清是哪个模块、因为什么没导进来(缺依赖 vs 真没这个函数)。"""
     sys.path.insert(0, str(HERE / "osw_metrics_pkg"))
-    for mod in ("table", "slides", "docs", "general", "pdf", "libreoffice", "others", "basic_os"):
-        try: m = __import__(f"desktop_env.evaluators.metrics.{mod}", fromlist=["x"])
-        except Exception: continue
+    errs = []
+    for mod in ("table", "slides", "general", "pdf", "libreoffice", "others", "basic_os", "docs"):
+        try:
+            m = __import__(f"desktop_env.evaluators.metrics.{mod}", fromlist=["x"])
+        except Exception as e:
+            errs.append(f"{mod}: {type(e).__name__}: {str(e)[:120]}"); continue
         if hasattr(m, name): return getattr(m, name)
+        errs.append(f"{mod}: 导入成功但没有 {name}")
+    log("判分模块导入情况:")
+    for e in errs: log("   ", e)
     raise SystemExit(f"官方判分函数找不到: {name}")
 
 
