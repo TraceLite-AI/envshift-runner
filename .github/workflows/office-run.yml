@@ -26,7 +26,7 @@ jobs:
 
       - name: 官方 metrics 的依赖(判分侧)
         run: |
-          pip install -q openpyxl pandas python-pptx python-docx odfpy rapidfuzz formulas scikit-image Pillow lxml xmldiff cssselect beautifulsoup4 PyPDF2 pymupdf mutagen opencv-python-headless
+          pip install -q -r office_requirements.txt   # 取自 OSWorld 官方 requirements,去掉 torch/easyocr 等本判据用不到的重型包
           python - <<'EOF'
           import sys; sys.path.insert(0,"osw_metrics_pkg")
           for m in ("table","slides"):
