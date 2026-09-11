@@ -5,6 +5,7 @@ on:
     inputs:
       base: { description: "网关 baseUrl", default: "https://api.llmgateway.io/v1" }
       models: { description: "要测的模型(逗号分隔;留空=自动从网关挑)", default: "" }
+      claude_probe: { description: "额外跑 Claude 视觉格式探针", default: "false" }
 jobs:
   probe:
     runs-on: ubuntu-24.04
@@ -16,7 +17,9 @@ jobs:
         with: { python-version: '3.12' }
       - name: 探针
         env: { ENVSHIFT_API_KEY: "${{ secrets.ENVSHIFT_API_KEY }}" }
-        run: python model_probe.py --base "${{ inputs.base }}" --models "${{ inputs.models }}"
+        run: |
+          python model_probe.py --base "${{ inputs.base }}" --models "${{ inputs.models }}"
+          [ "${{ inputs.claude_probe }}" = "true" ] && python claude_vision_probe.py || true
       - uses: actions/upload-artifact@v4
         if: always()
         with: { name: model-probe, path: model_probe.json }
