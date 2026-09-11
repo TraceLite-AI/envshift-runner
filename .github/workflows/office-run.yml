@@ -25,6 +25,7 @@ jobs:
         with: { node-version: '22' }
 
       - name: 官方 metrics 的依赖(判分侧)
+        shell: bash          # ★Windows 默认 PowerShell,heredoc 会被当成 PS 语法报 ParserError
         run: |
           pip install -q -r office_requirements.txt   # 取自 OSWorld 官方 requirements,去掉 torch/easyocr 等本判据用不到的重型包
           python - <<'EOF'
