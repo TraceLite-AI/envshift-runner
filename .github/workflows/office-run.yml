@@ -26,7 +26,7 @@ jobs:
 
       - name: 官方 metrics 的依赖(判分侧)
         run: |
-          pip install -q openpyxl pandas python-pptx python-docx odfpy rapidfuzz formulas scikit-image Pillow lxml xmldiff
+          pip install -q openpyxl pandas python-pptx python-docx odfpy rapidfuzz formulas scikit-image Pillow lxml xmldiff cssselect beautifulsoup4 PyPDF2 pymupdf mutagen opencv-python-headless
           python - <<'EOF'
           import sys; sys.path.insert(0,"osw_metrics_pkg")
           for m in ("table","slides"):
