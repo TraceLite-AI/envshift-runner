@@ -1,0 +1,24 @@
+name: os-probe2
+on:
+  workflow_dispatch:
+    inputs:
+      oslist: { description: "runner 列表(JSON 数组)", default: '["ubuntu-24.04","macos-15","windows-2022"]' }
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.oslist) }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: 跑大探针
+        shell: bash
+        env: { PYTHONUTF8: '1' }
+        run: python os_probe2.py 2>&1 | tee "probe2_${{ matrix.os }}.txt"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "probe2-${{ matrix.os }}", path: "probe2_*.txt" }
