@@ -105,6 +105,24 @@ def soffice_bin():
     return shutil.which("soffice") or shutil.which("libreoffice") or "soffice"
 
 
+# LibreOffice 首次运行的「Did you know?」弹窗和「running for the first time」信息栏会挡住界面、抢焦点,
+# 留存截图证实模型头 1~2 步都在关弹窗。用独立 profile 预置关掉,三系统同一做法(-env:UserInstallation 三系统都认)。
+LO_XCU = """<?xml version="1.0" encoding="UTF-8"?>
+<oor:items xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<item oor:path="/org.openoffice.Office.Common/Misc"><prop oor:name="ShowTipOfTheDay" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.Common/Misc"><prop oor:name="FirstRun" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Setup/Product"><prop oor:name="ooSetupLastVersion" oor:op="fuse"><value>24.2</value></prop></item>
+<item oor:path="/org.openoffice.Office.Common/Misc"><prop oor:name="ShowDonation" oor:op="fuse"><value>false</value></prop></item>
+</oor:items>
+"""
+
+
+def lo_profile_arg():
+    prof = HOME / "lo_profile"; (prof / "user").mkdir(parents=True, exist_ok=True)
+    (prof / "user" / "registrymodifications.xcu").write_text(LO_XCU, encoding="utf-8")
+    return f"-env:UserInstallation={prof.as_uri()}"
+
+
 def setup_docs(task):
     """办公文档题(GUI 通道):把文件下到工作目录,再用 LibreOffice 打开,让模型有界面可点。"""
     work = HOME / "office-work"; work.mkdir(parents=True, exist_ok=True)
@@ -119,7 +137,7 @@ def setup_docs(task):
         log("已就位", dest, dest.stat().st_size, "字节"); opened.append(dest)
     env = dict(os.environ); env.setdefault("DISPLAY", ":99")
     logf = open(OUTD / "soffice.log", "a")
-    subprocess.Popen([soffice_bin(), "--norestore", str(opened[0])], env=env, stdout=logf, stderr=logf)
+    subprocess.Popen([soffice_bin(), lo_profile_arg(), "--norestore", str(opened[0])], env=env, stdout=logf, stderr=logf)
     for i in range(60):                      # 等窗口真的画出来:靠截图里的非黑像素判断,而不是靠 sleep
         time.sleep(2)
         try:
@@ -290,7 +308,32 @@ elif a.arm == "gui":
 # 判分前:标签页类判据要在 Chrome 还开着时读;其余判据要先关 Chrome 让偏好落盘
 g = task["grade"]
 if task.get("files"):
-    # 办公文档题:判分走 OSWorld 官方 metrics(与终端通道同一套),先关掉 LibreOffice 让它落盘
+    # 办公文档题:判分走 OSWorld 官方 metrics(与终端通道同一套)。
+    # ★真 GUI 通道判分前必须先保存:模型在 LibreOffice 界面里改的东西在内存里,不保存关窗口就丢。
+    #   OSWorld 原题就是判分前用 postconfig 快捷键保存的;终端通道题面明确要求 agent 自己保存所以不需要。
+    #   round A 真 GUI 办公文档 45 格全 0:Linux 15 道里 0 道按过 Ctrl+S,不保存是硬伤,先修这个再看模型能做几道。
+    if a.arm == "gui":
+        try:
+            import pyautogui
+            # 诊断:保存到底有没有写盘——记目标文件保存前后的大小和 mtime,保存后再截一张图留存
+            _tgt = HOME / "office-work" / task["grade"].get("result_file", task["files"][0]["name"])
+            def _stat():
+                try: st = _tgt.stat(); return f"{st.st_size}B mtime={int(st.st_mtime)}"
+                except Exception as e: return f"stat失败 {type(e).__name__}"
+            log("保存前目标文件:", _stat())
+            pyautogui.hotkey("command" if SYS == "Darwin" else "ctrl", "s"); time.sleep(3)
+            pyautogui.press("enter"); time.sleep(3)      # 保存 xlsx/pptx 时 LibreOffice 会问「保持当前格式?」,回车 = 保持
+            log("保存后目标文件:", _stat())
+            try:
+                import mss
+                from PIL import Image
+                with mss.mss() as sc:
+                    raw = sc.grab(sc.monitors[1]); Image.frombytes("RGB", raw.size, raw.rgb).save(f"gui_shot_aftersave_{platform.system()}.png")
+            except Exception as e:
+                log("保存后截图失败", type(e).__name__)
+            log("判分前已发保存快捷键(恢复 OSWorld postconfig 行为)")
+        except Exception as e:
+            log("判分前保存失败", type(e).__name__)
     soffice_stop()
     ok, why = grade_doc(task)
 elif g["func"] in ("is_expected_tabs",):
