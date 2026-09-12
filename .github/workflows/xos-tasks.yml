@@ -33,5 +33,5 @@ jobs:
         env: { XOS_CELL: "${{ inputs.os }}-baseline" }
         run: |
           IFS=, read -ra ARMS <<< "${{ inputs.arms }}"
-          [ "$RUNNER_OS" = "Windows" ] || HM=$(stat -f %Lp "$HOME" 2>/dev/null || stat -c %a "$HOME")
+          case "$RUNNER_OS" in macOS) HM=$(stat -f %Lp "$HOME") ;; Linux) HM=$(stat -c %a "$HOME") ;; *) HM="" ;; esac
           for A in "${ARMS[@]}"; do [ -z "${HM:-}" ] || chmod "$HM" "$HOME"; python xos_run_one.py --task ${{ matrix.task }} --arm "$A" --data "$ES2_ROOT/data" --app "$ES2_ROOT/app" --out "out/${{ matrix.task }}-$A" $( [ "$RUNNER_OS" = "Windows" ] || echo --sudo-verify ) | tail -1; done
