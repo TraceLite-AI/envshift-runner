@@ -17,85 +17,194 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
+      - name: bundle chunk 1
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_1 }}
+      - name: bundle chunk 2
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_2 }}
+      - name: bundle chunk 3
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_3 }}
+      - name: bundle chunk 4
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_4 }}
+      - name: bundle chunk 5
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_5 }}
+      - name: bundle chunk 6
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_6 }}
+      - name: bundle chunk 7
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_7 }}
+      - name: bundle chunk 8
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_8 }}
+      - name: bundle chunk 9
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_9 }}
+      - name: bundle chunk 10
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_10 }}
+      - name: bundle chunk 11
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_11 }}
+      - name: bundle chunk 12
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_12 }}
+      - name: bundle chunk 13
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_13 }}
+      - name: bundle chunk 14
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_14 }}
+      - name: bundle chunk 15
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_15 }}
+      - name: bundle chunk 16
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_16 }}
+      - name: bundle chunk 17
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_17 }}
+      - name: bundle chunk 18
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_18 }}
+      - name: bundle chunk 19
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_19 }}
+      - name: bundle chunk 20
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_20 }}
+      - name: bundle chunk 21
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_21 }}
+      - name: bundle chunk 22
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_22 }}
+      - name: bundle chunk 23
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_23 }}
+      - name: bundle chunk 24
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_24 }}
+      - name: bundle chunk 25
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_25 }}
+      - name: bundle chunk 26
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_26 }}
+      - name: bundle chunk 27
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_27 }}
+      - name: bundle chunk 28
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_28 }}
+      - name: bundle chunk 29
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_29 }}
+      - name: bundle chunk 30
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_30 }}
+      - name: bundle chunk 31
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_31 }}
+      - name: bundle chunk 32
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_32 }}
+      - name: bundle chunk 33
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_33 }}
+      - name: bundle chunk 34
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_34 }}
+      - name: bundle chunk 35
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_35 }}
+      - name: bundle chunk 36
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_36 }}
+      - name: bundle chunk 37
+        shell: bash
+        run: printf %s "$TB" >> tasks_b64.txt
+        env:
+          TB: ${{ secrets.TASKS_B64_37 }}
       - name: restore task materials
         shell: bash
-        run: |
-          printf %s "$TB1" >> tasks_b64.txt
-          printf %s "$TB2" >> tasks_b64.txt
-          printf %s "$TB3" >> tasks_b64.txt
-          printf %s "$TB4" >> tasks_b64.txt
-          printf %s "$TB5" >> tasks_b64.txt
-          printf %s "$TB6" >> tasks_b64.txt
-          printf %s "$TB7" >> tasks_b64.txt
-          printf %s "$TB8" >> tasks_b64.txt
-          printf %s "$TB9" >> tasks_b64.txt
-          printf %s "$TB10" >> tasks_b64.txt
-          printf %s "$TB11" >> tasks_b64.txt
-          printf %s "$TB12" >> tasks_b64.txt
-          printf %s "$TB13" >> tasks_b64.txt
-          printf %s "$TB14" >> tasks_b64.txt
-          printf %s "$TB15" >> tasks_b64.txt
-          printf %s "$TB16" >> tasks_b64.txt
-          printf %s "$TB17" >> tasks_b64.txt
-          printf %s "$TB18" >> tasks_b64.txt
-          printf %s "$TB19" >> tasks_b64.txt
-          printf %s "$TB20" >> tasks_b64.txt
-          printf %s "$TB21" >> tasks_b64.txt
-          printf %s "$TB22" >> tasks_b64.txt
-          printf %s "$TB23" >> tasks_b64.txt
-          printf %s "$TB24" >> tasks_b64.txt
-          printf %s "$TB25" >> tasks_b64.txt
-          printf %s "$TB26" >> tasks_b64.txt
-          printf %s "$TB27" >> tasks_b64.txt
-          printf %s "$TB28" >> tasks_b64.txt
-          printf %s "$TB29" >> tasks_b64.txt
-          printf %s "$TB30" >> tasks_b64.txt
-          printf %s "$TB31" >> tasks_b64.txt
-          printf %s "$TB32" >> tasks_b64.txt
-          printf %s "$TB33" >> tasks_b64.txt
-          printf %s "$TB34" >> tasks_b64.txt
-          printf %s "$TB35" >> tasks_b64.txt
-          printf %s "$TB36" >> tasks_b64.txt
-          printf %s "$TB37" >> tasks_b64.txt
-          python restore_tasks.py
-        env:
-          TB1: ${{ secrets.TASKS_B64_1 }}
-          TB2: ${{ secrets.TASKS_B64_2 }}
-          TB3: ${{ secrets.TASKS_B64_3 }}
-          TB4: ${{ secrets.TASKS_B64_4 }}
-          TB5: ${{ secrets.TASKS_B64_5 }}
-          TB6: ${{ secrets.TASKS_B64_6 }}
-          TB7: ${{ secrets.TASKS_B64_7 }}
-          TB8: ${{ secrets.TASKS_B64_8 }}
-          TB9: ${{ secrets.TASKS_B64_9 }}
-          TB10: ${{ secrets.TASKS_B64_10 }}
-          TB11: ${{ secrets.TASKS_B64_11 }}
-          TB12: ${{ secrets.TASKS_B64_12 }}
-          TB13: ${{ secrets.TASKS_B64_13 }}
-          TB14: ${{ secrets.TASKS_B64_14 }}
-          TB15: ${{ secrets.TASKS_B64_15 }}
-          TB16: ${{ secrets.TASKS_B64_16 }}
-          TB17: ${{ secrets.TASKS_B64_17 }}
-          TB18: ${{ secrets.TASKS_B64_18 }}
-          TB19: ${{ secrets.TASKS_B64_19 }}
-          TB20: ${{ secrets.TASKS_B64_20 }}
-          TB21: ${{ secrets.TASKS_B64_21 }}
-          TB22: ${{ secrets.TASKS_B64_22 }}
-          TB23: ${{ secrets.TASKS_B64_23 }}
-          TB24: ${{ secrets.TASKS_B64_24 }}
-          TB25: ${{ secrets.TASKS_B64_25 }}
-          TB26: ${{ secrets.TASKS_B64_26 }}
-          TB27: ${{ secrets.TASKS_B64_27 }}
-          TB28: ${{ secrets.TASKS_B64_28 }}
-          TB29: ${{ secrets.TASKS_B64_29 }}
-          TB30: ${{ secrets.TASKS_B64_30 }}
-          TB31: ${{ secrets.TASKS_B64_31 }}
-          TB32: ${{ secrets.TASKS_B64_32 }}
-          TB33: ${{ secrets.TASKS_B64_33 }}
-          TB34: ${{ secrets.TASKS_B64_34 }}
-          TB35: ${{ secrets.TASKS_B64_35 }}
-          TB36: ${{ secrets.TASKS_B64_36 }}
-          TB37: ${{ secrets.TASKS_B64_37 }}
+        run: python restore_tasks.py
       - name: prepare /data /app
         shell: bash
         run: |
