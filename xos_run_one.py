@@ -69,7 +69,31 @@ BIN = {
        "X56-signup-m20": ("sweepdir.py", "X56"),
        "X57-ticket-m20": ("tidy.py", "X57"),
        "X58-stock-m20": ("reap.py", "X58"),
-       "X6-rollup-extend": ("rollup.py", "X6")}
+       "X59-archive-m12": ("report_names.py", "X59"),
+       "X6-rollup-extend": ("rollup.py", "X6"),
+       "X60-signup-m12": ("rollcall.py", "X60"),
+       "X61-ticket-m12": ("brief.py", "X61"),
+       "X62-stock-m12": ("digest_names.py", "X62"),
+       "X63-archive-m17": ("stamps.py", "X63"),
+       "X64-signup-m17": ("clockcheck.py", "X64"),
+       "X65-ticket-m17": ("timepoints.py", "X65"),
+       "X66-stock-m17": ("freshness.py", "X66"),
+       "X67-archive-m21": ("toolcheck.py", "X67"),
+       "X68-signup-m21": ("chainscan.py", "X68"),
+       "X69-ticket-m21": ("kitaudit.py", "X69"),
+       "X70-stock-m21": ("binsurvey.py", "X70"),
+       "X71-archive-m2": ("handout.py", "X71"),
+       "X72-signup-m2": ("issue_pack.py", "X72"),
+       "X73-ticket-m2": ("split.py", "X73"),
+       "X74-stock-m2": ("release.py", "X74"),
+       "X75-archive-m15": ("fillin.py", "X75"),
+       "X76-signup-m15": ("compose.py", "X76"),
+       "X77-ticket-m15": ("stamp_tpl.py", "X77"),
+       "X78-stock-m15": ("weave.py", "X78"),
+       "X79-archive-m9": ("loadconf.py", "X79"),
+       "X80-signup-m9": ("setup_env.py", "X80"),
+       "X81-ticket-m9": ("applyconf.py", "X81"),
+       "X82-stock-m9": ("bootconf.py", "X82")}
 ap = argparse.ArgumentParser()
 ap.add_argument("--task", required=True); ap.add_argument("--arm", default="oracle")
 ap.add_argument("--data", default="/data"); ap.add_argument("--app", default="/app")

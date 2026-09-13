@@ -42,6 +42,14 @@ jobs:
           TASKS_B64_18: ${{ secrets.TASKS_B64_18 }}
           TASKS_B64_19: ${{ secrets.TASKS_B64_19 }}
           TASKS_B64_20: ${{ secrets.TASKS_B64_20 }}
+          TASKS_B64_21: ${{ secrets.TASKS_B64_21 }}
+          TASKS_B64_22: ${{ secrets.TASKS_B64_22 }}
+          TASKS_B64_23: ${{ secrets.TASKS_B64_23 }}
+          TASKS_B64_24: ${{ secrets.TASKS_B64_24 }}
+          TASKS_B64_25: ${{ secrets.TASKS_B64_25 }}
+          TASKS_B64_26: ${{ secrets.TASKS_B64_26 }}
+          TASKS_B64_27: ${{ secrets.TASKS_B64_27 }}
+          TASKS_B64_28: ${{ secrets.TASKS_B64_28 }}
         run: python restore_tasks.py
       - name: install pinned DSH
         shell: bash
