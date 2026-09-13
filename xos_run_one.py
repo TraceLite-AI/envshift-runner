@@ -211,5 +211,7 @@ print(line)
 if reward != "1":
     _vl = (out / "verifier.log").read_text(encoding="utf-8", errors="replace") if (out / "verifier.log").exists() else ""
     for _ln in _vl.strip().splitlines()[-6:]:
-        print("  VERIFIER-TAIL " + _ln[:200])
+        # ★打到 stderr:工作流用 `| tail -1` 只留结果行,明细走 stdout 会把结果行顶掉,
+        # 整轮门一因此只收到 oracle 一条、看起来像「naive 没翻」。
+        print("  VERIFIER-TAIL " + _ln[:200], file=sys.stderr)
 (out / "meta.json").write_text(json.dumps({"line": line, "reward": reward, "trace": tr, "cell_env": cell_env}, ensure_ascii=False, indent=2))
