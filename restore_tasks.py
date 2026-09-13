@@ -2,7 +2,7 @@
 """从 secret 还原题目材料(分片 base64 → tar.gz → tasks/)。题目不进 git。"""
 import base64, io, os, sys, tarfile, pathlib
 parts = []
-for i in range(1, 10):
+for i in range(1, 13):
     v = os.environ.get(f"TASKS_B64_{i}", "")
     if v: parts.append(v.strip())
 if not parts:
