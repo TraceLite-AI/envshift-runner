@@ -2,7 +2,7 @@
 """从 secret 还原题目材料(分片 base64 → tar.gz → tasks/)。题目不进 git。"""
 import base64, io, os, sys, tarfile, pathlib
 parts = []
-for i in range(1, 29):
+for i in range(1, 37):
     v = os.environ.get(f"TASKS_B64_{i}", "")
     if v: parts.append(v.strip())
 if not parts:
@@ -15,4 +15,4 @@ n = len(list((here / "tasks").glob("*")))
 print(f"已还原 {n} 个任务目录")
 
 import hashlib as _h
-print("题包指纹", _h.sha256("".join(_p for _p in [__import__("os").environ.get(f"TASKS_B64_{_i}","") for _i in range(1, 29)]).encode()).hexdigest()[:12])
+print("题包指纹", _h.sha256("".join(_p for _p in [__import__("os").environ.get(f"TASKS_B64_{_i}","") for _i in range(1, 37)]).encode()).hexdigest()[:12])

@@ -48,6 +48,14 @@ jobs:
           TASKS_B64_26: ${{ secrets.TASKS_B64_26 }}
           TASKS_B64_27: ${{ secrets.TASKS_B64_27 }}
           TASKS_B64_28: ${{ secrets.TASKS_B64_28 }}
+          TASKS_B64_29: ${{ secrets.TASKS_B64_29 }}
+          TASKS_B64_30: ${{ secrets.TASKS_B64_30 }}
+          TASKS_B64_31: ${{ secrets.TASKS_B64_31 }}
+          TASKS_B64_32: ${{ secrets.TASKS_B64_32 }}
+          TASKS_B64_33: ${{ secrets.TASKS_B64_33 }}
+          TASKS_B64_34: ${{ secrets.TASKS_B64_34 }}
+          TASKS_B64_35: ${{ secrets.TASKS_B64_35 }}
+          TASKS_B64_36: ${{ secrets.TASKS_B64_36 }}
         run: python restore_tasks.py
       - name: prepare /data /app
         shell: bash
