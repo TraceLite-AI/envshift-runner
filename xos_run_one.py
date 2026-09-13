@@ -187,6 +187,12 @@ if a.arm == "agent":
     r = subprocess.run([sys.executable, str(dsh / "drive_dsh.py"), str(app), a.model, a.base, key, str(out), str(prompt)],
                        cwd=str(app), env=env, capture_output=True, text=True, timeout=a.timeout + 300)
     (out / "driver.log").write_text(r.stdout + r.stderr); agent_rc = r.returncode; prompt.unlink(missing_ok=True)
+    # ★agent 秒退时把 driver 日志尾部露出来:日志本体在加密 artifact 里,不打出来就只能看到
+    # 「agent_rc=0、agent_s=2」这种「没报错但什么也没做」的哑失败,无从判断是模型还是装置。
+    if int(time.time() - t0) < 20 or agent_rc != 0:
+        _dl = (r.stdout + r.stderr).strip().splitlines()
+        for _ln in _dl[-12:]:
+            print("  DRIVER-TAIL " + _ln[:200], file=sys.stderr)
 elif a.arm != "null":
     if ARM_DIR_TAR is None: print(f"{a.task} arm={a.arm} NO-SUCH-ARM"); sys.exit(2)
     _at = pathlib.Path(tempfile.mkdtemp(prefix="arm-"))
