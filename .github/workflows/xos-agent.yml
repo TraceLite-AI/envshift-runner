@@ -7,10 +7,14 @@ on:
       timeout: { description: "agent 秒数", default: "1500" }
       model: { description: "模型名", default: "deepseek-v4.1-flash" }
       tag: { description: "本轮标记", default: "r1" }
+      parallel: { description: "每池并发上限(网关按 key 限流,别打满)", default: "4" }
 jobs:
   agent:
     strategy:
       fail-fast: false
+      # ★并发闸门:网关按 key 限流,打满并发会让 agent 一上来就撞 429 直接退出
+      # (症状是 agent_s 只有几秒、reward 偏低,极像「模型不行」)。宁可慢,也要每次跑完整。
+      max-parallel: ${{ fromJSON(inputs.parallel) }}
       matrix:
         task: ${{ fromJSON(inputs.tasks) }}
     runs-on: ${{ inputs.os }}
