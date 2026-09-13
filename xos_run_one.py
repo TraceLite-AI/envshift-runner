@@ -43,8 +43,32 @@ BIN = {
        "X32-signup-m10": ("sum.py", "X32"),
        "X33-ticket-m10": ("fold.py", "X33"),
        "X34-stock-m10": ("aggregate.py", "X34"),
+       "X35-archive-m11": ("badge.py", "X35"),
+       "X36-signup-m11": ("card.py", "X36"),
+       "X37-ticket-m11": ("label.py", "X37"),
+       "X38-stock-m11": ("tag.py", "X38"),
+       "X39-archive-m13": ("sweep.py", "X39"),
        "X4-pick-extend": ("pick.py", "X4"),
+       "X40-signup-m13": ("patrol.py", "X40"),
+       "X41-ticket-m13": ("inspect.py", "X41"),
+       "X42-stock-m13": ("canvass.py", "X42"),
+       "X43-archive-m18": ("locate.py", "X43"),
+       "X44-signup-m18": ("trace.py", "X44"),
+       "X45-ticket-m18": ("seek.py", "X45"),
+       "X46-stock-m18": ("hunt.py", "X46"),
+       "X47-archive-m14": ("recon.py", "X47"),
+       "X48-signup-m14": ("match.py", "X48"),
+       "X49-ticket-m14": ("verify_sizes.py", "X49"),
        "X5-export-extend": ("export.sh", "X5"),
+       "X50-stock-m14": ("balance.py", "X50"),
+       "X51-archive-m16": ("guard.py", "X51"),
+       "X52-signup-m16": ("supervise.py", "X52"),
+       "X53-ticket-m16": ("watchdog.py", "X53"),
+       "X54-stock-m16": ("runner.py", "X54"),
+       "X55-archive-m20": ("scrub.py", "X55"),
+       "X56-signup-m20": ("sweepdir.py", "X56"),
+       "X57-ticket-m20": ("tidy.py", "X57"),
+       "X58-stock-m20": ("reap.py", "X58"),
        "X6-rollup-extend": ("rollup.py", "X6")}
 ap = argparse.ArgumentParser()
 ap.add_argument("--task", required=True); ap.add_argument("--arm", default="oracle")
@@ -131,4 +155,9 @@ r = subprocess.run(cmd, env=venv_env, capture_output=True, text=True, timeout=18
 reward = (logdir / "reward.txt").read_text().strip() if (logdir / "reward.txt").exists() else "?"
 tr = json.loads((logdir / "trace_results.json").read_text()) if (logdir / "trace_results.json").exists() else {}
 line = f"{a.task} cell={os.environ.get('XOS_CELL','?')} arm={a.arm} reward={reward} 诊断={tr.get('points','?')}/{tr.get('total','?')} agent_rc={agent_rc} vrc={r.returncode} agent_s={int(t1-t0)} verify_s={int(time.time()-t1)}"
-print(line); (out / "meta.json").write_text(json.dumps({"line": line, "reward": reward, "trace": tr, "cell_env": cell_env}, ensure_ascii=False, indent=2))
+print(line)
+if reward != "1":
+    _vl = (out / "verifier.log").read_text(encoding="utf-8", errors="replace") if (out / "verifier.log").exists() else ""
+    for _ln in _vl.strip().splitlines()[-6:]:
+        print("  VERIFIER-TAIL " + _ln[:200])
+(out / "meta.json").write_text(json.dumps({"line": line, "reward": reward, "trace": tr, "cell_env": cell_env}, ensure_ascii=False, indent=2))
