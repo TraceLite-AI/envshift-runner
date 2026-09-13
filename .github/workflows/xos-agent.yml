@@ -5,6 +5,8 @@ on:
       os: { description: "runner(ubuntu-24.04 / macos-15 / windows-2022)", default: "macos-15" }
       tasks: { description: "任务 JSON 数组", default: '["E3-archive-audit","E4-vault-compliance","E5-retention-plan","E6-contact-merge","E7-publish-shared","E8-report-extend","E9-latest-extend","E10-dupes-extend","E11-export-extend","E12-publish-extend"]' }
       timeout: { description: "agent 秒数", default: "1500" }
+      model: { description: "模型名", default: "deepseek-v4.1-flash" }
+      tag: { description: "本轮标记", default: "r1" }
 jobs:
   agent:
     strategy:
