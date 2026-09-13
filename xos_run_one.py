@@ -5,13 +5,35 @@ import argparse, json, os, pathlib, shutil, stat, subprocess, sys, tempfile, tim
 for _st in (sys.stdout, sys.stderr):
     try: _st.reconfigure(encoding="utf-8", errors="replace")
     except Exception: pass
-BIN = {"E3-archive-audit": ("audit", "E3"), "E4-vault-compliance": ("vault-archive", "E4"),
-       "E5-retention-plan": ("retain", "E5"), "E6-contact-merge": ("merge.sh", "E6"), "E7-publish-shared": ("publish", "E7"),
-       "E8-report-extend": ("report.py", "E8"), "E9-latest-extend": ("latest.py", "E9"), "E10-dupes-extend": ("dupes.py", "E10"),
-       "E11-export-extend": ("export.sh", "E11"), "E12-publish-extend": ("publish.sh", "E12"),
-       "X1-index-extend": ("index.py", "X1"), "X2-emit-extend": ("emit.py", "X2"),
+BIN = {
+       "E10-dupes-extend": ("dupes.py", "E10"),
+       "E11-export-extend": ("export.sh", "E11"),
+       "E12-publish-extend": ("publish.sh", "E12"),
+       "E3-archive-audit": ("audit", "E3"),
+       "E4-vault-compliance": ("vault-archive", "E4"),
+       "E5-retention-plan": ("retain", "E5"),
+       "E6-contact-merge": ("merge.sh", "E6"),
+       "E7-publish-shared": ("publish", "E7"),
+       "E8-report-extend": ("report.py", "E8"),
+       "E9-latest-extend": ("latest.py", "E9"),
+       "X1-index-extend": ("index.py", "X1"),
+       "X11-archive-m1": ("index.py", "X11"),
+       "X12-signup-m1": ("roster.py", "X12"),
+       "X13-ticket-m1": ("queue.py", "X13"),
+       "X14-stock-m1": ("tally.py", "X14"),
+       "X15-archive-m5": ("emit.py", "X15"),
+       "X16-signup-m5": ("deliver.py", "X16"),
+       "X17-ticket-m5": ("dispatch.py", "X17"),
+       "X18-stock-m5": ("issue.py", "X18"),
+       "X19-archive-m3": ("pick.py", "X19"),
+       "X2-emit-extend": ("emit.py", "X2"),
+       "X20-signup-m3": ("select.py", "X20"),
+       "X21-ticket-m3": ("resolve.py", "X21"),
+       "X22-stock-m3": ("choose.py", "X22"),
        "X3-tally-extend": ("tally.py", "X3"),
-       "X4-pick-extend": ("pick.py", "X4")}
+       "X4-pick-extend": ("pick.py", "X4"),
+       "X5-export-extend": ("export.sh", "X5"),
+       "X6-rollup-extend": ("rollup.py", "X6")}
 ap = argparse.ArgumentParser()
 ap.add_argument("--task", required=True); ap.add_argument("--arm", default="oracle")
 ap.add_argument("--data", default="/data"); ap.add_argument("--app", default="/app")

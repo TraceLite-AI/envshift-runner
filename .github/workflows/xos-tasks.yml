@@ -21,6 +21,14 @@ jobs:
         shell: bash
         env:
           TASKS_B64_1: ${{ secrets.TASKS_B64_1 }}
+          TASKS_B64_2: ${{ secrets.TASKS_B64_2 }}
+          TASKS_B64_3: ${{ secrets.TASKS_B64_3 }}
+          TASKS_B64_4: ${{ secrets.TASKS_B64_4 }}
+          TASKS_B64_5: ${{ secrets.TASKS_B64_5 }}
+          TASKS_B64_6: ${{ secrets.TASKS_B64_6 }}
+          TASKS_B64_7: ${{ secrets.TASKS_B64_7 }}
+          TASKS_B64_8: ${{ secrets.TASKS_B64_8 }}
+          TASKS_B64_9: ${{ secrets.TASKS_B64_9 }}
         run: python restore_tasks.py
       - name: prepare /data /app
         shell: bash
