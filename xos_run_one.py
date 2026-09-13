@@ -10,7 +10,8 @@ BIN = {"E3-archive-audit": ("audit", "E3"), "E4-vault-compliance": ("vault-archi
        "E8-report-extend": ("report.py", "E8"), "E9-latest-extend": ("latest.py", "E9"), "E10-dupes-extend": ("dupes.py", "E10"),
        "E11-export-extend": ("export.sh", "E11"), "E12-publish-extend": ("publish.sh", "E12"),
        "X1-index-extend": ("index.py", "X1"), "X2-emit-extend": ("emit.py", "X2"),
-       "X3-tally-extend": ("tally.py", "X3")}
+       "X3-tally-extend": ("tally.py", "X3"),
+       "X4-pick-extend": ("pick.py", "X4")}
 ap = argparse.ArgumentParser()
 ap.add_argument("--task", required=True); ap.add_argument("--arm", default="oracle")
 ap.add_argument("--data", default="/data"); ap.add_argument("--app", default="/app")

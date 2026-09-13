@@ -21,7 +21,6 @@ jobs:
         shell: bash
         env:
           TASKS_B64_1: ${{ secrets.TASKS_B64_1 }}
-          TASKS_B64_2: ${{ secrets.TASKS_B64_2 }}
         run: python restore_tasks.py
       - name: prepare /data /app
         shell: bash
