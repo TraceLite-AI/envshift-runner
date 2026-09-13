@@ -1,0 +1,14 @@
+name: sh-probe
+on: { workflow_dispatch: { inputs: { oslist: { default: '["windows-2022","macos-15","ubuntu-24.04"]' } } } }
+jobs:
+  probe:
+    strategy: { fail-fast: false, matrix: { os: "${{ fromJSON(inputs.oslist) }}" } }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - shell: bash
+        env: { PYTHONUTF8: '1' }
+        run: python sh_probe.py
