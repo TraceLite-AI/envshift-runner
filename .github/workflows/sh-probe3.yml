@@ -1,0 +1,54 @@
+name: sh-probe3
+on: { workflow_dispatch: {} }
+jobs:
+  probe:
+    strategy: { fail-fast: false, matrix: { os: ["windows-2022","ubuntu-24.04"] } }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 12
+    env: { PYTHONUTF8: "1", PYTHONIOENCODING: "utf-8" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: restore tasks
+        shell: bash
+        env:
+          TASKS_B64_1: ${{ secrets.TASKS_B64_1 }}
+          TASKS_B64_2: ${{ secrets.TASKS_B64_2 }}
+          TASKS_B64_3: ${{ secrets.TASKS_B64_3 }}
+          TASKS_B64_4: ${{ secrets.TASKS_B64_4 }}
+          TASKS_B64_5: ${{ secrets.TASKS_B64_5 }}
+          TASKS_B64_6: ${{ secrets.TASKS_B64_6 }}
+          TASKS_B64_7: ${{ secrets.TASKS_B64_7 }}
+          TASKS_B64_8: ${{ secrets.TASKS_B64_8 }}
+          TASKS_B64_9: ${{ secrets.TASKS_B64_9 }}
+          TASKS_B64_10: ${{ secrets.TASKS_B64_10 }}
+          TASKS_B64_11: ${{ secrets.TASKS_B64_11 }}
+          TASKS_B64_12: ${{ secrets.TASKS_B64_12 }}
+          TASKS_B64_13: ${{ secrets.TASKS_B64_13 }}
+          TASKS_B64_14: ${{ secrets.TASKS_B64_14 }}
+          TASKS_B64_15: ${{ secrets.TASKS_B64_15 }}
+          TASKS_B64_16: ${{ secrets.TASKS_B64_16 }}
+          TASKS_B64_17: ${{ secrets.TASKS_B64_17 }}
+          TASKS_B64_18: ${{ secrets.TASKS_B64_18 }}
+          TASKS_B64_19: ${{ secrets.TASKS_B64_19 }}
+          TASKS_B64_20: ${{ secrets.TASKS_B64_20 }}
+          TASKS_B64_21: ${{ secrets.TASKS_B64_21 }}
+          TASKS_B64_22: ${{ secrets.TASKS_B64_22 }}
+          TASKS_B64_23: ${{ secrets.TASKS_B64_23 }}
+          TASKS_B64_24: ${{ secrets.TASKS_B64_24 }}
+          TASKS_B64_25: ${{ secrets.TASKS_B64_25 }}
+          TASKS_B64_26: ${{ secrets.TASKS_B64_26 }}
+          TASKS_B64_27: ${{ secrets.TASKS_B64_27 }}
+          TASKS_B64_28: ${{ secrets.TASKS_B64_28 }}
+          TASKS_B64_29: ${{ secrets.TASKS_B64_29 }}
+          TASKS_B64_30: ${{ secrets.TASKS_B64_30 }}
+          TASKS_B64_31: ${{ secrets.TASKS_B64_31 }}
+          TASKS_B64_32: ${{ secrets.TASKS_B64_32 }}
+          TASKS_B64_33: ${{ secrets.TASKS_B64_33 }}
+          TASKS_B64_34: ${{ secrets.TASKS_B64_34 }}
+          TASKS_B64_35: ${{ secrets.TASKS_B64_35 }}
+          TASKS_B64_36: ${{ secrets.TASKS_B64_36 }}
+        run: python restore_tasks.py
+      - shell: bash
+        run: python sh_probe3.py
