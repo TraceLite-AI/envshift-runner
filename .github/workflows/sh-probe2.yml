@@ -1,0 +1,14 @@
+name: sh-probe2
+on: { workflow_dispatch: {} }
+jobs:
+  probe:
+    strategy: { fail-fast: false, matrix: { os: ["windows-2022","ubuntu-24.04"] } }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - shell: bash
+        env: { PYTHONUTF8: '1' }
+        run: python sh_probe2.py
