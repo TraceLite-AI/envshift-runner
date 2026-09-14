@@ -1,0 +1,12 @@
+{
+  "targets": [
+    "T-301",
+    "T-304",
+    "T-306",
+    "T-308"
+  ],
+  "owner": "Mina",
+  "status": "Queued",
+  "add_tag": "Reviewed",
+  "unchanged": "every other ticket, including initially selected T-290"
+}

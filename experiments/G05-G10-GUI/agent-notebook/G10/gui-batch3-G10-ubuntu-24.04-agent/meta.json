@@ -1,0 +1,39 @@
+{
+  "arm": "agent",
+  "task": "G10",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "model": "gemini-3.5-flash",
+  "model_rc": 0,
+  "timeout": false,
+  "steps": 60,
+  "channel_fail": null,
+  "blind_steps": 0,
+  "valid_model_run": true,
+  "reward": 0,
+  "checks": {
+    "policy_acknowledged": true,
+    "correct_approval": false,
+    "case_unchanged": true
+  },
+  "state": {
+    "case": {
+      "id": "REQ-731",
+      "amount": "1750.00",
+      "expedited": true
+    },
+    "acknowledged": true,
+    "approval": null
+  },
+  "audit": [
+    {
+      "op": "ack"
+    },
+    {
+      "op": "ack"
+    },
+    {
+      "op": "ack"
+    }
+  ],
+  "download_sha256": null
+}

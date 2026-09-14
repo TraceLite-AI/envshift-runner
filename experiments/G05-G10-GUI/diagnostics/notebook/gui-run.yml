@@ -1,0 +1,69 @@
+name: gui-run
+on:
+  workflow_dispatch:
+    inputs:
+      oslist: { description: runners, default: '["ubuntu-24.04"]' }
+      tasks: { description: GUI tasks, default: '["G05","G08","G10"]' }
+      arm: { description: control or agent, default: agent }
+      model: { description: existing GUI model, default: gemini-3.5-flash }
+      steps: { description: action budget, default: '60' }
+permissions:
+  contents: read
+jobs:
+  native-dialog:
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        os: ${{ fromJSON(inputs.oslist) }}
+        task: ${{ fromJSON(inputs.tasks) }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: install GUI dependencies
+        shell: bash
+        run: python -m pip install -q mss pyautogui pillow websocket-client
+      - name: prepare display and Chrome
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq xvfb xauth x11-utils scrot python3-tk openbox dbus-x11
+            touch "$HOME/.Xauthority"
+            xauth add :99 . $(python -c 'import secrets;print(secrets.token_hex(16))')
+            Xvfb :99 -screen 0 1280x900x24 -auth "$HOME/.Xauthority" > /tmp/xvfb.log 2>&1 &
+            sleep 2
+            DISPLAY=:99 XAUTHORITY="$HOME/.Xauthority" openbox > /tmp/openbox.log 2>&1 &
+            sleep 2
+            echo "DISPLAY=:99" >> "$GITHUB_ENV"
+            echo "XAUTHORITY=$HOME/.Xauthority" >> "$GITHUB_ENV"
+            command -v google-chrome || command -v google-chrome-stable || { curl -fsSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/chrome.deb; sudo apt-get install -y /tmp/chrome.deb; }
+          elif [ "$RUNNER_OS" = macOS ]; then
+            test -x "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" || brew install --cask google-chrome
+          else
+            test -f '/c/Program Files/Google/Chrome/Application/chrome.exe' || choco install googlechrome -y --no-progress
+          fi
+      - name: run GUI task
+        shell: bash
+        env:
+          ENVSHIFT_API_KEY: ${{ inputs.arm == 'agent' && secrets.ENVSHIFT_API_KEY || '' }}
+          ARM: ${{ inputs.arm }}
+          TASK: ${{ matrix.task }}
+          MODEL: ${{ inputs.model }}
+          STEPS: ${{ inputs.steps }}
+          PYTHONIOENCODING: utf-8
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then
+            dbus-run-session -- python gui_batch3.py --task "$TASK" --arm "$ARM" --model "$MODEL" --steps "$STEPS"
+          else
+            python gui_batch3.py --task "$TASK" --arm "$ARM" --model "$MODEL" --steps "$STEPS"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gui-batch3-${{ matrix.task }}-${{ matrix.os }}-${{ inputs.arm }}
+          path: gui_batch3_out/

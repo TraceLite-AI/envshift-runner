@@ -1,0 +1,68 @@
+[
+  {
+    "id": "BC-G05-macos-15-34818197573",
+    "file": "BC-G05-macos-15-34818197573.tar.xz",
+    "bytes": 3854600,
+    "sha256": "4f8cc15f92b920c9bfbbaa6f3ee594a113580850151fd7555142aad7845d52a6"
+  },
+  {
+    "id": "BC-G05-ubuntu-24.04-34818197573",
+    "file": "BC-G05-ubuntu-24.04-34818197573.tar.xz",
+    "bytes": 2037608,
+    "sha256": "a66445e7172d9262df2bbc34c8570ca4d4f3072ef9b393c854c98420057b790d"
+  },
+  {
+    "id": "BC-G05-windows-2022-34820054650",
+    "file": "BC-G05-windows-2022-34820054650.tar.xz",
+    "bytes": 1465540,
+    "sha256": "8db0700bb89327065c746bf34a57503d0fa4fd962f74fc78b97827e51e4b7bd0"
+  },
+  {
+    "id": "BC-G08-macos-15-34818197573",
+    "file": "BC-G08-macos-15-34818197573.tar.xz",
+    "bytes": 2038724,
+    "sha256": "b8282303145ab2ebdeb82312a84b3349e4d5d5537f45f03b93295bcef4bbae73"
+  },
+  {
+    "id": "BC-G08-ubuntu-24.04-34818197573",
+    "file": "BC-G08-ubuntu-24.04-34818197573.tar.xz",
+    "bytes": 239540,
+    "sha256": "f6eb05801bfb8af0da1e26631bf80fcf38e3f789e2b554639504e05a1c628c34"
+  },
+  {
+    "id": "BC-G08-ubuntu-24.04-34821097368",
+    "file": "BC-G08-ubuntu-24.04-34821097368.tar.xz",
+    "bytes": 238764,
+    "sha256": "b196571222810f0ee43ab0c31230d00fcb81b86dac2ab3b83bba75b98a25f342"
+  },
+  {
+    "id": "BC-G08-windows-2022-34820390662",
+    "file": "BC-G08-windows-2022-34820390662.tar.xz",
+    "bytes": 1095424,
+    "sha256": "393627c13395614f7781ede05009027432fc8fde98ae5b0fe51b8aca59eb731f"
+  },
+  {
+    "id": "BC-G10-macos-15-34818197573",
+    "file": "BC-G10-macos-15-34818197573.tar.xz",
+    "bytes": 2948784,
+    "sha256": "5d92eff4175eaa4989f47c99be90f5ed9db21e71091e861ef5e1e5ea9d16bb89"
+  },
+  {
+    "id": "BC-G10-ubuntu-24.04-34818197573",
+    "file": "BC-G10-ubuntu-24.04-34818197573.tar.xz",
+    "bytes": 327400,
+    "sha256": "2f6ae4e274f090383fdea6fa09ce708a13958c987805ce31b1640a44341e0040"
+  },
+  {
+    "id": "BC-G10-ubuntu-24.04-34821164564",
+    "file": "BC-G10-ubuntu-24.04-34821164564.tar.xz",
+    "bytes": 614252,
+    "sha256": "fea5a2f66f42473f9b1b4a965c7ef2455a019a2f09b1f568f9c7c7397a251ba8"
+  },
+  {
+    "id": "BC-G10-windows-2022-34820695089",
+    "file": "BC-G10-windows-2022-34820695089.tar.xz",
+    "bytes": 1566456,
+    "sha256": "2d42e8d0ff100de0c8bd34296883811db6b034a0d0caf5d78918ec16f796adcd"
+  }
+]

@@ -1,0 +1,13 @@
+[loop] 启动 python 3.12.14 任务 G09 模型 gemini-3.5-flash
+[loop] mss / PIL 导入完成
+[loop] pyautogui 导入完成
+[loop] 屏幕 1280x900
+[loop] 平台 Linux 屏幕 1280x900 模型 gemini-3.5-flash 任务:Move only card PROJ-218 from Ready to Review by dragging it. Preserve 
+/home/runner/work/envshift-runner/envshift-runner/gui_agent_loop.py:42: DeprecationWarning: mss.mss is deprecated and will be removed in a future release; use mss.MSS instead
+  with mss.mss() as s:
+[loop] 第1步 {"action": "drag", "x": 155, "y": 554, "to_x": 583, "to_y": 701} → 从 (198, 499) 拖到 (746, 631)
+/home/runner/work/envshift-runner/envshift-runner/gui_agent_loop.py:42: DeprecationWarning: mss.mss is deprecated and will be removed in a future release; use mss.MSS instead
+  with mss.mss() as s:
+[loop] 第2步 {"action": "drag", "x": 463, "y": 498, "to_x": 742, "to_y": 630} → 从 (593, 448) 拖到 (950, 567)
+[loop] 第3步 模型认为完成:Card PROJ-218 has been successfully moved from Ready to Review via dragging whil
+LOOP-DONE steps=3 platform=Linux blind=0 channel_fail=none

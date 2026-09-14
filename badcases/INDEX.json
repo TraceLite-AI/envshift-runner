@@ -23,5 +23,923 @@
       }
     ],
     "description": "Repeated native file activation closed the chooser without selecting a file. A later trial switched to selecting the row then Open and completed. Underlying desktop/browser cause remains unproven."
+  },
+  {
+    "id": "BC-G05-ubuntu-24.04-34818197573",
+    "task": "G05",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G05",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "target_reconciled": false,
+        "other_invoice_unchanged": true,
+        "orders_unchanged": true
+      },
+      "state": {
+        "invoices": [
+          {
+            "id": "INV-040",
+            "supplier": "Nori",
+            "po": "PO-6040",
+            "total": "320.00",
+            "reference": "PO-6040",
+            "status": "Reconciled"
+          },
+          {
+            "id": "INV-044",
+            "supplier": "Nori",
+            "po": "PO-6041",
+            "total": "480.00",
+            "reference": "",
+            "status": "Draft"
+          }
+        ],
+        "orders": [
+          {
+            "id": "PO-6014",
+            "supplier": "Nori",
+            "quantity": 7,
+            "unit": "84.50",
+            "freight": "18.20",
+            "discount": "5.00"
+          },
+          {
+            "id": "PO-6040",
+            "supplier": "Nori",
+            "quantity": 4,
+            "unit": "80.00",
+            "freight": "0.00",
+            "discount": "0.00"
+          },
+          {
+            "id": "PO-6041",
+            "supplier": "Nori",
+            "quantity": 7,
+            "unit": "85.40",
+            "freight": "18.20",
+            "discount": "5.00"
+          }
+        ]
+      },
+      "audit": [],
+      "download_sha256": null,
+      "tool_version": "gui_native_v2",
+      "run_id": 34818197573,
+      "runner": "ubuntu-24.04",
+      "artifact_meta": "agent-first/gui-batch3-G05-ubuntu-24.04-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "click",
+        "x": 60,
+        "y": 22
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 0
+    },
+    "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "Purchase orders are visible. The agent alternates tabs, opens many duplicate order tabs, and never types the amount or submits.",
+      "candidate_explanation": "Cross-page facts are absent from the next model request unless encoded in an action; memory limitation is a hypothesis for the observed loop.",
+      "os_cause_proven": false
+    },
+    "diagnostic_recovery": {
+      "run": 34820793201,
+      "reward": 1,
+      "steps": 21,
+      "runner": "ubuntu-24.04",
+      "tool_version": "gui_native_v3_notebook",
+      "same_interface": false,
+      "note": "Single diagnostic recovery with a model-authored notebook; not an OS-cause or stability claim."
+    }
+  },
+  {
+    "id": "BC-G08-ubuntu-24.04-34818197573",
+    "task": "G08",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G08",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "live_profile": false,
+        "draft_cleared": true,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [],
+      "download_sha256": null,
+      "tool_version": "gui_native_v2",
+      "run_id": 34818197573,
+      "runner": "ubuntu-24.04",
+      "artifact_meta": "agent-first/gui-batch3-G08-ubuntu-24.04-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "click",
+        "x": 20,
+        "y": 70
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 0
+    },
+    "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "The agent opens the correct customer and draft editor, then repeatedly clicks Chrome Back and the app header. No draft or publication is posted.",
+      "candidate_explanation": "Facts from activity notes disappear when the editor is shown; SPA navigation does not add browser history. A notebook diagnostic can test the memory hypothesis.",
+      "os_cause_proven": false,
+      "notebook_observation": "Notebook-enabled trial 34821097368 never wrote a memory field. Its final notebook is empty; this does not test whether correctly used memory would solve the task."
+    }
+  },
+  {
+    "id": "BC-G10-ubuntu-24.04-34818197573",
+    "task": "G10",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G10",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": false,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": null
+      },
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "download_sha256": null,
+      "tool_version": "gui_native_v2",
+      "run_id": 34818197573,
+      "runner": "ubuntu-24.04",
+      "artifact_meta": "agent-first/gui-batch3-G10-ubuntu-24.04-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "scroll",
+        "x": 450,
+        "y": 550,
+        "dx": 0,
+        "dy": -5
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 0
+    },
+    "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "The agent repeatedly reads and scrolls the policy; it acknowledges twice but never posts an approval. Some scroll actions supply x/y, which v2 does not support.",
+      "candidate_explanation": "Pointer targeting and cross-dialog memory both require separate investigation.",
+      "os_cause_proven": false,
+      "notebook_observation": "In trial 34821164564, step 26 records Manager and EXP-7; step 27 replaces this with Select Approval route: Manager, dropping the reason code. It later returns to scrolling and never submits."
+    }
+  },
+  {
+    "id": "BC-G05-macos-15-34818197573",
+    "task": "G05",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G05",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "target_reconciled": false,
+        "other_invoice_unchanged": true,
+        "orders_unchanged": true
+      },
+      "state": {
+        "invoices": [
+          {
+            "id": "INV-040",
+            "supplier": "Nori",
+            "po": "PO-6040",
+            "total": "320.00",
+            "reference": "PO-6040",
+            "status": "Reconciled"
+          },
+          {
+            "id": "INV-044",
+            "supplier": "Nori",
+            "po": "PO-6041",
+            "total": "480.00",
+            "reference": "",
+            "status": "Draft"
+          }
+        ],
+        "orders": [
+          {
+            "id": "PO-6014",
+            "supplier": "Nori",
+            "quantity": 7,
+            "unit": "84.50",
+            "freight": "18.20",
+            "discount": "5.00"
+          },
+          {
+            "id": "PO-6040",
+            "supplier": "Nori",
+            "quantity": 4,
+            "unit": "80.00",
+            "freight": "0.00",
+            "discount": "0.00"
+          },
+          {
+            "id": "PO-6041",
+            "supplier": "Nori",
+            "quantity": 7,
+            "unit": "85.40",
+            "freight": "18.20",
+            "discount": "5.00"
+          }
+        ]
+      },
+      "audit": [],
+      "download_sha256": null,
+      "tool_version": "gui_native_v2",
+      "run_id": 34818197573,
+      "runner": "macos-15",
+      "artifact_meta": "agent-first/gui-batch3-G05-macos-15-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "click",
+        "x": 105,
+        "y": 331
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 0
+    },
+    "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "Purchase orders are visible. The agent alternates tabs, opens many duplicate order tabs, and never types the amount or submits.",
+      "candidate_explanation": "Cross-page facts are absent from the next model request unless encoded in an action; memory limitation is a hypothesis for the observed loop.",
+      "os_cause_proven": false
+    }
+  },
+  {
+    "id": "BC-G08-macos-15-34818197573",
+    "task": "G08",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G08",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "live_profile": false,
+        "draft_cleared": true,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [],
+      "download_sha256": null,
+      "tool_version": "gui_native_v2",
+      "run_id": 34818197573,
+      "runner": "macos-15",
+      "artifact_meta": "agent-first/gui-batch3-G08-macos-15-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "click",
+        "x": 23,
+        "y": 112
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 1
+    },
+    "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "The agent opens the correct customer and draft editor, then repeatedly clicks Chrome Back and the app header. No draft or publication is posted.",
+      "candidate_explanation": "Facts from activity notes disappear when the editor is shown; SPA navigation does not add browser history. A notebook diagnostic can test the memory hypothesis.",
+      "os_cause_proven": false,
+      "notebook_observation": "Notebook-enabled trial 34821097368 never wrote a memory field. Its final notebook is empty; this does not test whether correctly used memory would solve the task."
+    }
+  },
+  {
+    "id": "BC-G10-macos-15-34818197573",
+    "task": "G10",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G10",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": false,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": null
+      },
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "download_sha256": null,
+      "tool_version": "gui_native_v2",
+      "run_id": 34818197573,
+      "runner": "macos-15",
+      "artifact_meta": "agent-first/gui-batch3-G10-macos-15-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "scroll",
+        "x": 500,
+        "y": 550,
+        "dx": 0,
+        "dy": -20
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 0
+    },
+    "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "The agent repeatedly reads and scrolls the policy; it acknowledges twice but never posts an approval. Some scroll actions supply x/y, which v2 does not support.",
+      "candidate_explanation": "Pointer targeting and cross-dialog memory both require separate investigation.",
+      "os_cause_proven": false,
+      "notebook_observation": "In trial 34821164564, step 26 records Manager and EXP-7; step 27 replaces this with Select Approval route: Manager, dropping the reason code. It later returns to scrolling and never submits."
+    }
+  },
+  {
+    "id": "BC-G05-windows-2022-34820054650",
+    "task": "G05",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G05",
+      "platform": "Windows-2022Server-10.0.20348-SP0",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "target_reconciled": false,
+        "other_invoice_unchanged": true,
+        "orders_unchanged": true
+      },
+      "state": {
+        "invoices": [
+          {
+            "id": "INV-040",
+            "supplier": "Nori",
+            "po": "PO-6040",
+            "total": "320.00",
+            "reference": "PO-6040",
+            "status": "Reconciled"
+          },
+          {
+            "id": "INV-044",
+            "supplier": "Nori",
+            "po": "PO-6041",
+            "total": "480.00",
+            "reference": "",
+            "status": "Draft"
+          }
+        ],
+        "orders": [
+          {
+            "id": "PO-6014",
+            "supplier": "Nori",
+            "quantity": 7,
+            "unit": "84.50",
+            "freight": "18.20",
+            "discount": "5.00"
+          },
+          {
+            "id": "PO-6040",
+            "supplier": "Nori",
+            "quantity": 4,
+            "unit": "80.00",
+            "freight": "0.00",
+            "discount": "0.00"
+          },
+          {
+            "id": "PO-6041",
+            "supplier": "Nori",
+            "quantity": 7,
+            "unit": "85.40",
+            "freight": "18.20",
+            "discount": "5.00"
+          }
+        ]
+      },
+      "audit": [],
+      "download_sha256": null,
+      "tool_version": "gui_native_v2",
+      "run_id": 34820054650,
+      "runner": "windows-2022",
+      "artifact_meta": "agent-windows/G05/gui-batch3-G05-windows-2022-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "key",
+        "keys": [
+          "ctrl",
+          "tab"
+        ]
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 0
+    },
+    "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "Purchase orders are visible. The agent alternates tabs, opens many duplicate order tabs, and never types the amount or submits.",
+      "candidate_explanation": "Cross-page facts are absent from the next model request unless encoded in an action; memory limitation is a hypothesis for the observed loop.",
+      "os_cause_proven": false
+    }
+  },
+  {
+    "id": "BC-G08-windows-2022-34820390662",
+    "task": "G08",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G08",
+      "platform": "Windows-2022Server-10.0.20348-SP0",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "live_profile": false,
+        "draft_cleared": true,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [],
+      "download_sha256": null,
+      "tool_version": "gui_native_v2",
+      "run_id": 34820390662,
+      "runner": "windows-2022",
+      "artifact_meta": "agent-windows/G08/gui-batch3-G08-windows-2022-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "click",
+        "x": 28,
+        "y": 80
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 0
+    },
+    "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "The agent opens the correct customer and draft editor, then repeatedly clicks Chrome Back and the app header. No draft or publication is posted.",
+      "candidate_explanation": "Facts from activity notes disappear when the editor is shown; SPA navigation does not add browser history. A notebook diagnostic can test the memory hypothesis.",
+      "os_cause_proven": false,
+      "notebook_observation": "Notebook-enabled trial 34821097368 never wrote a memory field. Its final notebook is empty; this does not test whether correctly used memory would solve the task."
+    }
+  },
+  {
+    "id": "BC-G10-windows-2022-34820695089",
+    "task": "G10",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G10",
+      "platform": "Windows-2022Server-10.0.20348-SP0",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": false,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": null
+      },
+      "audit": [
+        {
+          "op": "ack"
+        }
+      ],
+      "download_sha256": null,
+      "tool_version": "gui_native_v2",
+      "run_id": 34820695089,
+      "runner": "windows-2022",
+      "artifact_meta": "agent-windows/G10/gui-batch3-G10-windows-2022-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "scroll",
+        "x": 510,
+        "y": 600,
+        "dx": 0,
+        "dy": -3
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 0
+    },
+    "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "The agent repeatedly reads and scrolls the policy; it acknowledges twice but never posts an approval. Some scroll actions supply x/y, which v2 does not support.",
+      "candidate_explanation": "Pointer targeting and cross-dialog memory both require separate investigation.",
+      "os_cause_proven": false,
+      "notebook_observation": "In trial 34821164564, step 26 records Manager and EXP-7; step 27 replaces this with Select Approval route: Manager, dropping the reason code. It later returns to scrolling and never submits."
+    }
+  },
+  {
+    "id": "BC-G08-ubuntu-24.04-34821097368",
+    "task": "G08",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G08",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "live_profile": false,
+        "draft_cleared": true,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [],
+      "download_sha256": null,
+      "tool_version": "gui_native_v3_notebook",
+      "run_id": 34821097368,
+      "runner": "ubuntu-24.04",
+      "artifact_meta": "agent-notebook/G08/gui-batch3-G08-ubuntu-24.04-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "click",
+        "x": 21,
+        "y": 69
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 0
+    },
+    "tested_commit": "08a52edc8bf58c286c4a6e51977ce65037c7cf39",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "The agent opens the correct customer and draft editor, then repeatedly clicks Chrome Back and the app header. No draft or publication is posted.",
+      "candidate_explanation": "Facts from activity notes disappear when the editor is shown; SPA navigation does not add browser history. A notebook diagnostic can test the memory hypothesis.",
+      "os_cause_proven": false,
+      "notebook_observation": "Notebook-enabled trial 34821097368 never wrote a memory field. Its final notebook is empty; this does not test whether correctly used memory would solve the task."
+    }
+  },
+  {
+    "id": "BC-G10-ubuntu-24.04-34821164564",
+    "task": "G10",
+    "model": "gemini-3.5-flash",
+    "classification": "unfinished_or_incorrect_delivery",
+    "stable_os_failure_proven": false,
+    "failure": {
+      "arm": "agent",
+      "task": "G10",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": false,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": null
+      },
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "download_sha256": null,
+      "tool_version": "gui_native_v3_notebook",
+      "run_id": 34821164564,
+      "runner": "ubuntu-24.04",
+      "artifact_meta": "agent-notebook/G10/gui-batch3-G10-ubuntu-24.04-agent/meta.json",
+      "protocol_valid": true,
+      "last_action": {
+        "action": "scroll",
+        "x": 465,
+        "y": 600,
+        "dx": 0,
+        "dy": -10
+      },
+      "classification": "unfinished_or_incorrect_delivery",
+      "execution_errors": [],
+      "parse_errors": 0
+    },
+    "tested_commit": "08a52edc8bf58c286c4a6e51977ce65037c7cf39",
+    "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+    "silent_wrong_result": false,
+    "action_budget_exhausted": true,
+    "review_notes": {
+      "observation": "The agent repeatedly reads and scrolls the policy; it acknowledges twice but never posts an approval. Some scroll actions supply x/y, which v2 does not support.",
+      "candidate_explanation": "Pointer targeting and cross-dialog memory both require separate investigation.",
+      "os_cause_proven": false,
+      "notebook_observation": "In trial 34821164564, step 26 records Manager and EXP-7; step 27 replaces this with Select Approval route: Manager, dropping the reason code. It later returns to scrolling and never submits."
+    }
   }
 ]

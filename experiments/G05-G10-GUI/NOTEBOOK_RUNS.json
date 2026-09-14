@@ -1,0 +1,17 @@
+[
+  {
+    "task": "G05",
+    "run": 34820793201,
+    "commit": "08a52edc8bf58c286c4a6e51977ce65037c7cf39"
+  },
+  {
+    "task": "G08",
+    "run": 34821097368,
+    "commit": "08a52edc8bf58c286c4a6e51977ce65037c7cf39"
+  },
+  {
+    "task": "G10",
+    "run": 34821164564,
+    "commit": "08a52edc8bf58c286c4a6e51977ce65037c7cf39"
+  }
+]

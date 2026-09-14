@@ -1,0 +1,19 @@
+{
+  "G05": {
+    "observation": "Purchase orders are visible. The agent alternates tabs, opens many duplicate order tabs, and never types the amount or submits.",
+    "candidate_explanation": "Cross-page facts are absent from the next model request unless encoded in an action; memory limitation is a hypothesis for the observed loop.",
+    "os_cause_proven": false
+  },
+  "G08": {
+    "observation": "The agent opens the correct customer and draft editor, then repeatedly clicks Chrome Back and the app header. No draft or publication is posted.",
+    "candidate_explanation": "Facts from activity notes disappear when the editor is shown; SPA navigation does not add browser history. A notebook diagnostic can test the memory hypothesis.",
+    "os_cause_proven": false,
+    "notebook_observation": "Notebook-enabled trial 34821097368 never wrote a memory field. Its final notebook is empty; this does not test whether correctly used memory would solve the task."
+  },
+  "G10": {
+    "observation": "The agent repeatedly reads and scrolls the policy; it acknowledges twice but never posts an approval. Some scroll actions supply x/y, which v2 does not support.",
+    "candidate_explanation": "Pointer targeting and cross-dialog memory both require separate investigation.",
+    "os_cause_proven": false,
+    "notebook_observation": "In trial 34821164564, step 26 records Manager and EXP-7; step 27 replaces this with Select Approval route: Manager, dropping the reason code. It later returns to scrolling and never submits."
+  }
+}

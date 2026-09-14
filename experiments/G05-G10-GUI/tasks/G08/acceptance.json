@@ -1,0 +1,14 @@
+{
+  "target": "C-71 / sam.lee@cedar.example",
+  "live": {
+    "street": "27 Maasstraat",
+    "city": "Rotterdam",
+    "postal": "3011 AA",
+    "contact": "Email"
+  },
+  "draft": null,
+  "unchanged": [
+    "target identity and notes",
+    "C-72"
+  ]
+}

@@ -1,0 +1,2856 @@
+[
+  {
+    "arm": "control",
+    "task": "G05",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "target_reconciled": true,
+          "other_invoice_unchanged": true,
+          "orders_unchanged": true
+        },
+        "state": {
+          "invoices": [
+            {
+              "id": "INV-040",
+              "supplier": "Nori",
+              "po": "PO-6040",
+              "total": "320.00",
+              "reference": "PO-6040",
+              "status": "Reconciled"
+            },
+            {
+              "id": "INV-044",
+              "supplier": "Nori",
+              "po": "PO-6041",
+              "total": "611.00",
+              "reference": "PO-6041",
+              "status": "Reconciled"
+            }
+          ],
+          "orders": [
+            {
+              "id": "PO-6014",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "84.50",
+              "freight": "18.20",
+              "discount": "5.00"
+            },
+            {
+              "id": "PO-6040",
+              "supplier": "Nori",
+              "quantity": 4,
+              "unit": "80.00",
+              "freight": "0.00",
+              "discount": "0.00"
+            },
+            {
+              "id": "PO-6041",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "85.40",
+              "freight": "18.20",
+              "discount": "5.00"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "reconcile",
+            "id": "INV-044",
+            "total": "611.00",
+            "reference": "PO-6041"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "target_reconciled": false,
+          "other_invoice_unchanged": true,
+          "orders_unchanged": true
+        },
+        "state": {
+          "invoices": [
+            {
+              "id": "INV-040",
+              "supplier": "Nori",
+              "po": "PO-6040",
+              "total": "320.00",
+              "reference": "PO-6040",
+              "status": "Reconciled"
+            },
+            {
+              "id": "INV-044",
+              "supplier": "Nori",
+              "po": "PO-6041",
+              "total": "604.70",
+              "reference": "PO-6041",
+              "status": "Reconciled"
+            }
+          ],
+          "orders": [
+            {
+              "id": "PO-6014",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "84.50",
+              "freight": "18.20",
+              "discount": "5.00"
+            },
+            {
+              "id": "PO-6040",
+              "supplier": "Nori",
+              "quantity": 4,
+              "unit": "80.00",
+              "freight": "0.00",
+              "discount": "0.00"
+            },
+            {
+              "id": "PO-6041",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "85.40",
+              "freight": "18.20",
+              "discount": "5.00"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "reconcile",
+            "id": "INV-044",
+            "total": "604.70",
+            "reference": "PO-6041"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G05-macos-15-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G05",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "target_reconciled": true,
+          "other_invoice_unchanged": true,
+          "orders_unchanged": true
+        },
+        "state": {
+          "invoices": [
+            {
+              "id": "INV-040",
+              "supplier": "Nori",
+              "po": "PO-6040",
+              "total": "320.00",
+              "reference": "PO-6040",
+              "status": "Reconciled"
+            },
+            {
+              "id": "INV-044",
+              "supplier": "Nori",
+              "po": "PO-6041",
+              "total": "611.00",
+              "reference": "PO-6041",
+              "status": "Reconciled"
+            }
+          ],
+          "orders": [
+            {
+              "id": "PO-6014",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "84.50",
+              "freight": "18.20",
+              "discount": "5.00"
+            },
+            {
+              "id": "PO-6040",
+              "supplier": "Nori",
+              "quantity": 4,
+              "unit": "80.00",
+              "freight": "0.00",
+              "discount": "0.00"
+            },
+            {
+              "id": "PO-6041",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "85.40",
+              "freight": "18.20",
+              "discount": "5.00"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "reconcile",
+            "id": "INV-044",
+            "total": "611.00",
+            "reference": "PO-6041"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "target_reconciled": false,
+          "other_invoice_unchanged": true,
+          "orders_unchanged": true
+        },
+        "state": {
+          "invoices": [
+            {
+              "id": "INV-040",
+              "supplier": "Nori",
+              "po": "PO-6040",
+              "total": "320.00",
+              "reference": "PO-6040",
+              "status": "Reconciled"
+            },
+            {
+              "id": "INV-044",
+              "supplier": "Nori",
+              "po": "PO-6041",
+              "total": "604.70",
+              "reference": "PO-6041",
+              "status": "Reconciled"
+            }
+          ],
+          "orders": [
+            {
+              "id": "PO-6014",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "84.50",
+              "freight": "18.20",
+              "discount": "5.00"
+            },
+            {
+              "id": "PO-6040",
+              "supplier": "Nori",
+              "quantity": 4,
+              "unit": "80.00",
+              "freight": "0.00",
+              "discount": "0.00"
+            },
+            {
+              "id": "PO-6041",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "85.40",
+              "freight": "18.20",
+              "discount": "5.00"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "reconcile",
+            "id": "INV-044",
+            "total": "604.70",
+            "reference": "PO-6041"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G05-ubuntu-24.04-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G05",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "target_reconciled": true,
+          "other_invoice_unchanged": true,
+          "orders_unchanged": true
+        },
+        "state": {
+          "invoices": [
+            {
+              "id": "INV-040",
+              "supplier": "Nori",
+              "po": "PO-6040",
+              "total": "320.00",
+              "reference": "PO-6040",
+              "status": "Reconciled"
+            },
+            {
+              "id": "INV-044",
+              "supplier": "Nori",
+              "po": "PO-6041",
+              "total": "611.00",
+              "reference": "PO-6041",
+              "status": "Reconciled"
+            }
+          ],
+          "orders": [
+            {
+              "id": "PO-6014",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "84.50",
+              "freight": "18.20",
+              "discount": "5.00"
+            },
+            {
+              "id": "PO-6040",
+              "supplier": "Nori",
+              "quantity": 4,
+              "unit": "80.00",
+              "freight": "0.00",
+              "discount": "0.00"
+            },
+            {
+              "id": "PO-6041",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "85.40",
+              "freight": "18.20",
+              "discount": "5.00"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "reconcile",
+            "id": "INV-044",
+            "total": "611.00",
+            "reference": "PO-6041"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "target_reconciled": false,
+          "other_invoice_unchanged": true,
+          "orders_unchanged": true
+        },
+        "state": {
+          "invoices": [
+            {
+              "id": "INV-040",
+              "supplier": "Nori",
+              "po": "PO-6040",
+              "total": "320.00",
+              "reference": "PO-6040",
+              "status": "Reconciled"
+            },
+            {
+              "id": "INV-044",
+              "supplier": "Nori",
+              "po": "PO-6041",
+              "total": "604.70",
+              "reference": "PO-6041",
+              "status": "Reconciled"
+            }
+          ],
+          "orders": [
+            {
+              "id": "PO-6014",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "84.50",
+              "freight": "18.20",
+              "discount": "5.00"
+            },
+            {
+              "id": "PO-6040",
+              "supplier": "Nori",
+              "quantity": 4,
+              "unit": "80.00",
+              "freight": "0.00",
+              "discount": "0.00"
+            },
+            {
+              "id": "PO-6041",
+              "supplier": "Nori",
+              "quantity": 7,
+              "unit": "85.40",
+              "freight": "18.20",
+              "discount": "5.00"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "reconcile",
+            "id": "INV-044",
+            "total": "604.70",
+            "reference": "PO-6041"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G05-windows-2022-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G06",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "T-290": true,
+          "T-301": true,
+          "T-302": true,
+          "T-303": true,
+          "T-304": true,
+          "T-305": true,
+          "T-306": true,
+          "T-307": true,
+          "T-308": true
+        },
+        "state": {
+          "tickets": [
+            {
+              "id": "T-290",
+              "customer": "Maple",
+              "status": "Closed",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-301",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-302",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Low",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-303",
+              "customer": "Maple",
+              "status": "Open",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-304",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-305",
+              "customer": "Cedar",
+              "status": "Closed",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-306",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-307",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Normal",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-308",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "bulk",
+            "ids": [
+              "T-301",
+              "T-304",
+              "T-306",
+              "T-308"
+            ],
+            "owner": "Mina",
+            "status": "Queued",
+            "tag": "Reviewed"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "T-290": false,
+          "T-301": true,
+          "T-302": true,
+          "T-303": true,
+          "T-304": true,
+          "T-305": true,
+          "T-306": true,
+          "T-307": true,
+          "T-308": true
+        },
+        "state": {
+          "tickets": [
+            {
+              "id": "T-290",
+              "customer": "Maple",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-301",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-302",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Low",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-303",
+              "customer": "Maple",
+              "status": "Open",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-304",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-305",
+              "customer": "Cedar",
+              "status": "Closed",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-306",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-307",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Normal",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-308",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "bulk",
+            "ids": [
+              "T-290",
+              "T-301",
+              "T-304",
+              "T-306",
+              "T-308"
+            ],
+            "owner": "Mina",
+            "status": "Queued",
+            "tag": "Reviewed"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G06-macos-15-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G06",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "T-290": true,
+          "T-301": true,
+          "T-302": true,
+          "T-303": true,
+          "T-304": true,
+          "T-305": true,
+          "T-306": true,
+          "T-307": true,
+          "T-308": true
+        },
+        "state": {
+          "tickets": [
+            {
+              "id": "T-290",
+              "customer": "Maple",
+              "status": "Closed",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-301",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-302",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Low",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-303",
+              "customer": "Maple",
+              "status": "Open",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-304",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-305",
+              "customer": "Cedar",
+              "status": "Closed",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-306",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-307",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Normal",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-308",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "bulk",
+            "ids": [
+              "T-301",
+              "T-304",
+              "T-306",
+              "T-308"
+            ],
+            "owner": "Mina",
+            "status": "Queued",
+            "tag": "Reviewed"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "T-290": false,
+          "T-301": true,
+          "T-302": true,
+          "T-303": true,
+          "T-304": true,
+          "T-305": true,
+          "T-306": true,
+          "T-307": true,
+          "T-308": true
+        },
+        "state": {
+          "tickets": [
+            {
+              "id": "T-290",
+              "customer": "Maple",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-301",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-302",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Low",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-303",
+              "customer": "Maple",
+              "status": "Open",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-304",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-305",
+              "customer": "Cedar",
+              "status": "Closed",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-306",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-307",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Normal",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-308",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "bulk",
+            "ids": [
+              "T-290",
+              "T-301",
+              "T-304",
+              "T-306",
+              "T-308"
+            ],
+            "owner": "Mina",
+            "status": "Queued",
+            "tag": "Reviewed"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G06-ubuntu-24.04-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G06",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "T-290": true,
+          "T-301": true,
+          "T-302": true,
+          "T-303": true,
+          "T-304": true,
+          "T-305": true,
+          "T-306": true,
+          "T-307": true,
+          "T-308": true
+        },
+        "state": {
+          "tickets": [
+            {
+              "id": "T-290",
+              "customer": "Maple",
+              "status": "Closed",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-301",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-302",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Low",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-303",
+              "customer": "Maple",
+              "status": "Open",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-304",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-305",
+              "customer": "Cedar",
+              "status": "Closed",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-306",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-307",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Normal",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-308",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "bulk",
+            "ids": [
+              "T-301",
+              "T-304",
+              "T-306",
+              "T-308"
+            ],
+            "owner": "Mina",
+            "status": "Queued",
+            "tag": "Reviewed"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "T-290": false,
+          "T-301": true,
+          "T-302": true,
+          "T-303": true,
+          "T-304": true,
+          "T-305": true,
+          "T-306": true,
+          "T-307": true,
+          "T-308": true
+        },
+        "state": {
+          "tickets": [
+            {
+              "id": "T-290",
+              "customer": "Maple",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-301",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-302",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Low",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-303",
+              "customer": "Maple",
+              "status": "Open",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-304",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-305",
+              "customer": "Cedar",
+              "status": "Closed",
+              "priority": "High",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-306",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            },
+            {
+              "id": "T-307",
+              "customer": "Cedar",
+              "status": "Open",
+              "priority": "Normal",
+              "owner": "Leo",
+              "tags": []
+            },
+            {
+              "id": "T-308",
+              "customer": "Cedar",
+              "status": "Queued",
+              "priority": "High",
+              "owner": "Mina",
+              "tags": [
+                "Reviewed"
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "bulk",
+            "ids": [
+              "T-290",
+              "T-301",
+              "T-304",
+              "T-306",
+              "T-308"
+            ],
+            "owner": "Mina",
+            "status": "Queued",
+            "tag": "Reviewed"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G06-windows-2022-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G07",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "download_exists": true,
+          "exact_records": true,
+          "expenses_unchanged": true
+        },
+        "state": {
+          "expenses": [
+            {
+              "id": "E-101",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "63.00"
+            },
+            {
+              "id": "E-102",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "76.00"
+            },
+            {
+              "id": "E-103",
+              "month": "2026-09",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "89.00"
+            },
+            {
+              "id": "E-104",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "102.00"
+            },
+            {
+              "id": "E-105",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "115.00"
+            },
+            {
+              "id": "E-106",
+              "month": "2026-08",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "128.00"
+            },
+            {
+              "id": "E-107",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "141.00"
+            },
+            {
+              "id": "E-108",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "154.00"
+            },
+            {
+              "id": "E-109",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "167.00"
+            },
+            {
+              "id": "E-110",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "180.00"
+            },
+            {
+              "id": "E-111",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "193.00"
+            },
+            {
+              "id": "E-112",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "206.00"
+            }
+          ],
+          "exports": [
+            [
+              "E-101",
+              "E-107",
+              "E-109",
+              "E-112"
+            ]
+          ]
+        },
+        "audit": [
+          {
+            "op": "export",
+            "ids": [
+              "E-101",
+              "E-107",
+              "E-109",
+              "E-112"
+            ]
+          }
+        ],
+        "download_sha256": "dbcd3cb422a4bd2d3328a062b545366f22ae2b1f32945565f311c6bbeb2b6397",
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "download_exists": true,
+          "exact_records": false,
+          "expenses_unchanged": true
+        },
+        "state": {
+          "expenses": [
+            {
+              "id": "E-101",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "63.00"
+            },
+            {
+              "id": "E-102",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "76.00"
+            },
+            {
+              "id": "E-103",
+              "month": "2026-09",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "89.00"
+            },
+            {
+              "id": "E-104",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "102.00"
+            },
+            {
+              "id": "E-105",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "115.00"
+            },
+            {
+              "id": "E-106",
+              "month": "2026-08",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "128.00"
+            },
+            {
+              "id": "E-107",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "141.00"
+            },
+            {
+              "id": "E-108",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "154.00"
+            },
+            {
+              "id": "E-109",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "167.00"
+            },
+            {
+              "id": "E-110",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "180.00"
+            },
+            {
+              "id": "E-111",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "193.00"
+            },
+            {
+              "id": "E-112",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "206.00"
+            }
+          ],
+          "exports": [
+            [
+              "E-101",
+              "E-107",
+              "E-109"
+            ]
+          ]
+        },
+        "audit": [
+          {
+            "op": "export",
+            "ids": [
+              "E-101",
+              "E-107",
+              "E-109"
+            ]
+          }
+        ],
+        "download_sha256": "0ceea0d047cd4856cd9aef99adea6951a4fd1bf1a614e0b34f28b084065405cb",
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G07-macos-15-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G07",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "download_exists": true,
+          "exact_records": true,
+          "expenses_unchanged": true
+        },
+        "state": {
+          "expenses": [
+            {
+              "id": "E-101",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "63.00"
+            },
+            {
+              "id": "E-102",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "76.00"
+            },
+            {
+              "id": "E-103",
+              "month": "2026-09",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "89.00"
+            },
+            {
+              "id": "E-104",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "102.00"
+            },
+            {
+              "id": "E-105",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "115.00"
+            },
+            {
+              "id": "E-106",
+              "month": "2026-08",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "128.00"
+            },
+            {
+              "id": "E-107",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "141.00"
+            },
+            {
+              "id": "E-108",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "154.00"
+            },
+            {
+              "id": "E-109",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "167.00"
+            },
+            {
+              "id": "E-110",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "180.00"
+            },
+            {
+              "id": "E-111",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "193.00"
+            },
+            {
+              "id": "E-112",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "206.00"
+            }
+          ],
+          "exports": [
+            [
+              "E-101",
+              "E-107",
+              "E-109",
+              "E-112"
+            ]
+          ]
+        },
+        "audit": [
+          {
+            "op": "export",
+            "ids": [
+              "E-101",
+              "E-107",
+              "E-109",
+              "E-112"
+            ]
+          }
+        ],
+        "download_sha256": "dbcd3cb422a4bd2d3328a062b545366f22ae2b1f32945565f311c6bbeb2b6397",
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "download_exists": true,
+          "exact_records": false,
+          "expenses_unchanged": true
+        },
+        "state": {
+          "expenses": [
+            {
+              "id": "E-101",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "63.00"
+            },
+            {
+              "id": "E-102",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "76.00"
+            },
+            {
+              "id": "E-103",
+              "month": "2026-09",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "89.00"
+            },
+            {
+              "id": "E-104",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "102.00"
+            },
+            {
+              "id": "E-105",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "115.00"
+            },
+            {
+              "id": "E-106",
+              "month": "2026-08",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "128.00"
+            },
+            {
+              "id": "E-107",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "141.00"
+            },
+            {
+              "id": "E-108",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "154.00"
+            },
+            {
+              "id": "E-109",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "167.00"
+            },
+            {
+              "id": "E-110",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "180.00"
+            },
+            {
+              "id": "E-111",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "193.00"
+            },
+            {
+              "id": "E-112",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "206.00"
+            }
+          ],
+          "exports": [
+            [
+              "E-101",
+              "E-107",
+              "E-109"
+            ]
+          ]
+        },
+        "audit": [
+          {
+            "op": "export",
+            "ids": [
+              "E-101",
+              "E-107",
+              "E-109"
+            ]
+          }
+        ],
+        "download_sha256": "0ceea0d047cd4856cd9aef99adea6951a4fd1bf1a614e0b34f28b084065405cb",
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G07-ubuntu-24.04-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G07",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "download_exists": true,
+          "exact_records": true,
+          "expenses_unchanged": true
+        },
+        "state": {
+          "expenses": [
+            {
+              "id": "E-101",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "63.00"
+            },
+            {
+              "id": "E-102",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "76.00"
+            },
+            {
+              "id": "E-103",
+              "month": "2026-09",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "89.00"
+            },
+            {
+              "id": "E-104",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "102.00"
+            },
+            {
+              "id": "E-105",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "115.00"
+            },
+            {
+              "id": "E-106",
+              "month": "2026-08",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "128.00"
+            },
+            {
+              "id": "E-107",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "141.00"
+            },
+            {
+              "id": "E-108",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "154.00"
+            },
+            {
+              "id": "E-109",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "167.00"
+            },
+            {
+              "id": "E-110",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "180.00"
+            },
+            {
+              "id": "E-111",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "193.00"
+            },
+            {
+              "id": "E-112",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "206.00"
+            }
+          ],
+          "exports": [
+            [
+              "E-101",
+              "E-107",
+              "E-109",
+              "E-112"
+            ]
+          ]
+        },
+        "audit": [
+          {
+            "op": "export",
+            "ids": [
+              "E-101",
+              "E-107",
+              "E-109",
+              "E-112"
+            ]
+          }
+        ],
+        "download_sha256": "dbcd3cb422a4bd2d3328a062b545366f22ae2b1f32945565f311c6bbeb2b6397",
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "download_exists": true,
+          "exact_records": false,
+          "expenses_unchanged": true
+        },
+        "state": {
+          "expenses": [
+            {
+              "id": "E-101",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "63.00"
+            },
+            {
+              "id": "E-102",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "76.00"
+            },
+            {
+              "id": "E-103",
+              "month": "2026-09",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "89.00"
+            },
+            {
+              "id": "E-104",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "102.00"
+            },
+            {
+              "id": "E-105",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "115.00"
+            },
+            {
+              "id": "E-106",
+              "month": "2026-08",
+              "status": "Pending",
+              "department": "Sales",
+              "amount": "128.00"
+            },
+            {
+              "id": "E-107",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "141.00"
+            },
+            {
+              "id": "E-108",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "154.00"
+            },
+            {
+              "id": "E-109",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "167.00"
+            },
+            {
+              "id": "E-110",
+              "month": "2026-08",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "180.00"
+            },
+            {
+              "id": "E-111",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Sales",
+              "amount": "193.00"
+            },
+            {
+              "id": "E-112",
+              "month": "2026-09",
+              "status": "Approved",
+              "department": "Ops",
+              "amount": "206.00"
+            }
+          ],
+          "exports": [
+            [
+              "E-101",
+              "E-107",
+              "E-109"
+            ]
+          ]
+        },
+        "audit": [
+          {
+            "op": "export",
+            "ids": [
+              "E-101",
+              "E-107",
+              "E-109"
+            ]
+          }
+        ],
+        "download_sha256": "0ceea0d047cd4856cd9aef99adea6951a4fd1bf1a614e0b34f28b084065405cb",
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G07-windows-2022-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G08",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "live_profile": true,
+          "draft_cleared": true,
+          "identity_and_notes_unchanged": true,
+          "other_customer_unchanged": true
+        },
+        "state": {
+          "customers": [
+            {
+              "id": "C-71",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar.example",
+              "live": {
+                "street": "27 Maasstraat",
+                "city": "Rotterdam",
+                "postal": "3011 AA",
+                "contact": "Email"
+              },
+              "draft": null,
+              "notes": [
+                "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+                "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+              ]
+            },
+            {
+              "id": "C-72",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar-logistics.example",
+              "live": {
+                "street": "4 West Road",
+                "city": "Utrecht",
+                "postal": "3511 CD",
+                "contact": "Phone"
+              },
+              "draft": null,
+              "notes": [
+                "2026-09-10: No requested changes."
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "draft",
+            "id": "C-71",
+            "street": "27 Maasstraat",
+            "city": "Rotterdam",
+            "postal": "3011 AA",
+            "contact": "Email"
+          },
+          {
+            "op": "publish",
+            "id": "C-71"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "live_profile": false,
+          "draft_cleared": false,
+          "identity_and_notes_unchanged": true,
+          "other_customer_unchanged": true
+        },
+        "state": {
+          "customers": [
+            {
+              "id": "C-71",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar.example",
+              "live": {
+                "street": "8 Keizersgracht",
+                "city": "Amsterdam",
+                "postal": "1011 AB",
+                "contact": "Phone"
+              },
+              "draft": {
+                "street": "27 Maasstraat",
+                "city": "Rotterdam",
+                "postal": "3011 AA",
+                "contact": "Email"
+              },
+              "notes": [
+                "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+                "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+              ]
+            },
+            {
+              "id": "C-72",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar-logistics.example",
+              "live": {
+                "street": "4 West Road",
+                "city": "Utrecht",
+                "postal": "3511 CD",
+                "contact": "Phone"
+              },
+              "draft": null,
+              "notes": [
+                "2026-09-10: No requested changes."
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "draft",
+            "id": "C-71",
+            "street": "27 Maasstraat",
+            "city": "Rotterdam",
+            "postal": "3011 AA",
+            "contact": "Email"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G08-macos-15-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G08",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "live_profile": true,
+          "draft_cleared": true,
+          "identity_and_notes_unchanged": true,
+          "other_customer_unchanged": true
+        },
+        "state": {
+          "customers": [
+            {
+              "id": "C-71",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar.example",
+              "live": {
+                "street": "27 Maasstraat",
+                "city": "Rotterdam",
+                "postal": "3011 AA",
+                "contact": "Email"
+              },
+              "draft": null,
+              "notes": [
+                "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+                "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+              ]
+            },
+            {
+              "id": "C-72",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar-logistics.example",
+              "live": {
+                "street": "4 West Road",
+                "city": "Utrecht",
+                "postal": "3511 CD",
+                "contact": "Phone"
+              },
+              "draft": null,
+              "notes": [
+                "2026-09-10: No requested changes."
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "draft",
+            "id": "C-71",
+            "street": "27 Maasstraat",
+            "city": "Rotterdam",
+            "postal": "3011 AA",
+            "contact": "Email"
+          },
+          {
+            "op": "publish",
+            "id": "C-71"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "live_profile": false,
+          "draft_cleared": false,
+          "identity_and_notes_unchanged": true,
+          "other_customer_unchanged": true
+        },
+        "state": {
+          "customers": [
+            {
+              "id": "C-71",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar.example",
+              "live": {
+                "street": "8 Keizersgracht",
+                "city": "Amsterdam",
+                "postal": "1011 AB",
+                "contact": "Phone"
+              },
+              "draft": {
+                "street": "27 Maasstraat",
+                "city": "Rotterdam",
+                "postal": "3011 AA",
+                "contact": "Email"
+              },
+              "notes": [
+                "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+                "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+              ]
+            },
+            {
+              "id": "C-72",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar-logistics.example",
+              "live": {
+                "street": "4 West Road",
+                "city": "Utrecht",
+                "postal": "3511 CD",
+                "contact": "Phone"
+              },
+              "draft": null,
+              "notes": [
+                "2026-09-10: No requested changes."
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "draft",
+            "id": "C-71",
+            "street": "27 Maasstraat",
+            "city": "Rotterdam",
+            "postal": "3011 AA",
+            "contact": "Email"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G08-ubuntu-24.04-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G08",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "live_profile": true,
+          "draft_cleared": true,
+          "identity_and_notes_unchanged": true,
+          "other_customer_unchanged": true
+        },
+        "state": {
+          "customers": [
+            {
+              "id": "C-71",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar.example",
+              "live": {
+                "street": "27 Maasstraat",
+                "city": "Rotterdam",
+                "postal": "3011 AA",
+                "contact": "Email"
+              },
+              "draft": null,
+              "notes": [
+                "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+                "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+              ]
+            },
+            {
+              "id": "C-72",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar-logistics.example",
+              "live": {
+                "street": "4 West Road",
+                "city": "Utrecht",
+                "postal": "3511 CD",
+                "contact": "Phone"
+              },
+              "draft": null,
+              "notes": [
+                "2026-09-10: No requested changes."
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "draft",
+            "id": "C-71",
+            "street": "27 Maasstraat",
+            "city": "Rotterdam",
+            "postal": "3011 AA",
+            "contact": "Email"
+          },
+          {
+            "op": "publish",
+            "id": "C-71"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "live_profile": false,
+          "draft_cleared": false,
+          "identity_and_notes_unchanged": true,
+          "other_customer_unchanged": true
+        },
+        "state": {
+          "customers": [
+            {
+              "id": "C-71",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar.example",
+              "live": {
+                "street": "8 Keizersgracht",
+                "city": "Amsterdam",
+                "postal": "1011 AB",
+                "contact": "Phone"
+              },
+              "draft": {
+                "street": "27 Maasstraat",
+                "city": "Rotterdam",
+                "postal": "3011 AA",
+                "contact": "Email"
+              },
+              "notes": [
+                "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+                "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+              ]
+            },
+            {
+              "id": "C-72",
+              "name": "Sam Lee",
+              "email": "sam.lee@cedar-logistics.example",
+              "live": {
+                "street": "4 West Road",
+                "city": "Utrecht",
+                "postal": "3511 CD",
+                "contact": "Phone"
+              },
+              "draft": null,
+              "notes": [
+                "2026-09-10: No requested changes."
+              ]
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "draft",
+            "id": "C-71",
+            "street": "27 Maasstraat",
+            "city": "Rotterdam",
+            "postal": "3011 AA",
+            "contact": "Email"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G08-windows-2022-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G09",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "PROJ-218": true,
+          "PROJ-281": true,
+          "PROJ-203": true,
+          "PROJ-211": true
+        },
+        "state": {
+          "cards": [
+            {
+              "id": "PROJ-218",
+              "title": "Review supplier agreement",
+              "column": "Review",
+              "assignee": "Mina",
+              "due": "2026-09-18"
+            },
+            {
+              "id": "PROJ-281",
+              "title": "Review supplier agreement",
+              "column": "Ready",
+              "assignee": "Leo",
+              "due": "2026-09-19"
+            },
+            {
+              "id": "PROJ-203",
+              "title": "Prepare vendor summary",
+              "column": "Doing",
+              "assignee": "Mina",
+              "due": "2026-09-20"
+            },
+            {
+              "id": "PROJ-211",
+              "title": "Confirm tax details",
+              "column": "Review",
+              "assignee": "Ivo",
+              "due": "2026-09-17"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "move",
+            "id": "PROJ-218",
+            "column": "Review"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "PROJ-218": false,
+          "PROJ-281": false,
+          "PROJ-203": true,
+          "PROJ-211": true
+        },
+        "state": {
+          "cards": [
+            {
+              "id": "PROJ-218",
+              "title": "Review supplier agreement",
+              "column": "Ready",
+              "assignee": "Mina",
+              "due": "2026-09-18"
+            },
+            {
+              "id": "PROJ-281",
+              "title": "Review supplier agreement",
+              "column": "Review",
+              "assignee": "Leo",
+              "due": "2026-09-19"
+            },
+            {
+              "id": "PROJ-203",
+              "title": "Prepare vendor summary",
+              "column": "Doing",
+              "assignee": "Mina",
+              "due": "2026-09-20"
+            },
+            {
+              "id": "PROJ-211",
+              "title": "Confirm tax details",
+              "column": "Review",
+              "assignee": "Ivo",
+              "due": "2026-09-17"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "move",
+            "id": "PROJ-281",
+            "column": "Review"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G09-macos-15-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G09",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "PROJ-218": true,
+          "PROJ-281": true,
+          "PROJ-203": true,
+          "PROJ-211": true
+        },
+        "state": {
+          "cards": [
+            {
+              "id": "PROJ-218",
+              "title": "Review supplier agreement",
+              "column": "Review",
+              "assignee": "Mina",
+              "due": "2026-09-18"
+            },
+            {
+              "id": "PROJ-281",
+              "title": "Review supplier agreement",
+              "column": "Ready",
+              "assignee": "Leo",
+              "due": "2026-09-19"
+            },
+            {
+              "id": "PROJ-203",
+              "title": "Prepare vendor summary",
+              "column": "Doing",
+              "assignee": "Mina",
+              "due": "2026-09-20"
+            },
+            {
+              "id": "PROJ-211",
+              "title": "Confirm tax details",
+              "column": "Review",
+              "assignee": "Ivo",
+              "due": "2026-09-17"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "move",
+            "id": "PROJ-218",
+            "column": "Review"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "PROJ-218": false,
+          "PROJ-281": false,
+          "PROJ-203": true,
+          "PROJ-211": true
+        },
+        "state": {
+          "cards": [
+            {
+              "id": "PROJ-218",
+              "title": "Review supplier agreement",
+              "column": "Ready",
+              "assignee": "Mina",
+              "due": "2026-09-18"
+            },
+            {
+              "id": "PROJ-281",
+              "title": "Review supplier agreement",
+              "column": "Review",
+              "assignee": "Leo",
+              "due": "2026-09-19"
+            },
+            {
+              "id": "PROJ-203",
+              "title": "Prepare vendor summary",
+              "column": "Doing",
+              "assignee": "Mina",
+              "due": "2026-09-20"
+            },
+            {
+              "id": "PROJ-211",
+              "title": "Confirm tax details",
+              "column": "Review",
+              "assignee": "Ivo",
+              "due": "2026-09-17"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "move",
+            "id": "PROJ-281",
+            "column": "Review"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G09-ubuntu-24.04-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G09",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "PROJ-218": true,
+          "PROJ-281": true,
+          "PROJ-203": true,
+          "PROJ-211": true
+        },
+        "state": {
+          "cards": [
+            {
+              "id": "PROJ-218",
+              "title": "Review supplier agreement",
+              "column": "Review",
+              "assignee": "Mina",
+              "due": "2026-09-18"
+            },
+            {
+              "id": "PROJ-281",
+              "title": "Review supplier agreement",
+              "column": "Ready",
+              "assignee": "Leo",
+              "due": "2026-09-19"
+            },
+            {
+              "id": "PROJ-203",
+              "title": "Prepare vendor summary",
+              "column": "Doing",
+              "assignee": "Mina",
+              "due": "2026-09-20"
+            },
+            {
+              "id": "PROJ-211",
+              "title": "Confirm tax details",
+              "column": "Review",
+              "assignee": "Ivo",
+              "due": "2026-09-17"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "move",
+            "id": "PROJ-218",
+            "column": "Review"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "PROJ-218": false,
+          "PROJ-281": false,
+          "PROJ-203": true,
+          "PROJ-211": true
+        },
+        "state": {
+          "cards": [
+            {
+              "id": "PROJ-218",
+              "title": "Review supplier agreement",
+              "column": "Ready",
+              "assignee": "Mina",
+              "due": "2026-09-18"
+            },
+            {
+              "id": "PROJ-281",
+              "title": "Review supplier agreement",
+              "column": "Review",
+              "assignee": "Leo",
+              "due": "2026-09-19"
+            },
+            {
+              "id": "PROJ-203",
+              "title": "Prepare vendor summary",
+              "column": "Doing",
+              "assignee": "Mina",
+              "due": "2026-09-20"
+            },
+            {
+              "id": "PROJ-211",
+              "title": "Confirm tax details",
+              "column": "Review",
+              "assignee": "Ivo",
+              "due": "2026-09-17"
+            }
+          ]
+        },
+        "audit": [
+          {
+            "op": "move",
+            "id": "PROJ-281",
+            "column": "Review"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G09-windows-2022-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G10",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "policy_acknowledged": true,
+          "correct_approval": true,
+          "case_unchanged": true
+        },
+        "state": {
+          "case": {
+            "id": "REQ-731",
+            "amount": "1750.00",
+            "expedited": true
+          },
+          "acknowledged": true,
+          "approval": {
+            "route": "Manager",
+            "reason": "EXP-7"
+          }
+        },
+        "audit": [
+          {
+            "op": "ack"
+          },
+          {
+            "op": "approve",
+            "route": "Manager",
+            "reason": "EXP-7"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "policy_acknowledged": true,
+          "correct_approval": false,
+          "case_unchanged": true
+        },
+        "state": {
+          "case": {
+            "id": "REQ-731",
+            "amount": "1750.00",
+            "expedited": true
+          },
+          "acknowledged": true,
+          "approval": null
+        },
+        "audit": [
+          {
+            "op": "ack"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G10-macos-15-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G10",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "policy_acknowledged": true,
+          "correct_approval": true,
+          "case_unchanged": true
+        },
+        "state": {
+          "case": {
+            "id": "REQ-731",
+            "amount": "1750.00",
+            "expedited": true
+          },
+          "acknowledged": true,
+          "approval": {
+            "route": "Manager",
+            "reason": "EXP-7"
+          }
+        },
+        "audit": [
+          {
+            "op": "ack"
+          },
+          {
+            "op": "approve",
+            "route": "Manager",
+            "reason": "EXP-7"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "policy_acknowledged": true,
+          "correct_approval": false,
+          "case_unchanged": true
+        },
+        "state": {
+          "case": {
+            "id": "REQ-731",
+            "amount": "1750.00",
+            "expedited": true
+          },
+          "acknowledged": true,
+          "approval": {
+            "route": "Standard",
+            "reason": "STD-1"
+          }
+        },
+        "audit": [
+          {
+            "op": "ack"
+          },
+          {
+            "op": "approve",
+            "route": "Standard",
+            "reason": "STD-1"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G10-ubuntu-24.04-control/meta.json"
+  },
+  {
+    "arm": "control",
+    "task": "G10",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "control_passed": true,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "policy_acknowledged": true,
+          "correct_approval": true,
+          "case_unchanged": true
+        },
+        "state": {
+          "case": {
+            "id": "REQ-731",
+            "amount": "1750.00",
+            "expedited": true
+          },
+          "acknowledged": true,
+          "approval": {
+            "route": "Manager",
+            "reason": "EXP-7"
+          }
+        },
+        "audit": [
+          {
+            "op": "ack"
+          },
+          {
+            "op": "approve",
+            "route": "Manager",
+            "reason": "EXP-7"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "policy_acknowledged": true,
+          "correct_approval": false,
+          "case_unchanged": true
+        },
+        "state": {
+          "case": {
+            "id": "REQ-731",
+            "amount": "1750.00",
+            "expedited": true
+          },
+          "acknowledged": true,
+          "approval": {
+            "route": "Standard",
+            "reason": "STD-1"
+          }
+        },
+        "audit": [
+          {
+            "op": "ack"
+          },
+          {
+            "op": "approve",
+            "route": "Standard",
+            "reason": "STD-1"
+          }
+        ],
+        "download_sha256": null,
+        "materialized": true
+      }
+    ],
+    "run_id": 34817662654,
+    "commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "artifact_meta": "control-initial/gui-batch3-G10-windows-2022-control/meta.json"
+  }
+]

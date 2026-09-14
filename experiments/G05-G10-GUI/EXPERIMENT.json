@@ -1,0 +1,55 @@
+{
+  "batch": "G05-G10",
+  "repo": "TraceLite-AI/envshift-runner",
+  "branch": "codex/gui-batch3-20260914",
+  "initial_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "model": "gemini-3.5-flash",
+  "tool_version": "gui_native_v2",
+  "steps": 60,
+  "runners": [
+    "ubuntu-24.04",
+    "macos-15",
+    "windows-2022"
+  ],
+  "tasks": [
+    "G05",
+    "G06",
+    "G07",
+    "G08",
+    "G09",
+    "G10"
+  ],
+  "stable_os_failure_proven": false,
+  "status": "complete",
+  "control_run": 34817662654,
+  "agent_runs": [
+    34818197573,
+    34820054650,
+    34820164471,
+    34820222541,
+    34820390662,
+    34820569777,
+    34820695089
+  ],
+  "notebook_runs": [
+    {
+      "task": "G05",
+      "run": 34820793201,
+      "commit": "08a52edc8bf58c286c4a6e51977ce65037c7cf39"
+    },
+    {
+      "task": "G08",
+      "run": 34821097368,
+      "commit": "08a52edc8bf58c286c4a6e51977ce65037c7cf39"
+    },
+    {
+      "task": "G10",
+      "run": 34821164564,
+      "commit": "08a52edc8bf58c286c4a6e51977ce65037c7cf39"
+    }
+  ],
+  "baseline_valid": 18,
+  "baseline_passed": 9,
+  "baseline_failures": 9,
+  "notebook_passed": 1
+}

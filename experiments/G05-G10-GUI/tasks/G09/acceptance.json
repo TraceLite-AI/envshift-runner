@@ -1,0 +1,9 @@
+{
+  "target": "PROJ-218",
+  "column": "Review",
+  "unchanged": [
+    "assignee",
+    "due date",
+    "all other cards"
+  ]
+}

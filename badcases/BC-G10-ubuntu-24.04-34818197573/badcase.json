@@ -1,0 +1,68 @@
+{
+  "id": "BC-G10-ubuntu-24.04-34818197573",
+  "task": "G10",
+  "model": "gemini-3.5-flash",
+  "classification": "unfinished_or_incorrect_delivery",
+  "stable_os_failure_proven": false,
+  "failure": {
+    "arm": "agent",
+    "task": "G10",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "policy_acknowledged": true,
+      "correct_approval": false,
+      "case_unchanged": true
+    },
+    "state": {
+      "case": {
+        "id": "REQ-731",
+        "amount": "1750.00",
+        "expedited": true
+      },
+      "acknowledged": true,
+      "approval": null
+    },
+    "audit": [
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      }
+    ],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "ubuntu-24.04",
+    "artifact_meta": "agent-first/gui-batch3-G10-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "scroll",
+      "x": 450,
+      "y": 550,
+      "dx": 0,
+      "dy": -5
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+  "silent_wrong_result": false,
+  "action_budget_exhausted": true,
+  "review_notes": {
+    "observation": "The agent repeatedly reads and scrolls the policy; it acknowledges twice but never posts an approval. Some scroll actions supply x/y, which v2 does not support.",
+    "candidate_explanation": "Pointer targeting and cross-dialog memory both require separate investigation.",
+    "os_cause_proven": false,
+    "notebook_observation": "In trial 34821164564, step 26 records Manager and EXP-7; step 27 replaces this with Select Approval route: Manager, dropping the reason code. It later returns to scrolling and never submits."
+  }
+}

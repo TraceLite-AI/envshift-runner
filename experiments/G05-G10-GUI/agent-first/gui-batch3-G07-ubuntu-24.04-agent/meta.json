@@ -1,0 +1,126 @@
+{
+  "arm": "agent",
+  "task": "G07",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "model": "gemini-3.5-flash",
+  "model_rc": 0,
+  "timeout": false,
+  "steps": 9,
+  "channel_fail": null,
+  "blind_steps": 0,
+  "valid_model_run": true,
+  "reward": 1,
+  "checks": {
+    "download_exists": true,
+    "exact_records": true,
+    "expenses_unchanged": true
+  },
+  "state": {
+    "expenses": [
+      {
+        "id": "E-101",
+        "month": "2026-09",
+        "status": "Approved",
+        "department": "Ops",
+        "amount": "63.00"
+      },
+      {
+        "id": "E-102",
+        "month": "2026-08",
+        "status": "Approved",
+        "department": "Sales",
+        "amount": "76.00"
+      },
+      {
+        "id": "E-103",
+        "month": "2026-09",
+        "status": "Pending",
+        "department": "Sales",
+        "amount": "89.00"
+      },
+      {
+        "id": "E-104",
+        "month": "2026-08",
+        "status": "Approved",
+        "department": "Sales",
+        "amount": "102.00"
+      },
+      {
+        "id": "E-105",
+        "month": "2026-09",
+        "status": "Approved",
+        "department": "Sales",
+        "amount": "115.00"
+      },
+      {
+        "id": "E-106",
+        "month": "2026-08",
+        "status": "Pending",
+        "department": "Sales",
+        "amount": "128.00"
+      },
+      {
+        "id": "E-107",
+        "month": "2026-09",
+        "status": "Approved",
+        "department": "Ops",
+        "amount": "141.00"
+      },
+      {
+        "id": "E-108",
+        "month": "2026-08",
+        "status": "Approved",
+        "department": "Sales",
+        "amount": "154.00"
+      },
+      {
+        "id": "E-109",
+        "month": "2026-09",
+        "status": "Approved",
+        "department": "Ops",
+        "amount": "167.00"
+      },
+      {
+        "id": "E-110",
+        "month": "2026-08",
+        "status": "Approved",
+        "department": "Sales",
+        "amount": "180.00"
+      },
+      {
+        "id": "E-111",
+        "month": "2026-09",
+        "status": "Approved",
+        "department": "Sales",
+        "amount": "193.00"
+      },
+      {
+        "id": "E-112",
+        "month": "2026-09",
+        "status": "Approved",
+        "department": "Ops",
+        "amount": "206.00"
+      }
+    ],
+    "exports": [
+      [
+        "E-101",
+        "E-107",
+        "E-109",
+        "E-112"
+      ]
+    ]
+  },
+  "audit": [
+    {
+      "op": "export",
+      "ids": [
+        "E-101",
+        "E-107",
+        "E-109",
+        "E-112"
+      ]
+    }
+  ],
+  "download_sha256": "dbcd3cb422a4bd2d3328a062b545366f22ae2b1f32945565f311c6bbeb2b6397"
+}

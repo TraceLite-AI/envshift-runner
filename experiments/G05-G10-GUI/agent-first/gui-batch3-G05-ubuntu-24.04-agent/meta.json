@@ -1,0 +1,66 @@
+{
+  "arm": "agent",
+  "task": "G05",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "model": "gemini-3.5-flash",
+  "model_rc": 0,
+  "timeout": false,
+  "steps": 60,
+  "channel_fail": null,
+  "blind_steps": 0,
+  "valid_model_run": true,
+  "reward": 0,
+  "checks": {
+    "target_reconciled": false,
+    "other_invoice_unchanged": true,
+    "orders_unchanged": true
+  },
+  "state": {
+    "invoices": [
+      {
+        "id": "INV-040",
+        "supplier": "Nori",
+        "po": "PO-6040",
+        "total": "320.00",
+        "reference": "PO-6040",
+        "status": "Reconciled"
+      },
+      {
+        "id": "INV-044",
+        "supplier": "Nori",
+        "po": "PO-6041",
+        "total": "480.00",
+        "reference": "",
+        "status": "Draft"
+      }
+    ],
+    "orders": [
+      {
+        "id": "PO-6014",
+        "supplier": "Nori",
+        "quantity": 7,
+        "unit": "84.50",
+        "freight": "18.20",
+        "discount": "5.00"
+      },
+      {
+        "id": "PO-6040",
+        "supplier": "Nori",
+        "quantity": 4,
+        "unit": "80.00",
+        "freight": "0.00",
+        "discount": "0.00"
+      },
+      {
+        "id": "PO-6041",
+        "supplier": "Nori",
+        "quantity": 7,
+        "unit": "85.40",
+        "freight": "18.20",
+        "discount": "5.00"
+      }
+    ]
+  },
+  "audit": [],
+  "download_sha256": null
+}

@@ -1,0 +1,95 @@
+{
+  "id": "BC-G05-macos-15-34818197573",
+  "task": "G05",
+  "model": "gemini-3.5-flash",
+  "classification": "unfinished_or_incorrect_delivery",
+  "stable_os_failure_proven": false,
+  "failure": {
+    "arm": "agent",
+    "task": "G05",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "target_reconciled": false,
+      "other_invoice_unchanged": true,
+      "orders_unchanged": true
+    },
+    "state": {
+      "invoices": [
+        {
+          "id": "INV-040",
+          "supplier": "Nori",
+          "po": "PO-6040",
+          "total": "320.00",
+          "reference": "PO-6040",
+          "status": "Reconciled"
+        },
+        {
+          "id": "INV-044",
+          "supplier": "Nori",
+          "po": "PO-6041",
+          "total": "480.00",
+          "reference": "",
+          "status": "Draft"
+        }
+      ],
+      "orders": [
+        {
+          "id": "PO-6014",
+          "supplier": "Nori",
+          "quantity": 7,
+          "unit": "84.50",
+          "freight": "18.20",
+          "discount": "5.00"
+        },
+        {
+          "id": "PO-6040",
+          "supplier": "Nori",
+          "quantity": 4,
+          "unit": "80.00",
+          "freight": "0.00",
+          "discount": "0.00"
+        },
+        {
+          "id": "PO-6041",
+          "supplier": "Nori",
+          "quantity": 7,
+          "unit": "85.40",
+          "freight": "18.20",
+          "discount": "5.00"
+        }
+      ]
+    },
+    "audit": [],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "macos-15",
+    "artifact_meta": "agent-first/gui-batch3-G05-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "click",
+      "x": 105,
+      "y": 331
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+  "silent_wrong_result": false,
+  "action_budget_exhausted": true,
+  "review_notes": {
+    "observation": "Purchase orders are visible. The agent alternates tabs, opens many duplicate order tabs, and never types the amount or submits.",
+    "candidate_explanation": "Cross-page facts are absent from the next model request unless encoded in an action; memory limitation is a hypothesis for the observed loop.",
+    "os_cause_proven": false
+  }
+}

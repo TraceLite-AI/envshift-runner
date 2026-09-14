@@ -1,0 +1,34 @@
+{
+ "platform": "macOS-15.7.9-arm64-arm-64bit",
+ "model": "gemini-3.5-flash",
+ "coordinate_mode": "normalized_0_1000",
+ "tool_version": "gui_native_v2",
+ "screen_size": [
+  1024,
+  768
+ ],
+ "steps": 2,
+ "blind_steps": 0,
+ "channel_fail": null,
+ "history": [
+  {
+   "action": {
+    "action": "drag",
+    "x": 173,
+    "y": 540,
+    "to_x": 810,
+    "to_y": 695
+   },
+   "result": "从 (177, 415) 拖到 (829, 534)",
+   "raw": "{\"action\":\"drag\",\"x\":173,\"y\":540,\"to_x\":810,\"to_y\":695}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "done",
+    "reason": "The card PROJ-218 has been successfully moved from Ready to Review, while preserving its assignee and due date, and leaving all other cards unchanged."
+   },
+   "result": "DONE"
+  }
+ ]
+}

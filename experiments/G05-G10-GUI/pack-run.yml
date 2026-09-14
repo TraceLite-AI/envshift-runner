@@ -1,0 +1,35 @@
+name: gui-evidence-pack
+on:
+  workflow_dispatch:
+    inputs:
+      runs: { description: completed GUI run IDs, required: true }
+permissions:
+  contents: read
+  actions: read
+jobs:
+  pack:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Download original artifacts and compress without changing files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_IDS: ${{ inputs.runs }}
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,os,pathlib,subprocess,tarfile,time
+          root=pathlib.Path('packed');source=root/'source';source.mkdir(parents=True)
+          runs=json.loads(os.environ['RUN_IDS']);assert runs and all(type(r) is int and r>0 for r in runs)
+          for run in runs:
+              out=source/str(run);out.mkdir()
+              subprocess.run(['gh','run','download',str(run),'--repo','TraceLite-AI/envshift-runner','--pattern','gui-batch3-*','--dir',str(out)],check=True,timeout=180)
+          manifest={str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(source.rglob('*')) if p.is_file()}
+          (source/'SHA256.json').write_text(json.dumps(manifest,indent=2))
+          with tarfile.open(root/'gui-evidence.tar.xz','w:xz',preset=6) as archive:archive.add(source,arcname='source')
+          print('Preserved files:',len(manifest),'compressed bytes:',(root/'gui-evidence.tar.xz').stat().st_size)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gui-batch3-complete-evidence
+          path: packed/gui-evidence.tar.xz
+          compression-level: 0

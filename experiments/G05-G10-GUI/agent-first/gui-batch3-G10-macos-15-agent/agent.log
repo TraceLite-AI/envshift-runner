@@ -1,0 +1,68 @@
+[loop] 启动 python 3.12.10 任务 G10 模型 gemini-3.5-flash
+[loop] mss / PIL 导入完成
+[loop] pyautogui 导入完成
+[loop] 屏幕 1024x768
+[loop] 平台 Darwin 屏幕 1024x768 模型 gemini-3.5-flash 任务:Read the current approval policy in the scrollable policy dialog, ackn
+/Users/runner/work/envshift-runner/envshift-runner/gui_agent_loop.py:42: DeprecationWarning: mss.mss is deprecated and will be removed in a future release; use mss.MSS instead
+  with mss.mss() as s:
+[loop] 第1步 {"action": "click", "x": 106, "y": 444} → 在屏幕(109,341)执行了click; modifiers=[]
+[loop] 第2步 {"action": "scroll", "dx": 0, "dy": -10} → 滚动了
+[loop] 第3步 {"action": "scroll", "dx": 0, "dy": -20} → 滚动了
+[loop] 第4步 {"action": "click", "x": 500, "y": 500} → 在屏幕(512,384)执行了click; modifiers=[]
+[loop] 第5步 {"action": "scroll", "dx": 0, "dy": -5} → 滚动了
+[loop] 第6步 {"action": "scroll", "dx": 0, "dy": -15} → 滚动了
+[loop] 第7步 {"action": "scroll", "dx": 0, "dy": -10} → 滚动了
+[loop] 第8步 {"action": "click", "x": 293, "y": 730} → 在屏幕(300,561)执行了click; modifiers=[]
+[loop] 第9步 {"action": "click", "x": 105, "y": 442} → 在屏幕(108,339)执行了click; modifiers=[]
+[loop] 第10步 {"action": "scroll", "dx": 0, "dy": -10} → 滚动了
+[loop] 第11步 {"action": "scroll", "dx": 0, "dy": -20} → 滚动了
+[loop] 第12步 {"action": "scroll", "x": 500, "y": 500, "dx": 0, "dy": -10} → 滚动了
+[loop] 第13步 {"action": "click", "x": 500, "y": 500} → 在屏幕(512,384)执行了click; modifiers=[]
+[loop] 第14步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第15步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第16步 {"action": "click", "x": 292, "y": 740} → 在屏幕(299,568)执行了click; modifiers=[]
+[loop] 第17步 {"action": "click", "x": 105, "y": 445} → 在屏幕(108,342)执行了click; modifiers=[]
+[loop] 第18步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第19步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第20步 {"action": "scroll", "x": 500, "y": 600, "dx": 0, "dy": -20} → 滚动了
+[loop] 第21步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第22步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第23步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第24步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第25步 {"action": "click", "x": 500, "y": 550} → 在屏幕(512,422)执行了click; modifiers=[]
+[loop] 第26步 {"action": "scroll", "x": 500, "y": 600, "dx": 0, "dy": -20} → 滚动了
+[loop] 第27步 {"action": "scroll", "x": 500, "y": 600, "dx": 0, "dy": -20} → 滚动了
+[loop] 第28步 {"action": "click", "x": 293, "y": 740} → 在屏幕(300,568)执行了click; modifiers=[]
+[loop] 第29步 {"action": "click", "x": 178, "y": 572} → 在屏幕(182,439)执行了click; modifiers=[]
+[loop] 第30步 {"action": "click", "x": 178, "y": 606} → 在屏幕(182,465)执行了click; modifiers=[]
+[loop] 第31步 {"action": "click", "x": 178, "y": 572} → 在屏幕(182,439)执行了click; modifiers=[]
+[loop] 第32步 {"action": "click", "x": 105, "y": 442} → 在屏幕(108,339)执行了click; modifiers=[]
+[loop] 第33步 {"action": "click", "x": 103, "y": 578} → 在屏幕(105,444)执行了click; modifiers=[]
+[loop] 第34步 {"action": "click", "x": 105, "y": 442} → 在屏幕(108,339)执行了click; modifiers=[]
+[loop] 第35步 {"action": "scroll", "dx": 0, "dy": -10} → 滚动了
+[loop] 第36步 {"action": "scroll", "dx": 0, "dy": -10} → 滚动了
+[loop] 第37步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -10} → 滚动了
+[loop] 第38步 {"action": "scroll", "dx": 0, "dy": -20} → 滚动了
+[loop] 第39步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -10} → 滚动了
+[loop] 第40步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -10} → 滚动了
+[loop] 第41步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第42步 {"action": "scroll", "x": 400, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第43步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第44步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第45步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第46步 {"action": "scroll", "x": 500, "y": 600, "dx": 0, "dy": -20} → 滚动了
+[loop] 第47步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第48步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第49步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第50步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第51步 {"action": "drag", "x": 798, "y": 465, "to_x": 798, "to_y": 700} → 从 (817, 357) 拖到 (817, 538)
+[loop] 第52步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -10} → 滚动了
+[loop] 第53步 {"action": "click", "x": 293, "y": 731} → 在屏幕(300,561)执行了click; modifiers=[]
+[loop] 第54步 {"action": "click", "x": 105, "y": 443} → 在屏幕(108,340)执行了click; modifiers=[]
+[loop] 第55步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第56步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -10} → 滚动了
+[loop] 第57步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+[loop] 第58步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -10} → 滚动了
+[loop] 第59步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -10} → 滚动了
+[loop] 第60步 {"action": "scroll", "x": 500, "y": 550, "dx": 0, "dy": -20} → 滚动了
+LOOP-DONE steps=60 platform=Darwin blind=0 channel_fail=none

@@ -1,0 +1,1 @@
+Export all and only September 2026 Approved expenses from the Ops department, across all pages, as approved-expenses.csv in Downloads. Keep the original expense records unchanged. Use the visible application and browser UI only. Do not open a terminal or DevTools, execute code, or browse other websites.

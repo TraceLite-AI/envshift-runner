@@ -1,0 +1,19 @@
+{
+  "download": "Downloads/approved-expenses.csv",
+  "exact_ids": [
+    "E-101",
+    "E-107",
+    "E-109",
+    "E-112"
+  ],
+  "columns": [
+    "id",
+    "month",
+    "status",
+    "department",
+    "amount"
+  ],
+  "values": "must match fixture ledger; no duplicates or extras",
+  "row_order": "irrelevant",
+  "unchanged": "expense ledger"
+}

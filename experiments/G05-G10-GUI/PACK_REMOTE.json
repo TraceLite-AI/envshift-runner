@@ -1,0 +1,22 @@
+{
+  "repo": "TraceLite-AI/envshift-runner",
+  "branch": "codex/gui-batch3-evidence-20260914",
+  "commit": "1850341379e2a2aed606e2ac14278c48cb389267",
+  "packing_runs": [
+    {
+      "run": 34821605478,
+      "sources": [
+        34820054650,
+        34820390662,
+        34820695089
+      ]
+    },
+    {
+      "run": 34821849085,
+      "sources": [
+        34821097368,
+        34821164564
+      ]
+    }
+  ]
+}

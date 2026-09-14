@@ -1,0 +1,123 @@
+{
+  "arm": "agent",
+  "task": "G06",
+  "platform": "Windows-2022Server-10.0.20348-SP0",
+  "model": "gemini-3.5-flash",
+  "model_rc": 0,
+  "timeout": false,
+  "steps": 24,
+  "channel_fail": null,
+  "blind_steps": 0,
+  "valid_model_run": true,
+  "reward": 1,
+  "checks": {
+    "T-290": true,
+    "T-301": true,
+    "T-302": true,
+    "T-303": true,
+    "T-304": true,
+    "T-305": true,
+    "T-306": true,
+    "T-307": true,
+    "T-308": true
+  },
+  "state": {
+    "tickets": [
+      {
+        "id": "T-290",
+        "customer": "Maple",
+        "status": "Closed",
+        "priority": "High",
+        "owner": "Leo",
+        "tags": []
+      },
+      {
+        "id": "T-301",
+        "customer": "Cedar",
+        "status": "Queued",
+        "priority": "High",
+        "owner": "Mina",
+        "tags": [
+          "Reviewed"
+        ]
+      },
+      {
+        "id": "T-302",
+        "customer": "Cedar",
+        "status": "Open",
+        "priority": "Low",
+        "owner": "Leo",
+        "tags": []
+      },
+      {
+        "id": "T-303",
+        "customer": "Maple",
+        "status": "Open",
+        "priority": "High",
+        "owner": "Leo",
+        "tags": []
+      },
+      {
+        "id": "T-304",
+        "customer": "Cedar",
+        "status": "Queued",
+        "priority": "High",
+        "owner": "Mina",
+        "tags": [
+          "Reviewed"
+        ]
+      },
+      {
+        "id": "T-305",
+        "customer": "Cedar",
+        "status": "Closed",
+        "priority": "High",
+        "owner": "Leo",
+        "tags": []
+      },
+      {
+        "id": "T-306",
+        "customer": "Cedar",
+        "status": "Queued",
+        "priority": "High",
+        "owner": "Mina",
+        "tags": [
+          "Reviewed"
+        ]
+      },
+      {
+        "id": "T-307",
+        "customer": "Cedar",
+        "status": "Open",
+        "priority": "Normal",
+        "owner": "Leo",
+        "tags": []
+      },
+      {
+        "id": "T-308",
+        "customer": "Cedar",
+        "status": "Queued",
+        "priority": "High",
+        "owner": "Mina",
+        "tags": [
+          "Reviewed"
+        ]
+      }
+    ]
+  },
+  "audit": [
+    {
+      "op": "bulk",
+      "ids": [
+        "T-301",
+        "T-304",
+        "T-306",
+        "T-308"
+      ],
+      "owner": "Mina",
+      "status": "Queued",
+      "tag": "Reviewed"
+    }
+  ],
+  "download_sha256": null
+}

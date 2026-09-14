@@ -1,0 +1,56 @@
+{
+  "arm": "agent",
+  "task": "G08",
+  "platform": "macOS-15.7.9-arm64-arm-64bit",
+  "model": "gemini-3.5-flash",
+  "model_rc": 0,
+  "timeout": false,
+  "steps": 60,
+  "channel_fail": null,
+  "blind_steps": 0,
+  "valid_model_run": true,
+  "reward": 0,
+  "checks": {
+    "live_profile": false,
+    "draft_cleared": true,
+    "identity_and_notes_unchanged": true,
+    "other_customer_unchanged": true
+  },
+  "state": {
+    "customers": [
+      {
+        "id": "C-71",
+        "name": "Sam Lee",
+        "email": "sam.lee@cedar.example",
+        "live": {
+          "street": "8 Keizersgracht",
+          "city": "Amsterdam",
+          "postal": "1011 AB",
+          "contact": "Phone"
+        },
+        "draft": null,
+        "notes": [
+          "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+          "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+        ]
+      },
+      {
+        "id": "C-72",
+        "name": "Sam Lee",
+        "email": "sam.lee@cedar-logistics.example",
+        "live": {
+          "street": "4 West Road",
+          "city": "Utrecht",
+          "postal": "3511 CD",
+          "contact": "Phone"
+        },
+        "draft": null,
+        "notes": [
+          "2026-09-10: No requested changes."
+        ]
+      }
+    ]
+  },
+  "audit": [],
+  "download_sha256": null
+}

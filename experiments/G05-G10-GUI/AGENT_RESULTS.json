@@ -1,0 +1,1672 @@
+[
+  {
+    "arm": "agent",
+    "task": "G05",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "target_reconciled": false,
+      "other_invoice_unchanged": true,
+      "orders_unchanged": true
+    },
+    "state": {
+      "invoices": [
+        {
+          "id": "INV-040",
+          "supplier": "Nori",
+          "po": "PO-6040",
+          "total": "320.00",
+          "reference": "PO-6040",
+          "status": "Reconciled"
+        },
+        {
+          "id": "INV-044",
+          "supplier": "Nori",
+          "po": "PO-6041",
+          "total": "480.00",
+          "reference": "",
+          "status": "Draft"
+        }
+      ],
+      "orders": [
+        {
+          "id": "PO-6014",
+          "supplier": "Nori",
+          "quantity": 7,
+          "unit": "84.50",
+          "freight": "18.20",
+          "discount": "5.00"
+        },
+        {
+          "id": "PO-6040",
+          "supplier": "Nori",
+          "quantity": 4,
+          "unit": "80.00",
+          "freight": "0.00",
+          "discount": "0.00"
+        },
+        {
+          "id": "PO-6041",
+          "supplier": "Nori",
+          "quantity": 7,
+          "unit": "85.40",
+          "freight": "18.20",
+          "discount": "5.00"
+        }
+      ]
+    },
+    "audit": [],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "macos-15",
+    "artifact_meta": "agent-first/gui-batch3-G05-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "click",
+      "x": 105,
+      "y": 331
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G05",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "target_reconciled": false,
+      "other_invoice_unchanged": true,
+      "orders_unchanged": true
+    },
+    "state": {
+      "invoices": [
+        {
+          "id": "INV-040",
+          "supplier": "Nori",
+          "po": "PO-6040",
+          "total": "320.00",
+          "reference": "PO-6040",
+          "status": "Reconciled"
+        },
+        {
+          "id": "INV-044",
+          "supplier": "Nori",
+          "po": "PO-6041",
+          "total": "480.00",
+          "reference": "",
+          "status": "Draft"
+        }
+      ],
+      "orders": [
+        {
+          "id": "PO-6014",
+          "supplier": "Nori",
+          "quantity": 7,
+          "unit": "84.50",
+          "freight": "18.20",
+          "discount": "5.00"
+        },
+        {
+          "id": "PO-6040",
+          "supplier": "Nori",
+          "quantity": 4,
+          "unit": "80.00",
+          "freight": "0.00",
+          "discount": "0.00"
+        },
+        {
+          "id": "PO-6041",
+          "supplier": "Nori",
+          "quantity": 7,
+          "unit": "85.40",
+          "freight": "18.20",
+          "discount": "5.00"
+        }
+      ]
+    },
+    "audit": [],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "ubuntu-24.04",
+    "artifact_meta": "agent-first/gui-batch3-G05-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "click",
+      "x": 60,
+      "y": 22
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G06",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 22,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "T-290": true,
+      "T-301": true,
+      "T-302": true,
+      "T-303": true,
+      "T-304": true,
+      "T-305": true,
+      "T-306": true,
+      "T-307": true,
+      "T-308": true
+    },
+    "state": {
+      "tickets": [
+        {
+          "id": "T-290",
+          "customer": "Maple",
+          "status": "Closed",
+          "priority": "High",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-301",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        },
+        {
+          "id": "T-302",
+          "customer": "Cedar",
+          "status": "Open",
+          "priority": "Low",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-303",
+          "customer": "Maple",
+          "status": "Open",
+          "priority": "High",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-304",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        },
+        {
+          "id": "T-305",
+          "customer": "Cedar",
+          "status": "Closed",
+          "priority": "High",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-306",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        },
+        {
+          "id": "T-307",
+          "customer": "Cedar",
+          "status": "Open",
+          "priority": "Normal",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-308",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        }
+      ]
+    },
+    "audit": [
+      {
+        "op": "bulk",
+        "ids": [
+          "T-301",
+          "T-304",
+          "T-306",
+          "T-308"
+        ],
+        "owner": "Mina",
+        "status": "Queued",
+        "tag": "Reviewed"
+      }
+    ],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "macos-15",
+    "artifact_meta": "agent-first/gui-batch3-G06-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "All matching tickets (Open, High priority for customer Cedar) have been assigned to Mina, status set to Queued, and the Reviewed tag added. The bulk update was applied successfully, resulting in 0 matching records remaining."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G06",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 20,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "T-290": true,
+      "T-301": true,
+      "T-302": true,
+      "T-303": true,
+      "T-304": true,
+      "T-305": true,
+      "T-306": true,
+      "T-307": true,
+      "T-308": true
+    },
+    "state": {
+      "tickets": [
+        {
+          "id": "T-290",
+          "customer": "Maple",
+          "status": "Closed",
+          "priority": "High",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-301",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        },
+        {
+          "id": "T-302",
+          "customer": "Cedar",
+          "status": "Open",
+          "priority": "Low",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-303",
+          "customer": "Maple",
+          "status": "Open",
+          "priority": "High",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-304",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        },
+        {
+          "id": "T-305",
+          "customer": "Cedar",
+          "status": "Closed",
+          "priority": "High",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-306",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        },
+        {
+          "id": "T-307",
+          "customer": "Cedar",
+          "status": "Open",
+          "priority": "Normal",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-308",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        }
+      ]
+    },
+    "audit": [
+      {
+        "op": "bulk",
+        "ids": [
+          "T-301",
+          "T-304",
+          "T-306",
+          "T-308"
+        ],
+        "owner": "Mina",
+        "status": "Queued",
+        "tag": "Reviewed"
+      }
+    ],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "ubuntu-24.04",
+    "artifact_meta": "agent-first/gui-batch3-G06-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "All matching tickets (Customer: Cedar, Status: Open, Priority: High) have been selected, updated with owner Mina, status Queued, and tag Reviewed. The filter now shows 0 matching records, indicating they have successfully been updated."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G07",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "download_exists": true,
+      "exact_records": true,
+      "expenses_unchanged": true
+    },
+    "state": {
+      "expenses": [
+        {
+          "id": "E-101",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "63.00"
+        },
+        {
+          "id": "E-102",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "76.00"
+        },
+        {
+          "id": "E-103",
+          "month": "2026-09",
+          "status": "Pending",
+          "department": "Sales",
+          "amount": "89.00"
+        },
+        {
+          "id": "E-104",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "102.00"
+        },
+        {
+          "id": "E-105",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "115.00"
+        },
+        {
+          "id": "E-106",
+          "month": "2026-08",
+          "status": "Pending",
+          "department": "Sales",
+          "amount": "128.00"
+        },
+        {
+          "id": "E-107",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "141.00"
+        },
+        {
+          "id": "E-108",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "154.00"
+        },
+        {
+          "id": "E-109",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "167.00"
+        },
+        {
+          "id": "E-110",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "180.00"
+        },
+        {
+          "id": "E-111",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "193.00"
+        },
+        {
+          "id": "E-112",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "206.00"
+        }
+      ],
+      "exports": [
+        [
+          "E-101",
+          "E-107",
+          "E-109",
+          "E-112"
+        ],
+        [
+          "E-101",
+          "E-107",
+          "E-109",
+          "E-112"
+        ],
+        [
+          "E-101",
+          "E-107",
+          "E-109",
+          "E-112"
+        ]
+      ]
+    },
+    "audit": [
+      {
+        "op": "export",
+        "ids": [
+          "E-101",
+          "E-107",
+          "E-109",
+          "E-112"
+        ]
+      },
+      {
+        "op": "export",
+        "ids": [
+          "E-101",
+          "E-107",
+          "E-109",
+          "E-112"
+        ]
+      },
+      {
+        "op": "export",
+        "ids": [
+          "E-101",
+          "E-107",
+          "E-109",
+          "E-112"
+        ]
+      }
+    ],
+    "download_sha256": "dbcd3cb422a4bd2d3328a062b545366f22ae2b1f32945565f311c6bbeb2b6397",
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "macos-15",
+    "artifact_meta": "agent-first/gui-batch3-G07-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "click",
+      "x": 450,
+      "y": 57
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G07",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 9,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "download_exists": true,
+      "exact_records": true,
+      "expenses_unchanged": true
+    },
+    "state": {
+      "expenses": [
+        {
+          "id": "E-101",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "63.00"
+        },
+        {
+          "id": "E-102",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "76.00"
+        },
+        {
+          "id": "E-103",
+          "month": "2026-09",
+          "status": "Pending",
+          "department": "Sales",
+          "amount": "89.00"
+        },
+        {
+          "id": "E-104",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "102.00"
+        },
+        {
+          "id": "E-105",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "115.00"
+        },
+        {
+          "id": "E-106",
+          "month": "2026-08",
+          "status": "Pending",
+          "department": "Sales",
+          "amount": "128.00"
+        },
+        {
+          "id": "E-107",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "141.00"
+        },
+        {
+          "id": "E-108",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "154.00"
+        },
+        {
+          "id": "E-109",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "167.00"
+        },
+        {
+          "id": "E-110",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "180.00"
+        },
+        {
+          "id": "E-111",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "193.00"
+        },
+        {
+          "id": "E-112",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "206.00"
+        }
+      ],
+      "exports": [
+        [
+          "E-101",
+          "E-107",
+          "E-109",
+          "E-112"
+        ]
+      ]
+    },
+    "audit": [
+      {
+        "op": "export",
+        "ids": [
+          "E-101",
+          "E-107",
+          "E-109",
+          "E-112"
+        ]
+      }
+    ],
+    "download_sha256": "dbcd3cb422a4bd2d3328a062b545366f22ae2b1f32945565f311c6bbeb2b6397",
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "ubuntu-24.04",
+    "artifact_meta": "agent-first/gui-batch3-G07-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "All 4 matching records for September 2026 Approved expenses from the Ops department across all pages have been selected and successfully exported as 'approved-expenses.csv' to the Downloads directory."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G08",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "live_profile": false,
+      "draft_cleared": true,
+      "identity_and_notes_unchanged": true,
+      "other_customer_unchanged": true
+    },
+    "state": {
+      "customers": [
+        {
+          "id": "C-71",
+          "name": "Sam Lee",
+          "email": "sam.lee@cedar.example",
+          "live": {
+            "street": "8 Keizersgracht",
+            "city": "Amsterdam",
+            "postal": "1011 AB",
+            "contact": "Phone"
+          },
+          "draft": null,
+          "notes": [
+            "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+            "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+          ]
+        },
+        {
+          "id": "C-72",
+          "name": "Sam Lee",
+          "email": "sam.lee@cedar-logistics.example",
+          "live": {
+            "street": "4 West Road",
+            "city": "Utrecht",
+            "postal": "3511 CD",
+            "contact": "Phone"
+          },
+          "draft": null,
+          "notes": [
+            "2026-09-10: No requested changes."
+          ]
+        }
+      ]
+    },
+    "audit": [],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "macos-15",
+    "artifact_meta": "agent-first/gui-batch3-G08-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "click",
+      "x": 23,
+      "y": 112
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 1
+  },
+  {
+    "arm": "agent",
+    "task": "G08",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "live_profile": false,
+      "draft_cleared": true,
+      "identity_and_notes_unchanged": true,
+      "other_customer_unchanged": true
+    },
+    "state": {
+      "customers": [
+        {
+          "id": "C-71",
+          "name": "Sam Lee",
+          "email": "sam.lee@cedar.example",
+          "live": {
+            "street": "8 Keizersgracht",
+            "city": "Amsterdam",
+            "postal": "1011 AB",
+            "contact": "Phone"
+          },
+          "draft": null,
+          "notes": [
+            "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+            "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+          ]
+        },
+        {
+          "id": "C-72",
+          "name": "Sam Lee",
+          "email": "sam.lee@cedar-logistics.example",
+          "live": {
+            "street": "4 West Road",
+            "city": "Utrecht",
+            "postal": "3511 CD",
+            "contact": "Phone"
+          },
+          "draft": null,
+          "notes": [
+            "2026-09-10: No requested changes."
+          ]
+        }
+      ]
+    },
+    "audit": [],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "ubuntu-24.04",
+    "artifact_meta": "agent-first/gui-batch3-G08-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "click",
+      "x": 20,
+      "y": 70
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G09",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 2,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "PROJ-218": true,
+      "PROJ-281": true,
+      "PROJ-203": true,
+      "PROJ-211": true
+    },
+    "state": {
+      "cards": [
+        {
+          "id": "PROJ-218",
+          "title": "Review supplier agreement",
+          "column": "Review",
+          "assignee": "Mina",
+          "due": "2026-09-18"
+        },
+        {
+          "id": "PROJ-281",
+          "title": "Review supplier agreement",
+          "column": "Ready",
+          "assignee": "Leo",
+          "due": "2026-09-19"
+        },
+        {
+          "id": "PROJ-203",
+          "title": "Prepare vendor summary",
+          "column": "Doing",
+          "assignee": "Mina",
+          "due": "2026-09-20"
+        },
+        {
+          "id": "PROJ-211",
+          "title": "Confirm tax details",
+          "column": "Review",
+          "assignee": "Ivo",
+          "due": "2026-09-17"
+        }
+      ]
+    },
+    "audit": [
+      {
+        "op": "move",
+        "id": "PROJ-218",
+        "column": "Review"
+      }
+    ],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "macos-15",
+    "artifact_meta": "agent-first/gui-batch3-G09-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "The card PROJ-218 has been successfully moved from Ready to Review, while preserving its assignee and due date, and leaving all other cards unchanged."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G09",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 3,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "PROJ-218": true,
+      "PROJ-281": true,
+      "PROJ-203": true,
+      "PROJ-211": true
+    },
+    "state": {
+      "cards": [
+        {
+          "id": "PROJ-218",
+          "title": "Review supplier agreement",
+          "column": "Review",
+          "assignee": "Mina",
+          "due": "2026-09-18"
+        },
+        {
+          "id": "PROJ-281",
+          "title": "Review supplier agreement",
+          "column": "Ready",
+          "assignee": "Leo",
+          "due": "2026-09-19"
+        },
+        {
+          "id": "PROJ-203",
+          "title": "Prepare vendor summary",
+          "column": "Doing",
+          "assignee": "Mina",
+          "due": "2026-09-20"
+        },
+        {
+          "id": "PROJ-211",
+          "title": "Confirm tax details",
+          "column": "Review",
+          "assignee": "Ivo",
+          "due": "2026-09-17"
+        }
+      ]
+    },
+    "audit": [
+      {
+        "op": "move",
+        "id": "PROJ-218",
+        "column": "Doing"
+      },
+      {
+        "op": "move",
+        "id": "PROJ-218",
+        "column": "Review"
+      }
+    ],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "ubuntu-24.04",
+    "artifact_meta": "agent-first/gui-batch3-G09-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "Card PROJ-218 has been successfully moved from Ready to Review via dragging while preserving its assignee and due date, and all other cards remain in their original columns."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G10",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "policy_acknowledged": true,
+      "correct_approval": false,
+      "case_unchanged": true
+    },
+    "state": {
+      "case": {
+        "id": "REQ-731",
+        "amount": "1750.00",
+        "expedited": true
+      },
+      "acknowledged": true,
+      "approval": null
+    },
+    "audit": [
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      }
+    ],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "macos-15",
+    "artifact_meta": "agent-first/gui-batch3-G10-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "scroll",
+      "x": 500,
+      "y": 550,
+      "dx": 0,
+      "dy": -20
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G10",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "policy_acknowledged": true,
+      "correct_approval": false,
+      "case_unchanged": true
+    },
+    "state": {
+      "case": {
+        "id": "REQ-731",
+        "amount": "1750.00",
+        "expedited": true
+      },
+      "acknowledged": true,
+      "approval": null
+    },
+    "audit": [
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      }
+    ],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "ubuntu-24.04",
+    "artifact_meta": "agent-first/gui-batch3-G10-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "scroll",
+      "x": 450,
+      "y": 550,
+      "dx": 0,
+      "dy": -5
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G05",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "target_reconciled": false,
+      "other_invoice_unchanged": true,
+      "orders_unchanged": true
+    },
+    "state": {
+      "invoices": [
+        {
+          "id": "INV-040",
+          "supplier": "Nori",
+          "po": "PO-6040",
+          "total": "320.00",
+          "reference": "PO-6040",
+          "status": "Reconciled"
+        },
+        {
+          "id": "INV-044",
+          "supplier": "Nori",
+          "po": "PO-6041",
+          "total": "480.00",
+          "reference": "",
+          "status": "Draft"
+        }
+      ],
+      "orders": [
+        {
+          "id": "PO-6014",
+          "supplier": "Nori",
+          "quantity": 7,
+          "unit": "84.50",
+          "freight": "18.20",
+          "discount": "5.00"
+        },
+        {
+          "id": "PO-6040",
+          "supplier": "Nori",
+          "quantity": 4,
+          "unit": "80.00",
+          "freight": "0.00",
+          "discount": "0.00"
+        },
+        {
+          "id": "PO-6041",
+          "supplier": "Nori",
+          "quantity": 7,
+          "unit": "85.40",
+          "freight": "18.20",
+          "discount": "5.00"
+        }
+      ]
+    },
+    "audit": [],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34820054650,
+    "runner": "windows-2022",
+    "artifact_meta": "agent-windows/G05/gui-batch3-G05-windows-2022-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "key",
+      "keys": [
+        "ctrl",
+        "tab"
+      ]
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G06",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 24,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "T-290": true,
+      "T-301": true,
+      "T-302": true,
+      "T-303": true,
+      "T-304": true,
+      "T-305": true,
+      "T-306": true,
+      "T-307": true,
+      "T-308": true
+    },
+    "state": {
+      "tickets": [
+        {
+          "id": "T-290",
+          "customer": "Maple",
+          "status": "Closed",
+          "priority": "High",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-301",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        },
+        {
+          "id": "T-302",
+          "customer": "Cedar",
+          "status": "Open",
+          "priority": "Low",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-303",
+          "customer": "Maple",
+          "status": "Open",
+          "priority": "High",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-304",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        },
+        {
+          "id": "T-305",
+          "customer": "Cedar",
+          "status": "Closed",
+          "priority": "High",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-306",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        },
+        {
+          "id": "T-307",
+          "customer": "Cedar",
+          "status": "Open",
+          "priority": "Normal",
+          "owner": "Leo",
+          "tags": []
+        },
+        {
+          "id": "T-308",
+          "customer": "Cedar",
+          "status": "Queued",
+          "priority": "High",
+          "owner": "Mina",
+          "tags": [
+            "Reviewed"
+          ]
+        }
+      ]
+    },
+    "audit": [
+      {
+        "op": "bulk",
+        "ids": [
+          "T-301",
+          "T-304",
+          "T-306",
+          "T-308"
+        ],
+        "owner": "Mina",
+        "status": "Queued",
+        "tag": "Reviewed"
+      }
+    ],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34820164471,
+    "runner": "windows-2022",
+    "artifact_meta": "agent-windows/G06/gui-batch3-G06-windows-2022-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "Successfully updated all matching tickets (Customer: Cedar, Status: Open, Priority: High) across pages to be assigned to Mina, status set to Queued, and the 'Reviewed' tag added."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G07",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 10,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "download_exists": true,
+      "exact_records": true,
+      "expenses_unchanged": true
+    },
+    "state": {
+      "expenses": [
+        {
+          "id": "E-101",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "63.00"
+        },
+        {
+          "id": "E-102",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "76.00"
+        },
+        {
+          "id": "E-103",
+          "month": "2026-09",
+          "status": "Pending",
+          "department": "Sales",
+          "amount": "89.00"
+        },
+        {
+          "id": "E-104",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "102.00"
+        },
+        {
+          "id": "E-105",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "115.00"
+        },
+        {
+          "id": "E-106",
+          "month": "2026-08",
+          "status": "Pending",
+          "department": "Sales",
+          "amount": "128.00"
+        },
+        {
+          "id": "E-107",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "141.00"
+        },
+        {
+          "id": "E-108",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "154.00"
+        },
+        {
+          "id": "E-109",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "167.00"
+        },
+        {
+          "id": "E-110",
+          "month": "2026-08",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "180.00"
+        },
+        {
+          "id": "E-111",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Sales",
+          "amount": "193.00"
+        },
+        {
+          "id": "E-112",
+          "month": "2026-09",
+          "status": "Approved",
+          "department": "Ops",
+          "amount": "206.00"
+        }
+      ],
+      "exports": [
+        [
+          "E-101",
+          "E-107",
+          "E-109",
+          "E-112"
+        ]
+      ]
+    },
+    "audit": [
+      {
+        "op": "export",
+        "ids": [
+          "E-101",
+          "E-107",
+          "E-109",
+          "E-112"
+        ]
+      }
+    ],
+    "download_sha256": "dbcd3cb422a4bd2d3328a062b545366f22ae2b1f32945565f311c6bbeb2b6397",
+    "tool_version": "gui_native_v2",
+    "run_id": 34820222541,
+    "runner": "windows-2022",
+    "artifact_meta": "agent-windows/G07/gui-batch3-G07-windows-2022-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "All 4 matching records for September 2026 Approved expenses from the Ops department across all pages have been successfully selected, exported, and downloaded as approved-expenses.csv in the Downloads folder."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G08",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "live_profile": false,
+      "draft_cleared": true,
+      "identity_and_notes_unchanged": true,
+      "other_customer_unchanged": true
+    },
+    "state": {
+      "customers": [
+        {
+          "id": "C-71",
+          "name": "Sam Lee",
+          "email": "sam.lee@cedar.example",
+          "live": {
+            "street": "8 Keizersgracht",
+            "city": "Amsterdam",
+            "postal": "1011 AB",
+            "contact": "Phone"
+          },
+          "draft": null,
+          "notes": [
+            "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+            "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+          ]
+        },
+        {
+          "id": "C-72",
+          "name": "Sam Lee",
+          "email": "sam.lee@cedar-logistics.example",
+          "live": {
+            "street": "4 West Road",
+            "city": "Utrecht",
+            "postal": "3511 CD",
+            "contact": "Phone"
+          },
+          "draft": null,
+          "notes": [
+            "2026-09-10: No requested changes."
+          ]
+        }
+      ]
+    },
+    "audit": [],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34820390662,
+    "runner": "windows-2022",
+    "artifact_meta": "agent-windows/G08/gui-batch3-G08-windows-2022-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "click",
+      "x": 28,
+      "y": 80
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G09",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 2,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "PROJ-218": true,
+      "PROJ-281": true,
+      "PROJ-203": true,
+      "PROJ-211": true
+    },
+    "state": {
+      "cards": [
+        {
+          "id": "PROJ-218",
+          "title": "Review supplier agreement",
+          "column": "Review",
+          "assignee": "Mina",
+          "due": "2026-09-18"
+        },
+        {
+          "id": "PROJ-281",
+          "title": "Review supplier agreement",
+          "column": "Ready",
+          "assignee": "Leo",
+          "due": "2026-09-19"
+        },
+        {
+          "id": "PROJ-203",
+          "title": "Prepare vendor summary",
+          "column": "Doing",
+          "assignee": "Mina",
+          "due": "2026-09-20"
+        },
+        {
+          "id": "PROJ-211",
+          "title": "Confirm tax details",
+          "column": "Review",
+          "assignee": "Ivo",
+          "due": "2026-09-17"
+        }
+      ]
+    },
+    "audit": [
+      {
+        "op": "move",
+        "id": "PROJ-218",
+        "column": "Review"
+      }
+    ],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34820569777,
+    "runner": "windows-2022",
+    "artifact_meta": "agent-windows/G09/gui-batch3-G09-windows-2022-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "Card PROJ-218 has been successfully moved from Ready to Review with its assignee and due date preserved, while other cards remain unchanged."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G10",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "policy_acknowledged": true,
+      "correct_approval": false,
+      "case_unchanged": true
+    },
+    "state": {
+      "case": {
+        "id": "REQ-731",
+        "amount": "1750.00",
+        "expedited": true
+      },
+      "acknowledged": true,
+      "approval": null
+    },
+    "audit": [
+      {
+        "op": "ack"
+      }
+    ],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34820695089,
+    "runner": "windows-2022",
+    "artifact_meta": "agent-windows/G10/gui-batch3-G10-windows-2022-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "scroll",
+      "x": 510,
+      "y": 600,
+      "dx": 0,
+      "dy": -3
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "case": "REQ-731",
+  "acknowledged": true,
+  "route": "Manager",
+  "reason": "EXP-7",
+  "unchanged": "case identity and amount"
+}

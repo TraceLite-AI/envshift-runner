@@ -1,0 +1,86 @@
+{
+  "id": "BC-G08-macos-15-34818197573",
+  "task": "G08",
+  "model": "gemini-3.5-flash",
+  "classification": "unfinished_or_incorrect_delivery",
+  "stable_os_failure_proven": false,
+  "failure": {
+    "arm": "agent",
+    "task": "G08",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "timeout": false,
+    "steps": 60,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "live_profile": false,
+      "draft_cleared": true,
+      "identity_and_notes_unchanged": true,
+      "other_customer_unchanged": true
+    },
+    "state": {
+      "customers": [
+        {
+          "id": "C-71",
+          "name": "Sam Lee",
+          "email": "sam.lee@cedar.example",
+          "live": {
+            "street": "8 Keizersgracht",
+            "city": "Amsterdam",
+            "postal": "1011 AB",
+            "contact": "Phone"
+          },
+          "draft": null,
+          "notes": [
+            "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+            "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+          ]
+        },
+        {
+          "id": "C-72",
+          "name": "Sam Lee",
+          "email": "sam.lee@cedar-logistics.example",
+          "live": {
+            "street": "4 West Road",
+            "city": "Utrecht",
+            "postal": "3511 CD",
+            "contact": "Phone"
+          },
+          "draft": null,
+          "notes": [
+            "2026-09-10: No requested changes."
+          ]
+        }
+      ]
+    },
+    "audit": [],
+    "download_sha256": null,
+    "tool_version": "gui_native_v2",
+    "run_id": 34818197573,
+    "runner": "macos-15",
+    "artifact_meta": "agent-first/gui-batch3-G08-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "click",
+      "x": 23,
+      "y": 112
+    },
+    "classification": "unfinished_or_incorrect_delivery",
+    "execution_errors": [],
+    "parse_errors": 1
+  },
+  "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "note": "Retained observed badcase; a single trajectory does not establish an OS cause or stable failure rate.",
+  "silent_wrong_result": false,
+  "action_budget_exhausted": true,
+  "review_notes": {
+    "observation": "The agent opens the correct customer and draft editor, then repeatedly clicks Chrome Back and the app header. No draft or publication is posted.",
+    "candidate_explanation": "Facts from activity notes disappear when the editor is shown; SPA navigation does not add browser history. A notebook diagnostic can test the memory hypothesis.",
+    "os_cause_proven": false,
+    "notebook_observation": "Notebook-enabled trial 34821097368 never wrote a memory field. Its final notebook is empty; this does not test whether correctly used memory would solve the task."
+  }
+}

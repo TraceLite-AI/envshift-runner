@@ -1,0 +1,46 @@
+{
+ "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+ "model": "gemini-3.5-flash",
+ "coordinate_mode": "normalized_0_1000",
+ "tool_version": "gui_native_v2",
+ "screen_size": [
+  1280,
+  900
+ ],
+ "steps": 3,
+ "blind_steps": 0,
+ "channel_fail": null,
+ "history": [
+  {
+   "action": {
+    "action": "drag",
+    "x": 155,
+    "y": 554,
+    "to_x": 583,
+    "to_y": 701
+   },
+   "result": "从 (198, 499) 拖到 (746, 631)",
+   "raw": "{\"action\":\"drag\",\"x\":155,\"y\":554,\"to_x\":583,\"to_y\":701}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "drag",
+    "x": 463,
+    "y": 498,
+    "to_x": 742,
+    "to_y": 630
+   },
+   "result": "从 (593, 448) 拖到 (950, 567)",
+   "raw": "{\"action\": \"drag\", \"x\": 463, \"y\": 498, \"to_x\": 742, \"to_y\": 630}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "done",
+    "reason": "Card PROJ-218 has been successfully moved from Ready to Review via dragging while preserving its assignee and due date, and all other cards remain in their original columns."
+   },
+   "result": "DONE"
+  }
+ ]
+}
