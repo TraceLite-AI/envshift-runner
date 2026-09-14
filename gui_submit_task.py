@@ -118,7 +118,12 @@ else:
  ws.close() # no controller interaction with the page during agent actions
  proc=subprocess.run([sys.executable,str(HERE/'gui_agent_loop.py'),'--task','G01-native-file-submit','--model',a.model,'--max-steps',str(a.steps),'--instruction',instruction,'--outdir',str(OUT/'agent')],capture_output=True,timeout=1500)
  (OUT/'agent.log').write_bytes(proc.stdout+proc.stderr)
- loop_path=OUT/'agent/loop.json';loop=json.loads(loop_path.read_text(encoding='utf-8')) if loop_path.exists() else {}
+ loop_path=OUT/'agent/loop.json'
+ try:
+  loop=json.loads(loop_path.read_text(encoding='utf-8')) if loop_path.exists() else {}
+ except (ValueError,UnicodeError):
+  loop={}
+  (OUT/'trace-recording-error.txt').write_text('Incomplete or invalid agent trace; not a valid model result.',encoding='utf-8')
  result=grade();meta=dict(arm=a.arm,platform=platform.platform(),model=a.model,model_rc=proc.returncode,steps=loop.get('steps'),channel_fail=loop.get('channel_fail'),blind_steps=loop.get('blind_steps'),valid_model_run=proc.returncode==0 and bool(loop) and not loop.get('channel_fail') and not loop.get('blind_steps'),**result)
  screenshot('agent-final.png')
  print('AGENT_RESULT',json.dumps(meta),flush=True)

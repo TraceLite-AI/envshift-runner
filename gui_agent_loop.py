@@ -158,7 +158,7 @@ for step in range(1, a.max_steps + 1):
     time.sleep(0.8)
 nblind = sum(1 for h in history if h.get("blind"))
 json.dump({"platform": platform.platform(), "model": a.model, "steps": len(history), "blind_steps": nblind,
-           "channel_fail": channel_fail, "history": history}, open(OUT / "loop.json", "w"), ensure_ascii=False, indent=1)
+           "channel_fail": channel_fail, "history": history}, open(OUT / "loop.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 # ★channel_fail 一定要打进 LOOP-DONE:收割据此把「通道故障」和「模型没做出来」分开,
 #   否则两者都长成 resolved=0,只能靠步数猜,而「跑到第 3 步才被限流」是猜不出来的。
 print(f"LOOP-DONE steps={len(history)} platform={SYS} blind={nblind} channel_fail={channel_fail or 'none'}")
