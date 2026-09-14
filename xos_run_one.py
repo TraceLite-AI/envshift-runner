@@ -123,6 +123,13 @@ r = subprocess.run([sys.executable, str(_mk), str(data)], capture_output=True, t
                    env={**os.environ, f"{venv}_APP": str(app)})   # 从内存写回临时目录跑;E8/E9 的现成工具由 fixture 写进 app 根
 shutil.rmtree(_mk.parent, ignore_errors=True)
 (out / "fixture.log").write_text(r.stdout + r.stderr)
+# ★记下现成工具的原样:agent 臂交完之后要比对,把「根本没改」与「机制翻转」分开。
+# 这两种在分数上都是 reward=0,混在一起会让「没干完活」被当成环境敏感度信号。
+_orig_tool = None
+try:
+    _orig_tool = (app / binname).read_bytes()
+except Exception:
+    pass
 if r.returncode != 0: print(f"{a.task} arm={a.arm} FIXTURE-FAIL {r.stderr[-200:]}"); sys.exit(4)
 # 2) 臂
 agent_rc = 0; env_cell = dict(os.environ, **cell_env)
@@ -176,7 +183,14 @@ r = subprocess.run(cmd, env=venv_env, capture_output=True, text=True, timeout=18
 (out / "verifier.log").write_text(r.stdout + r.stderr)
 reward = (logdir / "reward.txt").read_text().strip() if (logdir / "reward.txt").exists() else "?"
 tr = json.loads((logdir / "trace_results.json").read_text()) if (logdir / "trace_results.json").exists() else {}
-line = f"{a.task} cell={os.environ.get('XOS_CELL','?')} arm={a.arm} reward={reward} 诊断={tr.get('points','?')}/{tr.get('total','?')} agent_rc={agent_rc} vrc={r.returncode} agent_s={int(t1-t0)} verify_s={int(time.time()-t1)}"
+delivered = "na"
+if a.arm == "agent":
+    try:
+        _now = (app / binname).read_bytes()
+        delivered = "unchanged" if (_orig_tool is not None and _now == _orig_tool) else "modified"
+    except Exception:
+        delivered = "missing"
+line = f"{a.task} cell={os.environ.get('XOS_CELL','?')} arm={a.arm} reward={reward} 诊断={tr.get('points','?')}/{tr.get('total','?')} agent_rc={agent_rc} vrc={r.returncode} agent_s={int(t1-t0)} verify_s={int(time.time()-t1)} delivered={delivered}"
 print(line)
 if reward != "1":
     _vl = (out / "verifier.log").read_text(encoding="utf-8", errors="replace") if (out / "verifier.log").exists() else ""
