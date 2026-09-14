@@ -1,0 +1,44 @@
+{
+  "task": "G01-native-file-submit",
+  "model": "gemini-3.5-flash",
+  "tool_surface": "screenshot/mouse/keyboard only",
+  "steps": 35,
+  "agent_commit": "a8343672927ade57710697625273b15f604eb887",
+  "agent_run": 34809794676,
+  "control_runs": [
+    34808162749,
+    34808449108,
+    34808665293,
+    34808839045
+  ],
+  "control_failures_excluded": [
+    "Ubuntu first keyboard path",
+    "Ubuntu with WM keyboard path",
+    "Ubuntu explicit confirmation"
+  ],
+  "trials_per_cell": 2,
+  "coordinate_mode": "normalized_0_1000",
+  "excluded_agent_runs": [
+    {
+      "run": 34808987362,
+      "reason": "Action protocol mismatch: model supplied normalized coordinates but executor clicked pixels. Windows additionally had cp1252 JSON trace failure."
+    },
+    {
+      "run": 34809415754,
+      "reason": "Windows UTF-8 trace fix only; coordinate mismatch remained."
+    }
+  ],
+  "status": "completed",
+  "agent_runs": [
+    34809794676,
+    34810108737
+  ],
+  "model_trials_valid": 6,
+  "model_trials_excluded": 4,
+  "correct_submissions": 5,
+  "silent_wrong_submissions": 0,
+  "stable_os_failure_observed": false,
+  "diagnostic_run": 34810306051,
+  "diagnostic_commit": "5f57fd08ce039592c034c01d7f31243e105fffa9",
+  "result": "Ubuntu 1/2; macOS 2/2; Windows 2/2; no stable cross-environment failure"
+}

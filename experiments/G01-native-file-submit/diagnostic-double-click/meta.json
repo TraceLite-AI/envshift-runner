@@ -1,0 +1,56 @@
+{
+  "arm": "diagnostic",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "results": [
+    {
+      "label": "single-open",
+      "pixel": [
+        320,
+        130
+      ],
+      "interval": null,
+      "chosen": "approved-2026-08.csv",
+      "selected_correctly": true
+    },
+    {
+      "label": "double-zero",
+      "pixel": [
+        320,
+        130
+      ],
+      "interval": 0,
+      "chosen": "",
+      "selected_correctly": false
+    },
+    {
+      "label": "double-human",
+      "pixel": [
+        320,
+        130
+      ],
+      "interval": 0.12,
+      "chosen": "",
+      "selected_correctly": false
+    },
+    {
+      "label": "agent-point-zero",
+      "pixel": [
+        320,
+        123
+      ],
+      "interval": 0,
+      "chosen": "",
+      "selected_correctly": false
+    },
+    {
+      "label": "agent-point-human",
+      "pixel": [
+        320,
+        123
+      ],
+      "interval": 0.12,
+      "chosen": "",
+      "selected_correctly": false
+    }
+  ]
+}

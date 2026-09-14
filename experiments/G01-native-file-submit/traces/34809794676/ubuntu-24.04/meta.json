@@ -1,0 +1,18 @@
+{
+  "arm": "agent",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "model": "gemini-3.5-flash",
+  "model_rc": 0,
+  "steps": 35,
+  "channel_fail": null,
+  "blind_steps": 0,
+  "valid_model_run": true,
+  "reward": 0,
+  "checks": {
+    "submitted": false,
+    "correct_filename": false,
+    "correct_bytes": false,
+    "correct_reference": false
+  },
+  "submissions": []
+}

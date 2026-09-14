@@ -1,0 +1,140 @@
+[
+  {
+    "runner": "macos-15",
+    "run_id": 34808162749,
+    "artifact_meta": "control-first/gui-submit-macos-15-control/meta.json",
+    "arm": "control",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "results": [
+      {
+        "reward": 1,
+        "checks": {
+          "submitted": true,
+          "correct_filename": true,
+          "correct_bytes": true,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "filename": "approved-2026-08.csv",
+            "sha256": "5078e3160964ed33506ff3c55228c6581cd824836809bb2c156d5bccc59ecd14",
+            "size": 73,
+            "reference": "AUG-2026"
+          }
+        ],
+        "arm": "oracle"
+      },
+      {
+        "reward": 0,
+        "checks": {
+          "submitted": true,
+          "correct_filename": false,
+          "correct_bytes": false,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "filename": "approved-2026-08.csv.txt",
+            "sha256": "f9a779ff74f1ca248075bc900bfb8a1a4e213dd5ea6a4050c22bfb4717be2810",
+            "size": 73,
+            "reference": "AUG-2026"
+          }
+        ],
+        "arm": "wrong-file"
+      }
+    ],
+    "control_passed": true
+  },
+  {
+    "runner": "windows-2022",
+    "run_id": 34808162749,
+    "artifact_meta": "control-first/gui-submit-windows-2022-control/meta.json",
+    "arm": "control",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "results": [
+      {
+        "reward": 1,
+        "checks": {
+          "submitted": true,
+          "correct_filename": true,
+          "correct_bytes": true,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "filename": "approved-2026-08.csv",
+            "sha256": "5078e3160964ed33506ff3c55228c6581cd824836809bb2c156d5bccc59ecd14",
+            "size": 73,
+            "reference": "AUG-2026"
+          }
+        ],
+        "arm": "oracle"
+      },
+      {
+        "reward": 0,
+        "checks": {
+          "submitted": true,
+          "correct_filename": false,
+          "correct_bytes": false,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "filename": "approved-2026-08.csv.txt",
+            "sha256": "f9a779ff74f1ca248075bc900bfb8a1a4e213dd5ea6a4050c22bfb4717be2810",
+            "size": 73,
+            "reference": "AUG-2026"
+          }
+        ],
+        "arm": "wrong-file"
+      }
+    ],
+    "control_passed": true
+  },
+  {
+    "runner": "ubuntu-24.04",
+    "run_id": 34808839045,
+    "artifact_meta": "control-ubuntu-pass/meta.json",
+    "arm": "control",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "results": [
+      {
+        "reward": 1,
+        "checks": {
+          "submitted": true,
+          "correct_filename": true,
+          "correct_bytes": true,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "filename": "approved-2026-08.csv",
+            "sha256": "5078e3160964ed33506ff3c55228c6581cd824836809bb2c156d5bccc59ecd14",
+            "size": 73,
+            "reference": "AUG-2026"
+          }
+        ],
+        "arm": "oracle"
+      },
+      {
+        "reward": 0,
+        "checks": {
+          "submitted": true,
+          "correct_filename": false,
+          "correct_bytes": false,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "filename": "approved-2026-08.csv.txt",
+            "sha256": "f9a779ff74f1ca248075bc900bfb8a1a4e213dd5ea6a4050c22bfb4717be2810",
+            "size": 73,
+            "reference": "AUG-2026"
+          }
+        ],
+        "arm": "wrong-file"
+      }
+    ],
+    "control_passed": true
+  }
+]

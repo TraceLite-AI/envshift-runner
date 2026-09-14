@@ -1,0 +1,242 @@
+[
+  {
+    "arm": "agent",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 11,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "correct_filename": true,
+      "correct_bytes": true,
+      "correct_reference": true
+    },
+    "submissions": [
+      {
+        "filename": "approved-2026-08.csv",
+        "sha256": "5078e3160964ed33506ff3c55228c6581cd824836809bb2c156d5bccc59ecd14",
+        "size": 73,
+        "reference": "AUG-2026"
+      }
+    ],
+    "run_id": 34809794676,
+    "artifact_meta": "agent-corrected/macos-15/meta.json",
+    "protocol_valid": true,
+    "coordinate_mode": "normalized_0_1000",
+    "screen_size": [
+      1024,
+      768
+    ],
+    "classification": "correct_submission",
+    "last_action": {
+      "action": "done",
+      "reason": "The approved August 2026 reconciliation file (approved-2026-08.csv) was selected, the batch reference 'AUG-2026' was entered, and the form was submitted successfully, with the webpage indicating 'Submission received.'"
+    },
+    "claimed_done": true,
+    "execution_errors": [],
+    "action_parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 35,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 0,
+    "checks": {
+      "submitted": false,
+      "correct_filename": false,
+      "correct_bytes": false,
+      "correct_reference": false
+    },
+    "submissions": [],
+    "run_id": 34809794676,
+    "artifact_meta": "agent-corrected/ubuntu-24.04/meta.json",
+    "protocol_valid": true,
+    "coordinate_mode": "normalized_0_1000",
+    "screen_size": [
+      1280,
+      900
+    ],
+    "classification": "no_submission_within_action_budget",
+    "last_action": {
+      "action": "double_click",
+      "x": 250,
+      "y": 115
+    },
+    "claimed_done": false,
+    "execution_errors": [],
+    "action_parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 7,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "correct_filename": true,
+      "correct_bytes": true,
+      "correct_reference": true
+    },
+    "submissions": [
+      {
+        "filename": "approved-2026-08.csv",
+        "sha256": "5078e3160964ed33506ff3c55228c6581cd824836809bb2c156d5bccc59ecd14",
+        "size": 73,
+        "reference": "AUG-2026"
+      }
+    ],
+    "run_id": 34809794676,
+    "artifact_meta": "agent-corrected/windows-2022/meta.json",
+    "protocol_valid": true,
+    "coordinate_mode": "normalized_0_1000",
+    "screen_size": [
+      1024,
+      768
+    ],
+    "classification": "correct_submission",
+    "last_action": {
+      "action": "done",
+      "reason": "The approved August 2026 reconciliation file has been successfully uploaded, the batch reference has been entered, and the form has been submitted, resulting in the 'Submission received.' confirmation message."
+    },
+    "claimed_done": true,
+    "execution_errors": [],
+    "action_parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 12,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "correct_filename": true,
+      "correct_bytes": true,
+      "correct_reference": true
+    },
+    "submissions": [
+      {
+        "filename": "approved-2026-08.csv",
+        "sha256": "5078e3160964ed33506ff3c55228c6581cd824836809bb2c156d5bccc59ecd14",
+        "size": 73,
+        "reference": "AUG-2026"
+      }
+    ],
+    "run_id": 34810108737,
+    "artifact_meta": "agent-repeat/gui-submit-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "coordinate_mode": "normalized_0_1000",
+    "screen_size": [
+      1024,
+      768
+    ],
+    "classification": "correct_submission",
+    "last_action": {
+      "action": "done",
+      "reason": "The approved-2026-08.csv file has been selected, the batch reference 'AUG-2026' was entered, and the reconciliation has been successfully submitted, showing 'Submission received.'."
+    },
+    "claimed_done": true,
+    "execution_errors": [],
+    "action_parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 16,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "correct_filename": true,
+      "correct_bytes": true,
+      "correct_reference": true
+    },
+    "submissions": [
+      {
+        "filename": "approved-2026-08.csv",
+        "sha256": "5078e3160964ed33506ff3c55228c6581cd824836809bb2c156d5bccc59ecd14",
+        "size": 73,
+        "reference": "AUG-2026"
+      }
+    ],
+    "run_id": 34810108737,
+    "artifact_meta": "agent-repeat/gui-submit-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "coordinate_mode": "normalized_0_1000",
+    "screen_size": [
+      1280,
+      900
+    ],
+    "classification": "correct_submission",
+    "last_action": {
+      "action": "done",
+      "reason": "The approved August 2026 reconciliation file (approved-2026-08.csv) from /home/runner/Documents/EnvShift Inbox has been selected, the batch reference 'AUG-2026' was entered, and the reconciliation was successfully submitted, as indicated by 'Submission received'."
+    },
+    "claimed_done": true,
+    "execution_errors": [],
+    "action_parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 16,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "correct_filename": true,
+      "correct_bytes": true,
+      "correct_reference": true
+    },
+    "submissions": [
+      {
+        "filename": "approved-2026-08.csv",
+        "sha256": "5078e3160964ed33506ff3c55228c6581cd824836809bb2c156d5bccc59ecd14",
+        "size": 73,
+        "reference": "AUG-2026"
+      }
+    ],
+    "run_id": 34810108737,
+    "artifact_meta": "agent-repeat/gui-submit-windows-2022-agent/meta.json",
+    "protocol_valid": true,
+    "coordinate_mode": "normalized_0_1000",
+    "screen_size": [
+      1024,
+      768
+    ],
+    "classification": "correct_submission",
+    "last_action": {
+      "action": "done",
+      "reason": "The reconciliation file approved-2026-08.csv was selected, the batch reference AUG-2026 was entered, and the reconciliation was successfully submitted, as indicated by the 'Submission received.' message."
+    },
+    "claimed_done": true,
+    "execution_errors": [],
+    "action_parse_errors": 0
+  }
+]

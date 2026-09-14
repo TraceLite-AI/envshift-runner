@@ -1,0 +1,364 @@
+{
+ "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+ "model": "gemini-3.5-flash",
+ "coordinate_mode": "normalized_0_1000",
+ "screen_size": [
+  1280,
+  900
+ ],
+ "steps": 35,
+ "blind_steps": 0,
+ "channel_fail": null,
+ "history": [
+  {
+   "action": {
+    "action": "click",
+    "x": 200,
+    "y": 588
+   },
+   "result": "在屏幕(256,529)执行了click",
+   "raw": "{\"action\":\"click\",\"x\":200,\"y\":588}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 156,
+    "y": 588
+   },
+   "result": "在屏幕(200,529)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 156, \"y\": 588}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 170,
+    "y": 587
+   },
+   "result": "在屏幕(218,528)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 170, \"y\": 587}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 200,
+    "y": 530
+   },
+   "result": "在屏幕(256,477)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 200, \"y\": 530}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 195,
+    "y": 127
+   },
+   "result": "在屏幕(250,114)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 195, \"y\": 127}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 115
+   },
+   "result": "在屏幕(320,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 137
+   },
+   "result": "在屏幕(320,123)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 137}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 200,
+    "y": 529
+   },
+   "result": "在屏幕(256,476)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 200, \"y\": 529}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 115
+   },
+   "result": "在屏幕(320,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 300,
+    "y": 115
+   },
+   "result": "在屏幕(384,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 300, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 138
+   },
+   "result": "在屏幕(320,124)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 138}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 200,
+    "y": 529
+   },
+   "result": "在屏幕(256,476)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 200, \"y\": 529}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 115
+   },
+   "result": "在屏幕(320,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 235,
+    "y": 115
+   },
+   "result": "在屏幕(301,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 235, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 140
+   },
+   "result": "在屏幕(320,126)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 140}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 200,
+    "y": 529
+   },
+   "result": "在屏幕(256,476)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 200, \"y\": 529}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 115
+   },
+   "result": "在屏幕(320,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 115
+   },
+   "result": "在屏幕(320,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 138
+   },
+   "result": "在屏幕(320,124)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 138}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 200,
+    "y": 530
+   },
+   "result": "在屏幕(256,477)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 200, \"y\": 530}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 869,
+    "y": 910
+   },
+   "result": "在屏幕(1112,819)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 869, \"y\": 910}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 200,
+    "y": 529
+   },
+   "result": "在屏幕(256,476)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 200, \"y\": 529}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 230,
+    "y": 115
+   },
+   "result": "在屏幕(294,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 230, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 115
+   },
+   "result": "在屏幕(320,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 138
+   },
+   "result": "在屏幕(320,124)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 138}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 200,
+    "y": 529
+   },
+   "result": "在屏幕(256,476)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 200, \"y\": 529}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 200,
+    "y": 115
+   },
+   "result": "在屏幕(256,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 200, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 200,
+    "y": 115
+   },
+   "result": "在屏幕(256,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 200, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 138
+   },
+   "result": "在屏幕(320,124)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 138}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 200,
+    "y": 529
+   },
+   "result": "在屏幕(256,476)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 200, \"y\": 529}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 200,
+    "y": 115
+   },
+   "result": "在屏幕(256,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 200, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 115
+   },
+   "result": "在屏幕(320,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 115}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 138
+   },
+   "result": "在屏幕(320,124)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 138}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "click",
+    "x": 200,
+    "y": 529
+   },
+   "result": "在屏幕(256,476)执行了click",
+   "raw": "{\"action\": \"click\", \"x\": 200, \"y\": 529}",
+   "blind": false
+  },
+  {
+   "action": {
+    "action": "double_click",
+    "x": 250,
+    "y": 115
+   },
+   "result": "在屏幕(320,104)执行了double_click",
+   "raw": "{\"action\": \"double_click\", \"x\": 250, \"y\": 115}",
+   "blind": false
+  }
+ ]
+}
