@@ -56,6 +56,7 @@ ACTIONS = """你只能输出一个 JSON 对象,不要有其他文字。可用动
 {"action":"click","x":<0到1000的横坐标>,"y":<0到1000的纵坐标>}  单击
 {"action":"double_click","x":..,"y":..}                        双击
 {"action":"right_click","x":..,"y":..}                         右键
+点击类动作可以附加 "modifiers":["ctrl"] 或 ["shift"] 来按住修饰键点击,适用于多选。mac 上 ctrl 自动换成 command。例如 {"action":"click","x":500,"y":300,"modifiers":["ctrl"]}。
 {"action":"type","text":"要输入的文字"}                        在当前焦点处打字
 {"action":"key","keys":["ctrl","s"]}                           组合键(mac 上 ctrl 会自动换成 command)
 {"action":"scroll","dx":0,"dy":-3}                             滚动
@@ -117,11 +118,21 @@ def do(act, img_size):
     t = act.get("action")
     if t in ("click", "double_click", "right_click"):
         x, y = normalized_point(act["x"], act["y"], SCREEN_W, SCREEN_H)
+        modifiers = act.get("modifiers", [])
+        if not isinstance(modifiers, list) or any(k not in ("ctrl", "control", "command", "shift", "alt", "option") for k in modifiers):
+            raise ValueError("modifiers 必须是 ctrl/command/shift/alt 的数组")
+        modifiers = [("command" if SYS == "Darwin" and k in ("ctrl", "control") else "alt" if k == "option" else "ctrl" if k == "control" else k) for k in modifiers]
         pyautogui.moveTo(x, y, duration=0.15)
-        if t == "click": pyautogui.click()
-        elif t == "double_click": pyautogui.doubleClick()
-        else: pyautogui.rightClick()
-        return f"在屏幕({x},{y})执行了{t}"
+        held = []
+        try:
+            for key in modifiers:
+                pyautogui.keyDown(key); held.append(key)
+            if t == "click": pyautogui.click()
+            elif t == "double_click": pyautogui.doubleClick()
+            else: pyautogui.rightClick()
+        finally:
+            for key in reversed(held): pyautogui.keyUp(key)
+        return f"在屏幕({x},{y})执行了{t}; modifiers={modifiers}"
     if t == "type":
         pyautogui.typewrite(act.get("text", ""), interval=0.02); return f"输入了 {len(act.get('text',''))} 个字符"
     if t == "key":
@@ -161,7 +172,7 @@ for step in range(1, a.max_steps + 1):
     history.append({"action": act, "result": r, "raw": _r, "blind": blind})
     time.sleep(0.8)
 nblind = sum(1 for h in history if h.get("blind"))
-json.dump({"platform": platform.platform(), "model": a.model, "coordinate_mode": "normalized_0_1000", "screen_size": [SCREEN_W, SCREEN_H], "steps": len(history), "blind_steps": nblind,
+json.dump({"platform": platform.platform(), "model": a.model, "coordinate_mode": "normalized_0_1000", "tool_version": "gui_modifiers_v1", "screen_size": [SCREEN_W, SCREEN_H], "steps": len(history), "blind_steps": nblind,
            "channel_fail": channel_fail, "history": history}, open(OUT / "loop.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 # ★channel_fail 一定要打进 LOOP-DONE:收割据此把「通道故障」和「模型没做出来」分开,
 #   否则两者都长成 resolved=0,只能靠步数猜,而「跑到第 3 步才被限流」是猜不出来的。
