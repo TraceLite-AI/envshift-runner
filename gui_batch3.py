@@ -87,7 +87,7 @@ def main():
     shot('initial.png');assert result()['reward']==0
     instruction=PROMPTS[a.task]+' '+GUARD
     (out/'instruction.txt').write_text(instruction,encoding='utf-8')
-    (out/'environment.json').write_text(json.dumps({'platform':platform.platform(),'python':sys.version,'browser':cdp('Browser.getVersion'),'screen_size':list(pyautogui.size()),'task':a.task,'tool_version':'gui_native_v2','reference_assistance':'DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only'},indent=2),encoding='utf-8')
+    (out/'environment.json').write_text(json.dumps({'platform':platform.platform(),'python':sys.version,'browser':cdp('Browser.getVersion'),'screen_size':list(pyautogui.size()),'task':a.task,'tool_version':'gui_native_v3_notebook','reference_assistance':'DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only'},indent=2),encoding='utf-8')
     if a.arm=='control':
         results=[]
         for label in ['oracle','wrong-result']:
@@ -129,7 +129,7 @@ def main():
             except subprocess.TimeoutExpired:rc=-1;timed_out=True
         try:loop=json.loads((out/'agent/loop.json').read_text(encoding='utf-8'))
         except (OSError,ValueError):loop={}
-        valid=rc==0 and bool(loop) and not loop.get('channel_fail') and not loop.get('blind_steps') and loop.get('tool_version')=='gui_native_v2'
+        valid=rc==0 and bool(loop) and not loop.get('channel_fail') and not loop.get('blind_steps') and loop.get('tool_version')=='gui_native_v3_notebook'
         meta={'arm':'agent','task':a.task,'platform':platform.platform(),'model':a.model,'model_rc':rc,'timeout':timed_out,'steps':loop.get('steps'),'channel_fail':loop.get('channel_fail'),'blind_steps':loop.get('blind_steps'),'valid_model_run':valid,**result()}
         shot('agent-final.png');print('AGENT_RESULT',json.dumps(meta),flush=True)
         if a.task=='G07' and targetfile.exists():shutil.copyfile(targetfile,out/'approved-expenses.csv')

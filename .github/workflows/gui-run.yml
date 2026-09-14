@@ -2,9 +2,9 @@ name: gui-run
 on:
   workflow_dispatch:
     inputs:
-      oslist: { description: runners, default: '["ubuntu-24.04","macos-15","windows-2022"]' }
-      tasks: { description: GUI tasks, default: '["G05","G06","G07","G08","G09","G10"]' }
-      arm: { description: control or agent, default: control }
+      oslist: { description: runners, default: '["ubuntu-24.04"]' }
+      tasks: { description: GUI tasks, default: '["G05","G08","G10"]' }
+      arm: { description: control or agent, default: agent }
       model: { description: existing GUI model, default: gemini-3.5-flash }
       steps: { description: action budget, default: '60' }
 permissions:

@@ -63,12 +63,12 @@ ACTIONS = """你只能输出一个 JSON 对象,不要有其他文字。可用动
 {"action":"drag","x":..,"y":..,"to_x":..,"to_y":..}             从起点拖到终点，均为 0–1000 坐标
 {"action":"wait","seconds":2}                                  等待
 {"action":"done","reason":"为什么认为完成了"}                  任务完成
-所有点击坐标均使用 0–1000 归一化坐标,不是像素:截图左上角为(0,0),右下角为(1000,1000),中心为(500,500)。x 向右增加,y 向下增加。每次只做一个动作。只输出 JSON,不要输出任何工具调用标记或其他文字。"""
+所有点击坐标均使用 0–1000 归一化坐标,不是像素:截图左上角为(0,0),右下角为(1000,1000),中心为(500,500)。x 向右增加,y 向下增加。每次只做一个动作。每个动作还可附加 "memory":"需要在之后步骤保留的简短笔记"。翻页、切换标签或关闭弹窗之前，把从当前截图读取的关键事实和下一步计划写入 memory。笔记只由你自己写，不会自动从网页提取。新 memory 会替换旧笔记，省略时保留。只输出 JSON,不要输出任何工具调用标记或其他文字。"""
 
 
 def call_model(history, img_b64, img_size, instruction):
     sys_txt = (f"你在操作一台 {SYS} 电脑的图形界面。屏幕截图尺寸 {img_size[0]}x{img_size[1]}。\n"
-               f"任务:{instruction}\n\n{ACTIONS}")
+               f"任务:{instruction}\n你自己留下的笔记:{memory or '(暂无)'}\n\n{ACTIONS}")
     msgs = [{"role": "user", "content": [{"type": "text", "text": sys_txt}]}]
     for h in history[-6:]:
         msgs.append({"role": "assistant", "content": json.dumps(h["action"], ensure_ascii=False)})
@@ -163,6 +163,7 @@ if not KEY: sys.exit("NO-API-KEY")
 instruction = a.instruction or "(未提供任务文本)"
 log(f"平台 {SYS} 屏幕 {SCREEN_W}x{SCREEN_H} 模型 {a.model} 任务:{instruction[:70]}")
 history = []
+memory = ""
 channel_fail = None          # 非 None 表示这一轮是通道故障(网关限流/连接断),不是模型的成绩
 for step in range(1, a.max_steps + 1):
     size, b64, path = shot(step)
@@ -177,6 +178,7 @@ for step in range(1, a.max_steps + 1):
     if blind: log(f"第{step}步 ★模型说看不到图: {_r[:100]}")
     if not act:
         log(f"第{step}步 模型没给出可解析的动作: {str(raw)[:100]}"); history.append({"action": {"action": "?"}, "result": "上次输出无法解析,请只输出 JSON", "raw": _r, "blind": blind}); continue
+    if isinstance(act.get("memory"), str): memory = act["memory"][:2000]
     if act.get("action") == "done":
         log(f"第{step}步 模型认为完成:{act.get('reason','')[:80]}"); history.append({"action": act, "result": "DONE"}); break
     try: r = do(act, size)
@@ -185,7 +187,7 @@ for step in range(1, a.max_steps + 1):
     history.append({"action": act, "result": r, "raw": _r, "blind": blind})
     time.sleep(0.8)
 nblind = sum(1 for h in history if h.get("blind"))
-json.dump({"platform": platform.platform(), "model": a.model, "coordinate_mode": "normalized_0_1000", "tool_version": "gui_native_v2", "screen_size": [SCREEN_W, SCREEN_H], "steps": len(history), "blind_steps": nblind,
+json.dump({"platform": platform.platform(), "model": a.model, "coordinate_mode": "normalized_0_1000", "tool_version": "gui_native_v3_notebook", "memory": memory, "screen_size": [SCREEN_W, SCREEN_H], "steps": len(history), "blind_steps": nblind,
            "channel_fail": channel_fail, "history": history}, open(OUT / "loop.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 # ★channel_fail 一定要打进 LOOP-DONE:收割据此把「通道故障」和「模型没做出来」分开,
 #   否则两者都长成 resolved=0,只能靠步数猜,而「跑到第 3 步才被限流」是猜不出来的。
