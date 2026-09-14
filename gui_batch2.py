@@ -164,7 +164,8 @@ if a.arm=='control':
             elif os.name=='nt':
                 pyautogui.hotkey('alt','n');select_all();pyautogui.write(str(WORK/name),interval=.01)
             else:
-                select_all();pyautogui.write(str(WORK/name),interval=.01)
+                pyautogui.click(87,98);time.sleep(.4);pyautogui.doubleClick(285,158,interval=.12);time.sleep(.5);pyautogui.doubleClick(285,158,interval=.12);time.sleep(.6)
+                screenshot(label+'-save-folder.png');pyautogui.click(420,47);select_all();pyautogui.write(name,interval=.02)
             if sys.platform.startswith('linux'):pyautogui.click(1110,820)
             else:pyautogui.press('enter')
             time.sleep(1.5);screenshot(label+'-overwrite.png')
