@@ -1,0 +1,102 @@
+{
+  "id": "BC-G10-ubuntu-24.04-34828647869-trial3",
+  "task": "G10",
+  "model": "gemini-3.5-flash",
+  "classification": "step_budget_exhausted",
+  "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "workflow_commit": "527774d8a693da1beeda3374d67126baad4d7dc5",
+  "trial": 3,
+  "run": 34828647869,
+  "stable_os_failure_proven": false,
+  "failure": {
+    "task": "G10",
+    "trial": 3,
+    "run": 34828647869,
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "evidence": "evidence/gui-repeat-G10-ubuntu-24.04-agent-trial3/evidence",
+    "archive": "archives/gui-repeat-G10-ubuntu-24.04-agent-trial3.tar.xz",
+    "classification": "step_budget_exhausted",
+    "failed_checks": [
+      "correct_approval"
+    ],
+    "audit": [
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      }
+    ],
+    "action_types": {
+      "click": 17,
+      "scroll": 41,
+      "drag": 2
+    },
+    "most_repeated_actions": [
+      {
+        "action": {
+          "action": "scroll",
+          "dx": 0,
+          "dy": -20,
+          "x": 450,
+          "y": 600
+        },
+        "count": 7
+      },
+      {
+        "action": {
+          "action": "scroll",
+          "dy": -10,
+          "x": 450,
+          "y": 600
+        },
+        "count": 7
+      },
+      {
+        "action": {
+          "action": "scroll",
+          "dx": 0,
+          "dy": -10,
+          "x": 468,
+          "y": 600
+        },
+        "count": 6
+      },
+      {
+        "action": {
+          "action": "scroll",
+          "dx": 0,
+          "dy": -20,
+          "x": 468,
+          "y": 600
+        },
+        "count": 6
+      },
+      {
+        "action": {
+          "action": "scroll",
+          "dx": 0,
+          "dy": -10,
+          "x": 500,
+          "y": 550
+        },
+        "count": 5
+      }
+    ],
+    "longest_identical_screenshot_streak": 16,
+    "identical_adjacent_screenshots": 40,
+    "scroll_actions_with_unsupported_xy": 38,
+    "execution_error_steps": [],
+    "parse_error_steps": []
+  },
+  "archive_sha256": "a7d847309009739b71bff242575da022e05a37cc19742c0cbb7cfe9d4f556ca5",
+  "note": "Prospectively collected fixed-configuration repeat. Interpret jointly with the full five-trial series; valid successes also retained."
+}

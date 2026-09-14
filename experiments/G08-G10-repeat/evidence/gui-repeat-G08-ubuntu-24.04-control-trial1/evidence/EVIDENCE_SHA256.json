@@ -1,0 +1,15 @@
+{
+  "chrome.log": "f20afceeabe0a3a5050fec95cbfdd5f79fa50c9481adae1c04db0ede94f18924",
+  "environment.json": "8815eae50515ae435456fb696e7fdb23f6040277e5b63cb50066ec06fc5226ef",
+  "initial.png": "cc022d34cc1dce07ff65c8a7b5c7640a62b32861b7c577f2e0a7b380ba7f02d4",
+  "instruction.txt": "867364f99ef5dd0b2407732dd62a8401dfe66d490d3a1843b4d9f41310d03962",
+  "meta.json": "99a57e687c65eb2835a4917fbdeaa64fe08e2088f1bcbdd500e1bf78a2e65515",
+  "oracle-final.png": "97bed95596bd495dc2b077216f0fb266d7f2a34a5fc846cc769049b70a97d90e",
+  "oracle-notes.png": "0038fed9ff77c3df4c7d8a45e7d2db2ff6c752077bb456a6e7b7662c9ee5a4d6",
+  "oracle-result.json": "63e590ad42b802af9353e59bd435c1f9a7369119bb48a466d8e47d0560d8d2fd",
+  "repeat_metadata/pip-freeze.txt": "a52f7585865d68d3a20b0711f654a78045063d16dce0e44e3ba9cb85c1023b76",
+  "repeat_metadata/runtime.json": "4603688ad3e9f59b3a69ad52b871cb84b3bd5b34343a5156ed776133c9b5cf73",
+  "wrong-result-final.png": "0e3cb65002430d45191e149667a9198c34c3f0082b0c39076437fd0b4ed3cde4",
+  "wrong-result-notes.png": "0038fed9ff77c3df4c7d8a45e7d2db2ff6c752077bb456a6e7b7662c9ee5a4d6",
+  "wrong-result-result.json": "156105a3303c142f370802139cc88f82bd7dfd1e995935a170e43dc2c6b5d016"
+}

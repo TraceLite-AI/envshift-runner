@@ -1,0 +1,82 @@
+{
+  "id": "BC-G08-ubuntu-24.04-34828647869-trial1",
+  "task": "G08",
+  "model": "gemini-3.5-flash",
+  "classification": "step_budget_exhausted",
+  "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "workflow_commit": "527774d8a693da1beeda3374d67126baad4d7dc5",
+  "trial": 1,
+  "run": 34828647869,
+  "stable_os_failure_proven": false,
+  "failure": {
+    "task": "G08",
+    "trial": 1,
+    "run": 34828647869,
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "evidence": "evidence/gui-repeat-G08-ubuntu-24.04-agent-trial1/evidence",
+    "archive": "archives/gui-repeat-G08-ubuntu-24.04-agent-trial1.tar.xz",
+    "classification": "step_budget_exhausted",
+    "failed_checks": [
+      "live_profile"
+    ],
+    "audit": [],
+    "action_types": {
+      "click": 55,
+      "key": 4,
+      "scroll": 1
+    },
+    "most_repeated_actions": [
+      {
+        "action": {
+          "action": "click",
+          "x": 23,
+          "y": 71
+        },
+        "count": 20
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 20,
+          "y": 71
+        },
+        "count": 7
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 21,
+          "y": 69
+        },
+        "count": 4
+      },
+      {
+        "action": {
+          "action": "key",
+          "keys": [
+            "alt",
+            "left"
+          ]
+        },
+        "count": 4
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 84,
+          "y": 188
+        },
+        "count": 3
+      }
+    ],
+    "longest_identical_screenshot_streak": 32,
+    "identical_adjacent_screenshots": 50,
+    "scroll_actions_with_unsupported_xy": 0,
+    "execution_error_steps": [],
+    "parse_error_steps": []
+  },
+  "archive_sha256": "7ef9e7b9f5f4bdff53e545f5aceb94ebe2d343aed84e77c92d0eb729e0654881",
+  "note": "Prospectively collected fixed-configuration repeat. Interpret jointly with the full five-trial series; valid successes also retained."
+}

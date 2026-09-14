@@ -1,0 +1,222 @@
+{
+  "conclusion": "",
+  "headSha": "527774d8a693da1beeda3374d67126baad4d7dc5",
+  "jobs": [
+    {
+      "completedAt": "2026-09-14T09:32:47Z",
+      "conclusion": "success",
+      "databaseId": 103925848310,
+      "name": "native-dialog (ubuntu-24.04, G10, 1)",
+      "startedAt": "2026-09-14T09:31:34Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-09-14T09:31:36Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-09-14T09:31:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:31:37Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-09-14T09:31:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:31:37Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5",
+          "number": 3,
+          "startedAt": "2026-09-14T09:31:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:31:50Z",
+          "conclusion": "success",
+          "name": "install GUI dependencies",
+          "number": 4,
+          "startedAt": "2026-09-14T09:31:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:08Z",
+          "conclusion": "success",
+          "name": "prepare display and Chrome",
+          "number": 5,
+          "startedAt": "2026-09-14T09:31:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:08Z",
+          "conclusion": "success",
+          "name": "record runtime before the trial",
+          "number": 6,
+          "startedAt": "2026-09-14T09:32:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:44Z",
+          "conclusion": "success",
+          "name": "run GUI task",
+          "number": 7,
+          "startedAt": "2026-09-14T09:32:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:44Z",
+          "conclusion": "success",
+          "name": "pack complete evidence without changing original bytes",
+          "number": 8,
+          "startedAt": "2026-09-14T09:32:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:45Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 9,
+          "startedAt": "2026-09-14T09:32:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:45Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5",
+          "number": 17,
+          "startedAt": "2026-09-14T09:32:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:45Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 18,
+          "startedAt": "2026-09-14T09:32:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:45Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "startedAt": "2026-09-14T09:32:45Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/TraceLite-AI/envshift-runner/actions/runs/34828438040/job/103925848310"
+    },
+    {
+      "completedAt": "2026-09-14T09:32:49Z",
+      "conclusion": "success",
+      "databaseId": 103925848684,
+      "name": "native-dialog (ubuntu-24.04, G08, 1)",
+      "startedAt": "2026-09-14T09:31:35Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-09-14T09:31:36Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-09-14T09:31:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:31:37Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-09-14T09:31:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:31:38Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5",
+          "number": 3,
+          "startedAt": "2026-09-14T09:31:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:31:50Z",
+          "conclusion": "success",
+          "name": "install GUI dependencies",
+          "number": 4,
+          "startedAt": "2026-09-14T09:31:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:09Z",
+          "conclusion": "success",
+          "name": "prepare display and Chrome",
+          "number": 5,
+          "startedAt": "2026-09-14T09:31:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:09Z",
+          "conclusion": "success",
+          "name": "record runtime before the trial",
+          "number": 6,
+          "startedAt": "2026-09-14T09:32:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:47Z",
+          "conclusion": "success",
+          "name": "run GUI task",
+          "number": 7,
+          "startedAt": "2026-09-14T09:32:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:47Z",
+          "conclusion": "success",
+          "name": "pack complete evidence without changing original bytes",
+          "number": 8,
+          "startedAt": "2026-09-14T09:32:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:48Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 9,
+          "startedAt": "2026-09-14T09:32:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:48Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5",
+          "number": 17,
+          "startedAt": "2026-09-14T09:32:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:48Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 18,
+          "startedAt": "2026-09-14T09:32:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-14T09:32:48Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "startedAt": "2026-09-14T09:32:48Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/TraceLite-AI/envshift-runner/actions/runs/34828438040/job/103925848684"
+    }
+  ],
+  "status": "in_progress",
+  "url": "https://github.com/TraceLite-AI/envshift-runner/actions/runs/34828438040"
+}

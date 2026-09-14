@@ -1,0 +1,131 @@
+{
+  "arm": "control",
+  "task": "G08",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "control_passed": true,
+  "results": [
+    {
+      "arm": "oracle",
+      "reward": 1,
+      "checks": {
+        "live_profile": true,
+        "draft_cleared": true,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "27 Maasstraat",
+              "city": "Rotterdam",
+              "postal": "3011 AA",
+              "contact": "Email"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [
+        {
+          "op": "draft",
+          "id": "C-71",
+          "street": "27 Maasstraat",
+          "city": "Rotterdam",
+          "postal": "3011 AA",
+          "contact": "Email"
+        },
+        {
+          "op": "publish",
+          "id": "C-71"
+        }
+      ],
+      "download_sha256": null,
+      "materialized": true
+    },
+    {
+      "arm": "wrong-result",
+      "reward": 0,
+      "checks": {
+        "live_profile": false,
+        "draft_cleared": false,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "draft": {
+              "street": "27 Maasstraat",
+              "city": "Rotterdam",
+              "postal": "3011 AA",
+              "contact": "Email"
+            },
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [
+        {
+          "op": "draft",
+          "id": "C-71",
+          "street": "27 Maasstraat",
+          "city": "Rotterdam",
+          "postal": "3011 AA",
+          "contact": "Email"
+        }
+      ],
+      "download_sha256": null,
+      "materialized": true
+    }
+  ]
+}

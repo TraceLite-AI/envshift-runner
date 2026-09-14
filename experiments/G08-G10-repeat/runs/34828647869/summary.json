@@ -1,0 +1,228 @@
+{
+  "run": 34828647869,
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "job": "native-dialog (ubuntu-24.04, G10, 1)",
+      "id": 103926511178,
+      "status": "completed",
+      "conclusion": "success",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "failed_checks": [
+        "correct_approval"
+      ]
+    },
+    {
+      "job": "native-dialog (ubuntu-24.04, G10, 5)",
+      "id": 103926511299,
+      "status": "completed",
+      "conclusion": "success",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "failed_checks": [
+        "correct_approval"
+      ]
+    },
+    {
+      "job": "native-dialog (ubuntu-24.04, G08, 3)",
+      "id": 103926511306,
+      "status": "completed",
+      "conclusion": "success",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "audit": [
+        {
+          "op": "draft",
+          "id": "C-71",
+          "street": "8 Keizersgracht",
+          "city": "Amsterdam",
+          "postal": "1011 AB",
+          "contact": "Phone"
+        }
+      ],
+      "failed_checks": [
+        "live_profile",
+        "draft_cleared"
+      ]
+    },
+    {
+      "job": "native-dialog (ubuntu-24.04, G08, 1)",
+      "id": 103926511358,
+      "status": "completed",
+      "conclusion": "success",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "audit": [],
+      "failed_checks": [
+        "live_profile"
+      ]
+    },
+    {
+      "job": "native-dialog (ubuntu-24.04, G08, 4)",
+      "id": 103926511364,
+      "status": "completed",
+      "conclusion": "success",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "audit": [
+        {
+          "op": "draft",
+          "id": "C-71",
+          "street": "8 Keizersgracht",
+          "city": "Amsterdam",
+          "postal": "1011 AB",
+          "contact": "Phone"
+        }
+      ],
+      "failed_checks": [
+        "live_profile",
+        "draft_cleared"
+      ]
+    },
+    {
+      "job": "native-dialog (ubuntu-24.04, G10, 3)",
+      "id": 103926511375,
+      "status": "completed",
+      "conclusion": "success",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "failed_checks": [
+        "correct_approval"
+      ]
+    },
+    {
+      "job": "native-dialog (ubuntu-24.04, G10, 2)",
+      "id": 103926511486,
+      "status": "completed",
+      "conclusion": "success",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "failed_checks": [
+        "correct_approval"
+      ]
+    },
+    {
+      "job": "native-dialog (ubuntu-24.04, G08, 5)",
+      "id": 103926511507,
+      "status": "completed",
+      "conclusion": "success",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "audit": [],
+      "failed_checks": [
+        "live_profile"
+      ]
+    },
+    {
+      "job": "native-dialog (ubuntu-24.04, G10, 4)",
+      "id": 103926511542,
+      "status": "completed",
+      "conclusion": "success",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "failed_checks": [
+        "correct_approval"
+      ]
+    },
+    {
+      "job": "native-dialog (ubuntu-24.04, G08, 2)",
+      "id": 103926511676,
+      "status": "completed",
+      "conclusion": "success",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "audit": [],
+      "failed_checks": [
+        "live_profile"
+      ]
+    }
+  ]
+}

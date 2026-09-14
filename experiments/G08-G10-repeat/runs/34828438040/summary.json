@@ -1,0 +1,21 @@
+{
+  "run": 34828438040,
+  "status": "in_progress",
+  "conclusion": "",
+  "jobs": [
+    {
+      "job": "native-dialog (ubuntu-24.04, G10, 1)",
+      "id": 103925848310,
+      "status": "completed",
+      "conclusion": "success",
+      "control_result_lines": 2
+    },
+    {
+      "job": "native-dialog (ubuntu-24.04, G08, 1)",
+      "id": 103925848684,
+      "status": "completed",
+      "conclusion": "success",
+      "control_result_lines": 2
+    }
+  ]
+}

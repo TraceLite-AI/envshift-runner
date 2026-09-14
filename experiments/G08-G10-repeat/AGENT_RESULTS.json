@@ -1,0 +1,1115 @@
+[
+  {
+    "task": "G08",
+    "trial": 1,
+    "run": 34828647869,
+    "artifact": "gui-repeat-G08-ubuntu-24.04-agent-trial1",
+    "evidence": "evidence/gui-repeat-G08-ubuntu-24.04-agent-trial1/evidence",
+    "archive": "archives/gui-repeat-G08-ubuntu-24.04-agent-trial1.tar.xz",
+    "verified": true,
+    "source_verified": true,
+    "meta": {
+      "arm": "agent",
+      "task": "G08",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "live_profile": false,
+        "draft_cleared": true,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [],
+      "download_sha256": null
+    },
+    "runtime": {
+      "trial": "1",
+      "task": "G08",
+      "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+      "source_sha256": {
+        "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+        "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+        "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+        "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+        "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+      },
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "runner_image": {
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20260907.300.1",
+        "RUNNER_OS": "Linux",
+        "RUNNER_ARCH": "X64"
+      }
+    },
+    "environment": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.82",
+        "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "jsVersion": "15.2.124.21"
+      },
+      "screen_size": [
+        1280,
+        900
+      ],
+      "task": "G08",
+      "tool_version": "gui_native_v2",
+      "reference_assistance": "DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "last_action": {
+      "action": "click",
+      "x": 23,
+      "y": 71
+    }
+  },
+  {
+    "task": "G08",
+    "trial": 2,
+    "run": 34828647869,
+    "artifact": "gui-repeat-G08-ubuntu-24.04-agent-trial2",
+    "evidence": "evidence/gui-repeat-G08-ubuntu-24.04-agent-trial2/evidence",
+    "archive": "archives/gui-repeat-G08-ubuntu-24.04-agent-trial2.tar.xz",
+    "verified": true,
+    "source_verified": true,
+    "meta": {
+      "arm": "agent",
+      "task": "G08",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "live_profile": false,
+        "draft_cleared": true,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [],
+      "download_sha256": null
+    },
+    "runtime": {
+      "trial": "2",
+      "task": "G08",
+      "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+      "source_sha256": {
+        "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+        "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+        "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+        "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+        "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+      },
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "runner_image": {
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20260907.300.1",
+        "RUNNER_OS": "Linux",
+        "RUNNER_ARCH": "X64"
+      }
+    },
+    "environment": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.82",
+        "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "jsVersion": "15.2.124.21"
+      },
+      "screen_size": [
+        1280,
+        900
+      ],
+      "task": "G08",
+      "tool_version": "gui_native_v2",
+      "reference_assistance": "DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "last_action": {
+      "action": "click",
+      "x": 21,
+      "y": 69
+    }
+  },
+  {
+    "task": "G08",
+    "trial": 3,
+    "run": 34828647869,
+    "artifact": "gui-repeat-G08-ubuntu-24.04-agent-trial3",
+    "evidence": "evidence/gui-repeat-G08-ubuntu-24.04-agent-trial3/evidence",
+    "archive": "archives/gui-repeat-G08-ubuntu-24.04-agent-trial3.tar.xz",
+    "verified": true,
+    "source_verified": true,
+    "meta": {
+      "arm": "agent",
+      "task": "G08",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "live_profile": false,
+        "draft_cleared": false,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "draft": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [
+        {
+          "op": "draft",
+          "id": "C-71",
+          "street": "8 Keizersgracht",
+          "city": "Amsterdam",
+          "postal": "1011 AB",
+          "contact": "Phone"
+        }
+      ],
+      "download_sha256": null
+    },
+    "runtime": {
+      "trial": "3",
+      "task": "G08",
+      "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+      "source_sha256": {
+        "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+        "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+        "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+        "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+        "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+      },
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "runner_image": {
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20260907.300.1",
+        "RUNNER_OS": "Linux",
+        "RUNNER_ARCH": "X64"
+      }
+    },
+    "environment": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.82",
+        "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "jsVersion": "15.2.124.21"
+      },
+      "screen_size": [
+        1280,
+        900
+      ],
+      "task": "G08",
+      "tool_version": "gui_native_v2",
+      "reference_assistance": "DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "last_action": {
+      "action": "click",
+      "x": 740,
+      "y": 475
+    }
+  },
+  {
+    "task": "G08",
+    "trial": 4,
+    "run": 34828647869,
+    "artifact": "gui-repeat-G08-ubuntu-24.04-agent-trial4",
+    "evidence": "evidence/gui-repeat-G08-ubuntu-24.04-agent-trial4/evidence",
+    "archive": "archives/gui-repeat-G08-ubuntu-24.04-agent-trial4.tar.xz",
+    "verified": true,
+    "source_verified": true,
+    "meta": {
+      "arm": "agent",
+      "task": "G08",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "live_profile": false,
+        "draft_cleared": false,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "draft": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [
+        {
+          "op": "draft",
+          "id": "C-71",
+          "street": "8 Keizersgracht",
+          "city": "Amsterdam",
+          "postal": "1011 AB",
+          "contact": "Phone"
+        }
+      ],
+      "download_sha256": null
+    },
+    "runtime": {
+      "trial": "4",
+      "task": "G08",
+      "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+      "source_sha256": {
+        "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+        "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+        "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+        "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+        "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+      },
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "runner_image": {
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20260907.300.1",
+        "RUNNER_OS": "Linux",
+        "RUNNER_ARCH": "X64"
+      }
+    },
+    "environment": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.82",
+        "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "jsVersion": "15.2.124.21"
+      },
+      "screen_size": [
+        1280,
+        900
+      ],
+      "task": "G08",
+      "tool_version": "gui_native_v2",
+      "reference_assistance": "DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "last_action": {
+      "action": "click",
+      "x": 21,
+      "y": 70
+    }
+  },
+  {
+    "task": "G08",
+    "trial": 5,
+    "run": 34828647869,
+    "artifact": "gui-repeat-G08-ubuntu-24.04-agent-trial5",
+    "evidence": "evidence/gui-repeat-G08-ubuntu-24.04-agent-trial5/evidence",
+    "archive": "archives/gui-repeat-G08-ubuntu-24.04-agent-trial5.tar.xz",
+    "verified": true,
+    "source_verified": true,
+    "meta": {
+      "arm": "agent",
+      "task": "G08",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "live_profile": false,
+        "draft_cleared": true,
+        "identity_and_notes_unchanged": true,
+        "other_customer_unchanged": true
+      },
+      "state": {
+        "customers": [
+          {
+            "id": "C-71",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar.example",
+            "live": {
+              "street": "8 Keizersgracht",
+              "city": "Amsterdam",
+              "postal": "1011 AB",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-08: Proposed address: 14 Havenstraat, Delft, 2611 BC. Awaiting confirmation.",
+              "2026-09-12: Customer confirmed: 27 Maasstraat, Rotterdam, 3011 AA. Preferred contact: Email. Supersedes the September 8 proposal."
+            ]
+          },
+          {
+            "id": "C-72",
+            "name": "Sam Lee",
+            "email": "sam.lee@cedar-logistics.example",
+            "live": {
+              "street": "4 West Road",
+              "city": "Utrecht",
+              "postal": "3511 CD",
+              "contact": "Phone"
+            },
+            "draft": null,
+            "notes": [
+              "2026-09-10: No requested changes."
+            ]
+          }
+        ]
+      },
+      "audit": [],
+      "download_sha256": null
+    },
+    "runtime": {
+      "trial": "5",
+      "task": "G08",
+      "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+      "source_sha256": {
+        "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+        "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+        "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+        "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+        "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+      },
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "runner_image": {
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20260907.300.1",
+        "RUNNER_OS": "Linux",
+        "RUNNER_ARCH": "X64"
+      }
+    },
+    "environment": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.82",
+        "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "jsVersion": "15.2.124.21"
+      },
+      "screen_size": [
+        1280,
+        900
+      ],
+      "task": "G08",
+      "tool_version": "gui_native_v2",
+      "reference_assistance": "DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "last_action": {
+      "action": "click",
+      "x": 21,
+      "y": 70
+    }
+  },
+  {
+    "task": "G10",
+    "trial": 1,
+    "run": 34828647869,
+    "artifact": "gui-repeat-G10-ubuntu-24.04-agent-trial1",
+    "evidence": "evidence/gui-repeat-G10-ubuntu-24.04-agent-trial1/evidence",
+    "archive": "archives/gui-repeat-G10-ubuntu-24.04-agent-trial1.tar.xz",
+    "verified": true,
+    "source_verified": true,
+    "meta": {
+      "arm": "agent",
+      "task": "G10",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": false,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": null
+      },
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "download_sha256": null
+    },
+    "runtime": {
+      "trial": "1",
+      "task": "G10",
+      "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+      "source_sha256": {
+        "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+        "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+        "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+        "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+        "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+      },
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "runner_image": {
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20260907.300.1",
+        "RUNNER_OS": "Linux",
+        "RUNNER_ARCH": "X64"
+      }
+    },
+    "environment": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.82",
+        "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "jsVersion": "15.2.124.21"
+      },
+      "screen_size": [
+        1280,
+        900
+      ],
+      "task": "G10",
+      "tool_version": "gui_native_v2",
+      "reference_assistance": "DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "last_action": {
+      "action": "scroll",
+      "x": 468,
+      "y": 600,
+      "dx": 0,
+      "dy": -15
+    }
+  },
+  {
+    "task": "G10",
+    "trial": 2,
+    "run": 34828647869,
+    "artifact": "gui-repeat-G10-ubuntu-24.04-agent-trial2",
+    "evidence": "evidence/gui-repeat-G10-ubuntu-24.04-agent-trial2/evidence",
+    "archive": "archives/gui-repeat-G10-ubuntu-24.04-agent-trial2.tar.xz",
+    "verified": true,
+    "source_verified": true,
+    "meta": {
+      "arm": "agent",
+      "task": "G10",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": false,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": null
+      },
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "download_sha256": null
+    },
+    "runtime": {
+      "trial": "2",
+      "task": "G10",
+      "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+      "source_sha256": {
+        "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+        "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+        "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+        "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+        "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+      },
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "runner_image": {
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20260907.300.1",
+        "RUNNER_OS": "Linux",
+        "RUNNER_ARCH": "X64"
+      }
+    },
+    "environment": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.82",
+        "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "jsVersion": "15.2.124.21"
+      },
+      "screen_size": [
+        1280,
+        900
+      ],
+      "task": "G10",
+      "tool_version": "gui_native_v2",
+      "reference_assistance": "DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "last_action": {
+      "action": "scroll",
+      "x": 500,
+      "y": 600,
+      "dx": 0,
+      "dy": -10
+    }
+  },
+  {
+    "task": "G10",
+    "trial": 3,
+    "run": 34828647869,
+    "artifact": "gui-repeat-G10-ubuntu-24.04-agent-trial3",
+    "evidence": "evidence/gui-repeat-G10-ubuntu-24.04-agent-trial3/evidence",
+    "archive": "archives/gui-repeat-G10-ubuntu-24.04-agent-trial3.tar.xz",
+    "verified": true,
+    "source_verified": true,
+    "meta": {
+      "arm": "agent",
+      "task": "G10",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": false,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": null
+      },
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "download_sha256": null
+    },
+    "runtime": {
+      "trial": "3",
+      "task": "G10",
+      "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+      "source_sha256": {
+        "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+        "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+        "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+        "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+        "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+      },
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "runner_image": {
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20260907.300.1",
+        "RUNNER_OS": "Linux",
+        "RUNNER_ARCH": "X64"
+      }
+    },
+    "environment": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.82",
+        "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "jsVersion": "15.2.124.21"
+      },
+      "screen_size": [
+        1280,
+        900
+      ],
+      "task": "G10",
+      "tool_version": "gui_native_v2",
+      "reference_assistance": "DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "last_action": {
+      "action": "scroll",
+      "x": 500,
+      "y": 550,
+      "dy": -5
+    }
+  },
+  {
+    "task": "G10",
+    "trial": 4,
+    "run": 34828647869,
+    "artifact": "gui-repeat-G10-ubuntu-24.04-agent-trial4",
+    "evidence": "evidence/gui-repeat-G10-ubuntu-24.04-agent-trial4/evidence",
+    "archive": "archives/gui-repeat-G10-ubuntu-24.04-agent-trial4.tar.xz",
+    "verified": true,
+    "source_verified": true,
+    "meta": {
+      "arm": "agent",
+      "task": "G10",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": false,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": null
+      },
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "download_sha256": null
+    },
+    "runtime": {
+      "trial": "4",
+      "task": "G10",
+      "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+      "source_sha256": {
+        "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+        "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+        "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+        "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+        "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+      },
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "runner_image": {
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20260907.300.1",
+        "RUNNER_OS": "Linux",
+        "RUNNER_ARCH": "X64"
+      }
+    },
+    "environment": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.82",
+        "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "jsVersion": "15.2.124.21"
+      },
+      "screen_size": [
+        1280,
+        900
+      ],
+      "task": "G10",
+      "tool_version": "gui_native_v2",
+      "reference_assistance": "DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "last_action": {
+      "action": "scroll",
+      "x": 450,
+      "y": 550,
+      "dx": 0,
+      "dy": -10
+    }
+  },
+  {
+    "task": "G10",
+    "trial": 5,
+    "run": 34828647869,
+    "artifact": "gui-repeat-G10-ubuntu-24.04-agent-trial5",
+    "evidence": "evidence/gui-repeat-G10-ubuntu-24.04-agent-trial5/evidence",
+    "archive": "archives/gui-repeat-G10-ubuntu-24.04-agent-trial5.tar.xz",
+    "verified": true,
+    "source_verified": true,
+    "meta": {
+      "arm": "agent",
+      "task": "G10",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "model": "gemini-3.5-flash",
+      "model_rc": 0,
+      "timeout": false,
+      "steps": 60,
+      "channel_fail": null,
+      "blind_steps": 0,
+      "valid_model_run": true,
+      "reward": 0,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": false,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": null
+      },
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        },
+        {
+          "op": "ack"
+        }
+      ],
+      "download_sha256": null
+    },
+    "runtime": {
+      "trial": "5",
+      "task": "G10",
+      "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+      "source_sha256": {
+        "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+        "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+        "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+        "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+        "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+      },
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "runner_image": {
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20260907.300.1",
+        "RUNNER_OS": "Linux",
+        "RUNNER_ARCH": "X64"
+      }
+    },
+    "environment": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.82",
+        "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "jsVersion": "15.2.124.21"
+      },
+      "screen_size": [
+        1280,
+        900
+      ],
+      "task": "G10",
+      "tool_version": "gui_native_v2",
+      "reference_assistance": "DOM focus, scrollIntoView and element geometry; physical keyboard/mouse activation only"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "last_action": {
+      "action": "scroll",
+      "x": 468,
+      "y": 600,
+      "dx": 0,
+      "dy": -10
+    }
+  }
+]

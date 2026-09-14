@@ -1,0 +1,79 @@
+{
+  "id": "BC-G08-ubuntu-24.04-34828647869-trial2",
+  "task": "G08",
+  "model": "gemini-3.5-flash",
+  "classification": "step_budget_exhausted",
+  "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "workflow_commit": "527774d8a693da1beeda3374d67126baad4d7dc5",
+  "trial": 2,
+  "run": 34828647869,
+  "stable_os_failure_proven": false,
+  "failure": {
+    "task": "G08",
+    "trial": 2,
+    "run": 34828647869,
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "evidence": "evidence/gui-repeat-G08-ubuntu-24.04-agent-trial2/evidence",
+    "archive": "archives/gui-repeat-G08-ubuntu-24.04-agent-trial2.tar.xz",
+    "classification": "step_budget_exhausted",
+    "failed_checks": [
+      "live_profile"
+    ],
+    "audit": [],
+    "action_types": {
+      "click": 58,
+      "key": 2
+    },
+    "most_repeated_actions": [
+      {
+        "action": {
+          "action": "click",
+          "x": 21,
+          "y": 69
+        },
+        "count": 26
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 20,
+          "y": 70
+        },
+        "count": 8
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 85,
+          "y": 190
+        },
+        "count": 4
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 85,
+          "y": 187
+        },
+        "count": 2
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 85,
+          "y": 186
+        },
+        "count": 2
+      }
+    ],
+    "longest_identical_screenshot_streak": 21,
+    "identical_adjacent_screenshots": 43,
+    "scroll_actions_with_unsupported_xy": 0,
+    "execution_error_steps": [],
+    "parse_error_steps": []
+  },
+  "archive_sha256": "d1b74d9b633bab3632ac13662d19adab860ad59abe4ebd8adbe9737ee402630b",
+  "note": "Prospectively collected fixed-configuration repeat. Interpret jointly with the full five-trial series; valid successes also retained."
+}

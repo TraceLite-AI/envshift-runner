@@ -1,0 +1,60 @@
+{
+  "complete": true,
+  "source_and_runtime_uniform": true,
+  "observed_runtime_signatures": 1,
+  "groups": [
+    {
+      "task": "G08",
+      "collected": 5,
+      "valid": 5,
+      "invalid": 0,
+      "successes": 0,
+      "failures": 5,
+      "all_five_failed": true
+    },
+    {
+      "task": "G10",
+      "collected": 5,
+      "valid": 5,
+      "invalid": 0,
+      "successes": 0,
+      "failures": 5,
+      "all_five_failed": true
+    }
+  ],
+  "retained_failure_trajectories": 10,
+  "stable_os_failure_proven": false,
+  "previous_failure_trajectories": 12,
+  "total_retained_failure_trajectories": 22,
+  "distinct_badcase_tasks_including_prior": 4,
+  "runtime_signature": {
+    "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+    "source_sha256": {
+      "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+      "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+      "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+      "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+      "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+    },
+    "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "runner_image": {
+      "ImageOS": "ubuntu24",
+      "ImageVersion": "20260907.300.1",
+      "RUNNER_OS": "Linux",
+      "RUNNER_ARCH": "X64"
+    },
+    "pip_freeze": "MouseInfo==0.1.3\nmss==10.2.0\npillow==12.3.0\nPyAutoGUI==0.9.54\nPyGetWindow==0.0.9\nPyMsgBox==2.0.1\npyperclip==1.11.0\nPyRect==0.2.0\nPyScreeze==1.0.1\npython3-xlib==0.15\npytweening==1.2.0\nwebsocket-client==1.9.2\n",
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/152.0.7977.82",
+      "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "jsVersion": "15.2.124.21"
+    },
+    "screen_size": [
+      1280,
+      900
+    ]
+  }
+}

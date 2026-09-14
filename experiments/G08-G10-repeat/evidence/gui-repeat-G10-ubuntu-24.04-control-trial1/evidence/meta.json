@@ -1,0 +1,74 @@
+{
+  "arm": "control",
+  "task": "G10",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "control_passed": true,
+  "results": [
+    {
+      "arm": "oracle",
+      "reward": 1,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": true,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": {
+          "route": "Manager",
+          "reason": "EXP-7"
+        }
+      },
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "approve",
+          "route": "Manager",
+          "reason": "EXP-7"
+        }
+      ],
+      "download_sha256": null,
+      "materialized": true
+    },
+    {
+      "arm": "wrong-result",
+      "reward": 0,
+      "checks": {
+        "policy_acknowledged": true,
+        "correct_approval": false,
+        "case_unchanged": true
+      },
+      "state": {
+        "case": {
+          "id": "REQ-731",
+          "amount": "1750.00",
+          "expedited": true
+        },
+        "acknowledged": true,
+        "approval": {
+          "route": "Standard",
+          "reason": "STD-1"
+        }
+      },
+      "audit": [
+        {
+          "op": "ack"
+        },
+        {
+          "op": "approve",
+          "route": "Standard",
+          "reason": "STD-1"
+        }
+      ],
+      "download_sha256": null,
+      "materialized": true
+    }
+  ]
+}

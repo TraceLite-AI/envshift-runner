@@ -1,0 +1,14 @@
+{
+  "run": 34828647869,
+  "workflow_commit": "527774d8a693da1beeda3374d67126baad4d7dc5",
+  "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "url": "https://github.com/TraceLite-AI/envshift-runner/actions/runs/34828647869",
+  "inputs": {
+    "arm": "agent",
+    "oslist": "[\"ubuntu-24.04\"]",
+    "tasks": "[\"G08\",\"G10\"]",
+    "trials": "[1, 2, 3, 4, 5]",
+    "model": "gemini-3.5-flash",
+    "steps": "60"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "trial": "5",
+  "task": "G10",
+  "source_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "source_sha256": {
+    "gui_batch3.py": "f3686865710542811553565650839abb0c1608c26511f34398fc6b483e715812",
+    "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+    "task_world.py": "200c9555be1de553ab9f5870587e3467594206e9d6af74fd4ea8d091a19a6f2f",
+    "app.js": "b67ed198d883503a0a580d22aa9dfa6f22f57f22f9cb6d3dbac1c7e4833153ac",
+    "app.css": "6b44f425dccd6d4557f134576ea01203ced5f7d049d84cbff9e3d4d4dcb395b9"
+  },
+  "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "runner_image": {
+    "ImageOS": "ubuntu24",
+    "ImageVersion": "20260907.300.1",
+    "RUNNER_OS": "Linux",
+    "RUNNER_ARCH": "X64"
+  }
+}

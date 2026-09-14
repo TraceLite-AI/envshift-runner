@@ -1,0 +1,81 @@
+{
+  "id": "BC-G08-ubuntu-24.04-34828647869-trial5",
+  "task": "G08",
+  "model": "gemini-3.5-flash",
+  "classification": "step_budget_exhausted",
+  "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "workflow_commit": "527774d8a693da1beeda3374d67126baad4d7dc5",
+  "trial": 5,
+  "run": 34828647869,
+  "stable_os_failure_proven": false,
+  "failure": {
+    "task": "G08",
+    "trial": 5,
+    "run": 34828647869,
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "evidence": "evidence/gui-repeat-G08-ubuntu-24.04-agent-trial5/evidence",
+    "archive": "archives/gui-repeat-G08-ubuntu-24.04-agent-trial5.tar.xz",
+    "classification": "step_budget_exhausted",
+    "failed_checks": [
+      "live_profile"
+    ],
+    "audit": [],
+    "action_types": {
+      "click": 57,
+      "key": 3
+    },
+    "most_repeated_actions": [
+      {
+        "action": {
+          "action": "click",
+          "x": 23,
+          "y": 70
+        },
+        "count": 29
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 20,
+          "y": 70
+        },
+        "count": 4
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 100,
+          "y": 190
+        },
+        "count": 4
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 21,
+          "y": 70
+        },
+        "count": 4
+      },
+      {
+        "action": {
+          "action": "key",
+          "keys": [
+            "alt",
+            "left"
+          ]
+        },
+        "count": 3
+      }
+    ],
+    "longest_identical_screenshot_streak": 31,
+    "identical_adjacent_screenshots": 47,
+    "scroll_actions_with_unsupported_xy": 0,
+    "execution_error_steps": [],
+    "parse_error_steps": []
+  },
+  "archive_sha256": "6cfe203479f4051ee1985b0908cc958bf700ee88f9b3b3cceb034a02994d8305",
+  "note": "Prospectively collected fixed-configuration repeat. Interpret jointly with the full five-trial series; valid successes also retained."
+}

@@ -1,0 +1,100 @@
+{
+  "id": "BC-G10-ubuntu-24.04-34828647869-trial2",
+  "task": "G10",
+  "model": "gemini-3.5-flash",
+  "classification": "step_budget_exhausted",
+  "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "workflow_commit": "527774d8a693da1beeda3374d67126baad4d7dc5",
+  "trial": 2,
+  "run": 34828647869,
+  "stable_os_failure_proven": false,
+  "failure": {
+    "task": "G10",
+    "trial": 2,
+    "run": 34828647869,
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "evidence": "evidence/gui-repeat-G10-ubuntu-24.04-agent-trial2/evidence",
+    "archive": "archives/gui-repeat-G10-ubuntu-24.04-agent-trial2.tar.xz",
+    "classification": "step_budget_exhausted",
+    "failed_checks": [
+      "correct_approval"
+    ],
+    "audit": [
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      },
+      {
+        "op": "ack"
+      }
+    ],
+    "action_types": {
+      "click": 21,
+      "scroll": 38,
+      "drag": 1
+    },
+    "most_repeated_actions": [
+      {
+        "action": {
+          "action": "scroll",
+          "dx": 0,
+          "dy": -20
+        },
+        "count": 9
+      },
+      {
+        "action": {
+          "action": "scroll",
+          "dx": 0,
+          "dy": -10,
+          "x": 468,
+          "y": 600
+        },
+        "count": 8
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 124,
+          "y": 413
+        },
+        "count": 4
+      },
+      {
+        "action": {
+          "action": "scroll",
+          "dx": 0,
+          "dy": -5
+        },
+        "count": 4
+      },
+      {
+        "action": {
+          "action": "scroll",
+          "dx": 0,
+          "dy": -20,
+          "x": 468,
+          "y": 600
+        },
+        "count": 3
+      }
+    ],
+    "longest_identical_screenshot_streak": 13,
+    "identical_adjacent_screenshots": 37,
+    "scroll_actions_with_unsupported_xy": 22,
+    "execution_error_steps": [],
+    "parse_error_steps": []
+  },
+  "archive_sha256": "17e73158137ead805fd3365272cdc9b08f1ede132363df2c5b1ad8110cd387f2",
+  "note": "Prospectively collected fixed-configuration repeat. Interpret jointly with the full five-trial series; valid successes also retained."
+}

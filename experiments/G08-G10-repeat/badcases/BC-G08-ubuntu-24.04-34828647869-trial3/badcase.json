@@ -1,0 +1,92 @@
+{
+  "id": "BC-G08-ubuntu-24.04-34828647869-trial3",
+  "task": "G08",
+  "model": "gemini-3.5-flash",
+  "classification": "step_budget_exhausted",
+  "tested_commit": "c230fc6a1c2fb98a336b7154ba8d15b16e6605c0",
+  "workflow_commit": "527774d8a693da1beeda3374d67126baad4d7dc5",
+  "trial": 3,
+  "run": 34828647869,
+  "stable_os_failure_proven": false,
+  "failure": {
+    "task": "G08",
+    "trial": 3,
+    "run": 34828647869,
+    "valid": true,
+    "reward": 0,
+    "steps": 60,
+    "evidence": "evidence/gui-repeat-G08-ubuntu-24.04-agent-trial3/evidence",
+    "archive": "archives/gui-repeat-G08-ubuntu-24.04-agent-trial3.tar.xz",
+    "classification": "step_budget_exhausted",
+    "failed_checks": [
+      "live_profile",
+      "draft_cleared"
+    ],
+    "audit": [
+      {
+        "op": "draft",
+        "id": "C-71",
+        "street": "8 Keizersgracht",
+        "city": "Amsterdam",
+        "postal": "1011 AB",
+        "contact": "Phone"
+      }
+    ],
+    "action_types": {
+      "click": 53,
+      "key": 5,
+      "scroll": 2
+    },
+    "most_repeated_actions": [
+      {
+        "action": {
+          "action": "click",
+          "x": 21,
+          "y": 68
+        },
+        "count": 13
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 23,
+          "y": 70
+        },
+        "count": 7
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 20,
+          "y": 68
+        },
+        "count": 7
+      },
+      {
+        "action": {
+          "action": "click",
+          "x": 740,
+          "y": 475
+        },
+        "count": 3
+      },
+      {
+        "action": {
+          "action": "key",
+          "keys": [
+            "alt",
+            "left"
+          ]
+        },
+        "count": 3
+      }
+    ],
+    "longest_identical_screenshot_streak": 31,
+    "identical_adjacent_screenshots": 48,
+    "scroll_actions_with_unsupported_xy": 0,
+    "execution_error_steps": [],
+    "parse_error_steps": []
+  },
+  "archive_sha256": "d68ce7dc1c5f37221b79a65dae651d0f9557fe77b5603c31e0e6a88b2a22e1c0",
+  "note": "Prospectively collected fixed-configuration repeat. Interpret jointly with the full five-trial series; valid successes also retained."
+}
