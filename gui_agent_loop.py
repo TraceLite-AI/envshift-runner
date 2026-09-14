@@ -56,10 +56,11 @@ ACTIONS = """你只能输出一个 JSON 对象,不要有其他文字。可用动
 {"action":"click","x":<0到1000的横坐标>,"y":<0到1000的纵坐标>}  单击
 {"action":"double_click","x":..,"y":..}                        双击
 {"action":"right_click","x":..,"y":..}                         右键
-点击类动作可以附加 "modifiers":["ctrl"] 或 ["shift"] 来按住修饰键点击,适用于多选。mac 上 ctrl 自动换成 command。例如 {"action":"click","x":500,"y":300,"modifiers":["ctrl"]}。
+点击类动作可以附加 "modifiers":["ctrl"] 或 ["shift"] 来按住修饰键点击,适用于多选。修饰键按原生名称执行，mac 的 command 必须显式写 command。例如 {"action":"click","x":500,"y":300,"modifiers":["ctrl"]}。
 {"action":"type","text":"要输入的文字"}                        在当前焦点处打字
-{"action":"key","keys":["ctrl","s"]}                           组合键(mac 上 ctrl 会自动换成 command)
-{"action":"scroll","dx":0,"dy":-3}                             滚动
+{"action":"key","keys":["ctrl","s"]}                           组合键，ctrl 始终为物理 Control，mac 常用 command；切换 Chrome 标签页可用 ctrl+tab
+{"action":"scroll","dx":0,"dy":-3}                             滚动，dy 为滚轮格数，负数向下；在当前鼠标位置滚动
+{"action":"drag","x":..,"y":..,"to_x":..,"to_y":..}             从起点拖到终点，均为 0–1000 坐标
 {"action":"wait","seconds":2}                                  等待
 {"action":"done","reason":"为什么认为完成了"}                  任务完成
 所有点击坐标均使用 0–1000 归一化坐标,不是像素:截图左上角为(0,0),右下角为(1000,1000),中心为(500,500)。x 向右增加,y 向下增加。每次只做一个动作。只输出 JSON,不要输出任何工具调用标记或其他文字。"""
@@ -121,7 +122,7 @@ def do(act, img_size):
         modifiers = act.get("modifiers", [])
         if not isinstance(modifiers, list) or any(k not in ("ctrl", "control", "command", "shift", "alt", "option") for k in modifiers):
             raise ValueError("modifiers 必须是 ctrl/command/shift/alt 的数组")
-        modifiers = [("command" if SYS == "Darwin" and k in ("ctrl", "control") else "alt" if k == "option" else "ctrl" if k == "control" else k) for k in modifiers]
+        modifiers = [("alt" if k == "option" else "ctrl" if k == "control" else k) for k in modifiers]
         pyautogui.moveTo(x, y, duration=0.15)
         held = []
         try:
@@ -133,13 +134,25 @@ def do(act, img_size):
         finally:
             for key in reversed(held): pyautogui.keyUp(key)
         return f"在屏幕({x},{y})执行了{t}; modifiers={modifiers}"
+    if t == "drag":
+        start = normalized_point(act["x"], act["y"], SCREEN_W, SCREEN_H)
+        end = normalized_point(act["to_x"], act["to_y"], SCREEN_W, SCREEN_H)
+        pyautogui.moveTo(*start, duration=.2)
+        try:
+            pyautogui.mouseDown(); time.sleep(.2)
+            pyautogui.moveTo(start[0]+5, start[1]+3, duration=.2)
+            pyautogui.moveTo(*end, duration=1); time.sleep(.3)
+        finally: pyautogui.mouseUp()
+        return f"从 {start} 拖到 {end}"
     if t == "type":
         pyautogui.typewrite(act.get("text", ""), interval=0.02); return f"输入了 {len(act.get('text',''))} 个字符"
     if t == "key":
-        keys = [("command" if (SYS == "Darwin" and k.lower() in ("ctrl", "control")) else k) for k in act.get("keys", [])]
+        keys = [("ctrl" if k.lower()=="control" else "alt" if k.lower()=="option" else k.lower()) for k in act.get("keys", [])]
         pyautogui.hotkey(*keys); return f"按了 {'+'.join(keys)}"
     if t == "scroll":
-        pyautogui.scroll(int(act.get("dy", 0)) * 100); return "滚动了"
+        pyautogui.scroll(int(act.get("dy", 0)))
+        if act.get("dx"): pyautogui.hscroll(int(act["dx"]))
+        return "滚动了"
     if t == "wait":
         time.sleep(min(10, float(act.get("seconds", 1)))); return "等待结束"
     if t == "done": return "DONE"
@@ -172,7 +185,7 @@ for step in range(1, a.max_steps + 1):
     history.append({"action": act, "result": r, "raw": _r, "blind": blind})
     time.sleep(0.8)
 nblind = sum(1 for h in history if h.get("blind"))
-json.dump({"platform": platform.platform(), "model": a.model, "coordinate_mode": "normalized_0_1000", "tool_version": "gui_modifiers_v1", "screen_size": [SCREEN_W, SCREEN_H], "steps": len(history), "blind_steps": nblind,
+json.dump({"platform": platform.platform(), "model": a.model, "coordinate_mode": "normalized_0_1000", "tool_version": "gui_native_v2", "screen_size": [SCREEN_W, SCREEN_H], "steps": len(history), "blind_steps": nblind,
            "channel_fail": channel_fail, "history": history}, open(OUT / "loop.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 # ★channel_fail 一定要打进 LOOP-DONE:收割据此把「通道故障」和「模型没做出来」分开,
 #   否则两者都长成 resolved=0,只能靠步数猜,而「跑到第 3 步才被限流」是猜不出来的。

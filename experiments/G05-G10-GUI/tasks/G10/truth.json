@@ -1,0 +1,12 @@
+{
+  "case": {
+    "id": "REQ-731",
+    "amount": "1750.00",
+    "expedited": true
+  },
+  "acknowledged": true,
+  "approval": {
+    "route": "Manager",
+    "reason": "EXP-7"
+  }
+}

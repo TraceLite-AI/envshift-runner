@@ -1,0 +1,10 @@
+{
+  "id": "G07",
+  "title": "Expense export",
+  "category": "GUI business workflow candidate",
+  "model": "gemini-3.5-flash",
+  "action_budget": 60,
+  "tool_version": "gui_native_v2",
+  "environment_axis": "native desktop/browser/viewport; no OS-specific business rules",
+  "stable_os_failure_proven": false
+}

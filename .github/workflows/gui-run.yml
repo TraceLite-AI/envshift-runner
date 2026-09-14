@@ -3,10 +3,10 @@ on:
   workflow_dispatch:
     inputs:
       oslist: { description: runners, default: '["ubuntu-24.04","macos-15","windows-2022"]' }
-      tasks: { description: GUI tasks, default: '["G02","G03","G04"]' }
+      tasks: { description: GUI tasks, default: '["G05","G06","G07","G08","G09","G10"]' }
       arm: { description: control or agent, default: control }
       model: { description: existing GUI model, default: gemini-3.5-flash }
-      steps: { description: action budget, default: '45' }
+      steps: { description: action budget, default: '60' }
 permissions:
   contents: read
 jobs:
@@ -18,7 +18,7 @@ jobs:
         os: ${{ fromJSON(inputs.oslist) }}
         task: ${{ fromJSON(inputs.tasks) }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
         with: { persist-credentials: false }
@@ -58,12 +58,12 @@ jobs:
           PYTHONIOENCODING: utf-8
         run: |
           if [ "$RUNNER_OS" = Linux ]; then
-            dbus-run-session -- python gui_batch2.py --task "$TASK" --arm "$ARM" --model "$MODEL" --steps "$STEPS"
+            dbus-run-session -- python gui_batch3.py --task "$TASK" --arm "$ARM" --model "$MODEL" --steps "$STEPS"
           else
-            python gui_batch2.py --task "$TASK" --arm "$ARM" --model "$MODEL" --steps "$STEPS"
+            python gui_batch3.py --task "$TASK" --arm "$ARM" --model "$MODEL" --steps "$STEPS"
           fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: gui-batch2-${{ matrix.task }}-${{ matrix.os }}-${{ inputs.arm }}
-          path: gui_batch2_out/
+          name: gui-batch3-${{ matrix.task }}-${{ matrix.os }}-${{ inputs.arm }}
+          path: gui_batch3_out/

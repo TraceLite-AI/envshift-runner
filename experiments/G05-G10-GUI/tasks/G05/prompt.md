@@ -1,0 +1,3 @@
+Reconcile invoice INV-044. Open Purchase orders in its new browser tab and find the matching PO. Calculate total as quantity times unit price plus freight minus discount. Enter that total and the PO reference on INV-044, then mark it reconciled. Leave every other invoice unchanged.
+
+Use the visible application and browser UI only. Do not open a terminal or DevTools, execute code, or browse other websites.

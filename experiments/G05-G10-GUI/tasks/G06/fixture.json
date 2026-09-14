@@ -1,0 +1,76 @@
+{
+  "tickets": [
+    {
+      "id": "T-290",
+      "customer": "Maple",
+      "status": "Closed",
+      "priority": "High",
+      "owner": "Leo",
+      "tags": []
+    },
+    {
+      "id": "T-301",
+      "customer": "Cedar",
+      "status": "Open",
+      "priority": "High",
+      "owner": "Leo",
+      "tags": []
+    },
+    {
+      "id": "T-302",
+      "customer": "Cedar",
+      "status": "Open",
+      "priority": "Low",
+      "owner": "Leo",
+      "tags": []
+    },
+    {
+      "id": "T-303",
+      "customer": "Maple",
+      "status": "Open",
+      "priority": "High",
+      "owner": "Leo",
+      "tags": []
+    },
+    {
+      "id": "T-304",
+      "customer": "Cedar",
+      "status": "Open",
+      "priority": "High",
+      "owner": "Leo",
+      "tags": []
+    },
+    {
+      "id": "T-305",
+      "customer": "Cedar",
+      "status": "Closed",
+      "priority": "High",
+      "owner": "Leo",
+      "tags": []
+    },
+    {
+      "id": "T-306",
+      "customer": "Cedar",
+      "status": "Open",
+      "priority": "High",
+      "owner": "Leo",
+      "tags": []
+    },
+    {
+      "id": "T-307",
+      "customer": "Cedar",
+      "status": "Open",
+      "priority": "Normal",
+      "owner": "Leo",
+      "tags": []
+    },
+    {
+      "id": "T-308",
+      "customer": "Cedar",
+      "status": "Open",
+      "priority": "High",
+      "owner": "Leo",
+      "tags": []
+    }
+  ]
+}

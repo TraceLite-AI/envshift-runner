@@ -1,0 +1,3 @@
+Read the current approval policy in the scrollable policy dialog, acknowledge it, then submit the appropriate approval route and reason code for case REQ-731. Use the policy applicable to this case.
+
+Use the visible application and browser UI only. Do not open a terminal or DevTools, execute code, or browse other websites.

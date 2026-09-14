@@ -1,0 +1,89 @@
+{
+  "expenses": [
+    {
+      "id": "E-101",
+      "month": "2026-09",
+      "status": "Approved",
+      "department": "Ops",
+      "amount": "63.00"
+    },
+    {
+      "id": "E-102",
+      "month": "2026-08",
+      "status": "Approved",
+      "department": "Sales",
+      "amount": "76.00"
+    },
+    {
+      "id": "E-103",
+      "month": "2026-09",
+      "status": "Pending",
+      "department": "Sales",
+      "amount": "89.00"
+    },
+    {
+      "id": "E-104",
+      "month": "2026-08",
+      "status": "Approved",
+      "department": "Sales",
+      "amount": "102.00"
+    },
+    {
+      "id": "E-105",
+      "month": "2026-09",
+      "status": "Approved",
+      "department": "Sales",
+      "amount": "115.00"
+    },
+    {
+      "id": "E-106",
+      "month": "2026-08",
+      "status": "Pending",
+      "department": "Sales",
+      "amount": "128.00"
+    },
+    {
+      "id": "E-107",
+      "month": "2026-09",
+      "status": "Approved",
+      "department": "Ops",
+      "amount": "141.00"
+    },
+    {
+      "id": "E-108",
+      "month": "2026-08",
+      "status": "Approved",
+      "department": "Sales",
+      "amount": "154.00"
+    },
+    {
+      "id": "E-109",
+      "month": "2026-09",
+      "status": "Approved",
+      "department": "Ops",
+      "amount": "167.00"
+    },
+    {
+      "id": "E-110",
+      "month": "2026-08",
+      "status": "Approved",
+      "department": "Sales",
+      "amount": "180.00"
+    },
+    {
+      "id": "E-111",
+      "month": "2026-09",
+      "status": "Approved",
+      "department": "Sales",
+      "amount": "193.00"
+    },
+    {
+      "id": "E-112",
+      "month": "2026-09",
+      "status": "Approved",
+      "department": "Ops",
+      "amount": "206.00"
+    }
+  ],
+  "exports": []
+}

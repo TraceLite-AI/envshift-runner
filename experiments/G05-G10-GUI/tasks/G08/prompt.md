@@ -1,0 +1,3 @@
+Update the live customer profile for Sam Lee at sam.lee@cedar.example using the latest confirmed address and contact preference in the activity notes. Publish the changes, not just a draft. Leave the other customer unchanged.
+
+Use the visible application and browser UI only. Do not open a terminal or DevTools, execute code, or browse other websites.

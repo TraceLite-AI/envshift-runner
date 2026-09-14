@@ -1,0 +1,32 @@
+{
+  "cards": [
+    {
+      "id": "PROJ-218",
+      "title": "Review supplier agreement",
+      "column": "Ready",
+      "assignee": "Mina",
+      "due": "2026-09-18"
+    },
+    {
+      "id": "PROJ-281",
+      "title": "Review supplier agreement",
+      "column": "Ready",
+      "assignee": "Leo",
+      "due": "2026-09-19"
+    },
+    {
+      "id": "PROJ-203",
+      "title": "Prepare vendor summary",
+      "column": "Doing",
+      "assignee": "Mina",
+      "due": "2026-09-20"
+    },
+    {
+      "id": "PROJ-211",
+      "title": "Confirm tax details",
+      "column": "Review",
+      "assignee": "Ivo",
+      "due": "2026-09-17"
+    }
+  ]
+}
