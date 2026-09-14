@@ -1,0 +1,218 @@
+[
+  {
+    "task": "NC01-receipt-unicode",
+    "cell": "macos-15",
+    "model": "deepseek-v4.1-flash",
+    "agent_rc": 0,
+    "finish_reason": {
+      "kind": "completed"
+    },
+    "agent_seconds": 57,
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "materialization": {
+      "source_entries": 72,
+      "received_files": 70,
+      "source_sha256": "ea0ed60341497ca5b8a819cf88ca922e0bdb5c696d3cbdf3ed86acca37c9232d"
+    },
+    "tool_calls": 8,
+    "event_counts": {
+      "unknown": 4,
+      "agent/inbox/spliced": 2,
+      "turn/start": 1,
+      "step/start": 9,
+      "user/message": 2,
+      "session/title": 1,
+      "request/header": 1,
+      "request/context": 1,
+      "assistant/chunk": 2307,
+      "assistant/message": 9,
+      "tool/call": 8,
+      "tool/result": 8,
+      "step/end": 9,
+      "turn/end": 1
+    },
+    "valid_model_run": true
+  },
+  {
+    "task": "NC02-receipt-trailing-dot",
+    "cell": "macos-15",
+    "model": "deepseek-v4.1-flash",
+    "agent_rc": 0,
+    "finish_reason": {
+      "kind": "completed"
+    },
+    "agent_seconds": 36,
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "materialization": {
+      "source_entries": 72,
+      "received_files": 72,
+      "source_sha256": "fb78829a4250e334b2566136b068df04dd68d669ff581823d2fe0a898db4fc25"
+    },
+    "tool_calls": 8,
+    "event_counts": {
+      "unknown": 4,
+      "agent/inbox/spliced": 2,
+      "turn/start": 1,
+      "step/start": 9,
+      "user/message": 2,
+      "session/title": 1,
+      "request/header": 1,
+      "request/context": 1,
+      "assistant/chunk": 2019,
+      "assistant/message": 9,
+      "tool/call": 8,
+      "tool/result": 8,
+      "step/end": 9,
+      "turn/end": 1
+    },
+    "valid_model_run": true
+  },
+  {
+    "task": "NC01-receipt-unicode",
+    "cell": "ubuntu-24.04",
+    "model": "deepseek-v4.1-flash",
+    "agent_rc": 0,
+    "finish_reason": {
+      "kind": "completed"
+    },
+    "agent_seconds": 26,
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "materialization": {
+      "source_entries": 72,
+      "received_files": 72,
+      "source_sha256": "ea0ed60341497ca5b8a819cf88ca922e0bdb5c696d3cbdf3ed86acca37c9232d"
+    },
+    "tool_calls": 8,
+    "event_counts": {
+      "unknown": 4,
+      "agent/inbox/spliced": 2,
+      "turn/start": 1,
+      "step/start": 8,
+      "user/message": 2,
+      "session/title": 1,
+      "request/header": 1,
+      "request/context": 1,
+      "assistant/chunk": 1807,
+      "assistant/message": 8,
+      "tool/call": 8,
+      "tool/result": 8,
+      "step/end": 8,
+      "turn/end": 1
+    },
+    "valid_model_run": true
+  },
+  {
+    "task": "NC02-receipt-trailing-dot",
+    "cell": "ubuntu-24.04",
+    "model": "deepseek-v4.1-flash",
+    "agent_rc": 0,
+    "finish_reason": {
+      "kind": "completed"
+    },
+    "agent_seconds": 25,
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "materialization": {
+      "source_entries": 72,
+      "received_files": 72,
+      "source_sha256": "fb78829a4250e334b2566136b068df04dd68d669ff581823d2fe0a898db4fc25"
+    },
+    "tool_calls": 7,
+    "event_counts": {
+      "unknown": 4,
+      "agent/inbox/spliced": 2,
+      "turn/start": 1,
+      "step/start": 8,
+      "user/message": 2,
+      "session/title": 1,
+      "request/header": 1,
+      "request/context": 1,
+      "assistant/chunk": 1947,
+      "assistant/message": 8,
+      "tool/call": 7,
+      "tool/result": 7,
+      "step/end": 8,
+      "turn/end": 1
+    },
+    "valid_model_run": true
+  },
+  {
+    "task": "NC01-receipt-unicode",
+    "cell": "windows-2022",
+    "model": "deepseek-v4.1-flash",
+    "agent_rc": 0,
+    "finish_reason": {
+      "kind": "completed"
+    },
+    "agent_seconds": 36,
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "materialization": {
+      "source_entries": 72,
+      "received_files": 72,
+      "source_sha256": "01b235c10605dabbf5e3111dba3d6f27279ca02c2eb32f8c7ebd82334378d63c"
+    },
+    "tool_calls": 10,
+    "event_counts": {
+      "unknown": 4,
+      "agent/inbox/spliced": 2,
+      "turn/start": 1,
+      "step/start": 8,
+      "user/message": 2,
+      "session/title": 1,
+      "request/header": 1,
+      "request/context": 1,
+      "assistant/chunk": 3122,
+      "assistant/message": 8,
+      "tool/call": 10,
+      "tool/result": 10,
+      "step/end": 8,
+      "turn/end": 1
+    },
+    "valid_model_run": true
+  },
+  {
+    "task": "NC02-receipt-trailing-dot",
+    "cell": "windows-2022",
+    "model": "deepseek-v4.1-flash",
+    "agent_rc": 0,
+    "finish_reason": {
+      "kind": "completed"
+    },
+    "agent_seconds": 32,
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "materialization": {
+      "source_entries": 72,
+      "received_files": 70,
+      "source_sha256": "c93ac0d8c50ca7e0b11e829cb3a693820e10ab44d51cf949a60dd7a850ada4f7"
+    },
+    "tool_calls": 8,
+    "event_counts": {
+      "unknown": 4,
+      "agent/inbox/spliced": 2,
+      "turn/start": 1,
+      "step/start": 9,
+      "user/message": 2,
+      "session/title": 1,
+      "request/header": 1,
+      "request/context": 1,
+      "assistant/chunk": 2526,
+      "assistant/message": 9,
+      "tool/call": 8,
+      "tool/result": 8,
+      "step/end": 9,
+      "turn/end": 1
+    },
+    "valid_model_run": true
+  }
+]

@@ -1,0 +1,134 @@
+[
+  {
+    "task": "NC02-receipt-trailing-dot",
+    "cell": "ubuntu-24.04",
+    "arm": "oracle",
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "process_rc": 0,
+    "received": 72,
+    "source": 72
+  },
+  {
+    "task": "NC02-receipt-trailing-dot",
+    "cell": "ubuntu-24.04",
+    "arm": "naive",
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "process_rc": 0,
+    "received": 72,
+    "source": 72
+  },
+  {
+    "task": "NC01-receipt-unicode",
+    "cell": "ubuntu-24.04",
+    "arm": "oracle",
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "process_rc": 0,
+    "received": 72,
+    "source": 72
+  },
+  {
+    "task": "NC01-receipt-unicode",
+    "cell": "ubuntu-24.04",
+    "arm": "naive",
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "process_rc": 0,
+    "received": 72,
+    "source": 72
+  },
+  {
+    "task": "NC02-receipt-trailing-dot",
+    "cell": "macos-15",
+    "arm": "oracle",
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "process_rc": 0,
+    "received": 72,
+    "source": 72
+  },
+  {
+    "task": "NC02-receipt-trailing-dot",
+    "cell": "macos-15",
+    "arm": "naive",
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "process_rc": 0,
+    "received": 72,
+    "source": 72
+  },
+  {
+    "task": "NC01-receipt-unicode",
+    "cell": "macos-15",
+    "arm": "oracle",
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "process_rc": 0,
+    "received": 70,
+    "source": 72
+  },
+  {
+    "task": "NC01-receipt-unicode",
+    "cell": "macos-15",
+    "arm": "naive",
+    "reward": 0,
+    "points": 30,
+    "total": 110,
+    "process_rc": 0,
+    "received": 70,
+    "source": 72
+  },
+  {
+    "task": "NC01-receipt-unicode",
+    "cell": "windows-2022",
+    "arm": "oracle",
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "process_rc": 0,
+    "received": 72,
+    "source": 72
+  },
+  {
+    "task": "NC01-receipt-unicode",
+    "cell": "windows-2022",
+    "arm": "naive",
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "process_rc": 0,
+    "received": 72,
+    "source": 72
+  },
+  {
+    "task": "NC02-receipt-trailing-dot",
+    "cell": "windows-2022",
+    "arm": "oracle",
+    "reward": 1,
+    "points": 110,
+    "total": 110,
+    "process_rc": 0,
+    "received": 70,
+    "source": 72
+  },
+  {
+    "task": "NC02-receipt-trailing-dot",
+    "cell": "windows-2022",
+    "arm": "naive",
+    "reward": 0,
+    "points": 30,
+    "total": 110,
+    "process_rc": 0,
+    "received": 70,
+    "source": 72
+  }
+]

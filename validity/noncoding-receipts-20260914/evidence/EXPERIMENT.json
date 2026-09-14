@@ -1,0 +1,19 @@
+{
+  "commit": "00c8dc654cb85434ecf341677fa41b206d9e0ee1",
+  "model": "deepseek-v4.1-flash",
+  "harness": "pinned DSH inherited from 19008dcbad1efa1bd61944eebb72152cd14f81e4",
+  "timeout": 900,
+  "max_tokens": 131072,
+  "tool_surface": "terminal and filesystem, not GUI-only",
+  "trials_per_cell": 1,
+  "gate_runs": {
+    "ubuntu-24.04": 34802773263,
+    "macos-15": 34802775682,
+    "windows-2022": 34802777952
+  },
+  "agent_runs": {
+    "ubuntu-24.04": 34802918362,
+    "macos-15": 34802920538,
+    "windows-2022": 34802922396
+  }
+}
