@@ -16,6 +16,24 @@ BIN = {
        "E7-publish-shared": ("publish", "E7"),
        "E8-report-extend": ("report.py", "E8"),
        "E9-latest-extend": ("latest.py", "E9"),
+       "EXAMPLE-git-newline": ("digest.py", "EG1"),
+       "W01-release-pipeline": ("run_pipeline.sh", "W01"),
+       "W10-release-dot": ("run_pipeline.sh", "W10"),
+       "W11-intake-dot": ("run_pipeline.sh", "W11"),
+       "W12-release-tmproot": ("run_pipeline.sh", "W12"),
+       "W13-intake-tmproot": ("run_pipeline.sh", "W13"),
+       "W14-release-stamp": ("run_pipeline.sh", "W14"),
+       "W15-intake-stamp": ("run_pipeline.sh", "W15"),
+       "W16-release-envcase": ("run_pipeline.sh", "W16"),
+       "W17-intake-envcase": ("run_pipeline.sh", "W17"),
+       "W18-release-pathcase": ("run_pipeline.sh", "W18"),
+       "W19-intake-pathcase": ("run_pipeline.sh", "W19"),
+       "W20-release-subdecode": ("run_pipeline.sh", "W20"),
+       "W21-intake-subdecode": ("run_pipeline.sh", "W21"),
+       "W22-release-spawn": ("run_pipeline.sh", "W22"),
+       "W23-intake-spawn": ("run_pipeline.sh", "W23"),
+       "W24-release-autocrlf": ("run_pipeline.sh", "W24"),
+       "W25-intake-autocrlf": ("run_pipeline.sh", "W25"),
        "X1-index-extend": ("index.py", "X1"),
        "X100-signup-m8": ("dropscan.py", "X100"),
        "X101-ticket-m8": ("sinkaudit.py", "X101"),
@@ -121,7 +139,9 @@ BIN = {
        "X96-signup-m7": ("keycheck.py", "X96"),
        "X97-ticket-m7": ("permreport.py", "X97"),
        "X98-stock-m7": ("modescan.py", "X98"),
-       "X99-archive-m8": ("landcheck.py", "X99")}
+       "X99-archive-m8": ("landcheck.py", "X99"),
+       "Y02-git-filemode": ("perms.py", "Y02"),
+       "Y03-tar-owner": ("attest.py", "Y03")}
 ap = argparse.ArgumentParser()
 ap.add_argument("--task", required=True); ap.add_argument("--arm", default="oracle")
 ap.add_argument("--data", default="/data"); ap.add_argument("--app", default="/app")
