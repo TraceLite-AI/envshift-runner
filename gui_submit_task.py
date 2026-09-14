@@ -3,7 +3,7 @@ import argparse,hashlib,html,http.server,json,os,pathlib,platform,shutil,sockets
 from email.parser import BytesParser
 from email.policy import default
 for s in (sys.stdout,sys.stderr):s.reconfigure(encoding='utf-8',errors='replace')
-p=argparse.ArgumentParser();p.add_argument('--arm',choices=['control','agent'],required=True);p.add_argument('--model',default='gemini-3.5-flash');p.add_argument('--steps',type=int,default=35)
+p=argparse.ArgumentParser();p.add_argument('--arm',choices=['control','agent','diagnostic'],required=True);p.add_argument('--model',default='gemini-3.5-flash');p.add_argument('--steps',type=int,default=35)
 a=p.parse_args();HERE=pathlib.Path(__file__).resolve().parent;OUT=HERE/'gui_submit_out';OUT.mkdir(exist_ok=True)
 ROOT=pathlib.Path(tempfile.mkdtemp(prefix='envshift-gui-submit-'));INBOX=pathlib.Path.home()/'Documents'/'EnvShift Inbox';INBOX.mkdir(parents=True,exist_ok=True)
 GOOD=b'account,month,approved_amount\nCedar,2026-08,1684.50\nMaple,2026-08,927.25\n'
@@ -88,7 +88,25 @@ def grade():
 
 screenshot('initial.png');assert grade()['reward']==0
 model_meta=None
-if a.arm=='control':
+if a.arm=='diagnostic':
+ assert sys.platform.startswith('linux'), 'This diagnostic exercises the Linux native chooser.'
+ results=[]
+ for label,y,interval in [('single-open',130,None),('double-zero',130,0),('double-human',130,.12),('agent-point-zero',123,0),('agent-point-human',123,.12)]:
+  cdp('Page.navigate',{'url':URL});time.sleep(1)
+  evaluate("document.getElementById('choose').focus()");pyautogui.press('enter');time.sleep(2)
+  pyautogui.click(87,84);time.sleep(.5);pyautogui.doubleClick(285,106,interval=.12);time.sleep(.6);pyautogui.doubleClick(285,106,interval=.12);time.sleep(.6)
+  screenshot(label+'-before.png')
+  if interval is None:
+   pyautogui.click(320,y);time.sleep(.3);pyautogui.click(1110,820)
+  else:
+   pyautogui.doubleClick(320,y,interval=interval)
+  time.sleep(2);screenshot(label+'-after.png')
+  chosen=evaluate("document.getElementById('file').files[0]?.name||''")
+  row=dict(label=label,pixel=[320,y],interval=interval,chosen=chosen,selected_correctly=chosen==TARGET.name);results.append(row)
+  print('DIAGNOSTIC',json.dumps(row),flush=True)
+  pyautogui.press('esc');time.sleep(.3)
+ meta=dict(arm=a.arm,platform=platform.platform(),results=results)
+elif a.arm=='control':
  results=[]
  for label,path in [('oracle',TARGET),('wrong-file',INBOX/'approved-2026-08.csv.txt')]:
   with LOCK:STATE['submissions'].clear()
