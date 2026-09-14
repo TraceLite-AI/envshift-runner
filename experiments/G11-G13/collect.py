@@ -17,7 +17,7 @@ def collect(arm):
     for artifact in artifacts:
         name=artifact['name']
         if not name.startswith('gui-batch4-') or '-'+arm+'-' not in name: continue
-        dest=ROOT/'evidence'/name; archive=ROOT/'archives'/(name+'.tar.xz')
+        dest=ROOT/'evidence'/str(record['run'])/name; archive=ROOT/'archives'/(str(record['run'])+'-'+name+'.tar.xz')
         if not (dest/'VERIFIED.json').exists():
             for attempt in range(3):
                 try:
@@ -74,8 +74,11 @@ def collect(arm):
                        reward=meta.get('reward'),steps=meta.get('steps'),last_action=loop.get('history',[{}])[-1].get('action') if loop.get('history') else None)
         rows.append(row)
     rows.sort(key=lambda r:(r['task'],r['trial']))
-    (ROOT/(arm.upper()+'_RESULTS.json')).write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n')
-    print(json.dumps([{'task':r['task'],'trial':r['trial'],'verified':r['verified'],**{k:r[k] for k in ['valid','reward','steps'] if k in r}} for r in rows]),flush=True)
+    payload=json.dumps(rows,ensure_ascii=False,indent=2)+'\n'
+    (ROOT/(arm.upper()+'_RESULTS.json')).write_text(payload)
+    run_dir=ROOT/'runs'/str(record['run']);run_dir.mkdir(parents=True,exist_ok=True)
+    (run_dir/(arm.upper()+'_RESULTS.json')).write_text(payload)
+    print(json.dumps([{'task':r['task'],'os':r['runtime']['runner_image']['RUNNER_OS'],'trial':r['trial'],'verified':r['verified'],**{k:r[k] for k in ['valid','reward','steps'] if k in r}} for r in rows]),flush=True)
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('arm',choices=['control','agent']);a=p.parse_args();collect(a.arm)

@@ -106,7 +106,11 @@ def main():
             good=label=='oracle'
             if a.task=='G11':
                 if not evaluate('Boolean(window.showSaveFilePicker)&&window.isSecureContext'):raise RuntimeError('File picker unavailable')
-                press('export');time.sleep(2);shot(label+'-save-dialog.png')
+                if sys.platform=='darwin':
+                    # A physical click supplies fresh user activation after the control reset.
+                    focus('export');pyautogui.click(*point('export'));time.sleep(.65)
+                else:press('export')
+                time.sleep(2);shot(label+'-save-dialog.png')
                 name=REPORT_NAME if good else 'revenue-2026-09-copy.csv'
                 selectall='command' if sys.platform=='darwin' else 'ctrl'
                 if sys.platform=='darwin':
@@ -115,8 +119,10 @@ def main():
                 elif os.name=='nt':
                     pyautogui.hotkey('alt','n');pyautogui.hotkey(selectall,'a');pyautogui.write(str(downloads/name),interval=.01);pyautogui.press('enter')
                 else:
-                    # GTK save dialogs initially focus the selected suggested filename.
-                    pyautogui.hotkey(selectall,'a');pyautogui.write(name,interval=.03);pyautogui.press('enter')
+                    # In the observed GTK dialog startIn falls back to Home; open Downloads explicitly.
+                    pyautogui.doubleClick(285,158,interval=.12);time.sleep(.7);shot(label+'-save-folder.png')
+                    pyautogui.click(420,47);pyautogui.hotkey(selectall,'a');pyautogui.write(name,interval=.03)
+                    pyautogui.click(1110,820)
                 time.sleep(1.5);shot(label+'-overwrite.png')
                 if good:
                     if sys.platform=='darwin':pyautogui.click(570,474)

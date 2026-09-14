@@ -14,7 +14,7 @@
   "steps": 60,
   "max_parallel": 3,
   "source_sha256": {
-    "gui_batch4.py": "4f1dd5379a9d7b4cd9cdb85c11863b9ae817e51ddd16ae66067a056c9c1eb4b3",
+    "gui_batch4.py": "b13bf1af5b93fba70c093c701a0dd3de7d13403a1b50de1d4554b86207d433a0",
     "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
     "task_world.py": "7b0821deb4fd5199865213b5b6312e294f16767c18b1cbb8331495882fd693b2",
     "app.js": "cb0f88d5a64f1fd71c9c324d91a242a411a2e2c00db4ae9911fe9912f5283c71",
@@ -22,5 +22,6 @@
   },
   "prior_result_commit": "74f0b6cd6a0d74631bc7ee6fe06874f2bf9f868e",
   "status": "awaiting_controls",
-  "new_badcases": 0
+  "new_badcases": 0,
+  "previous_source_commit": "a2db25ead8e6d17db38402792d5e9a88d9a090d3"
 }
