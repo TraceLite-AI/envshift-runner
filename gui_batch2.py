@@ -171,7 +171,9 @@ if a.arm=='control':
             else:
                 click(87,98);time.sleep(.4);pyautogui.doubleClick(285,158,interval=.12);time.sleep(.5);pyautogui.doubleClick(285,158,interval=.12);time.sleep(.6)
                 screenshot(label+'-save-folder.png');click(420,47);select_all();pyautogui.write(name,interval=.02)
-            if sys.platform.startswith('linux'):click(1110,820)
+            if sys.platform.startswith('linux'):
+                pyautogui.press('tab');click(1050,774);pyautogui.press('home');pyautogui.press('enter');time.sleep(.5)
+                screenshot(label+'-save-format.png');click(1110,820)
             else:pyautogui.press('enter')
             time.sleep(1.5);screenshot(label+'-overwrite.png')
             if sys.platform=='darwin' and label=='oracle':click(570,474)
@@ -181,6 +183,9 @@ if a.arm=='control':
         time.sleep(2);screenshot(label+'-final.png')
         result={'arm':label,**grade()};results.append(result);print('CONTROL_RESULT',a.task,platform.system(),json.dumps(result),flush=True)
         if result['reward']!=int(label=='oracle'):
+            if sys.platform.startswith('linux'):
+                with (OUT/'window-tree.txt').open('w') as dump:
+                    subprocess.run(['xwininfo','-root','-tree'],stdout=dump,stderr=subprocess.STDOUT)
             (OUT/'control-failure.json').write_text(json.dumps(result,indent=2));raise RuntimeError('GUI_CONTROL_FAILED '+a.task+' '+label)
     meta={'arm':'control','task':a.task,'platform':platform.platform(),'control_passed':True,'results':results}
 else:
