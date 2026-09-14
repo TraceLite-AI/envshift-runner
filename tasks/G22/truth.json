@@ -1,0 +1,23 @@
+{
+  "title": "Atlas delivery plan",
+  "paragraphs": [
+    "Delivery date: 2026-10-13.",
+    "Budget: $24,000.",
+    "Owner: Mina.",
+    "Please receive the signed plan."
+  ],
+  "revision_decisions": {
+    "R1": "accepted",
+    "R2": "rejected",
+    "R3": "rejected",
+    "R4": "accepted"
+  },
+  "comments": [
+    {
+      "id": "C1",
+      "anchor": "budget",
+      "text": "Finance has approved the original budget."
+    }
+  ],
+  "must_save": true
+}

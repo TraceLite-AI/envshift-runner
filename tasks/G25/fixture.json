@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "id": "project",
+      "title": "Atlas project",
+      "parent": null,
+      "mode": "custom",
+      "acl": [
+        {
+          "principal": "mina",
+          "role": "Owner"
+        },
+        {
+          "principal": "team",
+          "role": "Viewer"
+        },
+        {
+          "principal": "anyone",
+          "role": "Viewer"
+        }
+      ]
+    },
+    {
+      "id": "launch",
+      "title": "Launch brief",
+      "parent": "project",
+      "mode": "inherit",
+      "acl": []
+    },
+    {
+      "id": "design",
+      "title": "Design notes",
+      "parent": "project",
+      "mode": "inherit",
+      "acl": []
+    }
+  ],
+  "people": [
+    {
+      "id": "mina",
+      "name": "Mina",
+      "email": "mina@atlas.example"
+    },
+    {
+      "id": "team",
+      "name": "Atlas team",
+      "email": ""
+    },
+    {
+      "id": "anyone",
+      "name": "Anyone with the link",
+      "email": ""
+    },
+    {
+      "id": "noah",
+      "name": "Noah Park",
+      "email": "noah@atlas.example"
+    },
+    {
+      "id": "noah_ops",
+      "name": "Noah Operations",
+      "email": "noah.ops@atlas.example"
+    }
+  ]
+}

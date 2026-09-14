@@ -1,0 +1,18 @@
+[
+  {
+    "op": "crop",
+    "x": 40,
+    "y": 30,
+    "width": 180,
+    "height": 120
+  },
+  {
+    "op": "rotate",
+    "direction": "ccw"
+  },
+  {
+    "op": "export",
+    "format": "PNG",
+    "name": "badge.png"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "id": "G21",
+  "title": "Mail Rules",
+  "title_zh": "邮件复合规则与批量归档",
+  "kind": "synthetic_browser_gui",
+  "model_validation": "pending",
+  "claim_os_difference": false,
+  "prompt": "prompt.md",
+  "fixture": "fixture.json",
+  "truth": "truth.json",
+  "verifier": "../../verify_delivery.py",
+  "server": "../../serve.py"
+}

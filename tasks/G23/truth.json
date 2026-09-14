@@ -1,0 +1,12 @@
+{
+  "filename": "badge.png",
+  "format": "PNG",
+  "dimensions": [
+    120,
+    180
+  ],
+  "pixel_mapping": "output(x,y) = source_pixel(40+y,149-x)",
+  "coordinate_origin": "top left",
+  "source_preserved": true,
+  "physical_export_required": true
+}

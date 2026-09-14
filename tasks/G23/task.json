@@ -1,0 +1,13 @@
+{
+  "id": "G23",
+  "title": "Image Workshop",
+  "title_zh": "图片裁切、旋转与 PNG 导出",
+  "kind": "synthetic_browser_gui",
+  "model_validation": "pending",
+  "claim_os_difference": false,
+  "prompt": "prompt.md",
+  "fixture": "fixture.json",
+  "truth": "truth.json",
+  "verifier": "../../verify_delivery.py",
+  "server": "../../serve.py"
+}

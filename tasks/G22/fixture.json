@@ -1,0 +1,59 @@
+{
+  "title": "Atlas delivery plan",
+  "blocks": [
+    {
+      "id": "date",
+      "text": "Delivery date: 2026-10-06."
+    },
+    {
+      "id": "budget",
+      "text": "Budget: $24,000."
+    },
+    {
+      "id": "owner",
+      "text": "Owner: Mina."
+    },
+    {
+      "id": "copy",
+      "text": "Please recieve the signed plan."
+    }
+  ],
+  "comments": [
+    {
+      "id": "C1",
+      "anchor": "budget",
+      "text": "Finance has approved the original budget."
+    }
+  ],
+  "revisions": [
+    {
+      "id": "R1",
+      "block": "date",
+      "before": "Delivery date: 2026-10-06.",
+      "after": "Delivery date: 2026-10-13.",
+      "status": "pending"
+    },
+    {
+      "id": "R2",
+      "block": "budget",
+      "before": "Budget: $24,000.",
+      "after": "Budget: $42,000.",
+      "status": "pending"
+    },
+    {
+      "id": "R3",
+      "block": "owner",
+      "before": "Owner: Mina.",
+      "after": "Owner: Noah.",
+      "status": "pending"
+    },
+    {
+      "id": "R4",
+      "block": "copy",
+      "before": "Please recieve the signed plan.",
+      "after": "Please receive the signed plan.",
+      "status": "pending"
+    }
+  ],
+  "saved": null
+}

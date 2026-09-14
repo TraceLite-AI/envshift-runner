@@ -1,0 +1,13 @@
+{
+  "id": "G22",
+  "title": "Document Review",
+  "title_zh": "逐项处理文档修订并保存",
+  "kind": "synthetic_browser_gui",
+  "model_validation": "pending",
+  "claim_os_difference": false,
+  "prompt": "prompt.md",
+  "fixture": "fixture.json",
+  "truth": "truth.json",
+  "verifier": "../../verify_delivery.py",
+  "server": "../../serve.py"
+}

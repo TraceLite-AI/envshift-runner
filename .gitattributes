@@ -6,3 +6,6 @@
 /gui_batch5.py text eol=lf
 /gui_batch6.py text eol=lf
 /scroll_probe.py text eol=lf
+/gui_batch7.py text eol=lf
+/task_server.py text eol=lf
+/reference_ui.py text eol=lf

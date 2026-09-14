@@ -1,0 +1,13 @@
+{
+  "id": "G24",
+  "title": "Report Builder",
+  "title_zh": "过滤、分组聚合与保存图表",
+  "kind": "synthetic_browser_gui",
+  "model_validation": "pending",
+  "claim_os_difference": false,
+  "prompt": "prompt.md",
+  "fixture": "fixture.json",
+  "truth": "truth.json",
+  "verifier": "../../verify_delivery.py",
+  "server": "../../serve.py"
+}

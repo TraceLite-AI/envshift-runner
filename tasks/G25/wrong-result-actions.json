@@ -1,0 +1,21 @@
+[
+  {
+    "op": "set_access",
+    "node": "project",
+    "mode": "custom",
+    "acl": [
+      {
+        "principal": "mina",
+        "role": "Owner"
+      },
+      {
+        "principal": "team",
+        "role": "Viewer"
+      },
+      {
+        "principal": "noah",
+        "role": "Editor"
+      }
+    ]
+  }
+]

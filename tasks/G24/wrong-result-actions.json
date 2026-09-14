@@ -1,0 +1,17 @@
+[
+  {
+    "op": "configure",
+    "config": {
+      "title": "Weekly effort",
+      "kind": "Bar",
+      "group": "Team",
+      "value": "Hours",
+      "aggregation": "Average",
+      "status": "Posted",
+      "sort": "Descending total"
+    }
+  },
+  {
+    "op": "save"
+  }
+]

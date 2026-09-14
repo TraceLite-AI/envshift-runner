@@ -1,0 +1,85 @@
+{
+  "rows": [
+    {
+      "id": "T1",
+      "Team": "Engineering",
+      "Person": "Ari",
+      "Hours": 4,
+      "Status": "Posted"
+    },
+    {
+      "id": "T2",
+      "Team": "Design",
+      "Person": "Mina",
+      "Hours": 3,
+      "Status": "Posted"
+    },
+    {
+      "id": "T3",
+      "Team": "Support",
+      "Person": "Lee",
+      "Hours": 7,
+      "Status": "Posted"
+    },
+    {
+      "id": "T4",
+      "Team": "Engineering",
+      "Person": "Sam",
+      "Hours": 6,
+      "Status": "Posted"
+    },
+    {
+      "id": "T5",
+      "Team": "Design",
+      "Person": "Noah",
+      "Hours": 5,
+      "Status": "Posted"
+    },
+    {
+      "id": "T6",
+      "Team": "Support",
+      "Person": "Ari",
+      "Hours": 2,
+      "Status": "Posted"
+    },
+    {
+      "id": "T7",
+      "Team": "Engineering",
+      "Person": "Lee",
+      "Hours": 2,
+      "Status": "Posted"
+    },
+    {
+      "id": "T8",
+      "Team": "Engineering",
+      "Person": "Sam",
+      "Hours": 90,
+      "Status": "Cancelled"
+    },
+    {
+      "id": "T9",
+      "Team": "Design",
+      "Person": "Mina",
+      "Hours": 40,
+      "Status": "Cancelled"
+    }
+  ],
+  "reports": [
+    {
+      "id": "legacy",
+      "title": "Daily incidents",
+      "kind": "legacy",
+      "note": "Keep the saved report intact."
+    }
+  ],
+  "draft": {
+    "title": "Untitled report",
+    "kind": "Line",
+    "group": "Person",
+    "value": "Hours",
+    "aggregation": "Average",
+    "status": "All",
+    "sort": "A to Z"
+  },
+  "draft_report_id": null
+}

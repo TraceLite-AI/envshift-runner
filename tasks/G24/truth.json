@@ -1,0 +1,39 @@
+{
+  "title": "Weekly effort",
+  "kind": "Bar",
+  "current_series": [
+    {
+      "label": "Engineering",
+      "value": 12
+    },
+    {
+      "label": "Support",
+      "value": 9
+    },
+    {
+      "label": "Design",
+      "value": 8
+    }
+  ],
+  "perturbation": "first Engineering Hours becomes 11; add Finance/Posted/25",
+  "heldout_series": [
+    {
+      "label": "Finance",
+      "value": 25
+    },
+    {
+      "label": "Engineering",
+      "value": 19
+    },
+    {
+      "label": "Support",
+      "value": 9
+    },
+    {
+      "label": "Design",
+      "value": 8
+    }
+  ],
+  "preserve": "source rows and legacy report",
+  "must_save": true
+}

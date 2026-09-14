@@ -1,0 +1,20 @@
+[
+  {
+    "op": "create_rule",
+    "rule": {
+      "name": "Approved invoices",
+      "enabled": true,
+      "match": "any",
+      "sender": "billing@atlas.example",
+      "subject": "[APPROVED]",
+      "attachment": true,
+      "folder": "Finance",
+      "label": "Invoice",
+      "mark_read": true
+    }
+  },
+  {
+    "op": "apply_rule",
+    "id": "R1"
+  }
+]

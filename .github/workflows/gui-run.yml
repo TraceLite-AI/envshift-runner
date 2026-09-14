@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       oslist: { description: runners, default: '["ubuntu-24.04","macos-15","windows-2022"]' }
-      tasks: { description: GUI tasks, default: '["G17","G18","G19","G20"]' }
+      tasks: { description: GUI tasks, default: '["G21","G22","G23","G24","G25"]' }
       trials: { description: independent fresh-runner trials, default: '[1]' }
       arm: { description: control or agent, default: control }
       model: { description: existing GUI model, default: gemini-3.5-flash }
@@ -59,7 +59,7 @@ jobs:
           python -m pip freeze > repeat_metadata/pip-freeze.txt
           python - <<'PY'
           import hashlib, json, os, pathlib, platform, subprocess, sys
-          names = ['gui_batch6.py','gui_agent_loop.py','task_world.py','app.js','app.css','scroll_probe.py']
+          names = ['gui_batch7.py','gui_agent_loop.py','task_world.py','task_server.py','reference_ui.py','app.js','app.css','scroll_probe.py']
           result = {'trial': os.environ['TRIAL_INDEX'], 'task': os.environ['TASK_ID'],
                     'source_commit': subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
                     'source_sha256': {n: hashlib.sha256(pathlib.Path(n).read_bytes()).hexdigest() for n in names},
@@ -78,9 +78,9 @@ jobs:
           PYTHONIOENCODING: utf-8
         run: |
           if [ "$RUNNER_OS" = Linux ]; then
-            dbus-run-session -- python gui_batch6.py --task "$TASK" --arm "$ARM" --model "$MODEL" --steps "$STEPS"
+            dbus-run-session -- python gui_batch7.py --task "$TASK" --arm "$ARM" --model "$MODEL" --steps "$STEPS"
           else
-            python gui_batch6.py --task "$TASK" --arm "$ARM" --model "$MODEL" --steps "$STEPS"
+            python gui_batch7.py --task "$TASK" --arm "$ARM" --model "$MODEL" --steps "$STEPS"
           fi
       - name: pack complete evidence without changing original bytes
         if: always()
@@ -88,7 +88,7 @@ jobs:
         run: |
           python - <<'PY'
           import hashlib, json, pathlib, shutil, tarfile
-          out = pathlib.Path('gui_batch6_out')
+          out = pathlib.Path('gui_batch7_out')
           out.mkdir(exist_ok=True)
           if pathlib.Path('repeat_metadata').exists():
               shutil.copytree('repeat_metadata', out / 'repeat_metadata', dirs_exist_ok=True)
@@ -103,6 +103,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: gui-batch6init-${{ matrix.task }}-${{ matrix.os }}-${{ inputs.arm }}-trial${{ matrix.trial }}
+          name: gui-batch7-${{ matrix.task }}-${{ matrix.os }}-${{ inputs.arm }}-trial${{ matrix.trial }}
           path: repeat_packet/
           compression-level: 0

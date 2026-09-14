@@ -1,0 +1,8 @@
+{
+  "model": "gemini-3.5-flash",
+  "tool_version": "gui_native_v3_scroll",
+  "steps": 60,
+  "max_parallel": 3,
+  "agent_sha256": "04d8089a512b23162336d75276d70519ffd9aaa9fb9d5669844e4c35f4a48a62",
+  "unchanged_agent_bytes": true
+}

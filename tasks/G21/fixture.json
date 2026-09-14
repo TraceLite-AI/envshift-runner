@@ -1,0 +1,72 @@
+{
+  "messages": [
+    {
+      "id": "M1",
+      "sender": "billing@atlas.example",
+      "subject": "[APPROVED] September invoice",
+      "attachment": true,
+      "folder": "Inbox",
+      "labels": [],
+      "read": false
+    },
+    {
+      "id": "M2",
+      "sender": "billing@atlas.example",
+      "subject": "[PENDING] October invoice",
+      "attachment": true,
+      "folder": "Inbox",
+      "labels": [],
+      "read": false
+    },
+    {
+      "id": "M3",
+      "sender": "vendor@boreal.example",
+      "subject": "[APPROVED] Service invoice",
+      "attachment": true,
+      "folder": "Inbox",
+      "labels": [],
+      "read": false
+    },
+    {
+      "id": "M4",
+      "sender": "billing@atlas.example",
+      "subject": "[APPROVED] Adjustment",
+      "attachment": true,
+      "folder": "Inbox",
+      "labels": [],
+      "read": false
+    },
+    {
+      "id": "M5",
+      "sender": "billing@atlas.example",
+      "subject": "[APPROVED] Reminder",
+      "attachment": false,
+      "folder": "Inbox",
+      "labels": [],
+      "read": false
+    },
+    {
+      "id": "M6",
+      "sender": "news@atlas.example",
+      "subject": "Weekly news",
+      "attachment": false,
+      "folder": "Inbox",
+      "labels": [],
+      "read": false
+    }
+  ],
+  "rules": [
+    {
+      "id": "R0",
+      "name": "Keep alerts",
+      "enabled": false,
+      "match": "all",
+      "sender": "ops@atlas.example",
+      "subject": "Alert",
+      "attachment": false,
+      "folder": "Inbox",
+      "label": "Alert",
+      "mark_read": false
+    }
+  ]
+}

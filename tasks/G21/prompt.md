@@ -1,0 +1,3 @@
+In Mail Rules, create one enabled rule named "Approved invoices". It must match ALL of: sender exactly "billing@atlas.example", subject contains "[APPROVED]", and has an attachment. For matching messages, move them to Finance, add the Invoice label, and mark them read. Apply the rule to existing messages as well. The saved rule must also work for future messages. Preserve all other messages and the existing rule.
+
+Use only the visible GUI and the provided mouse/keyboard actions. Do not use a terminal, browser console, page source, developer tools, scripts, or direct API requests. All task data is synthetic.

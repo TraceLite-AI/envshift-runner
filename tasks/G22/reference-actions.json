@@ -1,0 +1,25 @@
+[
+  {
+    "op": "decide",
+    "id": "R1",
+    "decision": "accepted"
+  },
+  {
+    "op": "decide",
+    "id": "R2",
+    "decision": "rejected"
+  },
+  {
+    "op": "decide",
+    "id": "R3",
+    "decision": "rejected"
+  },
+  {
+    "op": "decide",
+    "id": "R4",
+    "decision": "accepted"
+  },
+  {
+    "op": "save"
+  }
+]

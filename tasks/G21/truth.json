@@ -1,0 +1,18 @@
+{
+  "matching_existing_ids": [
+    "M1",
+    "M4"
+  ],
+  "required_rule": {
+    "name": "Approved invoices",
+    "enabled": true,
+    "match": "all",
+    "sender": "billing@atlas.example",
+    "subject": "[APPROVED]",
+    "attachment": true,
+    "folder": "Finance",
+    "label": "Invoice",
+    "mark_read": true
+  },
+  "preserve": "all other messages and the existing R0 rule"
+}
