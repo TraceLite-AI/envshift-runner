@@ -4,7 +4,7 @@ from publish_workflow import ROOT
 from poll import poll
 from collect import collect
 p=argparse.ArgumentParser();p.add_argument('arm',choices=['control','agent']);a=p.parse_args()
-for _ in range(120):
+for _ in range(240):
     poll(a.arm)
     run=json.loads((ROOT/(a.arm.upper()+'_RUN.json')).read_text())['run']
     status=json.loads((ROOT/'runs'/str(run)/'status.json').read_text())

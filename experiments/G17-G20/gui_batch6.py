@@ -91,6 +91,10 @@ def main():
         (out/'window-fit.json').write_text(json.dumps({'before':before,'after':after,'screen_size':list(pyautogui.size()),'method':'physical Win+Up before trial'},indent=2),encoding='utf-8')
         shot('window-fit.png')
         if after.get('bounds',{}).get('windowState')!='maximized':raise RuntimeError('Windows browser did not maximize; not a valid trial')
+    if sys.platform=='darwin' and a.task=='G18':
+        # Neutralize the startup focus click that otherwise opens the October occurrence.
+        cdp('Page.navigate',{'url':url});cdp('Page.bringToFront');time.sleep(1)
+        wait_ready();shot('calendar-init-reset.png')
     if a.arm=='control':scroll_probe.run(cdp,evaluate,shot,pyautogui,url,out)
     wait_ready();shot('initial.png');assert result()['reward']==0
     instruction=PROMPTS[a.task]+' '+GUARD

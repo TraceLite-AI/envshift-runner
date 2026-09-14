@@ -7,9 +7,10 @@ assert not record.exists() and not pending.exists(),'Inspect existing dispatch b
 remote=json.loads((ROOT/'REMOTE.json').read_text());source=json.loads((ROOT/'EXPERIMENT.json').read_text())
 assert api('git/ref/heads/'+BRANCH)['object']['sha']==remote['commit']
 if a.arm=='agent':
+    assert api('actions/runs/34871083231')['status']=='completed','Wait for original model matrix to finish; total model concurrency <=3'
     controls=json.loads((ROOT/'CONTROL_RESULTS.json').read_text())
-    assert len(controls)==12 and all(r['verified'] and r['runtime']['source_commit']==source['source_commit'] and r['runtime']['source_sha256']==source['source_sha256'] for r in controls)
-    assert len({(r['task'],r['runtime']['runner_image']['RUNNER_OS']) for r in controls})==12
+    assert len(controls)==1 and all(r['verified'] and r['runtime']['source_commit']==source['source_commit'] and r['runtime']['source_sha256']==source['source_sha256'] for r in controls)
+    assert len({(r['task'],r['runtime']['runner_image']['RUNNER_OS']) for r in controls})==1
     assert all(json.loads((ROOT/r['evidence']/'scroll-probe.json').read_text())['passed'] for r in controls)
 inputs={'arm':a.arm,'oslist':json.dumps(source['runners']),'tasks':json.dumps(source['tasks']),
         'trials':'[1]','model':source['model'],'steps':str(source['steps'])}

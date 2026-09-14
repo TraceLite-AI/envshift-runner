@@ -1,28 +1,23 @@
 {
   "tasks": [
-    "G17",
-    "G18",
-    "G19",
-    "G20"
+    "G18"
   ],
   "runners": [
-    "ubuntu-24.04",
-    "macos-15",
-    "windows-2022"
+    "macos-15"
   ],
   "model": "gemini-3.5-flash",
   "tool_version": "gui_native_v3_scroll",
   "steps": 60,
   "max_parallel": 3,
   "source_sha256": {
-    "gui_batch6.py": "08ce7a3265395b79516c4a4eaa5d8b6a206354591d079d1011397c185a6a71c6",
+    "gui_batch6.py": "1c690d75eb7f05c37376feef84824762d5cfe52bc1088f6054a6822275e92ddc",
     "gui_agent_loop.py": "04d8089a512b23162336d75276d70519ffd9aaa9fb9d5669844e4c35f4a48a62",
     "task_world.py": "a4c48b4cb1dd44bc8949638213e01615d830b693b14d90e476a5a7a45812a89f",
     "app.js": "1cc2625c18541aa66692220cac84f69582a077d42fb80948345e69f4a678cd33",
     "app.css": "7b63bfcaea2448c9dfc60dee138546a3275bb39d3438d72f9508f7ac4b96890d",
     "scroll_probe.py": "32714a68583fd7c77c5852c0e84a74d4ea72a413843d27273555a039b160df0f"
   },
-  "prior_result_commit": "ca224a34c12154311b19af59722a680f12933b3f",
+  "prior_result_commit": "1e9550143bdaae3714911bfb4f697a1c7d72f0cc",
   "status": "awaiting_controls",
   "new_badcases": 0,
   "publication_mode": "synthetic_sources_and_aggregate_records_only",

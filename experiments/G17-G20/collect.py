@@ -16,7 +16,7 @@ def collect(arm):
     rows=[]
     for artifact in artifacts:
         name=artifact['name']
-        if not name.startswith('gui-batch6-') or '-'+arm+'-' not in name: continue
+        if not name.startswith('gui-batch6init-') or '-'+arm+'-' not in name: continue
         dest=ROOT/'evidence'/str(record['run'])/name; archive=ROOT/'archives'/(str(record['run'])+'-'+name+'.tar.xz')
         if not (dest/'VERIFIED.json').exists():
             for attempt in range(3):

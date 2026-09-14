@@ -103,6 +103,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: gui-batch6-${{ matrix.task }}-${{ matrix.os }}-${{ inputs.arm }}-trial${{ matrix.trial }}
+          name: gui-batch6init-${{ matrix.task }}-${{ matrix.os }}-${{ inputs.arm }}-trial${{ matrix.trial }}
           path: repeat_packet/
           compression-level: 0

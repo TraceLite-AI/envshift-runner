@@ -2,8 +2,8 @@
 import base64,hashlib,json,pathlib,subprocess,tempfile
 ROOT=pathlib.Path(__file__).resolve().parent
 REPO='TraceLite-AI/envshift-runner'
-BRANCH='codex/gui-batch6-20260915'
-PARENT='ca224a34c12154311b19af59722a680f12933b3f'
+BRANCH='codex/gui-batch6-calendar-init-20260915'
+PARENT='1e9550143bdaae3714911bfb4f697a1c7d72f0cc'
 SOURCE=['gui_batch6.py','gui_agent_loop.py','task_world.py','app.js','app.css','scroll_probe.py']
 
 def api(path,payload=None,method='POST'):
@@ -22,7 +22,7 @@ if __name__=='__main__':
     old=api('contents/badcases/INDEX.json?ref='+PARENT)
     prior=base64.b64decode(old['content']);assert len(json.loads(prior))==22
     (ROOT/'PRIOR_BADCASES.json').write_bytes(prior)
-    manifest={'tasks':['G17','G18','G19','G20'],'runners':['ubuntu-24.04','macos-15','windows-2022'],
+    manifest={'tasks':['G18'],'runners':['macos-15'],
               'model':'gemini-3.5-flash','tool_version':'gui_native_v3_scroll','steps':60,'max_parallel':3,
               'source_sha256':{n:hashlib.sha256((ROOT/n).read_bytes()).hexdigest() for n in SOURCE},
               'prior_result_commit':PARENT,'status':'awaiting_controls','new_badcases':0,
@@ -38,13 +38,13 @@ if __name__=='__main__':
     entries.append({'path':'.gitattributes','mode':'100644','type':'blob','content':attrs})
     add('.github/workflows/gui-run.yml',ROOT/'gui-run.yml')
     allowed=SOURCE+['gui-run.yml','README.md','BENCHMARK_REFERENCES.md','TEST_PLAN.md','CONTINUE.md','EXPERIMENT.json','LOCAL_CHECKS.json',
-        'check_verifiers.py','make_tasks.py','publish_workflow.py','dispatch.py','poll.py','collect.py','watch.py','unpack_archives.py','local_preview.py','serve.py','TOOL_CHANGE.json']
+        'check_verifiers.py','make_tasks.py','publish_workflow.py','dispatch.py','poll.py','collect.py','watch.py','unpack_archives.py','local_preview.py','serve.py','TOOL_CHANGE.json','PROTOCOL_AMENDMENT.md']
     for name in allowed:add('experiments/G17-G20/'+name,ROOT/name)
     for p in sorted((ROOT/'tasks').rglob('*')):
         if p.is_file():
             rel=p.relative_to(ROOT).as_posix();add(rel,p);add('experiments/G17-G20/'+rel,p)
     tree=api('git/trees',{'base_tree':parent['tree']['sha'],'tree':entries})
-    commit=api('git/commits',{'message':'Add G17-G20 spreadsheet, recurring calendar, slide and file handoff GUI tasks','tree':tree['sha'],'parents':[PARENT]})
+    commit=api('git/commits',{'message':'Reset G18 macOS initial UI after startup focus click; retain original trial as setup diagnostic','tree':tree['sha'],'parents':[PARENT]})
     api('git/refs',{'ref':'refs/heads/'+BRANCH,'sha':commit['sha']})
     assert api('git/ref/heads/'+BRANCH)['object']['sha']==commit['sha']
     # Tree inheritance must preserve every previous permanent badcase artifact.
