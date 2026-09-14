@@ -1,0 +1,19 @@
+{
+  "status": "authorized_awaiting_controls",
+  "tasks": [
+    "G11",
+    "G12",
+    "G13"
+  ],
+  "local_verifier_checks": 18,
+  "gui_control_runs": [],
+  "agent_runs": [],
+  "new_badcase_tasks": 0,
+  "new_failure_trajectories": 0,
+  "remote_published": false,
+  "proposed_repo": "TraceLite-AI/envshift-runner",
+  "repo_visibility": "public",
+  "proposed_branch": "codex/gui-batch4-20260914",
+  "approval_block": null,
+  "authorization": "User replied 做完题直接去验证 to the explicit question about public upload to TraceLite-AI/envshift-runner and testing."
+}

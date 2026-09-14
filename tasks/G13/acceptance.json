@@ -1,0 +1,7 @@
+{
+  "positive": "Set requested three Reorder level cells and save",
+  "negative": "Set those values in Reorder quantity instead and save",
+  "truth": "Three requested cells updated; full remaining grid unchanged",
+  "related_task": null,
+  "independent_mechanism_claimed": false
+}

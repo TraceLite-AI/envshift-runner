@@ -1,0 +1,7 @@
+{
+  "positive": "Save approved CSV to canonical Downloads path, confirm replacement",
+  "negative": "Save correct bytes under revenue-2026-09-copy.csv; canonical file remains stale",
+  "truth": "Immutable REPORT literal; canonical bytes must match exactly",
+  "related_task": "G04",
+  "independent_mechanism_claimed": false
+}

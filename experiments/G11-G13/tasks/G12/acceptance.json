@@ -1,0 +1,7 @@
+{
+  "positive": "Select VEN-1048 result and save PO-918",
+  "negative": "Select same-name VEN-1084 result and save PO-918",
+  "truth": "PO-918 vendor_id VEN-1048; all other business data unchanged",
+  "related_task": "G08 entity ambiguity, different selection workflow",
+  "independent_mechanism_claimed": false
+}

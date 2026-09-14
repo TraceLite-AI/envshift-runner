@@ -1,0 +1,1 @@
+Export the approved September 2026 revenue report from the open page. Save it as revenue-2026-09.csv in Downloads, replacing the existing stale file with that exact name. Do not keep a copy with a different filename. Leave revenue-2026-08.csv unchanged. Use the visible application and browser UI only. Do not open a terminal or DevTools, execute code, or browse other websites.

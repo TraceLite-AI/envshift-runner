@@ -1,0 +1,43 @@
+{
+  "updated": "2026-09-14",
+  "badcase_tasks": [
+    "G01",
+    "G05",
+    "G08",
+    "G10"
+  ],
+  "badcase_task_count": 4,
+  "failure_trajectories": {
+    "G01": 1,
+    "G05": 3,
+    "G08": 9,
+    "G10": 9
+  },
+  "failure_trajectory_count": 22,
+  "prospective_five_of_five_failures": [
+    "G08",
+    "G10"
+  ],
+  "stable_os_flips_proven": 0,
+  "latest_result_commit": "74f0b6cd6a0d74631bc7ee6fe06874f2bf9f868e",
+  "repo": "TraceLite-AI/envshift-runner",
+  "model": "gemini-3.5-flash",
+  "tool_version": "gui_native_v2",
+  "max_parallel_model_jobs": 3,
+  "next_batch": {
+    "tasks": [
+      "G11",
+      "G12",
+      "G13"
+    ],
+    "status": "authorized_awaiting_controls",
+    "directory": "/Users/conglin/Downloads/cl实验/EnvShift-GUI第四批-20260914",
+    "local_verifier_checks_passed": 18,
+    "gui_control_runs": 0,
+    "agent_runs": 0,
+    "remote_published": false,
+    "continuation": "/Users/conglin/Downloads/cl实验/EnvShift-GUI第四批-20260914/CONTINUE.md",
+    "authorization": "User replied 做完题直接去验证 after explicit public upload and runner question."
+  },
+  "preserve_all_prior_badcases": true
+}

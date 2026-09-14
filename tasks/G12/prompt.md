@@ -1,0 +1,1 @@
+Change the supplier on purchase order PO-918 to Cedar Components, vendor ID VEN-1048 (Rotterdam), and save the purchase order. Confirm the selected vendor ID is VEN-1048. Leave the amount, reference, other order, and vendor directory unchanged. Use the visible application and browser UI only. Do not open a terminal or DevTools, execute code, or browse other websites.

@@ -1,0 +1,5 @@
+/gui_batch4.py text eol=lf
+/gui_agent_loop.py text eol=lf
+/task_world.py text eol=lf
+/app.js text eol=lf
+/app.css text eol=lf

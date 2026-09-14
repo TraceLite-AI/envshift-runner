@@ -1,0 +1,259 @@
+[
+  {
+    "name": "initial state is incomplete",
+    "task": "G11",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "canonical_file_has_approved_bytes": false,
+      "august_file_unchanged": false,
+      "no_alternative_report_files": false,
+      "report_data_unchanged": true,
+      "successful_export_recorded": false
+    }
+  },
+  {
+    "name": "initial state is incomplete",
+    "task": "G12",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "correct_supplier_and_preserved_order_fields": false,
+      "other_order_unchanged": true,
+      "vendor_directory_unchanged": true,
+      "saved": false
+    }
+  },
+  {
+    "name": "initial state is incomplete",
+    "task": "G13",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "SKU-1008_complete_row": true,
+      "SKU-1040_complete_row": true,
+      "SKU-1048_complete_row": false,
+      "SKU-1080_complete_row": true,
+      "SKU-1084_complete_row": false,
+      "SKU-1108_complete_row": true,
+      "SKU-1140_complete_row": true,
+      "SKU-1148_complete_row": false,
+      "row_count_unchanged": true,
+      "saved": false
+    }
+  },
+  {
+    "name": "canonical approved file",
+    "task": "G11",
+    "expected_reward": 1,
+    "reward": 1,
+    "checks": {
+      "canonical_file_has_approved_bytes": true,
+      "august_file_unchanged": true,
+      "no_alternative_report_files": true,
+      "report_data_unchanged": true,
+      "successful_export_recorded": true
+    }
+  },
+  {
+    "name": "copy saved but original stale",
+    "task": "G11",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "canonical_file_has_approved_bytes": false,
+      "august_file_unchanged": true,
+      "no_alternative_report_files": false,
+      "report_data_unchanged": true,
+      "successful_export_recorded": true
+    }
+  },
+  {
+    "name": "false UI success with stale bytes",
+    "task": "G11",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "canonical_file_has_approved_bytes": false,
+      "august_file_unchanged": true,
+      "no_alternative_report_files": true,
+      "report_data_unchanged": true,
+      "successful_export_recorded": true
+    }
+  },
+  {
+    "name": "collateral August overwrite",
+    "task": "G11",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "canonical_file_has_approved_bytes": true,
+      "august_file_unchanged": false,
+      "no_alternative_report_files": true,
+      "report_data_unchanged": true,
+      "successful_export_recorded": true
+    }
+  },
+  {
+    "name": "extra file retained",
+    "task": "G11",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "canonical_file_has_approved_bytes": true,
+      "august_file_unchanged": true,
+      "no_alternative_report_files": false,
+      "report_data_unchanged": true,
+      "successful_export_recorded": true
+    }
+  },
+  {
+    "name": "correct entity selected and saved",
+    "task": "G12",
+    "expected_reward": 1,
+    "reward": 1,
+    "checks": {
+      "correct_supplier_and_preserved_order_fields": true,
+      "other_order_unchanged": true,
+      "vendor_directory_unchanged": true,
+      "saved": true
+    }
+  },
+  {
+    "name": "same label wrong entity",
+    "task": "G12",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "correct_supplier_and_preserved_order_fields": false,
+      "other_order_unchanged": true,
+      "vendor_directory_unchanged": true,
+      "saved": true
+    }
+  },
+  {
+    "name": "uncommitted label leaves old entity",
+    "task": "G12",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "correct_supplier_and_preserved_order_fields": false,
+      "other_order_unchanged": true,
+      "vendor_directory_unchanged": true,
+      "saved": true
+    }
+  },
+  {
+    "name": "other order changed",
+    "task": "G12",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "correct_supplier_and_preserved_order_fields": true,
+      "other_order_unchanged": false,
+      "vendor_directory_unchanged": true,
+      "saved": true
+    }
+  },
+  {
+    "name": "target reference changed",
+    "task": "G12",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "correct_supplier_and_preserved_order_fields": false,
+      "other_order_unchanged": true,
+      "vendor_directory_unchanged": true,
+      "saved": true
+    }
+  },
+  {
+    "name": "three exact cells saved",
+    "task": "G13",
+    "expected_reward": 1,
+    "reward": 1,
+    "checks": {
+      "SKU-1008_complete_row": true,
+      "SKU-1040_complete_row": true,
+      "SKU-1048_complete_row": true,
+      "SKU-1080_complete_row": true,
+      "SKU-1084_complete_row": true,
+      "SKU-1108_complete_row": true,
+      "SKU-1140_complete_row": true,
+      "SKU-1148_complete_row": true,
+      "row_count_unchanged": true,
+      "saved": true
+    }
+  },
+  {
+    "name": "neighbor column edited",
+    "task": "G13",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "SKU-1008_complete_row": true,
+      "SKU-1040_complete_row": true,
+      "SKU-1048_complete_row": false,
+      "SKU-1080_complete_row": true,
+      "SKU-1084_complete_row": false,
+      "SKU-1108_complete_row": true,
+      "SKU-1140_complete_row": true,
+      "SKU-1148_complete_row": false,
+      "row_count_unchanged": true,
+      "saved": true
+    }
+  },
+  {
+    "name": "one requested cell omitted",
+    "task": "G13",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "SKU-1008_complete_row": true,
+      "SKU-1040_complete_row": true,
+      "SKU-1048_complete_row": true,
+      "SKU-1080_complete_row": true,
+      "SKU-1084_complete_row": true,
+      "SKU-1108_complete_row": true,
+      "SKU-1140_complete_row": true,
+      "SKU-1148_complete_row": false,
+      "row_count_unchanged": true,
+      "saved": true
+    }
+  },
+  {
+    "name": "unrequested cell changed",
+    "task": "G13",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "SKU-1008_complete_row": false,
+      "SKU-1040_complete_row": true,
+      "SKU-1048_complete_row": true,
+      "SKU-1080_complete_row": true,
+      "SKU-1084_complete_row": true,
+      "SKU-1108_complete_row": true,
+      "SKU-1140_complete_row": true,
+      "SKU-1148_complete_row": true,
+      "row_count_unchanged": true,
+      "saved": true
+    }
+  },
+  {
+    "name": "row deleted",
+    "task": "G13",
+    "expected_reward": 0,
+    "reward": 0,
+    "checks": {
+      "SKU-1008_complete_row": true,
+      "SKU-1040_complete_row": true,
+      "SKU-1048_complete_row": true,
+      "SKU-1080_complete_row": true,
+      "SKU-1084_complete_row": true,
+      "SKU-1108_complete_row": true,
+      "SKU-1140_complete_row": true,
+      "row_count_unchanged": false,
+      "saved": true
+    }
+  }
+]

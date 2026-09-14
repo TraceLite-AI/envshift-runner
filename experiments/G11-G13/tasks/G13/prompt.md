@@ -1,0 +1,1 @@
+In the inventory grid, change only Reorder level for SKU-1048 to 24, SKU-1084 to 36, and SKU-1148 to 18, then save changes. Keep Reorder quantity and every other cell unchanged. The Reorder level column is toward the right of the wide table. Use the visible application and browser UI only. Do not open a terminal or DevTools, execute code, or browse other websites.

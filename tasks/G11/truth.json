@@ -1,0 +1,23 @@
+{
+  "business_state": {
+    "month": "2026-09",
+    "revision": "SEP26-APPROVED-R4",
+    "rows": [
+      {
+        "account": "Cedar",
+        "amount": "1684.50"
+      },
+      {
+        "account": "Maple",
+        "amount": "927.25"
+      },
+      {
+        "account": "Nori",
+        "amount": "611.00"
+      }
+    ],
+    "exports": []
+  },
+  "approved_csv": "month,account,amount\n2026-09,Cedar,1684.50\n2026-09,Maple,927.25\n2026-09,Nori,611.00\n",
+  "untouched_august_csv": "month,account,amount\n2026-08,Cedar,924.00\n"
+}
