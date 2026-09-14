@@ -8,12 +8,13 @@ def main():
     ap=argparse.ArgumentParser();ap.add_argument('--task',choices=list(PROMPTS),required=True);ap.add_argument('--arm',choices=['control','agent'],required=True);ap.add_argument('--model',default='gemini-3.5-flash');ap.add_argument('--steps',type=int,default=60);a=ap.parse_args()
     here=pathlib.Path(__file__).resolve().parent;out=here/'gui_batch4_out';out.mkdir(exist_ok=True)
     temp=pathlib.Path(tempfile.mkdtemp(prefix='envshift-gui-batch4-'));downloads=pathlib.Path.home()/'Downloads';downloads.mkdir(exist_ok=True)
+    preexisting_downloads={p.name for p in downloads.iterdir() if p.is_file()}
     owned_files=[downloads/REPORT_NAME, downloads/SENTINEL_NAME]
     if a.task=='G11':
         if any(downloads.glob('revenue-2026-*.csv')):raise RuntimeError('Synthetic export files already exist; refusing to overwrite during setup')
         owned_files[0].write_bytes(STALE);owned_files[1].write_bytes(SENTINEL)
     def delivered_files():
-        return {p.name:p.read_bytes() for p in downloads.glob('revenue-2026-*.csv') if p.is_file()} if a.task=='G11' else {}
+        return {p.name:p.read_bytes() for p in downloads.iterdir() if p.is_file() and p.name not in preexisting_downloads} if a.task=='G11' else {}
     def preserve_files(label):
         folder=out/(label+'-delivered');folder.mkdir(exist_ok=True)
         for name,data in delivered_files().items():(folder/name).write_bytes(data)
@@ -100,7 +101,7 @@ def main():
         for label in ['oracle','wrong-result']:
             with lock:state=fixture(a.task);audit.clear()
             if a.task=='G11':
-                for p in downloads.glob('revenue-2026-*.csv'):p.unlink()
+                for name in delivered_files():(downloads/name).unlink()
                 owned_files[0].write_bytes(STALE);owned_files[1].write_bytes(SENTINEL)
             cdp('Page.navigate',{'url':url});cdp('Page.bringToFront');time.sleep(1)
             good=label=='oracle'
@@ -114,14 +115,18 @@ def main():
                 name=REPORT_NAME if good else 'revenue-2026-09-copy.csv'
                 selectall='command' if sys.platform=='darwin' else 'ctrl'
                 if sys.platform=='darwin':
-                    pyautogui.hotkey('command','shift','g');time.sleep(.6);pyautogui.write(str(downloads),interval=.01);pyautogui.press('enter');time.sleep(1)
-                    pyautogui.hotkey(selectall,'a');pyautogui.write(name,interval=.02);pyautogui.press('enter')
+                    # The observed native panel already shows Downloads. Avoid racing its folder animation.
+                    if not good:
+                        pyautogui.click(530,315);pyautogui.hotkey(selectall,'a');time.sleep(.3)
+                        pyautogui.write(name,interval=.08);time.sleep(.3)
+                    pyautogui.click(670,430)
                 elif os.name=='nt':
                     pyautogui.hotkey('alt','n');pyautogui.hotkey(selectall,'a');pyautogui.write(str(downloads/name),interval=.01);pyautogui.press('enter')
                 else:
                     # In the observed GTK dialog startIn falls back to Home; open Downloads explicitly.
-                    pyautogui.doubleClick(285,158,interval=.12);time.sleep(.7);shot(label+'-save-folder.png')
+                    pyautogui.click(85,98);time.sleep(.4);pyautogui.doubleClick(285,158,interval=.12);time.sleep(.7);shot(label+'-save-folder.png')
                     pyautogui.click(420,47);pyautogui.hotkey(selectall,'a');pyautogui.write(name,interval=.03)
+                    pyautogui.press('tab');time.sleep(.7)
                     pyautogui.click(1110,820)
                 time.sleep(1.5);shot(label+'-overwrite.png')
                 if good:

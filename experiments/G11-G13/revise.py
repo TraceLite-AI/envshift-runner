@@ -5,7 +5,7 @@ remote=json.loads((ROOT/'REMOTE.json').read_text())
 run=json.loads((ROOT/'CONTROL_RUN.json').read_text())
 status=json.loads((ROOT/'runs'/str(run['run'])/'status.json').read_text())
 assert status['status']=='completed','Wait for the previous controls and their evidence'
-rows=json.loads((ROOT/'CONTROL_RESULTS.json').read_text());assert len(rows)==9
+rows=json.loads((ROOT/'CONTROL_RESULTS.json').read_text());assert len(rows)==len(json.loads(run['inputs']['tasks']))*3
 assert all((ROOT/r['archive']).exists() for r in rows)
 assert api('git/ref/heads/'+BRANCH)['object']['sha']==remote['commit']
 dest=ROOT/'control_attempts'/str(run['run']);dest.mkdir(parents=True,exist_ok=True)
