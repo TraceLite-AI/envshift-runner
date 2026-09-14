@@ -1,0 +1,25 @@
+{
+  "tasks": [
+    "G14",
+    "G15",
+    "G16"
+  ],
+  "runners": [
+    "windows-2022"
+  ],
+  "model": "gemini-3.5-flash",
+  "tool_version": "gui_native_v2",
+  "steps": 60,
+  "max_parallel": 3,
+  "source_sha256": {
+    "gui_batch5.py": "9aa59ba72c05fe59c1a4133878f4a1dd11bb2e5bd4103c75dca1f167516b8f0e",
+    "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+    "task_world.py": "027265566e79caa83bfa5ff2e3951ab9752737d4970167db6034b8d62c1c6097",
+    "app.js": "08d37252856049386f68f6e35430b808a2fb69e3799177bee527cf3882b77bef",
+    "app.css": "98489759e3cb341014128fd15781cf9aa13bb5f8a965acb9a032ab54bbddbae8"
+  },
+  "prior_source_commit": "c44f8289162ca536596e93e0c60446e21a4af5eb",
+  "status": "awaiting_controls",
+  "amendment": "maximize Windows Chrome before the trial; business rules and agent unchanged",
+  "full_evidence_storage": "local"
+}
