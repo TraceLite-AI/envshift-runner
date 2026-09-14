@@ -1,0 +1,3 @@
+In Shared Files, create Shared/Handoffs/Atlas Release. For each of Design, QA, and Launch under Shared/Atlas, find the most recently modified file whose review status is Approved. Copy those three files into the new folder, named Design.md, QA.md, and Launch.md respectively. Newer Draft versions must not be delivered. Preserve source file contents and metadata, keep all original files in place, and leave other folders and files unchanged. File previews show review status and contents.
+
+Use the visible application and ordinary mouse/keyboard actions. Do not use a terminal, developer tools, scripts, APIs, or edit the task/evaluator files. All data is synthetic and local to this task.

@@ -1,0 +1,3 @@
+Prepare the Atlas update deck in Slide Studio. Put the slides in this order: Introduction, Findings, Plan, Risks, Next steps, Appendix. Hide Appendix from the presentation without deleting it. Set the speaker notes of Next steps to exactly: Owner: Mina; review: 2026-09-25. Preserve every slide title and body, all other notes, and the visibility of the other slides. Save the deck. You may drag slides or use Move up / Move down.
+
+Use the visible application and ordinary mouse/keyboard actions. Do not use a terminal, developer tools, scripts, APIs, or edit the task/evaluator files. All data is synthetic and local to this task.

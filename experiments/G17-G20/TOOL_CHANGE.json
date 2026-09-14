@@ -1,0 +1,11 @@
+{
+  "v2_sha256": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+  "v3_sha256": "04d8089a512b23162336d75276d70519ffd9aaa9fb9d5669844e4c35f4a48a62",
+  "only_changes": [
+    "tool version labels",
+    "Windows vertical scroll argument multiplied by 120"
+  ],
+  "memory_model_budget_unchanged": true,
+  "pixel_distance_equivalence_claimed": false,
+  "diff": "--- v2/gui_agent_loop.py\n+++ v3/gui_agent_loop.py\n@@ -150,7 +150,7 @@\n         keys = [(\"ctrl\" if k.lower()==\"control\" else \"alt\" if k.lower()==\"option\" else k.lower()) for k in act.get(\"keys\", [])]\n         pyautogui.hotkey(*keys); return f\"\u6309\u4e86 {'+'.join(keys)}\"\n     if t == \"scroll\":\n-        pyautogui.scroll(int(act.get(\"dy\", 0)))\n+        pyautogui.scroll(int(act.get(\"dy\", 0)) * (120 if sys.platform == \"win32\" else 1))\n         if act.get(\"dx\"): pyautogui.hscroll(int(act[\"dx\"]))\n         return \"\u6eda\u52a8\u4e86\"\n     if t == \"wait\":\n@@ -185,7 +185,7 @@\n     history.append({\"action\": act, \"result\": r, \"raw\": _r, \"blind\": blind})\n     time.sleep(0.8)\n nblind = sum(1 for h in history if h.get(\"blind\"))\n-json.dump({\"platform\": platform.platform(), \"model\": a.model, \"coordinate_mode\": \"normalized_0_1000\", \"tool_version\": \"gui_native_v2\", \"screen_size\": [SCREEN_W, SCREEN_H], \"steps\": len(history), \"blind_steps\": nblind,\n+json.dump({\"platform\": platform.platform(), \"model\": a.model, \"coordinate_mode\": \"normalized_0_1000\", \"tool_version\": \"gui_native_v3_scroll\", \"screen_size\": [SCREEN_W, SCREEN_H], \"steps\": len(history), \"blind_steps\": nblind,\n            \"channel_fail\": channel_fail, \"history\": history}, open(OUT / \"loop.json\", \"w\", encoding=\"utf-8\"), ensure_ascii=False, indent=1)\n # \u2605channel_fail \u4e00\u5b9a\u8981\u6253\u8fdb LOOP-DONE:\u6536\u5272\u636e\u6b64\u628a\u300c\u901a\u9053\u6545\u969c\u300d\u548c\u300c\u6a21\u578b\u6ca1\u505a\u51fa\u6765\u300d\u5206\u5f00,\n #   \u5426\u5219\u4e24\u8005\u90fd\u957f\u6210 resolved=0,\u53ea\u80fd\u9760\u6b65\u6570\u731c,\u800c\u300c\u8dd1\u5230\u7b2c 3 \u6b65\u624d\u88ab\u9650\u6d41\u300d\u662f\u731c\u4e0d\u51fa\u6765\u7684\u3002\n"
+}

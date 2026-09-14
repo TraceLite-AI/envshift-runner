@@ -1,0 +1,191 @@
+{
+  "task": "G17",
+  "one_valid_final_state": {
+    "cells": {
+      "A1": "Item",
+      "B1": "Quantity",
+      "C1": "Unit price",
+      "D1": "Net",
+      "A6": "Total",
+      "H1": "Discount",
+      "H2": "0.10",
+      "A2": "Keyboard",
+      "B2": "2",
+      "C2": "40",
+      "D2": "=B2*C2*(1-$H$2)",
+      "A3": "Dock",
+      "B3": "1",
+      "C3": "120",
+      "D3": "=B3*C3*(1-$H$2)",
+      "A4": "Headset",
+      "B4": "4",
+      "C4": "30",
+      "D4": "=B4*C4*(1-$H$2)",
+      "A5": "Cable",
+      "B5": "10",
+      "C5": "10",
+      "D5": "=B5*C5*(1-$H$2)",
+      "D6": "=SUM(D2:D5)"
+    },
+    "formats": {
+      "A1": "General",
+      "B1": "General",
+      "C1": "General",
+      "D1": "General",
+      "A6": "General",
+      "H1": "General",
+      "H2": "General",
+      "A2": "General",
+      "B2": "General",
+      "C2": "General",
+      "D2": "Currency",
+      "A3": "General",
+      "B3": "General",
+      "C3": "General",
+      "D3": "Currency",
+      "A4": "General",
+      "B4": "General",
+      "C4": "General",
+      "D4": "Currency",
+      "A5": "General",
+      "B5": "General",
+      "C5": "General",
+      "D5": "Currency",
+      "D6": "Currency"
+    },
+    "saved": {
+      "cells": {
+        "A1": "Item",
+        "B1": "Quantity",
+        "C1": "Unit price",
+        "D1": "Net",
+        "A6": "Total",
+        "H1": "Discount",
+        "H2": "0.10",
+        "A2": "Keyboard",
+        "B2": "2",
+        "C2": "40",
+        "D2": "=B2*C2*(1-$H$2)",
+        "A3": "Dock",
+        "B3": "1",
+        "C3": "120",
+        "D3": "=B3*C3*(1-$H$2)",
+        "A4": "Headset",
+        "B4": "4",
+        "C4": "30",
+        "D4": "=B4*C4*(1-$H$2)",
+        "A5": "Cable",
+        "B5": "10",
+        "C5": "10",
+        "D5": "=B5*C5*(1-$H$2)",
+        "D6": "=SUM(D2:D5)"
+      },
+      "formats": {
+        "A1": "General",
+        "B1": "General",
+        "C1": "General",
+        "D1": "General",
+        "A6": "General",
+        "H1": "General",
+        "H2": "General",
+        "A2": "General",
+        "B2": "General",
+        "C2": "General",
+        "D2": "Currency",
+        "A3": "General",
+        "B3": "General",
+        "C3": "General",
+        "D3": "Currency",
+        "A4": "General",
+        "B4": "General",
+        "C4": "General",
+        "D4": "Currency",
+        "A5": "General",
+        "B5": "General",
+        "C5": "General",
+        "D5": "Currency",
+        "D6": "Currency"
+      }
+    },
+    "title": "September quote"
+  },
+  "checks": [
+    "saved_workbook",
+    "current_values_correct",
+    "live_formulas_recalculate",
+    "currency_format",
+    "other_cells_and_formats_preserved",
+    "title_preserved"
+  ],
+  "alternative_action_orders_allowed": true,
+  "reference_actions": [
+    {
+      "op": "cell",
+      "address": "D2",
+      "value": "=B2*C2*(1-$H$2)"
+    },
+    {
+      "op": "cell",
+      "address": "D3",
+      "value": "=B3*C3*(1-$H$2)"
+    },
+    {
+      "op": "cell",
+      "address": "D4",
+      "value": "=B4*C4*(1-$H$2)"
+    },
+    {
+      "op": "cell",
+      "address": "D5",
+      "value": "=B5*C5*(1-$H$2)"
+    },
+    {
+      "op": "cell",
+      "address": "D6",
+      "value": "=SUM(D2:D5)"
+    },
+    {
+      "op": "format",
+      "range": "D2:D6",
+      "format": "Currency"
+    },
+    {
+      "op": "save"
+    }
+  ],
+  "materialized_wrong_control_actions": [
+    {
+      "op": "cell",
+      "address": "D2",
+      "value": "72"
+    },
+    {
+      "op": "cell",
+      "address": "D3",
+      "value": "108"
+    },
+    {
+      "op": "cell",
+      "address": "D4",
+      "value": "108"
+    },
+    {
+      "op": "cell",
+      "address": "D5",
+      "value": "90"
+    },
+    {
+      "op": "cell",
+      "address": "D6",
+      "value": "=SUM(D2:D5)"
+    },
+    {
+      "op": "format",
+      "range": "D2:D6",
+      "format": "Currency"
+    },
+    {
+      "op": "save"
+    }
+  ]
+}

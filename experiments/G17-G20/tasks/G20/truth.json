@@ -1,0 +1,219 @@
+{
+  "task": "G20",
+  "one_valid_final_state": {
+    "folders": [
+      "Shared",
+      "Shared/Atlas",
+      "Shared/Atlas/Design",
+      "Shared/Atlas/QA",
+      "Shared/Atlas/Launch",
+      "Shared/Boreal",
+      "Shared/Handoffs",
+      "Shared/Handoffs/Existing",
+      "Shared/Handoffs/Atlas Release"
+    ],
+    "files": [
+      {
+        "id": "D1",
+        "path": "Shared/Atlas/Design",
+        "name": "Design v1.md",
+        "project": "Atlas",
+        "kind": "Design",
+        "version": 1,
+        "status": "Approved",
+        "modified": "2026-09-03",
+        "content": "Design release brief, revision 1. Review: Approved. Unique document D1."
+      },
+      {
+        "id": "D2",
+        "path": "Shared/Atlas/Design",
+        "name": "Design v2.md",
+        "project": "Atlas",
+        "kind": "Design",
+        "version": 2,
+        "status": "Approved",
+        "modified": "2026-09-11",
+        "content": "Design release brief, revision 2. Review: Approved. Unique document D2."
+      },
+      {
+        "id": "D3",
+        "path": "Shared/Atlas/Design",
+        "name": "Design v3.md",
+        "project": "Atlas",
+        "kind": "Design",
+        "version": 3,
+        "status": "Draft",
+        "modified": "2026-09-14",
+        "content": "Design release brief, revision 3. Review: Draft. Unique document D3."
+      },
+      {
+        "id": "Q1",
+        "path": "Shared/Atlas/QA",
+        "name": "QA v1.md",
+        "project": "Atlas",
+        "kind": "QA",
+        "version": 1,
+        "status": "Approved",
+        "modified": "2026-09-06",
+        "content": "QA release brief, revision 1. Review: Approved. Unique document Q1."
+      },
+      {
+        "id": "Q2",
+        "path": "Shared/Atlas/QA",
+        "name": "QA v2.md",
+        "project": "Atlas",
+        "kind": "QA",
+        "version": 2,
+        "status": "Approved",
+        "modified": "2026-09-12",
+        "content": "QA release brief, revision 2. Review: Approved. Unique document Q2."
+      },
+      {
+        "id": "Q3",
+        "path": "Shared/Atlas/QA",
+        "name": "QA v3.md",
+        "project": "Atlas",
+        "kind": "QA",
+        "version": 3,
+        "status": "Draft",
+        "modified": "2026-09-15",
+        "content": "QA release brief, revision 3. Review: Draft. Unique document Q3."
+      },
+      {
+        "id": "L1",
+        "path": "Shared/Atlas/Launch",
+        "name": "Launch v1.md",
+        "project": "Atlas",
+        "kind": "Launch",
+        "version": 1,
+        "status": "Approved",
+        "modified": "2026-09-13",
+        "content": "Launch release brief, revision 1. Review: Approved. Unique document L1."
+      },
+      {
+        "id": "L2",
+        "path": "Shared/Atlas/Launch",
+        "name": "Launch v2.md",
+        "project": "Atlas",
+        "kind": "Launch",
+        "version": 2,
+        "status": "Draft",
+        "modified": "2026-09-14",
+        "content": "Launch release brief, revision 2. Review: Draft. Unique document L2."
+      },
+      {
+        "id": "B1",
+        "path": "Shared/Boreal",
+        "name": "Design v4.md",
+        "project": "Boreal",
+        "kind": "Design",
+        "version": 4,
+        "status": "Approved",
+        "modified": "2026-09-15",
+        "content": "Boreal design; not an Atlas deliverable."
+      },
+      {
+        "id": "OLD",
+        "path": "Shared/Handoffs/Existing",
+        "name": "readme.md",
+        "project": "Archive",
+        "kind": "Readme",
+        "version": 1,
+        "status": "Approved",
+        "modified": "2026-09-01",
+        "content": "Keep this earlier handoff intact."
+      },
+      {
+        "id": "COPY-1",
+        "path": "Shared/Handoffs/Atlas Release",
+        "name": "Design.md",
+        "project": "Atlas",
+        "kind": "Design",
+        "version": 2,
+        "status": "Approved",
+        "modified": "2026-09-11",
+        "content": "Design release brief, revision 2. Review: Approved. Unique document D2.",
+        "source_id": "D2"
+      },
+      {
+        "id": "COPY-2",
+        "path": "Shared/Handoffs/Atlas Release",
+        "name": "QA.md",
+        "project": "Atlas",
+        "kind": "QA",
+        "version": 2,
+        "status": "Approved",
+        "modified": "2026-09-12",
+        "content": "QA release brief, revision 2. Review: Approved. Unique document Q2.",
+        "source_id": "Q2"
+      },
+      {
+        "id": "COPY-3",
+        "path": "Shared/Handoffs/Atlas Release",
+        "name": "Launch.md",
+        "project": "Atlas",
+        "kind": "Launch",
+        "version": 1,
+        "status": "Approved",
+        "modified": "2026-09-13",
+        "content": "Launch release brief, revision 1. Review: Approved. Unique document L1.",
+        "source_id": "L1"
+      }
+    ]
+  },
+  "checks": [
+    "handoff_folder_created",
+    "exact_approved_copies",
+    "original_files_unchanged",
+    "other_folders_unchanged"
+  ],
+  "alternative_action_orders_allowed": true,
+  "reference_actions": [
+    {
+      "op": "mkdir",
+      "path": "Shared/Handoffs/Atlas Release"
+    },
+    {
+      "op": "copy",
+      "id": "D2",
+      "destination": "Shared/Handoffs/Atlas Release",
+      "name": "Design.md"
+    },
+    {
+      "op": "copy",
+      "id": "Q2",
+      "destination": "Shared/Handoffs/Atlas Release",
+      "name": "QA.md"
+    },
+    {
+      "op": "copy",
+      "id": "L1",
+      "destination": "Shared/Handoffs/Atlas Release",
+      "name": "Launch.md"
+    }
+  ],
+  "materialized_wrong_control_actions": [
+    {
+      "op": "mkdir",
+      "path": "Shared/Handoffs/Atlas Release"
+    },
+    {
+      "op": "copy",
+      "id": "D3",
+      "destination": "Shared/Handoffs/Atlas Release",
+      "name": "Design.md"
+    },
+    {
+      "op": "copy",
+      "id": "Q2",
+      "destination": "Shared/Handoffs/Atlas Release",
+      "name": "QA.md"
+    },
+    {
+      "op": "copy",
+      "id": "L1",
+      "destination": "Shared/Handoffs/Atlas Release",
+      "name": "Launch.md"
+    }
+  ]
+}

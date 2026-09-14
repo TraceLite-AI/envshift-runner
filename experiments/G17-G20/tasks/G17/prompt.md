@@ -1,0 +1,3 @@
+In Ledger Grid, complete and save the September quote. In D2:D5 enter live spreadsheet formulas for each row: Quantity times Unit price times (1 minus the Discount in H2). In D6 enter a live total of D2:D5. The results must recalculate correctly when quantities, prices, or H2 change; fixed numbers are not sufficient. Format D2:D6 as Currency and save the workbook. Preserve all other cells and formats. The grid supports arithmetic, cell references (including $ absolute references), SUM, and Fill down.
+
+Use the visible application and ordinary mouse/keyboard actions. Do not use a terminal, developer tools, scripts, APIs, or edit the task/evaluator files. All data is synthetic and local to this task.

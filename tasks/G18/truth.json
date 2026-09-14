@@ -1,0 +1,122 @@
+{
+  "task": "G18",
+  "one_valid_final_state": {
+    "events": [
+      {
+        "id": "AR-2026-09-16",
+        "series": "atlas-review",
+        "original_date": "2026-09-16",
+        "date": "2026-09-16",
+        "start": "10:00",
+        "end": "10:30",
+        "title": "Atlas review",
+        "location": "Room A",
+        "attendees": [
+          "Lee",
+          "Sam"
+        ]
+      },
+      {
+        "id": "AR-2026-09-23",
+        "series": "atlas-review",
+        "original_date": "2026-09-23",
+        "date": "2026-09-24",
+        "start": "14:00",
+        "end": "14:45",
+        "title": "Atlas review",
+        "location": "Room C",
+        "attendees": [
+          "Lee",
+          "Noah",
+          "Sam"
+        ]
+      },
+      {
+        "id": "AR-2026-09-30",
+        "series": "atlas-review",
+        "original_date": "2026-09-30",
+        "date": "2026-09-30",
+        "start": "10:00",
+        "end": "10:30",
+        "title": "Atlas review",
+        "location": "Room A",
+        "attendees": [
+          "Lee",
+          "Sam"
+        ]
+      },
+      {
+        "id": "AR-2026-10-07",
+        "series": "atlas-review",
+        "original_date": "2026-10-07",
+        "date": "2026-10-07",
+        "start": "10:00",
+        "end": "10:30",
+        "title": "Atlas review",
+        "location": "Room A",
+        "attendees": [
+          "Lee",
+          "Sam"
+        ]
+      },
+      {
+        "id": "B-24",
+        "series": null,
+        "original_date": "2026-09-24",
+        "date": "2026-09-24",
+        "start": "11:00",
+        "end": "11:30",
+        "title": "Boreal sync",
+        "location": "Room B",
+        "attendees": [
+          "Mina",
+          "Noah"
+        ]
+      }
+    ],
+    "calendar": "Product team"
+  },
+  "checks": [
+    "target_occurrence_correct",
+    "other_events_unchanged",
+    "no_added_or_deleted_events",
+    "calendar_preserved"
+  ],
+  "alternative_action_orders_allowed": true,
+  "reference_actions": [
+    {
+      "op": "edit",
+      "id": "AR-2026-09-23",
+      "scope": "this",
+      "changes": {
+        "date": "2026-09-24",
+        "start": "14:00",
+        "end": "14:45",
+        "location": "Room C",
+        "attendees": [
+          "Lee",
+          "Sam",
+          "Noah"
+        ]
+      }
+    }
+  ],
+  "materialized_wrong_control_actions": [
+    {
+      "op": "edit",
+      "id": "AR-2026-09-23",
+      "scope": "series",
+      "changes": {
+        "date": "2026-09-24",
+        "start": "14:00",
+        "end": "14:45",
+        "location": "Room C",
+        "attendees": [
+          "Lee",
+          "Sam",
+          "Noah"
+        ]
+      }
+    }
+  ]
+}

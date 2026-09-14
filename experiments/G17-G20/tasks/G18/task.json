@@ -1,0 +1,17 @@
+{
+  "task": "G18",
+  "title": "Team Calendar",
+  "kind": "synthetic_browser_gui_workflow",
+  "benchmark_reproduction": false,
+  "runners": [
+    "ubuntu-24.04",
+    "macos-15",
+    "windows-2022"
+  ],
+  "os_specific_claim": false,
+  "requires_model_validation": true,
+  "prompt": "prompt.md",
+  "fixture": "fixture.json",
+  "truth": "truth.json",
+  "source": "../../task_world.py"
+}

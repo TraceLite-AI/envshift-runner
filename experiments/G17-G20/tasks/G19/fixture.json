@@ -1,0 +1,48 @@
+{
+  "slides": [
+    {
+      "id": "intro",
+      "title": "Introduction",
+      "body": "Atlas update for the September review.",
+      "notes": "",
+      "hidden": false
+    },
+    {
+      "id": "risks",
+      "title": "Risks",
+      "body": "Vendor lead time remains the main risk.",
+      "notes": "",
+      "hidden": false
+    },
+    {
+      "id": "appendix",
+      "title": "Appendix",
+      "body": "Supporting material for questions.",
+      "notes": "",
+      "hidden": false
+    },
+    {
+      "id": "plan",
+      "title": "Plan",
+      "body": "Pilot, measure, then expand.",
+      "notes": "",
+      "hidden": false
+    },
+    {
+      "id": "findings",
+      "title": "Findings",
+      "body": "The pilot reduced repeat work.",
+      "notes": "",
+      "hidden": false
+    },
+    {
+      "id": "next",
+      "title": "Next steps",
+      "body": "Confirm owners and schedule the review.",
+      "notes": "",
+      "hidden": false
+    }
+  ],
+  "saved": null,
+  "title": "Atlas update"
+}

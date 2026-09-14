@@ -1,0 +1,198 @@
+{
+  "task": "G19",
+  "one_valid_final_state": {
+    "slides": [
+      {
+        "id": "intro",
+        "title": "Introduction",
+        "body": "Atlas update for the September review.",
+        "notes": "",
+        "hidden": false
+      },
+      {
+        "id": "findings",
+        "title": "Findings",
+        "body": "The pilot reduced repeat work.",
+        "notes": "",
+        "hidden": false
+      },
+      {
+        "id": "plan",
+        "title": "Plan",
+        "body": "Pilot, measure, then expand.",
+        "notes": "",
+        "hidden": false
+      },
+      {
+        "id": "risks",
+        "title": "Risks",
+        "body": "Vendor lead time remains the main risk.",
+        "notes": "",
+        "hidden": false
+      },
+      {
+        "id": "next",
+        "title": "Next steps",
+        "body": "Confirm owners and schedule the review.",
+        "notes": "Owner: Mina; review: 2026-09-25.",
+        "hidden": false
+      },
+      {
+        "id": "appendix",
+        "title": "Appendix",
+        "body": "Supporting material for questions.",
+        "notes": "",
+        "hidden": true
+      }
+    ],
+    "saved": [
+      {
+        "id": "intro",
+        "title": "Introduction",
+        "body": "Atlas update for the September review.",
+        "notes": "",
+        "hidden": false
+      },
+      {
+        "id": "findings",
+        "title": "Findings",
+        "body": "The pilot reduced repeat work.",
+        "notes": "",
+        "hidden": false
+      },
+      {
+        "id": "plan",
+        "title": "Plan",
+        "body": "Pilot, measure, then expand.",
+        "notes": "",
+        "hidden": false
+      },
+      {
+        "id": "risks",
+        "title": "Risks",
+        "body": "Vendor lead time remains the main risk.",
+        "notes": "",
+        "hidden": false
+      },
+      {
+        "id": "next",
+        "title": "Next steps",
+        "body": "Confirm owners and schedule the review.",
+        "notes": "Owner: Mina; review: 2026-09-25.",
+        "hidden": false
+      },
+      {
+        "id": "appendix",
+        "title": "Appendix",
+        "body": "Supporting material for questions.",
+        "notes": "",
+        "hidden": true
+      }
+    ],
+    "title": "Atlas update"
+  },
+  "checks": [
+    "saved_deck",
+    "correct_order",
+    "appendix_hidden_only",
+    "next_steps_notes",
+    "content_and_other_notes_preserved",
+    "deck_title_preserved"
+  ],
+  "alternative_action_orders_allowed": true,
+  "reference_actions": [
+    {
+      "op": "move",
+      "id": "findings",
+      "index": 3
+    },
+    {
+      "op": "move",
+      "id": "findings",
+      "index": 2
+    },
+    {
+      "op": "move",
+      "id": "findings",
+      "index": 1
+    },
+    {
+      "op": "move",
+      "id": "plan",
+      "index": 3
+    },
+    {
+      "op": "move",
+      "id": "plan",
+      "index": 2
+    },
+    {
+      "op": "move",
+      "id": "next",
+      "index": 4
+    },
+    {
+      "op": "hidden",
+      "id": "appendix",
+      "value": true
+    },
+    {
+      "op": "notes",
+      "id": "next",
+      "value": "Owner: Mina; review: 2026-09-25."
+    },
+    {
+      "op": "save"
+    }
+  ],
+  "materialized_wrong_control_actions": [
+    {
+      "op": "move",
+      "id": "findings",
+      "index": 3
+    },
+    {
+      "op": "move",
+      "id": "findings",
+      "index": 2
+    },
+    {
+      "op": "move",
+      "id": "findings",
+      "index": 1
+    },
+    {
+      "op": "move",
+      "id": "plan",
+      "index": 3
+    },
+    {
+      "op": "move",
+      "id": "plan",
+      "index": 2
+    },
+    {
+      "op": "move",
+      "id": "next",
+      "index": 4
+    },
+    {
+      "op": "move",
+      "id": "next",
+      "index": 3
+    },
+    {
+      "op": "hidden",
+      "id": "appendix",
+      "value": true
+    },
+    {
+      "op": "notes",
+      "id": "next",
+      "value": "Owner: Mina; review: 2026-09-25."
+    },
+    {
+      "op": "save"
+    }
+  ]
+}
