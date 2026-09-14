@@ -3,36 +3,47 @@ on:
   workflow_dispatch:
     inputs:
       os: { description: runner, default: macos-15 }
-      tasks: { description: task array, default: '["ES55-git-mode-review","ES56-tar-producer-audit","ES57-ancient-date-index"]' }
-      timeout: { description: agent seconds, default: '1500' }
+      tasks: { description: task array, default: '["NC01-receipt-unicode","NC02-receipt-trailing-dot"]' }
+      arm: { description: 'gate or agent', default: gate }
+      timeout: { description: agent seconds, default: '900' }
       model: { description: existing project model, default: deepseek-v4.1-flash }
-      tag: { description: run tag, default: es55-es57 }
       parallel: { description: jobs per OS pool, default: '1' }
 permissions:
   contents: read
 jobs:
-  agent:
+  deliver:
     strategy:
       fail-fast: false
       max-parallel: ${{ fromJSON(inputs.parallel) }}
       matrix:
         task: ${{ fromJSON(inputs.tasks) }}
     runs-on: ${{ inputs.os }}
-    timeout-minutes: 40
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with: { node-version: '22.17.0' }
+        with: { persist-credentials: false }
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
+      - uses: actions/setup-node@v4
+        if: inputs.arm == 'agent'
+        with: { node-version: '22.17.0' }
       - name: install pinned DSH
+        if: inputs.arm == 'agent'
         working-directory: dsh
         shell: bash
         env: { NODE_OPTIONS: --max-old-space-size=4096 }
         run: npm ci --no-audit --no-fund
-      - name: run real agent and fresh-data verification
+      - name: control flows
+        if: inputs.arm == 'gate'
+        shell: bash
+        env:
+          XOS_CELL: ${{ inputs.os }}
+          TASK: ${{ matrix.task }}
+        run: |
+          python artifact_run.py --task "$TASK" --arm oracle
+          python artifact_run.py --task "$TASK" --arm naive
+      - name: real artifact-delivery agent
+        if: inputs.arm == 'agent'
         shell: bash
         env:
           ENVSHIFT_API_KEY: ${{ secrets.ENVSHIFT_API_KEY }}
@@ -41,23 +52,22 @@ jobs:
           MODEL: ${{ inputs.model }}
           TIME_LIMIT: ${{ inputs.timeout }}
           PYTHONIOENCODING: utf-8
-        run: python lab_agent_run.py --task "$TASK" --model "$MODEL" --timeout "$TIME_LIMIT"
+        run: python artifact_run.py --task "$TASK" --arm agent --model "$MODEL" --timeout "$TIME_LIMIT"
       - name: encrypt full artifacts
-        if: always()
+        if: always() && inputs.arm == 'agent'
         shell: bash
-        env:
-          ARTIFACT_PASS: ${{ secrets.ARTIFACT_PASS }}
+        env: { ARTIFACT_PASS: '${{ secrets.ARTIFACT_PASS }}' }
         run: |
           tar czf out.tgz out
           openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:ARTIFACT_PASS -in out.tgz -out out.tgz.enc
           rm out.tgz
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && inputs.arm == 'agent'
         with:
           name: enc-${{ inputs.os }}-${{ matrix.task }}
           path: out.tgz.enc
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: results-${{ inputs.os }}-${{ matrix.task }}
+          name: results-${{ inputs.os }}-${{ matrix.task }}-${{ inputs.arm }}
           path: public-results/

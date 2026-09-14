@@ -1,0 +1,12 @@
+{
+  "kind": "artifact-delivery",
+  "mechanism": "M1-zip-extraction",
+  "axis": "unicode",
+  "target": "macos-15",
+  "independent_new_mechanism": false,
+  "evidence": "AGENTS.md 7.1 M1; ZIP execution path requires gate1 confirmation",
+  "deliverables": [
+    "output/summary.csv",
+    "output/receipts.zip"
+  ]
+}
