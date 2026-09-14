@@ -99,6 +99,8 @@ else:raise RuntimeError('Chrome did not start')
 import websocket, mss, pyautogui
 from PIL import Image
 pyautogui.FAILSAFE=False
+def click(x,y):
+    pyautogui.moveTo(x,y,duration=.2);time.sleep(.15);pyautogui.click();time.sleep(.2)
 ws = websocket.create_connection(target['webSocketDebuggerUrl'],timeout=10); rid=0
 
 def cdp(method,params=None):
@@ -110,7 +112,8 @@ def cdp(method,params=None):
             if 'error' in result:raise RuntimeError(result['error'])
             return result.get('result',{})
 def evaluate(code):return cdp('Runtime.evaluate',{'expression':code,'returnByValue':True}).get('result',{}).get('value')
-def focus(name):evaluate(f'document.getElementById({json.dumps(name)}).focus()')
+def focus(name):
+    evaluate(f'document.getElementById({json.dumps(name)}).focus()');time.sleep(.3)
 def screenshot(name):
     with mss.mss() as cap:
         raw=cap.grab(cap.monitors[1]);Image.frombytes('RGB',raw.size,raw.rgb).save(OUT/name)
@@ -119,8 +122,8 @@ cdp('Page.bringToFront');time.sleep(2)
 if sys.platform=='darwin':
     # The Python controller can cause a local-network startup prompt. Clear it
     # through visible UI before either control or agent work starts.
-    screenshot('startup-before-dismiss.png');pyautogui.click(453,321);time.sleep(.8)
-    cdp('Page.bringToFront');pyautogui.click(900,650);time.sleep(.5)
+    screenshot('startup-before-dismiss.png');click(453,321);time.sleep(.8)
+    cdp('Page.bringToFront');click(900,650);time.sleep(.5)
 screenshot('initial.png')
 assert grade()['reward']==0
 (OUT/'instruction.txt').write_text(instruction,encoding='utf-8')
@@ -136,25 +139,27 @@ if a.arm=='control':
             focus('choose');pyautogui.press('enter');time.sleep(2);screenshot(label+'-chooser.png')
             names=WANTED if label=='oracle' else list(FILES)
             if os.name=='nt':
-                pyautogui.hotkey('alt','n');pyautogui.write(' '.join('"'+str(WORK/n)+'"' for n in names),interval=.008);pyautogui.press('enter')
+                pyautogui.hotkey('alt','n');time.sleep(.3);pyautogui.write(' '.join('"'+str(WORK/n)+'"' for n in names),interval=.025);pyautogui.press('enter')
             elif sys.platform=='darwin':
                 pyautogui.hotkey('command','shift','g');time.sleep(.6);pyautogui.write(str(WORK),interval=.01);pyautogui.press('enter');time.sleep(1);screenshot(label+'-folder.png')
-                pyautogui.click(560,220)
+                click(560,220)
                 if label=='oracle':
-                    pyautogui.keyDown('command');pyautogui.click(560,264);pyautogui.click(560,308);pyautogui.keyUp('command')
+                    pyautogui.keyDown('command');click(560,264);click(560,308);pyautogui.keyUp('command')
                 else:select_all()
-                screenshot(label+'-selected.png');pyautogui.click(855,558)
+                screenshot(label+'-selected.png');click(855,558)
             else:
-                pyautogui.click(87,84);time.sleep(.4);pyautogui.doubleClick(285,104,interval=.12);time.sleep(.5);pyautogui.doubleClick(285,104,interval=.12);time.sleep(.6);screenshot(label+'-folder.png');pyautogui.click(350,104)
+                click(87,84);time.sleep(.4);pyautogui.doubleClick(285,104,interval=.12);time.sleep(.5);pyautogui.doubleClick(285,104,interval=.12);time.sleep(.6);screenshot(label+'-folder.png');click(350,104)
                 if label=='oracle':
-                    pyautogui.keyDown('ctrl');pyautogui.click(350,150);pyautogui.click(350,196);pyautogui.keyUp('ctrl')
+                    pyautogui.keyDown('ctrl');click(350,150);click(350,196);pyautogui.keyUp('ctrl')
                 else:select_all()
-                screenshot(label+'-selected.png');pyautogui.click(1110,820)
+                screenshot(label+'-selected.png');click(1110,820)
             time.sleep(2);screenshot(label+'-chosen.png');focus('submit');pyautogui.press('enter')
         elif a.task=='G03':
             focus('date');pyautogui.write('09022026' if label=='oracle' else '09032026',interval=.08);pyautogui.press('tab')
             focus('service');pyautogui.press('e');pyautogui.press('tab')
-            focus('reference');select_all();pyautogui.write('PICKUP-209')
+            focus('reference');
+            if os.name=='nt':click(250,513)
+            select_all();pyautogui.write('PICKUP-209',interval=.08)
             focus('submit');pyautogui.press('enter')
         else:
             name='approved-snapshot.html' if label=='oracle' else 'approved-snapshot-copy.html'
@@ -164,13 +169,15 @@ if a.arm=='control':
             elif os.name=='nt':
                 pyautogui.hotkey('alt','n');select_all();pyautogui.write(str(WORK/name),interval=.01)
             else:
-                pyautogui.click(87,98);time.sleep(.4);pyautogui.doubleClick(285,158,interval=.12);time.sleep(.5);pyautogui.doubleClick(285,158,interval=.12);time.sleep(.6)
-                screenshot(label+'-save-folder.png');pyautogui.click(420,47);select_all();pyautogui.write(name,interval=.02)
-            if sys.platform.startswith('linux'):pyautogui.click(1110,820)
+                click(87,98);time.sleep(.4);pyautogui.doubleClick(285,158,interval=.12);time.sleep(.5);pyautogui.doubleClick(285,158,interval=.12);time.sleep(.6)
+                screenshot(label+'-save-folder.png');click(420,47);select_all();pyautogui.write(name,interval=.02)
+            if sys.platform.startswith('linux'):click(1110,820)
             else:pyautogui.press('enter')
             time.sleep(1.5);screenshot(label+'-overwrite.png')
-            if os.name=='nt':pyautogui.press('left')
-            pyautogui.press('enter')
+            if sys.platform=='darwin' and label=='oracle':click(570,474)
+            else:
+                if os.name=='nt':pyautogui.press('left')
+                pyautogui.press('enter')
         time.sleep(2);screenshot(label+'-final.png')
         result={'arm':label,**grade()};results.append(result);print('CONTROL_RESULT',a.task,platform.system(),json.dumps(result),flush=True)
         if result['reward']!=int(label=='oracle'):
