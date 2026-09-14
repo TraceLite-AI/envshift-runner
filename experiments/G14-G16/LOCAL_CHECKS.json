@@ -1,0 +1,165 @@
+{
+  "passed": 32,
+  "checks": [
+    {
+      "check": "untouched fixture rejected",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "literal correct delivery accepted",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "plausible wrong delivery rejected",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "untouched fixture rejected",
+      "task": "G15",
+      "passed": true
+    },
+    {
+      "check": "literal correct delivery accepted",
+      "task": "G15",
+      "passed": true
+    },
+    {
+      "check": "plausible wrong delivery rejected",
+      "task": "G15",
+      "passed": true
+    },
+    {
+      "check": "untouched fixture rejected",
+      "task": "G16",
+      "passed": true
+    },
+    {
+      "check": "literal correct delivery accepted",
+      "task": "G16",
+      "passed": true
+    },
+    {
+      "check": "plausible wrong delivery rejected",
+      "task": "G16",
+      "passed": true
+    },
+    {
+      "check": "independently calculated packs; different add order accepted",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "unit count mistaken for pack count",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "extra non-required boundary item",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "second otherwise correct order",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "request left open",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "wrong linked order",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "unrelated request modified",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "inventory edited",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "wrong destination",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "wrong reference",
+      "task": "G14",
+      "passed": true
+    },
+    {
+      "check": "wrong size",
+      "task": "G15",
+      "passed": true
+    },
+    {
+      "check": "wrong closure",
+      "task": "G15",
+      "passed": true
+    },
+    {
+      "check": "double added quantity",
+      "task": "G15",
+      "passed": true
+    },
+    {
+      "check": "existing pouch removed",
+      "task": "G15",
+      "passed": true
+    },
+    {
+      "check": "existing pouch quantity changed",
+      "task": "G15",
+      "passed": true
+    },
+    {
+      "check": "extra variant",
+      "task": "G15",
+      "passed": true
+    },
+    {
+      "check": "two separate additions and cart reorder accepted",
+      "task": "G15",
+      "passed": true
+    },
+    {
+      "check": "missed duplicate",
+      "task": "G16",
+      "passed": true
+    },
+    {
+      "check": "earliest report closed",
+      "task": "G16",
+      "passed": true
+    },
+    {
+      "check": "unrelated similar title closed",
+      "task": "G16",
+      "passed": true
+    },
+    {
+      "check": "comment lost",
+      "task": "G16",
+      "passed": true
+    },
+    {
+      "check": "assignee changed",
+      "task": "G16",
+      "passed": true
+    },
+    {
+      "check": "individual resolutions in another order accepted",
+      "task": "G16",
+      "passed": true
+    }
+  ]
+}

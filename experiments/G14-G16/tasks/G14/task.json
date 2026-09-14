@@ -1,0 +1,17 @@
+{
+  "task": "G14",
+  "description": "库存补货：计算整包数量 → 单张采购单 → 关联并关闭申请",
+  "kind": "synthetic_gui_workflow",
+  "benchmark_reproduction": false,
+  "runners": [
+    "ubuntu-24.04",
+    "macos-15",
+    "windows-2022"
+  ],
+  "os_specific_claim": false,
+  "requires_model_validation": true,
+  "prompt": "prompt.md",
+  "fixture": "fixture.json",
+  "truth": "truth.json",
+  "source": "../../task_world.py"
+}

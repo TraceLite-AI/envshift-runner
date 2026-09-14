@@ -1,0 +1,140 @@
+{
+  "queue": "Billing API",
+  "reports": [
+    {
+      "id": "INC-3101",
+      "title": "Double charge after retry",
+      "customer": "AC-72",
+      "invoice": "INV-1048",
+      "failure": "PAY-RETRY-02",
+      "created": "2026-09-14 09:02",
+      "assignee": "Morgan",
+      "status": "Open",
+      "resolution": null,
+      "duplicate_of": null,
+      "comments": [
+        "Customer log attached; retain for investigation."
+      ]
+    },
+    {
+      "id": "INC-3102",
+      "title": "Payment retry rejected",
+      "customer": "AC-72",
+      "invoice": "INV-1048",
+      "failure": "PAY-AUTH-01",
+      "created": "2026-09-14 08:30",
+      "assignee": "Lee",
+      "status": "Open",
+      "resolution": null,
+      "duplicate_of": null,
+      "comments": [
+        "Customer log attached; retain for investigation."
+      ]
+    },
+    {
+      "id": "INC-3103",
+      "title": "Second debit on payment retry",
+      "customer": "AC-72",
+      "invoice": "INV-1048",
+      "failure": "PAY-RETRY-02",
+      "created": "2026-09-14 09:21",
+      "assignee": "Sam",
+      "status": "Open",
+      "resolution": null,
+      "duplicate_of": null,
+      "comments": [
+        "Customer log attached; retain for investigation."
+      ]
+    },
+    {
+      "id": "INC-3104",
+      "title": "Double charge after retry",
+      "customer": "AC-73",
+      "invoice": "INV-1048",
+      "failure": "PAY-RETRY-02",
+      "created": "2026-09-14 08:10",
+      "assignee": "Lee",
+      "status": "Open",
+      "resolution": null,
+      "duplicate_of": null,
+      "comments": [
+        "Customer log attached; retain for investigation."
+      ]
+    },
+    {
+      "id": "INC-3105",
+      "title": "Double charge after retry",
+      "customer": "AC-72",
+      "invoice": "INV-1084",
+      "failure": "PAY-RETRY-02",
+      "created": "2026-09-14 08:20",
+      "assignee": "Morgan",
+      "status": "Open",
+      "resolution": null,
+      "duplicate_of": null,
+      "comments": [
+        "Customer log attached; retain for investigation."
+      ]
+    },
+    {
+      "id": "INC-3106",
+      "title": "Invoice PDF not available",
+      "customer": "AC-72",
+      "invoice": "INV-1048",
+      "failure": "PDF-404",
+      "created": "2026-09-14 08:35",
+      "assignee": "Sam",
+      "status": "Open",
+      "resolution": null,
+      "duplicate_of": null,
+      "comments": [
+        "Customer log attached; retain for investigation."
+      ]
+    },
+    {
+      "id": "INC-3108",
+      "title": "Retry charged card twice",
+      "customer": "AC-72",
+      "invoice": "INV-1048",
+      "failure": "PAY-RETRY-02",
+      "created": "2026-09-14 08:45",
+      "assignee": "Lee",
+      "status": "Open",
+      "resolution": null,
+      "duplicate_of": null,
+      "comments": [
+        "Customer log attached; retain for investigation."
+      ]
+    },
+    {
+      "id": "INC-3110",
+      "title": "Duplicate debit from retry",
+      "customer": "AC-72",
+      "invoice": "INV-1048",
+      "failure": "PAY-RETRY-02",
+      "created": "2026-09-14 10:05",
+      "assignee": "Morgan",
+      "status": "Open",
+      "resolution": null,
+      "duplicate_of": null,
+      "comments": [
+        "Customer log attached; retain for investigation."
+      ]
+    },
+    {
+      "id": "INC-3112",
+      "title": "Retry timed out before payment",
+      "customer": "AC-72",
+      "invoice": "INV-1048",
+      "failure": "PAY-TIMEOUT",
+      "created": "2026-09-14 08:40",
+      "assignee": "Sam",
+      "status": "Open",
+      "resolution": null,
+      "duplicate_of": null,
+      "comments": [
+        "Customer log attached; retain for investigation."
+      ]
+    }
+  ]
+}

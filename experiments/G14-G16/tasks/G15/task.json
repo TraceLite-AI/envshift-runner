@@ -1,0 +1,17 @@
+{
+  "task": "G15",
+  "description": "视觉商品匹配：跨页查找图案 → 规格与数量 → 保留原购物车商品",
+  "kind": "synthetic_gui_workflow",
+  "benchmark_reproduction": false,
+  "runners": [
+    "ubuntu-24.04",
+    "macos-15",
+    "windows-2022"
+  ],
+  "os_specific_claim": false,
+  "requires_model_validation": true,
+  "prompt": "prompt.md",
+  "fixture": "fixture.json",
+  "truth": "truth.json",
+  "source": "../../task_world.py"
+}

@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    "G14",
+    "G15",
+    "G16"
+  ],
+  "runners": [
+    "ubuntu-24.04",
+    "macos-15",
+    "windows-2022"
+  ],
+  "model": "gemini-3.5-flash",
+  "tool_version": "gui_native_v2",
+  "steps": 60,
+  "max_parallel": 3,
+  "source_sha256": {
+    "gui_batch5.py": "99a60b5f0bf22131fd3399267769a6dc9c85697cadfd1da5f6159b876c926eaa",
+    "gui_agent_loop.py": "8d4e7f7d85cec5a3f4a947483a1bc80403e206341bb56b9391c7d6fafe228580",
+    "task_world.py": "027265566e79caa83bfa5ff2e3951ab9752737d4970167db6034b8d62c1c6097",
+    "app.js": "08d37252856049386f68f6e35430b808a2fb69e3799177bee527cf3882b77bef",
+    "app.css": "98489759e3cb341014128fd15781cf9aa13bb5f8a965acb9a032ab54bbddbae8"
+  },
+  "prior_result_commit": "dc5703a1beee2cb1239e5f8b2aa789b30ae22a77",
+  "status": "awaiting_controls",
+  "new_badcases": 0,
+  "publication_mode": "synthetic_sources_and_aggregate_records_only",
+  "full_evidence_storage": "local"
+}

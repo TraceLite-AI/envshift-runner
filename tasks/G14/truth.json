@@ -1,0 +1,170 @@
+{
+  "task": "G14",
+  "one_valid_final_state": {
+    "inventory": [
+      {
+        "id": "KEY-14",
+        "name": "Compact keyboard",
+        "on_hand": 18,
+        "reserved": 5,
+        "incoming": 4,
+        "minimum": 20,
+        "target": 50,
+        "pack_size": 5,
+        "pack_price": 90
+      },
+      {
+        "id": "MOU-22",
+        "name": "Wireless mouse",
+        "on_hand": 25,
+        "reserved": 3,
+        "incoming": 0,
+        "minimum": 15,
+        "target": 40,
+        "pack_size": 5,
+        "pack_price": 65
+      },
+      {
+        "id": "DOCK-28",
+        "name": "USB-C dock",
+        "on_hand": 7,
+        "reserved": 2,
+        "incoming": 3,
+        "minimum": 10,
+        "target": 24,
+        "pack_size": 4,
+        "pack_price": 140
+      },
+      {
+        "id": "CAM-32",
+        "name": "Conference camera",
+        "on_hand": 12,
+        "reserved": 2,
+        "incoming": 0,
+        "minimum": 10,
+        "target": 20,
+        "pack_size": 2,
+        "pack_price": 100
+      },
+      {
+        "id": "HEAD-36",
+        "name": "USB headset",
+        "on_hand": 14,
+        "reserved": 4,
+        "incoming": 0,
+        "minimum": 12,
+        "target": 30,
+        "pack_size": 5,
+        "pack_price": 80
+      },
+      {
+        "id": "CAB-42",
+        "name": "USB-C cable",
+        "on_hand": 40,
+        "reserved": 10,
+        "incoming": 0,
+        "minimum": 20,
+        "target": 50,
+        "pack_size": 10,
+        "pack_price": 45
+      }
+    ],
+    "requests": [
+      {
+        "id": "REQ-204",
+        "title": "Replenish North Lab peripherals",
+        "status": "Resolved",
+        "order_id": "PO-7001",
+        "policy": "Available = On hand - Reserved + Incoming. Replenish only when Available is strictly below Minimum. Order enough whole packs to bring Available up to Target; round the pack quantity up. Use the listed product IDs, North Lab delivery, Standard priority, and reference REQ-204. Submit one combined order, then resolve this request and link the submitted order."
+      },
+      {
+        "id": "REQ-205",
+        "title": "Spare adapters for South Lab",
+        "status": "Open",
+        "order_id": null,
+        "policy": "Await manager review."
+      }
+    ],
+    "cart": {},
+    "orders": [
+      {
+        "id": "PO-7001",
+        "items": {
+          "KEY-14": 7,
+          "DOCK-28": 4,
+          "HEAD-36": 4
+        },
+        "destination": "North Lab",
+        "priority": "Standard",
+        "reference": "REQ-204"
+      }
+    ]
+  },
+  "checks": [
+    "exactly_one_order",
+    "correct_products_and_pack_quantities",
+    "delivery_and_reference",
+    "request_resolved_and_linked",
+    "inventory_unchanged",
+    "other_request_unchanged",
+    "request_identity_and_policy_unchanged",
+    "cart_empty"
+  ],
+  "alternative_action_orders_allowed": true,
+  "reference_actions": [
+    {
+      "op": "cart",
+      "product": "KEY-14",
+      "quantity": 7
+    },
+    {
+      "op": "cart",
+      "product": "DOCK-28",
+      "quantity": 4
+    },
+    {
+      "op": "cart",
+      "product": "HEAD-36",
+      "quantity": 4
+    },
+    {
+      "op": "submit-order",
+      "destination": "North Lab",
+      "priority": "Standard",
+      "reference": "REQ-204"
+    },
+    {
+      "op": "resolve-request",
+      "id": "REQ-204",
+      "order_id": "PO-7001"
+    }
+  ],
+  "materialized_wrong_control_actions": [
+    {
+      "op": "cart",
+      "product": "KEY-14",
+      "quantity": 7
+    },
+    {
+      "op": "cart",
+      "product": "DOCK-28",
+      "quantity": 4
+    },
+    {
+      "op": "cart",
+      "product": "HEAD-36",
+      "quantity": 3
+    },
+    {
+      "op": "submit-order",
+      "destination": "North Lab",
+      "priority": "Standard",
+      "reference": "REQ-204"
+    },
+    {
+      "op": "resolve-request",
+      "id": "REQ-204",
+      "order_id": "PO-7001"
+    }
+  ]
+}

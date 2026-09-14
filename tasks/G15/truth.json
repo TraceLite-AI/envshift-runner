@@ -1,0 +1,119 @@
+{
+  "task": "G15",
+  "one_valid_final_state": {
+    "products": [
+      {
+        "id": "FG-401",
+        "name": "Trail tote",
+        "print": 0,
+        "price": 28
+      },
+      {
+        "id": "FG-414",
+        "name": "Trail tote",
+        "print": 1,
+        "price": 28
+      },
+      {
+        "id": "FG-402",
+        "name": "Trail tote",
+        "print": 2,
+        "price": 28
+      },
+      {
+        "id": "FG-420",
+        "name": "Trail tote",
+        "print": 3,
+        "price": 28
+      },
+      {
+        "id": "FG-405",
+        "name": "Trail tote",
+        "print": 4,
+        "price": 28
+      },
+      {
+        "id": "FG-418",
+        "name": "Trail tote",
+        "print": 5,
+        "price": 28
+      },
+      {
+        "id": "FG-403",
+        "name": "Trail tote",
+        "print": 6,
+        "price": 28
+      },
+      {
+        "id": "FG-411",
+        "name": "Trail tote",
+        "print": 7,
+        "price": 28
+      },
+      {
+        "id": "FG-407",
+        "name": "Trail tote",
+        "print": 8,
+        "price": 28
+      },
+      {
+        "id": "FG-416",
+        "name": "Trail tote",
+        "print": 9,
+        "price": 28
+      },
+      {
+        "id": "FG-409",
+        "name": "Trail tote",
+        "print": 10,
+        "price": 28
+      },
+      {
+        "id": "FG-422",
+        "name": "Trail tote",
+        "print": 11,
+        "price": 28
+      }
+    ],
+    "cart": [
+      {
+        "product": "POUCH-01",
+        "name": "Travel pouch",
+        "size": "One size",
+        "closure": "Zip",
+        "quantity": 1
+      },
+      {
+        "product": "FG-407",
+        "name": "Trail tote",
+        "size": "18 L",
+        "closure": "Zipper",
+        "quantity": 2
+      }
+    ]
+  },
+  "checks": [
+    "exact_cart_products_variants_quantities",
+    "existing_pouch_unchanged",
+    "catalog_unchanged"
+  ],
+  "alternative_action_orders_allowed": true,
+  "reference_actions": [
+    {
+      "op": "add-cart",
+      "product": "FG-407",
+      "size": "18 L",
+      "closure": "Zipper",
+      "quantity": 2
+    }
+  ],
+  "materialized_wrong_control_actions": [
+    {
+      "op": "add-cart",
+      "product": "FG-411",
+      "size": "18 L",
+      "closure": "Zipper",
+      "quantity": 2
+    }
+  ]
+}

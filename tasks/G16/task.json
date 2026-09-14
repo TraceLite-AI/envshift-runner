@@ -1,0 +1,17 @@
+{
+  "task": "G16",
+  "description": "工单去重：核对多个字段 → 找最早报告 → 建立 Duplicate 关系",
+  "kind": "synthetic_gui_workflow",
+  "benchmark_reproduction": false,
+  "runners": [
+    "ubuntu-24.04",
+    "macos-15",
+    "windows-2022"
+  ],
+  "os_specific_claim": false,
+  "requires_model_validation": true,
+  "prompt": "prompt.md",
+  "fixture": "fixture.json",
+  "truth": "truth.json",
+  "source": "../../task_world.py"
+}
