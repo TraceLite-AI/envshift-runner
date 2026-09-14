@@ -1,0 +1,77 @@
+{
+  "complete": true,
+  "controls_passed": true,
+  "valid_model_runs": 9,
+  "passes": 9,
+  "failures": 0,
+  "new_badcase_tasks": [],
+  "all_badcase_tasks": [
+    "G01",
+    "G05",
+    "G08",
+    "G10"
+  ],
+  "all_failure_trajectories": 22,
+  "stable_os_flips_proven": 0,
+  "results": [
+    {
+      "task": "G11",
+      "os": "ubuntu-24.04",
+      "reward": 1,
+      "steps": 60
+    },
+    {
+      "task": "G11",
+      "os": "macos-15",
+      "reward": 1,
+      "steps": 42
+    },
+    {
+      "task": "G11",
+      "os": "windows-2022",
+      "reward": 1,
+      "steps": 20
+    },
+    {
+      "task": "G12",
+      "os": "ubuntu-24.04",
+      "reward": 1,
+      "steps": 4
+    },
+    {
+      "task": "G12",
+      "os": "macos-15",
+      "reward": 1,
+      "steps": 5
+    },
+    {
+      "task": "G12",
+      "os": "windows-2022",
+      "reward": 1,
+      "steps": 4
+    },
+    {
+      "task": "G13",
+      "os": "windows-2022",
+      "reward": 1,
+      "steps": 34
+    },
+    {
+      "task": "G13",
+      "os": "ubuntu-24.04",
+      "reward": 1,
+      "steps": 16
+    },
+    {
+      "task": "G13",
+      "os": "macos-15",
+      "reward": 1,
+      "steps": 16
+    }
+  ],
+  "model": "gemini-3.5-flash",
+  "tool_version": "gui_native_v2",
+  "action_budget": 60,
+  "run": 34855526346,
+  "tested_commit": "ec992aff90107f2fb50ba9f2917ae2022845fe6d"
+}
