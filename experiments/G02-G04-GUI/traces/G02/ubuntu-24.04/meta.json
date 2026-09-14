@@ -1,0 +1,38 @@
+{
+  "arm": "agent",
+  "task": "G02",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "model": "gemini-3.5-flash",
+  "model_rc": 0,
+  "steps": 9,
+  "channel_fail": null,
+  "blind_steps": 0,
+  "valid_model_run": true,
+  "reward": 1,
+  "checks": {
+    "submitted": true,
+    "exact_file_set": true,
+    "correct_bytes": true
+  },
+  "submissions": [
+    {
+      "files": [
+        {
+          "name": "01-invoice.csv",
+          "sha256": "17bef43dbdb74677b0c2c6bd213252507551f2a51bf4a695dacd7e1bd420ce46",
+          "size": 47
+        },
+        {
+          "name": "03-receipt.csv",
+          "sha256": "b915fe399d3731f3b72c1aa12f78cc3128beabe1c06dc71e1302d99f9890cea1",
+          "size": 47
+        },
+        {
+          "name": "05-approval.csv",
+          "sha256": "971e94432468fcbd048882e9a79f1a0120e0d75f08267c7381487d3da516e15c",
+          "size": 48
+        }
+      ]
+    }
+  ]
+}

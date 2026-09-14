@@ -1,0 +1,28 @@
+{
+  "arm": "agent",
+  "task": "G04",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "model": "gemini-3.5-flash",
+  "model_rc": 0,
+  "steps": 6,
+  "channel_fail": null,
+  "blind_steps": 0,
+  "valid_model_run": true,
+  "reward": 1,
+  "checks": {
+    "target_exists": true,
+    "approved_revision": true,
+    "old_revision_removed": true,
+    "accounts_preserved": true
+  },
+  "submissions": [
+    {
+      "target": "/home/runner/Documents/EnvShift G04/approved-snapshot.html",
+      "size": 1375,
+      "sha256": "b2ae427c3fbcd41ba9cfe57bff9e10a8c29ed4c1f1e5dba490b29a457e831448",
+      "files_in_output": [
+        "approved-snapshot.html"
+      ]
+    }
+  ]
+}

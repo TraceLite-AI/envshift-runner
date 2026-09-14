@@ -1,0 +1,13 @@
+{
+  "id": "G04",
+  "title": "保存并替换批准版网页快照",
+  "axis_candidate": "原生 Save As 目录定位、文件名、已有文件替换确认",
+  "family": "native-save-dialog; environment effect unproven",
+  "grader": "目标路径的实际 HTML 含批准版标记和两条业务记录，且已移除旧版标记；保存到副本名不算完成。",
+  "negative_control": "另存成 approved-snapshot-copy.html，让规定文件仍是旧版；reward 必须为 0。",
+  "status": "three_os_controls_and_agent_completed",
+  "model": "gemini-3.5-flash",
+  "action_budget": 45,
+  "stable_os_failure_proven": false,
+  "agent_results": "3/3 correct deliveries, one trial per OS"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "G02",
+  "title": "不连续多选账单附件",
+  "axis_candidate": "系统原生文件选择框中的多选、选择集合保持与确认",
+  "family": "native-file-chooser; related to G01, not an independent OS mechanism yet",
+  "grader": "实际收到的 multipart 上传中，文件集合和每个原始字节哈希全部一致；不能只检查附件数量。",
+  "negative_control": "多交草稿和旧文件，页面可显示 Batch received，但 reward 必须为 0。",
+  "status": "three_os_controls_and_agent_completed",
+  "model": "gemini-3.5-flash",
+  "action_budget": 45,
+  "stable_os_failure_proven": false,
+  "agent_results": "3/3 correct deliveries, one trial per OS"
+}

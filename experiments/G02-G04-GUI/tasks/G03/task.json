@@ -1,0 +1,13 @@
+{
+  "id": "G03",
+  "title": "修改跨月预约日期",
+  "axis_candidate": "Chrome 日期输入控件在三系统上的显示、字段编辑和日历导航",
+  "family": "native-date-control; environment effect unproven",
+  "grader": "服务端实际收到的日期 ISO 值、服务等级与参考号全部一致。",
+  "negative_control": "将日期错填 9 月 3 日，其余正确并保存；reward 必须为 0。",
+  "status": "three_os_controls_and_agent_completed",
+  "model": "gemini-3.5-flash",
+  "action_budget": 45,
+  "stable_os_failure_proven": false,
+  "agent_results": "3/3 correct deliveries, one trial per OS"
+}

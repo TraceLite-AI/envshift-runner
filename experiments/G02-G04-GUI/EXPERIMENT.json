@@ -1,0 +1,38 @@
+{
+  "tasks": [
+    "G02",
+    "G03",
+    "G04"
+  ],
+  "model": "gemini-3.5-flash",
+  "steps": 45,
+  "initial_commit": "4000ef7bcb783de48d972b309d8d39b31d296503",
+  "branch": "codex/gui-batch2-20260914",
+  "control_runs": [
+    34812861129,
+    34813369619,
+    34813651036,
+    34814048973,
+    34814058185,
+    34814493893,
+    34814974933
+  ],
+  "agent_runs": [
+    34814295813,
+    34814651374
+  ],
+  "status": "completed",
+  "retained_badcase": "BC-G01-Ubuntu-file-activation",
+  "current_code_commit": "4a920b42751730061797a5a25218f52d1848a163",
+  "agent_commits": {
+    "34814295813": "f578175c111f44c44cab739fe49bf6e884ad6e9c",
+    "34814651374": "2022c4f61301857dfc20963623052ae5e6599460"
+  },
+  "tool_version": "gui_modifiers_v1",
+  "model_runs_valid": 9,
+  "correct_deliveries": 9,
+  "new_badcases": 0,
+  "retained_badcases": 1,
+  "latest_code_commit": "ecca22e22ac0c41699914bdfd045441458a7fb8b",
+  "trials_per_task_os": 1
+}

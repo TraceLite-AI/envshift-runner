@@ -1,0 +1,27 @@
+[
+  {
+    "id": "BC-G01-Ubuntu-file-activation",
+    "task": "G01-native-file-submit",
+    "model": "gemini-3.5-flash",
+    "failure_run": 34809794676,
+    "recovery_run": 34810108737,
+    "diagnostic_run": 34810306051,
+    "tested_commit": "a8343672927ade57710697625273b15f604eb887",
+    "classification": "action_budget_exhausted_without_submission",
+    "silent_wrong_result": false,
+    "stable_os_failure_proven": false,
+    "outcome_by_trial": [
+      {
+        "os": "ubuntu-24.04",
+        "steps": 35,
+        "reward": 0
+      },
+      {
+        "os": "ubuntu-24.04",
+        "steps": 16,
+        "reward": 1
+      }
+    ],
+    "description": "Repeated native file activation closed the chooser without selecting a file. A later trial switched to selecting the row then Open and completed. Underlying desktop/browser cause remains unproven."
+  }
+]

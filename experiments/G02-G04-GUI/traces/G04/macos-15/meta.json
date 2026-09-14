@@ -1,0 +1,28 @@
+{
+  "arm": "agent",
+  "task": "G04",
+  "platform": "macOS-15.7.9-arm64-arm-64bit",
+  "model": "gemini-3.5-flash",
+  "model_rc": 0,
+  "steps": 10,
+  "channel_fail": null,
+  "blind_steps": 0,
+  "valid_model_run": true,
+  "reward": 1,
+  "checks": {
+    "target_exists": true,
+    "approved_revision": true,
+    "old_revision_removed": true,
+    "accounts_preserved": true
+  },
+  "submissions": [
+    {
+      "target": "/Users/runner/Documents/EnvShift G04/approved-snapshot.html",
+      "size": 1376,
+      "sha256": "6d2b878ba409a6d7ad9c62d28b1955b802b4b7a769c235c4e1237f29063dbece",
+      "files_in_output": [
+        "approved-snapshot.html"
+      ]
+    }
+  ]
+}

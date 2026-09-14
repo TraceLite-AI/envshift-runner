@@ -1,0 +1,484 @@
+[
+  {
+    "task": "G02",
+    "runner": "macos-15",
+    "run_id": 34813369619,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "submitted": true,
+          "exact_file_set": true,
+          "correct_bytes": true
+        },
+        "submissions": [
+          {
+            "files": [
+              {
+                "name": "01-invoice.csv",
+                "sha256": "17bef43dbdb74677b0c2c6bd213252507551f2a51bf4a695dacd7e1bd420ce46",
+                "size": 47
+              },
+              {
+                "name": "03-receipt.csv",
+                "sha256": "b915fe399d3731f3b72c1aa12f78cc3128beabe1c06dc71e1302d99f9890cea1",
+                "size": 47
+              },
+              {
+                "name": "05-approval.csv",
+                "sha256": "971e94432468fcbd048882e9a79f1a0120e0d75f08267c7381487d3da516e15c",
+                "size": 48
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "submitted": true,
+          "exact_file_set": false,
+          "correct_bytes": false
+        },
+        "submissions": [
+          {
+            "files": [
+              {
+                "name": "01-invoice.csv",
+                "sha256": "17bef43dbdb74677b0c2c6bd213252507551f2a51bf4a695dacd7e1bd420ce46",
+                "size": 47
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "passed": true
+  },
+  {
+    "task": "G02",
+    "runner": "ubuntu-24.04",
+    "run_id": 34813369619,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "submitted": true,
+          "exact_file_set": true,
+          "correct_bytes": true
+        },
+        "submissions": [
+          {
+            "files": [
+              {
+                "name": "01-invoice.csv",
+                "sha256": "17bef43dbdb74677b0c2c6bd213252507551f2a51bf4a695dacd7e1bd420ce46",
+                "size": 47
+              },
+              {
+                "name": "03-receipt.csv",
+                "sha256": "b915fe399d3731f3b72c1aa12f78cc3128beabe1c06dc71e1302d99f9890cea1",
+                "size": 47
+              },
+              {
+                "name": "05-approval.csv",
+                "sha256": "971e94432468fcbd048882e9a79f1a0120e0d75f08267c7381487d3da516e15c",
+                "size": 48
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "submitted": true,
+          "exact_file_set": false,
+          "correct_bytes": false
+        },
+        "submissions": [
+          {
+            "files": [
+              {
+                "name": "01-invoice.csv",
+                "sha256": "17bef43dbdb74677b0c2c6bd213252507551f2a51bf4a695dacd7e1bd420ce46",
+                "size": 47
+              },
+              {
+                "name": "02-draft.csv",
+                "sha256": "69fb2cb09fdf0de81e9b64be4485cbeaf0d8273e259428c3b4b9572cb4323b28",
+                "size": 45
+              },
+              {
+                "name": "03-receipt.csv",
+                "sha256": "b915fe399d3731f3b72c1aa12f78cc3128beabe1c06dc71e1302d99f9890cea1",
+                "size": 47
+              },
+              {
+                "name": "04-old.csv",
+                "sha256": "4b5403588db56b4d438030550caf13de9970cb310cbd072dc9a170e7e0df611b",
+                "size": 43
+              },
+              {
+                "name": "05-approval.csv",
+                "sha256": "971e94432468fcbd048882e9a79f1a0120e0d75f08267c7381487d3da516e15c",
+                "size": 48
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "passed": true
+  },
+  {
+    "task": "G02",
+    "runner": "windows-2022",
+    "run_id": 34814048973,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "submitted": true,
+          "exact_file_set": true,
+          "correct_bytes": true
+        },
+        "submissions": [
+          {
+            "files": [
+              {
+                "name": "01-invoice.csv",
+                "sha256": "17bef43dbdb74677b0c2c6bd213252507551f2a51bf4a695dacd7e1bd420ce46",
+                "size": 47
+              },
+              {
+                "name": "03-receipt.csv",
+                "sha256": "b915fe399d3731f3b72c1aa12f78cc3128beabe1c06dc71e1302d99f9890cea1",
+                "size": 47
+              },
+              {
+                "name": "05-approval.csv",
+                "sha256": "971e94432468fcbd048882e9a79f1a0120e0d75f08267c7381487d3da516e15c",
+                "size": 48
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "submitted": true,
+          "exact_file_set": false,
+          "correct_bytes": false
+        },
+        "submissions": [
+          {
+            "files": [
+              {
+                "name": "01-invoice.csv",
+                "sha256": "17bef43dbdb74677b0c2c6bd213252507551f2a51bf4a695dacd7e1bd420ce46",
+                "size": 47
+              },
+              {
+                "name": "02-draft.csv",
+                "sha256": "69fb2cb09fdf0de81e9b64be4485cbeaf0d8273e259428c3b4b9572cb4323b28",
+                "size": 45
+              },
+              {
+                "name": "03-receipt.csv",
+                "sha256": "b915fe399d3731f3b72c1aa12f78cc3128beabe1c06dc71e1302d99f9890cea1",
+                "size": 47
+              },
+              {
+                "name": "04-old.csv",
+                "sha256": "4b5403588db56b4d438030550caf13de9970cb310cbd072dc9a170e7e0df611b",
+                "size": 43
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "passed": true
+  },
+  {
+    "task": "G03",
+    "runner": "macos-15",
+    "run_id": 34813369619,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "submitted": true,
+          "correct_date": true,
+          "correct_service": true,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "date": "2026-09-02",
+            "service": "Express",
+            "reference": "PICKUP-209"
+          }
+        ]
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "submitted": true,
+          "correct_date": false,
+          "correct_service": true,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "date": "2026-09-03",
+            "service": "Express",
+            "reference": "PICKUP-209"
+          }
+        ]
+      }
+    ],
+    "passed": true
+  },
+  {
+    "task": "G03",
+    "runner": "ubuntu-24.04",
+    "run_id": 34813369619,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "submitted": true,
+          "correct_date": true,
+          "correct_service": true,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "date": "2026-09-02",
+            "service": "Express",
+            "reference": "PICKUP-209"
+          }
+        ]
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "submitted": true,
+          "correct_date": false,
+          "correct_service": true,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "date": "2026-09-03",
+            "service": "Express",
+            "reference": "PICKUP-209"
+          }
+        ]
+      }
+    ],
+    "passed": true
+  },
+  {
+    "task": "G03",
+    "runner": "windows-2022",
+    "run_id": 34814048973,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "submitted": true,
+          "correct_date": true,
+          "correct_service": true,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "date": "2026-09-02",
+            "service": "Express",
+            "reference": "PICKUP-209"
+          }
+        ]
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "submitted": true,
+          "correct_date": false,
+          "correct_service": true,
+          "correct_reference": true
+        },
+        "submissions": [
+          {
+            "date": "2026-09-03",
+            "service": "Express",
+            "reference": "PICKUP-209"
+          }
+        ]
+      }
+    ],
+    "passed": true
+  },
+  {
+    "task": "G04",
+    "runner": "macos-15",
+    "run_id": 34814058185,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "target_exists": true,
+          "approved_revision": true,
+          "old_revision_removed": true,
+          "accounts_preserved": true
+        },
+        "submissions": [
+          {
+            "target": "/Users/runner/Documents/EnvShift G04/approved-snapshot.html",
+            "size": 1376,
+            "sha256": "b1f9ea887230ba39b5113d17e2260ee4193bcc46f679b3a43b9c24c08290312d",
+            "files_in_output": [
+              "approved-snapshot.html"
+            ]
+          }
+        ]
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "target_exists": true,
+          "approved_revision": false,
+          "old_revision_removed": false,
+          "accounts_preserved": false
+        },
+        "submissions": [
+          {
+            "target": "/Users/runner/Documents/EnvShift G04/approved-snapshot.html",
+            "size": 68,
+            "sha256": "c31482ff923fd4e5549b026e30681b4d0a463fd0676f3910eaba339dd084b523",
+            "files_in_output": [
+              "approved-snapshot-copy.html",
+              "approved-snapshot.html"
+            ]
+          }
+        ]
+      }
+    ],
+    "passed": true
+  },
+  {
+    "task": "G04",
+    "runner": "ubuntu-24.04",
+    "run_id": 34814974933,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "target_exists": true,
+          "approved_revision": true,
+          "old_revision_removed": true,
+          "accounts_preserved": true
+        },
+        "submissions": [
+          {
+            "target": "/home/runner/Documents/EnvShift G04/approved-snapshot.html",
+            "size": 1260,
+            "sha256": "5f3fb1f57cd72af8f8ec84b65a3375c652bcca5eb8588b75f9b624b489f7e136",
+            "files_in_output": [
+              "approved-snapshot.html"
+            ]
+          }
+        ]
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "target_exists": true,
+          "approved_revision": false,
+          "old_revision_removed": false,
+          "accounts_preserved": false
+        },
+        "submissions": [
+          {
+            "target": "/home/runner/Documents/EnvShift G04/approved-snapshot.html",
+            "size": 68,
+            "sha256": "c31482ff923fd4e5549b026e30681b4d0a463fd0676f3910eaba339dd084b523",
+            "files_in_output": [
+              "approved-snapshot-copy.html",
+              "approved-snapshot.html"
+            ]
+          }
+        ]
+      }
+    ],
+    "passed": true
+  },
+  {
+    "task": "G04",
+    "runner": "windows-2022",
+    "run_id": 34814048973,
+    "results": [
+      {
+        "arm": "oracle",
+        "reward": 1,
+        "checks": {
+          "target_exists": true,
+          "approved_revision": true,
+          "old_revision_removed": true,
+          "accounts_preserved": true
+        },
+        "submissions": [
+          {
+            "target": "C:\\Users\\runneradmin\\Documents\\EnvShift G04\\approved-snapshot.html",
+            "size": 1383,
+            "sha256": "d9454c6c3e58f03a19e89e738190b57f0868dea08c5c0aadedf5cc2c33278080",
+            "files_in_output": [
+              "approved-snapshot.html"
+            ]
+          }
+        ]
+      },
+      {
+        "arm": "wrong-result",
+        "reward": 0,
+        "checks": {
+          "target_exists": true,
+          "approved_revision": false,
+          "old_revision_removed": false,
+          "accounts_preserved": false
+        },
+        "submissions": [
+          {
+            "target": "C:\\Users\\runneradmin\\Documents\\EnvShift G04\\approved-snapshot.html",
+            "size": 68,
+            "sha256": "c31482ff923fd4e5549b026e30681b4d0a463fd0676f3910eaba339dd084b523",
+            "files_in_output": [
+              "approved-snapshot-copy.html",
+              "approved-snapshot.html"
+            ]
+          }
+        ]
+      }
+    ],
+    "passed": true
+  }
+]

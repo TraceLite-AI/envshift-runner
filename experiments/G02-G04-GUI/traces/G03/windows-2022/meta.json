@@ -1,0 +1,25 @@
+{
+  "arm": "agent",
+  "task": "G03",
+  "platform": "Windows-2022Server-10.0.20348-SP0",
+  "model": "gemini-3.5-flash",
+  "model_rc": 0,
+  "steps": 9,
+  "channel_fail": null,
+  "blind_steps": 0,
+  "valid_model_run": true,
+  "reward": 1,
+  "checks": {
+    "submitted": true,
+    "correct_date": true,
+    "correct_service": true,
+    "correct_reference": true
+  },
+  "submissions": [
+    {
+      "date": "2026-09-02",
+      "service": "Express",
+      "reference": "PICKUP-209"
+    }
+  ]
+}

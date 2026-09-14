@@ -1,0 +1,15 @@
+{
+  "filename": "approved-snapshot.html",
+  "revision": "AUG26-APPROVED-R4",
+  "rows": [
+    {
+      "account": "Cedar",
+      "amount": "1684.50"
+    },
+    {
+      "account": "Maple",
+      "amount": "927.25"
+    }
+  ],
+  "forbidden_old_revision": "JULY-OLD-REVISION"
+}

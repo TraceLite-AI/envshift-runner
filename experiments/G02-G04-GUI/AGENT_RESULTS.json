@@ -1,0 +1,374 @@
+[
+  {
+    "arm": "agent",
+    "task": "G02",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 10,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "exact_file_set": true,
+      "correct_bytes": true
+    },
+    "submissions": [
+      {
+        "files": [
+          {
+            "name": "01-invoice.csv",
+            "sha256": "17bef43dbdb74677b0c2c6bd213252507551f2a51bf4a695dacd7e1bd420ce46",
+            "size": 47
+          },
+          {
+            "name": "03-receipt.csv",
+            "sha256": "b915fe399d3731f3b72c1aa12f78cc3128beabe1c06dc71e1302d99f9890cea1",
+            "size": 47
+          },
+          {
+            "name": "05-approval.csv",
+            "sha256": "971e94432468fcbd048882e9a79f1a0120e0d75f08267c7381487d3da516e15c",
+            "size": 48
+          }
+        ]
+      }
+    ],
+    "run_id": 34814295813,
+    "runner": "macos-15",
+    "artifact_meta": "agent-first/gui-batch2-G02-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "The batch has been successfully submitted with the three required files, and 'Batch received.' is displayed on the page."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G02",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 9,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "exact_file_set": true,
+      "correct_bytes": true
+    },
+    "submissions": [
+      {
+        "files": [
+          {
+            "name": "01-invoice.csv",
+            "sha256": "17bef43dbdb74677b0c2c6bd213252507551f2a51bf4a695dacd7e1bd420ce46",
+            "size": 47
+          },
+          {
+            "name": "03-receipt.csv",
+            "sha256": "b915fe399d3731f3b72c1aa12f78cc3128beabe1c06dc71e1302d99f9890cea1",
+            "size": 47
+          },
+          {
+            "name": "05-approval.csv",
+            "sha256": "971e94432468fcbd048882e9a79f1a0120e0d75f08267c7381487d3da516e15c",
+            "size": 48
+          }
+        ]
+      }
+    ],
+    "run_id": 34814295813,
+    "runner": "ubuntu-24.04",
+    "artifact_meta": "agent-first/gui-batch2-G02-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "The correct three files (01-invoice.csv, 03-receipt.csv, 05-approval.csv) have been selected and the batch has been successfully submitted, as indicated by the 'Batch received' message."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G02",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 9,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "exact_file_set": true,
+      "correct_bytes": true
+    },
+    "submissions": [
+      {
+        "files": [
+          {
+            "name": "01-invoice.csv",
+            "sha256": "17bef43dbdb74677b0c2c6bd213252507551f2a51bf4a695dacd7e1bd420ce46",
+            "size": 47
+          },
+          {
+            "name": "03-receipt.csv",
+            "sha256": "b915fe399d3731f3b72c1aa12f78cc3128beabe1c06dc71e1302d99f9890cea1",
+            "size": 47
+          },
+          {
+            "name": "05-approval.csv",
+            "sha256": "971e94432468fcbd048882e9a79f1a0120e0d75f08267c7381487d3da516e15c",
+            "size": 48
+          }
+        ]
+      }
+    ],
+    "run_id": 34814295813,
+    "runner": "windows-2022",
+    "artifact_meta": "agent-first/gui-batch2-G02-windows-2022-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "The three files (01-invoice.csv, 03-receipt.csv, and 05-approval.csv) were selected and attached, and the batch was submitted. 'Batch received.' is now displayed on the page."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G03",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 10,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "correct_date": true,
+      "correct_service": true,
+      "correct_reference": true
+    },
+    "submissions": [
+      {
+        "date": "2026-09-02",
+        "service": "Express",
+        "reference": "PICKUP-209"
+      }
+    ],
+    "run_id": 34814295813,
+    "runner": "macos-15",
+    "artifact_meta": "agent-first/gui-batch2-G03-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "The appointment has been successfully updated to September 2, 2026, Express service, and reference PICKUP-209, and successfully saved."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G03",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 10,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "correct_date": true,
+      "correct_service": true,
+      "correct_reference": true
+    },
+    "submissions": [
+      {
+        "date": "2026-09-02",
+        "service": "Express",
+        "reference": "PICKUP-209"
+      }
+    ],
+    "run_id": 34814295813,
+    "runner": "ubuntu-24.04",
+    "artifact_meta": "agent-first/gui-batch2-G03-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "The pickup appointment has been successfully updated to September 2, 2026, the service is set to Express, the reference is replaced with PICKUP-209, and the appointment has been saved as indicated by 'Appointment saved.'"
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G03",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 9,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "submitted": true,
+      "correct_date": true,
+      "correct_service": true,
+      "correct_reference": true
+    },
+    "submissions": [
+      {
+        "date": "2026-09-02",
+        "service": "Express",
+        "reference": "PICKUP-209"
+      }
+    ],
+    "run_id": 34814295813,
+    "runner": "windows-2022",
+    "artifact_meta": "agent-first/gui-batch2-G03-windows-2022-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "The pickup appointment has been successfully updated to September 2, 2026, Service: Express, Reference: PICKUP-209, and saved."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G04",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 10,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "target_exists": true,
+      "approved_revision": true,
+      "old_revision_removed": true,
+      "accounts_preserved": true
+    },
+    "submissions": [
+      {
+        "target": "/Users/runner/Documents/EnvShift G04/approved-snapshot.html",
+        "size": 1376,
+        "sha256": "6d2b878ba409a6d7ad9c62d28b1955b802b4b7a769c235c4e1237f29063dbece",
+        "files_in_output": [
+          "approved-snapshot.html"
+        ]
+      }
+    ],
+    "run_id": 34814651374,
+    "runner": "macos-15",
+    "artifact_meta": "agent-save/gui-batch2-G04-macos-15-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "The webpage has been successfully saved as approved-snapshot.html in the /Users/runner/Documents/EnvShift G04 directory, replacing the existing file."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G04",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 6,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "target_exists": true,
+      "approved_revision": true,
+      "old_revision_removed": true,
+      "accounts_preserved": true
+    },
+    "submissions": [
+      {
+        "target": "/home/runner/Documents/EnvShift G04/approved-snapshot.html",
+        "size": 1375,
+        "sha256": "b2ae427c3fbcd41ba9cfe57bff9e10a8c29ed4c1f1e5dba490b29a457e831448",
+        "files_in_output": [
+          "approved-snapshot.html"
+        ]
+      }
+    ],
+    "run_id": 34814651374,
+    "runner": "ubuntu-24.04",
+    "artifact_meta": "agent-save/gui-batch2-G04-ubuntu-24.04-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "The webpage has been successfully saved as approved-snapshot.html in /home/runner/Documents/EnvShift G04, replacing the old file."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  },
+  {
+    "arm": "agent",
+    "task": "G04",
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "model": "gemini-3.5-flash",
+    "model_rc": 0,
+    "steps": 7,
+    "channel_fail": null,
+    "blind_steps": 0,
+    "valid_model_run": true,
+    "reward": 1,
+    "checks": {
+      "target_exists": true,
+      "approved_revision": true,
+      "old_revision_removed": true,
+      "accounts_preserved": true
+    },
+    "submissions": [
+      {
+        "target": "C:\\Users\\runneradmin\\Documents\\EnvShift G04\\approved-snapshot.html",
+        "size": 1383,
+        "sha256": "f10152de7e44f7f6959ecc124ab5ba146dae51b9e3ef92a633c902b33a6cc3dd",
+        "files_in_output": [
+          "approved-snapshot.html"
+        ]
+      }
+    ],
+    "run_id": 34814651374,
+    "runner": "windows-2022",
+    "artifact_meta": "agent-save/gui-batch2-G04-windows-2022-agent/meta.json",
+    "protocol_valid": true,
+    "last_action": {
+      "action": "done",
+      "reason": "The approved reconciliation snapshot webpage has been successfully saved as approved-snapshot.html in C:\\Users\\runneradmin\\Documents\\EnvShift G04, replacing the existing old snapshot."
+    },
+    "classification": "correct_delivery",
+    "execution_errors": [],
+    "parse_errors": 0
+  }
+]
