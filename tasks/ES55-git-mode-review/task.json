@@ -1,0 +1,10 @@
+{
+  "tool": "audit.py",
+  "venv": "ES55",
+  "mechanism": "git-filemode",
+  "axis": "git init 自然探测 core.fileMode；Windows 上 chmod 后 status 不报告模式变更",
+  "flips_on": [
+    "windows-2022"
+  ],
+  "evidence": "validity/raw/probe4_ubuntu-24.04.txt:9 G06; validity/raw/probe4_macos-15.txt:9 G06; validity/raw/probe4_windows-2022.txt:9 G06"
+}

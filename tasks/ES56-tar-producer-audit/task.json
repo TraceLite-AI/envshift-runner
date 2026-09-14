@@ -1,0 +1,10 @@
+{
+  "tool": "audit.py",
+  "venv": "ES56",
+  "mechanism": "tar-member-owner",
+  "axis": "tarfile.add 的宿主属主名：Linux/macOS 为 runner，Windows uname 为空",
+  "flips_on": [
+    "windows-2022"
+  ],
+  "evidence": "validity/raw/probe4_ubuntu-24.04.txt:10 T01; validity/raw/probe4_macos-15.txt:10 T01; validity/raw/probe4_windows-2022.txt:10 T01"
+}

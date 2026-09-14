@@ -1,0 +1,10 @@
+{
+  "tool": "audit.py",
+  "venv": "ES57",
+  "mechanism": "strftime-low-year",
+  "axis": "datetime.date.strftime(%Y-%m-%d) 在 Ubuntu 对低年份不补四位零，另外两台补零",
+  "flips_on": [
+    "ubuntu-24.04"
+  ],
+  "evidence": "validity/raw/probe4_ubuntu-24.04.txt:17 S01; validity/raw/probe4_macos-15.txt:17 S01; validity/raw/probe4_windows-2022.txt:17 S01"
+}

@@ -2,243 +2,62 @@ name: xos-agent
 on:
   workflow_dispatch:
     inputs:
-      os: { description: "runner(ubuntu-24.04 / macos-15 / windows-2022)", default: "macos-15" }
-      tasks: { description: "任务 JSON 数组", default: '["E3-archive-audit","E4-vault-compliance","E5-retention-plan","E6-contact-merge","E7-publish-shared","E8-report-extend","E9-latest-extend","E10-dupes-extend","E11-export-extend","E12-publish-extend"]' }
-      timeout: { description: "agent 秒数", default: "1500" }
-      model: { description: "模型名", default: "deepseek-v4.1-flash" }
-      tag: { description: "本轮标记", default: "r1" }
-      parallel: { description: "每池并发上限(网关按 key 限流,别打满)", default: "4" }
+      os: { description: runner, default: macos-15 }
+      tasks: { description: task array, default: '["ES55-git-mode-review","ES56-tar-producer-audit","ES57-ancient-date-index"]' }
+      timeout: { description: agent seconds, default: '1500' }
+      model: { description: existing project model, default: deepseek-v4.1-flash }
+      tag: { description: run tag, default: es55-es57 }
+      parallel: { description: jobs per OS pool, default: '1' }
+permissions:
+  contents: read
 jobs:
   agent:
     strategy:
       fail-fast: false
-      # ★并发闸门:网关按 key 限流,打满并发会让 agent 一上来就撞 429 直接退出
-      # (症状是 agent_s 只有几秒、reward 偏低,极像「模型不行」)。宁可慢,也要每次跑完整。
       max-parallel: ${{ fromJSON(inputs.parallel) }}
       matrix:
         task: ${{ fromJSON(inputs.tasks) }}
     runs-on: ${{ inputs.os }}
-    env: { PYTHONUTF8: "1", PYTHONIOENCODING: "utf-8" }
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with: { node-version: '22.17.0' }
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - name: bundle chunk 1
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_1 }}
-      - name: bundle chunk 2
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_2 }}
-      - name: bundle chunk 3
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_3 }}
-      - name: bundle chunk 4
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_4 }}
-      - name: bundle chunk 5
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_5 }}
-      - name: bundle chunk 6
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_6 }}
-      - name: bundle chunk 7
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_7 }}
-      - name: bundle chunk 8
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_8 }}
-      - name: bundle chunk 9
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_9 }}
-      - name: bundle chunk 10
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_10 }}
-      - name: bundle chunk 11
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_11 }}
-      - name: bundle chunk 12
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_12 }}
-      - name: bundle chunk 13
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_13 }}
-      - name: bundle chunk 14
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_14 }}
-      - name: bundle chunk 15
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_15 }}
-      - name: bundle chunk 16
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_16 }}
-      - name: bundle chunk 17
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_17 }}
-      - name: bundle chunk 18
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_18 }}
-      - name: bundle chunk 19
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_19 }}
-      - name: bundle chunk 20
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_20 }}
-      - name: bundle chunk 21
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_21 }}
-      - name: bundle chunk 22
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_22 }}
-      - name: bundle chunk 23
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_23 }}
-      - name: bundle chunk 24
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_24 }}
-      - name: bundle chunk 25
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_25 }}
-      - name: bundle chunk 26
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_26 }}
-      - name: bundle chunk 27
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_27 }}
-      - name: bundle chunk 28
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_28 }}
-      - name: bundle chunk 29
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_29 }}
-      - name: bundle chunk 30
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_30 }}
-      - name: bundle chunk 31
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_31 }}
-      - name: bundle chunk 32
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_32 }}
-      - name: bundle chunk 33
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_33 }}
-      - name: bundle chunk 34
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_34 }}
-      - name: bundle chunk 35
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_35 }}
-      - name: bundle chunk 36
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_36 }}
-      - name: bundle chunk 37
-        shell: bash
-        run: printf %s "$TB" >> tasks_b64.txt
-        env:
-          TB: ${{ secrets.TASKS_B64_37 }}
-      - name: restore task materials
-        shell: bash
-        run: python restore_tasks.py
       - name: install pinned DSH
-        shell: bash
         working-directory: dsh
-        env: { NODE_OPTIONS: --max-old-space-size=4096 }
-        run: npm ci --no-audit --no-fund 2>&1 | tail -1
-      - name: prepare roots
         shell: bash
-        run: |
-          if [ "$RUNNER_OS" = "Windows" ]; then ES2_ROOT="$USERPROFILE/es2"; else ES2_ROOT="$HOME/es2"; fi
-          echo "ES2_ROOT=$ES2_ROOT" >> "$GITHUB_ENV"; mkdir -p "$ES2_ROOT/data" "$ES2_ROOT/app" && python profile_runner.py
-      - name: real agent
+        env: { NODE_OPTIONS: --max-old-space-size=4096 }
+        run: npm ci --no-audit --no-fund
+      - name: run real agent and fresh-data verification
         shell: bash
         env:
-          XOS_CELL: "${{ inputs.os }}-baseline"
           ENVSHIFT_API_KEY: ${{ secrets.ENVSHIFT_API_KEY }}
-          DSH_MAX_TOKENS: "131072"
-        run: |
-          python xos_run_one.py --task ${{ matrix.task }} --arm agent --model ${{ inputs.model }} --data "$ES2_ROOT/data" --app "$ES2_ROOT/app" --out "out/${{ matrix.task }}-agent" --timeout ${{ inputs.timeout }} $( [ "$RUNNER_OS" = "Windows" ] || echo --sudo-verify ) | tail -1
-      - name: encrypt artifacts (public repo:产物含题面与轨迹,不能明文上传)
+          XOS_CELL: ${{ inputs.os }}
+          TASK: ${{ matrix.task }}
+          MODEL: ${{ inputs.model }}
+          TIME_LIMIT: ${{ inputs.timeout }}
+          PYTHONIOENCODING: utf-8
+        run: python lab_agent_run.py --task "$TASK" --model "$MODEL" --timeout "$TIME_LIMIT"
+      - name: encrypt full artifacts
         if: always()
         shell: bash
-        env: { ARTIFACT_PASS: "${{ secrets.ARTIFACT_PASS }}" }
+        env:
+          ARTIFACT_PASS: ${{ secrets.ARTIFACT_PASS }}
         run: |
-          tar czf out.tgz out 2>/dev/null || true
+          tar czf out.tgz out
           openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:ARTIFACT_PASS -in out.tgz -out out.tgz.enc
-          rm -f out.tgz
+          rm out.tgz
       - uses: actions/upload-artifact@v4
         if: always()
-        with: { name: "enc-${{ inputs.os }}-${{ matrix.task }}", path: out.tgz.enc }
+        with:
+          name: enc-${{ inputs.os }}-${{ matrix.task }}
+          path: out.tgz.enc
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ inputs.os }}-${{ matrix.task }}
+          path: public-results/
