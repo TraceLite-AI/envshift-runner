@@ -14,7 +14,7 @@ if blob.exists():
     b64 = blob.read_text().strip()
 else:
     parts = []
-    for i in range(1, 11):
+    for i in range(1, 13):
         v = os.environ.get(f"TASKS_B64_{i}", "")
         if v:
             parts.append(v.strip())
