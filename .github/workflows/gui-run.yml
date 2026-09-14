@@ -1,111 +1,59 @@
 name: gui-run
-# GUI 题 × 三系统:装 Chrome/VS Code(+Linux 虚拟显示)→ 准备初始状态 → OpenClaw → 独立评分器。
 on:
   workflow_dispatch:
     inputs:
-      tasks: { description: "gui_tasks.json 里的序号列表(JSON 数组,1 起)", default: '[1]' }
-      oslist: { description: "runner 列表(JSON 数组)", default: '["ubuntu-24.04","macos-15","windows-2022"]' }
-      arm: { description: "openclaw | null(只验初始状态与判分)", default: "openclaw" }
-      channel: { description: "terminal(命令行) | gui(截图+鼠标键盘)", default: "terminal" }
-      suite: { description: "desk(15 道应用状态) | gui30(30 道,GUI 通道用)", default: "desk" }
-      model: { description: "模型名", default: "deepseek-v4-pro" }
-      oc_version: { description: "OpenClaw 版本(默认 2026.6.9,与既有办公/GUI 数据同版本)", default: "2026.6.9" }
-      node_version: { description: "Node 版本(★须满足所选 OpenClaw 的 engines:6.9 要 >=22.19,9.4 要 >=24.16)", default: "22.19.0" }
+      oslist: { description: runners, default: '["ubuntu-24.04","macos-15","windows-2022"]' }
+      arm: { description: control or agent, default: control }
+      model: { description: existing GUI model, default: gemini-3.5-flash }
+      steps: { description: action budget, default: '35' }
+permissions:
+  contents: read
 jobs:
-  gui:
+  native-dialog:
     strategy:
       fail-fast: false
+      max-parallel: 3
       matrix:
-        task: ${{ fromJSON(inputs.tasks) }}
         os: ${{ fromJSON(inputs.oslist) }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 90
-    env: { PYTHONUTF8: '1', PYTHONIOENCODING: 'utf-8' }
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+        with: { persist-credentials: false }
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - name: restore task lists (from secrets, never committed)
+      - name: install GUI dependencies
+        shell: bash
+        run: python -m pip install -q mss pyautogui pillow websocket-client
+      - name: prepare display and Chrome
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq xvfb xauth x11-utils scrot python3-tk
+            touch "$HOME/.Xauthority"
+            xauth add :99 . $(python -c 'import secrets;print(secrets.token_hex(16))')
+            Xvfb :99 -screen 0 1280x900x24 -auth "$HOME/.Xauthority" > /tmp/xvfb.log 2>&1 &
+            sleep 2
+            echo "DISPLAY=:99" >> "$GITHUB_ENV"
+            echo "XAUTHORITY=$HOME/.Xauthority" >> "$GITHUB_ENV"
+            command -v google-chrome || command -v google-chrome-stable || { curl -fsSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/chrome.deb; sudo apt-get install -y /tmp/chrome.deb; }
+          elif [ "$RUNNER_OS" = macOS ]; then
+            test -x "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" || brew install --cask google-chrome
+          else
+            test -f '/c/Program Files/Google/Chrome/Application/chrome.exe' || choco install googlechrome -y --no-progress
+          fi
+      - name: run GUI task
         shell: bash
         env:
-          GUI_TASKS_B64_1: ${{ secrets.GUI_TASKS_B64_1 }}
-          GUI_TASKS_B64_2: ${{ secrets.GUI_TASKS_B64_2 }}
-        run: python restore_gui_tasks.py
-      - uses: actions/setup-node@v4
-        with: { node-version: '${{ inputs.node_version }}' }
-
-      - name: GUI 通道所需(虚拟显示 + 截图/输入库)
-        if: inputs.channel == 'gui'
-        shell: bash
-        run: |
-          pip install -q mss pyautogui pillow
-          if [ "${{ runner.os }}" = "Linux" ]; then
-            sudo apt-get update -qq && sudo apt-get install -y -qq xvfb x11-utils xauth scrot python3-tk
-            touch "$HOME/.Xauthority"; xauth add :99 . $(head -c 16 /dev/urandom | od -An -tx1 | tr -d ' \n') 2>/dev/null || true
-            Xvfb :99 -screen 0 1920x1080x24 -auth "$HOME/.Xauthority" & sleep 3
-            echo "DISPLAY=:99" >> $GITHUB_ENV; echo "XAUTHORITY=$HOME/.Xauthority" >> $GITHUB_ENV
-          fi
-
-      - name: 官方 metrics 的依赖(办公文档题判分侧,与终端通道用同一套)
-        if: inputs.suite == 'gui30'
-        shell: bash
-        run: pip install -q -r office_requirements.txt
-
-      - name: LibreOffice(GUI 通道跑办公文档题时要真的打开它)
-        if: inputs.suite == 'gui30'
-        shell: bash
-        run: |
-          case "${{ runner.os }}" in
-            Linux)   sudo apt-get install -y -qq libreoffice-calc libreoffice-impress || true ;;
-            macOS)   brew install --cask libreoffice 2>/dev/null || true ;;
-            Windows) choco install libreoffice-fresh -y --no-progress || true ;;
-          esac
-
-      - name: 装 Chrome + VS Code
-        shell: bash
-        run: |
-          set -x
-          case "${{ runner.os }}" in
-            Linux)
-              sudo apt-get update -qq
-              sudo apt-get install -y -qq google-chrome-stable xvfb x11-utils || { wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt-get install -y -qq ./google-chrome-stable_current_amd64.deb xvfb x11-utils; }
-              sudo snap install code --classic 2>/dev/null || { wget -qO code.deb "https://update.code.visualstudio.com/latest/linux-deb-x64/stable" && sudo apt-get install -y -qq ./code.deb; }
-              Xvfb :99 -screen 0 1920x1080x24 & sleep 3; echo "DISPLAY=:99" >> $GITHUB_ENV ;;
-            macOS)
-              brew install --cask google-chrome 2>/dev/null || true
-              brew install --cask visual-studio-code 2>/dev/null || true
-              echo "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" >> $GITHUB_PATH ;;
-            Windows)
-              choco install googlechrome -y --no-progress --ignore-checksums || true
-              choco install vscode -y --no-progress || true
-              echo "C:\Program Files\Microsoft VS Code\bin" >> $GITHUB_PATH ;;
-          esac
-
-      - name: OpenClaw(与代码题同版本)
-        if: inputs.arm == 'openclaw'
-        run: npm install -g openclaw@${{ inputs.oc_version }} 2>&1 | tail -1 && openclaw --version
-
-      - name: 跑题(终端通道)
-        if: inputs.channel != 'gui'
-        shell: bash
-        env: { ENVSHIFT_API_KEY: "${{ secrets.ENVSHIFT_API_KEY }}" }
-        run: python gui_run.py "${{ matrix.task }}" --arm ${{ inputs.arm }} --suite ${{ inputs.suite }} --model "${{ inputs.model }}" 2>&1 | tee gui_log_${{ runner.os }}.txt | tail -30
-
-      - name: 跑题(真 GUI 通道:截图+鼠标键盘)
-        if: inputs.channel == 'gui'
-        shell: bash
-        env: { ENVSHIFT_API_KEY: "${{ secrets.ENVSHIFT_API_KEY }}", DISPLAY: ':99' }
-        run: python gui_run.py "${{ matrix.task }}" --arm ${{ inputs.arm }} --suite ${{ inputs.suite }} --model "${{ inputs.model }}" 2>&1 | tee gui_log_${{ runner.os }}.txt | tail -40
-
-      - name: 打包会话记录
-        if: always()
-        shell: bash
-        env: { ARTIFACT_PASS: "${{ secrets.ARTIFACT_PASS }}" }
-        run: |
-          tar czf gui_out.tgz gui_out 2>/dev/null || true
-          OPENSSL=$(command -v openssl || echo /usr/bin/openssl)
-          [ -f gui_out.tgz ] && "$OPENSSL" enc -aes-256-cbc -pbkdf2 -salt -pass env:ARTIFACT_PASS -in gui_out.tgz -out gui_oc.tgz.enc || true
-          rm -rf gui_out gui_out.tgz 2>/dev/null || true
+          ENVSHIFT_API_KEY: ${{ inputs.arm == 'agent' && secrets.ENVSHIFT_API_KEY || '' }}
+          ARM: ${{ inputs.arm }}
+          MODEL: ${{ inputs.model }}
+          STEPS: ${{ inputs.steps }}
+          PYTHONIOENCODING: utf-8
+        run: python gui_submit_task.py --arm "$ARM" --model "$MODEL" --steps "$STEPS"
       - uses: actions/upload-artifact@v4
         if: always()
-        with: { name: "gui-${{ matrix.os }}-t${{ matrix.task }}", path: "gui_*" }
+        with:
+          name: gui-submit-${{ matrix.os }}-${{ inputs.arm }}
+          path: gui_submit_out/
