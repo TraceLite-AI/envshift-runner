@@ -30,7 +30,7 @@ jobs:
         run: |
           if [ "$RUNNER_OS" = Linux ]; then
             sudo apt-get update -qq
-            sudo apt-get install -y -qq xvfb xauth x11-utils scrot python3-tk openbox
+            sudo apt-get install -y -qq xvfb xauth x11-utils scrot python3-tk openbox dbus-x11
             touch "$HOME/.Xauthority"
             xauth add :99 . $(python -c 'import secrets;print(secrets.token_hex(16))')
             Xvfb :99 -screen 0 1280x900x24 -auth "$HOME/.Xauthority" > /tmp/xvfb.log 2>&1 &
@@ -53,7 +53,12 @@ jobs:
           MODEL: ${{ inputs.model }}
           STEPS: ${{ inputs.steps }}
           PYTHONIOENCODING: utf-8
-        run: python gui_submit_task.py --arm "$ARM" --model "$MODEL" --steps "$STEPS"
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then
+            dbus-run-session -- python gui_submit_task.py --arm "$ARM" --model "$MODEL" --steps "$STEPS"
+          else
+            python gui_submit_task.py --arm "$ARM" --model "$MODEL" --steps "$STEPS"
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:

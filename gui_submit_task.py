@@ -99,7 +99,7 @@ if a.arm=='control':
   elif os.name=='nt':
    pyautogui.hotkey('alt','n');pyautogui.write(str(path),interval=.01);pyautogui.press('enter')
   else:
-   pyautogui.hotkey('ctrl','l');time.sleep(.5);pyautogui.write(str(path),interval=.04);screenshot(label+'-typed-path.png');pyautogui.press('enter')
+   pyautogui.hotkey('ctrl','l');time.sleep(.5);pyautogui.write(str(path),interval=.04);screenshot(label+'-typed-path.png');pyautogui.press('escape');time.sleep(.3);pyautogui.click(1110,820)
   time.sleep(2);screenshot(label+'-chosen.png')
   chosen=evaluate("document.getElementById('file').files[0]?.name||''")
   if chosen!=path.name:
