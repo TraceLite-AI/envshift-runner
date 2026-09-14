@@ -1,3 +1,3 @@
 # EnvShift status
 
-G11–G13: 9/9 passed. Existing badcases: G01, G05, G08, G10; 22 failure trajectories retained. Full latest evidence remains local. [Results](experiments/G11-G13/REPORT.md).
+G14–G16: 1/9 passed, 8/9 failed. 7 badcase task identities and 30 valid failure trajectories total. Existing 22 permanent evidence records preserved; all new full evidence remains local. [Summary](experiments/G14-G16/REPORT.md).

@@ -21,8 +21,17 @@
     "app.css": "98489759e3cb341014128fd15781cf9aa13bb5f8a965acb9a032ab54bbddbae8"
   },
   "prior_result_commit": "dc5703a1beee2cb1239e5f8b2aa789b30ae22a77",
-  "status": "awaiting_controls",
-  "new_badcases": 0,
+  "status": "complete_after_viewport_fix",
+  "new_badcases": 3,
   "publication_mode": "synthetic_sources_and_aggregate_records_only",
-  "full_evidence_storage": "local"
+  "full_evidence_storage": "local",
+  "source_commit": "c44f8289162ca536596e93e0c60446e21a4af5eb",
+  "model_run": 34860716979,
+  "control_run": 34860001447,
+  "window_fit_model_run": 34864718022,
+  "window_fit_control_run": 34864374222,
+  "window_fit_source_commit": "4a06c617efc35ee39b45d54ed7d499eb4c65f301",
+  "excluded_initial_windows_trials": 3,
+  "raw_model_trials": 12,
+  "new_failure_trajectories": 8
 }

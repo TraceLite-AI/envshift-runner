@@ -1,13 +1,38 @@
 {
+  "verified_task_count": 16,
+  "badcase_task_count": 7,
   "badcase_tasks": [
     "G01",
     "G05",
     "G08",
-    "G10"
+    "G10",
+    "G14",
+    "G15",
+    "G16"
   ],
-  "failure_trajectory_count": 22,
-  "latest_batch": "G11-G13",
-  "latest_batch_status": "9/9 passed",
-  "model_run": 34855526346,
-  "full_evidence_storage": "local"
+  "failure_trajectory_count": 30,
+  "failure_trajectories_by_task": {
+    "G01": 1,
+    "G05": 3,
+    "G08": 9,
+    "G10": 9,
+    "G14": 3,
+    "G15": 2,
+    "G16": 3
+  },
+  "latest_batch": "G14-G16",
+  "model_runs": [
+    34860716979,
+    34864718022
+  ],
+  "control_runs": [
+    34860001447,
+    34864374222
+  ],
+  "selected_model_trials": 9,
+  "raw_model_trials": 12,
+  "excluded_initial_windows_trials": 3,
+  "full_evidence_storage": "local",
+  "new_badcase_full_evidence_location": "local package only",
+  "stable_os_flips_proven": 0
 }

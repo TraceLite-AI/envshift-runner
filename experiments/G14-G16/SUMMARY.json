@@ -1,0 +1,174 @@
+{
+  "complete": true,
+  "controls_passed": 9,
+  "valid_model_runs": 9,
+  "passes": 1,
+  "failures": 8,
+  "new_badcase_tasks": [
+    "G14",
+    "G15",
+    "G16"
+  ],
+  "all_badcase_tasks": [
+    "G01",
+    "G05",
+    "G08",
+    "G10",
+    "G14",
+    "G15",
+    "G16"
+  ],
+  "all_failure_trajectories": 30,
+  "failure_trajectories_by_task": {
+    "G01": 1,
+    "G05": 3,
+    "G08": 9,
+    "G10": 9,
+    "G14": 3,
+    "G15": 2,
+    "G16": 3
+  },
+  "stable_os_flips_proven": 0,
+  "excluded_initial_windows_trials": 3,
+  "raw_model_trials": 12,
+  "raw_control_jobs": 12,
+  "model_runs": [
+    34860716979,
+    34864718022
+  ],
+  "control_runs": [
+    34860001447,
+    34864374222
+  ],
+  "results": [
+    {
+      "task": "G14",
+      "os": "macOS",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "failed_checks": [
+        "exactly_one_order",
+        "correct_products_and_pack_quantities",
+        "delivery_and_reference",
+        "request_resolved_and_linked"
+      ],
+      "tool_semantics_confounded": false,
+      "isolated_model_capability_failure_claimed": false
+    },
+    {
+      "task": "G14",
+      "os": "Linux",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "failed_checks": [
+        "exactly_one_order",
+        "correct_products_and_pack_quantities",
+        "delivery_and_reference",
+        "request_resolved_and_linked"
+      ],
+      "tool_semantics_confounded": false,
+      "isolated_model_capability_failure_claimed": false
+    },
+    {
+      "task": "G15",
+      "os": "macOS",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "failed_checks": [
+        "exact_cart_products_variants_quantities"
+      ],
+      "tool_semantics_confounded": false,
+      "isolated_model_capability_failure_claimed": false
+    },
+    {
+      "task": "G15",
+      "os": "Linux",
+      "valid": true,
+      "reward": 1,
+      "steps": 41,
+      "failed_checks": [],
+      "tool_semantics_confounded": false,
+      "isolated_model_capability_failure_claimed": false
+    },
+    {
+      "task": "G16",
+      "os": "Linux",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "failed_checks": [
+        "all_matching_duplicates_resolved_and_linked",
+        "all_other_records_and_metadata_unchanged"
+      ],
+      "tool_semantics_confounded": false,
+      "isolated_model_capability_failure_claimed": false
+    },
+    {
+      "task": "G16",
+      "os": "macOS",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "failed_checks": [
+        "all_matching_duplicates_resolved_and_linked",
+        "all_other_records_and_metadata_unchanged"
+      ],
+      "tool_semantics_confounded": false,
+      "isolated_model_capability_failure_claimed": false
+    },
+    {
+      "task": "G14",
+      "os": "Windows",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "failed_checks": [
+        "exactly_one_order",
+        "correct_products_and_pack_quantities",
+        "delivery_and_reference",
+        "request_resolved_and_linked"
+      ],
+      "tool_semantics_confounded": false,
+      "isolated_model_capability_failure_claimed": false
+    },
+    {
+      "task": "G15",
+      "os": "Windows",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "failed_checks": [
+        "exact_cart_products_variants_quantities"
+      ],
+      "tool_semantics_confounded": true,
+      "isolated_model_capability_failure_claimed": false
+    },
+    {
+      "task": "G16",
+      "os": "Windows",
+      "valid": true,
+      "reward": 0,
+      "steps": 60,
+      "failed_checks": [
+        "all_matching_duplicates_resolved_and_linked",
+        "all_other_records_and_metadata_unchanged"
+      ],
+      "tool_semantics_confounded": true,
+      "isolated_model_capability_failure_claimed": false
+    }
+  ],
+  "result_scope": "end_to_end_model_tool_environment_at_fixed_60_steps",
+  "tool_semantics_confounded_cells": [
+    "G15/Windows",
+    "G16/Windows"
+  ],
+  "model": "gemini-3.5-flash",
+  "tool_version": "gui_native_v2",
+  "action_budget": 60,
+  "run": 34860716979,
+  "initial_tested_commit": "c44f8289162ca536596e93e0c60446e21a4af5eb",
+  "window_fit_tested_commit": "4a06c617efc35ee39b45d54ed7d499eb4c65f301"
+}

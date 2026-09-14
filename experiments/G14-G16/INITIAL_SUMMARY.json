@@ -1,0 +1,72 @@
+{
+  "phase": "initial_before_viewport_fix",
+  "passes": 1,
+  "failures": 8,
+  "results": [
+    {
+      "task": "G14",
+      "os": "macOS",
+      "valid": true,
+      "reward": 0,
+      "steps": 60
+    },
+    {
+      "task": "G14",
+      "os": "Windows",
+      "valid": true,
+      "reward": 0,
+      "steps": 60
+    },
+    {
+      "task": "G14",
+      "os": "Linux",
+      "valid": true,
+      "reward": 0,
+      "steps": 60
+    },
+    {
+      "task": "G15",
+      "os": "Windows",
+      "valid": true,
+      "reward": 0,
+      "steps": 60
+    },
+    {
+      "task": "G15",
+      "os": "macOS",
+      "valid": true,
+      "reward": 0,
+      "steps": 60
+    },
+    {
+      "task": "G15",
+      "os": "Linux",
+      "valid": true,
+      "reward": 1,
+      "steps": 41
+    },
+    {
+      "task": "G16",
+      "os": "Linux",
+      "valid": true,
+      "reward": 0,
+      "steps": 60
+    },
+    {
+      "task": "G16",
+      "os": "Windows",
+      "valid": true,
+      "reward": 0,
+      "steps": 60
+    },
+    {
+      "task": "G16",
+      "os": "macOS",
+      "valid": true,
+      "reward": 0,
+      "steps": 60
+    }
+  ],
+  "initial_windows_trials_excluded_from_corrected_main_matrix": 3,
+  "full_evidence_storage": "local"
+}

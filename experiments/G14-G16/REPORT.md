@@ -46,5 +46,3 @@ G16 一个检查项的名称为 `all_other_records_and_metadata_unchanged`，但
 模型使用网关别名，未固定不可变后端版本；请求未指定 seed 或 temperature。窗口修正前后各一次也不能证明窗口是唯一原因。
 
 Full evidence remains local. This result commit contains aggregate records only; screenshots, raw action logs and runtime archives are not republished in Git.
-
-[Manual task review](MANUAL_REVIEW.md) · [G14](tasks/G14/prompt.md) · [G15](tasks/G15/prompt.md) · [G16](tasks/G16/prompt.md)
