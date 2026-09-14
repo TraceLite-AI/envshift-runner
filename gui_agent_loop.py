@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """真 GUI 通道的执行循环:截图 → 模型看图给动作 → 执行 → 再截图,直到模型说完成或到步数上限。
 
-与「终端通道」的唯一区别是 agent 的工具面:这里只有看屏幕和操作鼠标键盘,没有 shell、没有文件读写。
-同一批题、同一个模型、同一套判分,两条通道的结果差异 = 工具面带来的差异。
+这里只有看屏幕和操作鼠标键盘,没有 shell、没有文件读写。
 
 截图统一用 mss(三系统均已实测可用,且不依赖桌面环境),动作用 pyautogui。
-坐标一律用「截图像素坐标」,执行前按 截图尺寸/屏幕尺寸 折算,避免 Retina/缩放错位。
+坐标一律用 0–1000 归一化坐标,执行前映射到桌面逻辑尺寸。
 用法: gui_agent_loop.py --task <序号> --model <模型> [--max-steps 25]
 """
 import argparse, base64, io, json, os, pathlib, platform, re, sys, time, urllib.request
@@ -54,7 +53,7 @@ def shot(step):
 
 
 ACTIONS = """你只能输出一个 JSON 对象,不要有其他文字。可用动作:
-{"action":"click","x":<截图像素x>,"y":<截图像素y>}            单击
+{"action":"click","x":<0到1000的横坐标>,"y":<0到1000的纵坐标>}  单击
 {"action":"double_click","x":..,"y":..}                        双击
 {"action":"right_click","x":..,"y":..}                         右键
 {"action":"type","text":"要输入的文字"}                        在当前焦点处打字
@@ -62,7 +61,7 @@ ACTIONS = """你只能输出一个 JSON 对象,不要有其他文字。可用动
 {"action":"scroll","dx":0,"dy":-3}                             滚动
 {"action":"wait","seconds":2}                                  等待
 {"action":"done","reason":"为什么认为完成了"}                  任务完成
-坐标以你看到的截图为准(左上角为原点)。每次只做一个动作。只输出 JSON,不要输出任何工具调用标记或其他文字。"""
+所有点击坐标均使用 0–1000 归一化坐标,不是像素:截图左上角为(0,0),右下角为(1000,1000),中心为(500,500)。x 向右增加,y 向下增加。每次只做一个动作。只输出 JSON,不要输出任何工具调用标记或其他文字。"""
 
 
 def call_model(history, img_b64, img_size, instruction):
@@ -107,12 +106,17 @@ def parse_action(txt):
         except Exception: return None
 
 
+def normalized_point(x, y, width, height):
+    if not (0 <= x <= 1000 and 0 <= y <= 1000):
+        raise ValueError("点击坐标必须位于 0–1000")
+    return min(width - 1, round(x * width / 1000)), min(height - 1, round(y * height / 1000))
+
+
 def do(act, img_size):
-    """把截图坐标折算回屏幕坐标再执行。"""
-    kx, ky = SCREEN_W / img_size[0], SCREEN_H / img_size[1]
+    """把 0–1000 坐标映射到桌面逻辑尺寸后执行。"""
     t = act.get("action")
     if t in ("click", "double_click", "right_click"):
-        x, y = int(act["x"] * kx), int(act["y"] * ky)
+        x, y = normalized_point(act["x"], act["y"], SCREEN_W, SCREEN_H)
         pyautogui.moveTo(x, y, duration=0.15)
         if t == "click": pyautogui.click()
         elif t == "double_click": pyautogui.doubleClick()
@@ -157,7 +161,7 @@ for step in range(1, a.max_steps + 1):
     history.append({"action": act, "result": r, "raw": _r, "blind": blind})
     time.sleep(0.8)
 nblind = sum(1 for h in history if h.get("blind"))
-json.dump({"platform": platform.platform(), "model": a.model, "steps": len(history), "blind_steps": nblind,
+json.dump({"platform": platform.platform(), "model": a.model, "coordinate_mode": "normalized_0_1000", "screen_size": [SCREEN_W, SCREEN_H], "steps": len(history), "blind_steps": nblind,
            "channel_fail": channel_fail, "history": history}, open(OUT / "loop.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 # ★channel_fail 一定要打进 LOOP-DONE:收割据此把「通道故障」和「模型没做出来」分开,
 #   否则两者都长成 resolved=0,只能靠步数猜,而「跑到第 3 步才被限流」是猜不出来的。
