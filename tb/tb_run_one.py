@@ -129,6 +129,8 @@ wipe(mounted)
 shutil.copytree(task_dir / "tests", mounted)  # 挂载点在抹除前就绪
 log.append({"判据目录挂到": str(mounted)})
 
+task_tests = task_dir / "tests"      # ★默认值:gold 臂原来漏了赋值,直接 NameError
+
 # ── 2. 臂 ──────────────────────────────────────────────────────────────
 if a.arm == "gold":
     sol = task_dir / "solution.sh"
