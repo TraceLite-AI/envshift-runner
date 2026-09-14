@@ -115,7 +115,13 @@ def screenshot(name):
     with mss.mss() as cap:
         raw=cap.grab(cap.monitors[1]);Image.frombytes('RGB',raw.size,raw.rgb).save(OUT/name)
 def select_all():pyautogui.hotkey('command' if sys.platform=='darwin' else 'ctrl','a')
-cdp('Page.bringToFront');time.sleep(2);screenshot('initial.png')
+cdp('Page.bringToFront');time.sleep(2)
+if sys.platform=='darwin':
+    # The Python controller can cause a local-network startup prompt. Clear it
+    # through visible UI before either control or agent work starts.
+    screenshot('startup-before-dismiss.png');pyautogui.click(453,321);time.sleep(.8)
+    cdp('Page.bringToFront');pyautogui.click(900,650);time.sleep(.5)
+screenshot('initial.png')
 assert grade()['reward']==0
 (OUT/'instruction.txt').write_text(instruction,encoding='utf-8')
 (OUT/'environment.json').write_text(json.dumps({'platform':platform.platform(),'python':sys.version,'browser':cdp('Browser.getVersion'),'screen_size':list(pyautogui.size()),'task':a.task},indent=2),encoding='utf-8')
@@ -146,8 +152,8 @@ if a.arm=='control':
                 screenshot(label+'-selected.png');pyautogui.click(1110,820)
             time.sleep(2);screenshot(label+'-chosen.png');focus('submit');pyautogui.press('enter')
         elif a.task=='G03':
-            focus('date');pyautogui.write('09');pyautogui.press('right');pyautogui.write('02' if label=='oracle' else '03');pyautogui.press('right');pyautogui.write('2026');pyautogui.press('tab')
-            focus('service');pyautogui.press('end');pyautogui.press('enter')
+            focus('date');pyautogui.write('09022026' if label=='oracle' else '09032026',interval=.08);pyautogui.press('tab')
+            focus('service');pyautogui.press('e');pyautogui.press('tab')
             focus('reference');select_all();pyautogui.write('PICKUP-209')
             focus('submit');pyautogui.press('enter')
         else:
@@ -159,7 +165,11 @@ if a.arm=='control':
                 pyautogui.hotkey('alt','n');select_all();pyautogui.write(str(WORK/name),interval=.01)
             else:
                 select_all();pyautogui.write(str(WORK/name),interval=.01)
-            pyautogui.press('enter');time.sleep(1.5);screenshot(label+'-overwrite.png');pyautogui.press('left');pyautogui.press('enter')
+            if sys.platform.startswith('linux'):pyautogui.click(1110,820)
+            else:pyautogui.press('enter')
+            time.sleep(1.5);screenshot(label+'-overwrite.png')
+            if os.name=='nt':pyautogui.press('left')
+            pyautogui.press('enter')
         time.sleep(2);screenshot(label+'-final.png')
         result={'arm':label,**grade()};results.append(result);print('CONTROL_RESULT',a.task,platform.system(),json.dumps(result),flush=True)
         if result['reward']!=int(label=='oracle'):
