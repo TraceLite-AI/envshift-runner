@@ -6,6 +6,12 @@ runner 用的是旧题包,症状是「全体两臂满分」,整轮白跑。
 """
 import base64, hashlib, io, os, pathlib, sys, tarfile
 
+# ★Windows 的 stdout 默认 cp1252,print 中文直接 UnicodeEncodeError 把整步弄挂。
+#   这正是本项目要研究的那类机制,咬了工具自己一次。
+for _s in (sys.stdout, sys.stderr):
+    try: _s.reconfigure(encoding="utf-8", errors="replace")
+    except Exception: pass
+
 b64 = os.environ.get("MACFOLD_B64", "").strip()
 want = (sys.argv[1] if len(sys.argv) > 1 else "").strip()
 if not b64:
