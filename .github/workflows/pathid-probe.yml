@@ -1,0 +1,22 @@
+name: pathid-probe
+# 实测「大小写只差的名字」在三台上到底是一个文件还是两个,
+# 以及 pathlib.Path 当缓存键时会不会合并。用来解释 7 道 Windows badcase 的真实机制。
+on:
+  workflow_dispatch:
+    inputs:
+      oslist:
+        description: "runner 列表"
+        default: '["ubuntu-24.04","macos-15","windows-2022"]'
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.oslist) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - shell: bash
+        run: python pathid_probe.py
