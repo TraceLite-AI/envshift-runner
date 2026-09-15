@@ -1,0 +1,53 @@
+name: macfold-gate2
+# 门二:真 agent 跑,量跨系统结局差异。前提是这道题已过门一三系统签名。
+# ★题目材料从 secret 还原并核对指纹;并发闸门防网关 429(429 会造出空转格,伪装成「模型不行」)。
+on:
+  workflow_dispatch:
+    inputs:
+      tasks:
+        default: '["M70-ledger-kelvin","M71-intake-longs","M72-vault-ohm","M73-billing-sharps","M74-roster-angst","M75-backup-nfd","B80-objstore-kelvin","B81-manifest-sharps","B82-shardidx-ohm","B83-pkgindex-angst"]'
+      oslist:
+        default: '["ubuntu-24.04","macos-15","windows-2022"]'
+      model:
+        default: deepseek-v4.1-flash
+      timeout:
+        default: '1200'
+      parallel:
+        default: '3'
+      bundle_sha256:
+        required: true
+jobs:
+  agent:
+    strategy:
+      fail-fast: false
+      max-parallel: ${{ fromJSON(inputs.parallel) }}
+      matrix:
+        os: ${{ fromJSON(inputs.oslist) }}
+        task: ${{ fromJSON(inputs.tasks) }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22.17.0' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: restore bundle
+        shell: bash
+        env:
+          MACFOLD_B64: ${{ secrets.MACFOLD_B64 }}
+        run: python macfold_restore.py "${{ inputs.bundle_sha256 }}" macfold
+      - name: install DSH
+        shell: bash
+        working-directory: dsh
+        env: { NODE_OPTIONS: --max-old-space-size=4096 }
+        run: npm ci --no-audit --no-fund 2>&1 | tail -2
+      - name: run agent
+        shell: bash
+        working-directory: macfold
+        env:
+          XOS_CELL: ${{ matrix.os }}
+          ENVSHIFT_API_KEY: ${{ secrets.ENVSHIFT_API_KEY }}
+          DSH_DIR: ${{ github.workspace }}/dsh
+          DSH_MAX_TOKENS: "131072"
+        run: python run_one.py --task "${{ matrix.task }}" --arm agent --model "${{ inputs.model }}" --timeout ${{ inputs.timeout }} || true
