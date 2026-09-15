@@ -1,0 +1,19 @@
+name: namegap-probe
+# 找「两个抽象层对同一个名字是否相同的判定不一致」的缺口。每个缺口=一个候选机制。
+on:
+  workflow_dispatch:
+    inputs:
+      oslist: { description: "runner 列表", default: '["ubuntu-24.04","macos-15","windows-2022"]' }
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.oslist) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - shell: bash
+        run: python namegap_probe.py
