@@ -178,13 +178,15 @@ def shared_memory(root):
             k.CloseHandle(h3)
     else:
         libc = ctypes.CDLL(None, use_errno=True)
-        libc.shm_open.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_uint]
+        # Darwin declares shm_open(name, flags, ...). On Apple arm64 variadic
+        # arguments use a different ABI: only declare the fixed arguments.
+        libc.shm_open.argtypes = [ctypes.c_char_p, ctypes.c_int] if sys.platform == 'darwin' else [ctypes.c_char_p, ctypes.c_int, ctypes.c_uint]
         libc.shm_open.restype = ctypes.c_int
         libc.shm_unlink.argtypes = [ctypes.c_char_p]
         libc.shm_unlink.restype = ctypes.c_int
         n = ('/' + name[:25]).encode()
         def shm(flags):
-            return libc.shm_open(n, flags, 0o600)
+            return libc.shm_open(n, flags, ctypes.c_uint(0o600))
         fd = shm(os.O_CREAT | os.O_EXCL | os.O_RDWR)
         if fd < 0:
             raise OSError(ctypes.get_errno(), 'shm_open failed')
@@ -251,9 +253,11 @@ while True:
 
 
 def exec_identity(root):
-    after = "import os,sys;from pathlib import Path;Path(sys.argv[1]).write_text(str(os.getpid()))"
-    code = "import os,sys;from pathlib import Path;Path(sys.argv[1]).write_text(str(os.getpid()));os.execv(sys.executable,[sys.executable,'-c',sys.argv[3],sys.argv[2]])"
-    p = child(code, root / 'before', root / 'after', after)
+    script = root / 'next_image.py'
+    script.write_text("import os\nfrom pathlib import Path\nPath(__file__).with_name('after').write_text(str(os.getpid()))\n")
+    # Execute a script, avoiding Windows CRT quoting of a Python -c payload.
+    code = "import os,sys;from pathlib import Path;Path(sys.argv[1]).write_text(str(os.getpid()));argv=[sys.executable,sys.argv[2]];os.execv(sys.executable,argv)"
+    p = child(code, root / 'before', script)
     out, err = p.communicate(timeout=8)
     if p.returncode:
         raise RuntimeError(err.decode(errors='replace'))
