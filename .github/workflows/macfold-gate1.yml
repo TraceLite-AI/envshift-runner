@@ -1,6 +1,7 @@
 name: macfold-gate1
 # 门一:参考解三台全满分 + 朴素解只在 macOS 挂(且失败静默)。不花模型钱。
 # 机制:macOS 文件系统把两个只差一个字符的名字折成同一个文件,而 Python 不折叠。
+# ★题目材料不进这个公开仓,运行时从 secret 还原并核对指纹。
 on:
   workflow_dispatch:
     inputs:
@@ -10,6 +11,9 @@ on:
         default: '["ubuntu-24.04","macos-15","windows-2022"]'
       arms:
         default: "oracle,naive"
+      bundle_sha256:
+        description: "题包 tar.gz 的 sha256,对不上就退出——防止跑的是旧题包"
+        required: true
 jobs:
   gate:
     strategy:
@@ -23,7 +27,27 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - shell: bash
+      - name: 还原题包并核对指纹
+        shell: bash
+        env:
+          MACFOLD_B64: ${{ secrets.MACFOLD_B64 }}
+        run: |
+          mkdir -p macfold && cd macfold
+          printf %s "$MACFOLD_B64" > b64.txt
+          python -c "
+import base64, hashlib, pathlib, sys, tarfile, io
+raw = base64.b64decode(pathlib.Path('b64.txt').read_text().strip())
+got = hashlib.sha256(raw).hexdigest()
+want = '${{ inputs.bundle_sha256 }}'
+print('题包指纹', got)
+if got != want:
+    print('★指纹对不上,应为', want); sys.exit(2)
+with tarfile.open(fileobj=io.BytesIO(raw), mode='r:gz') as t: t.extractall('.')
+print('还原题目', len(list(pathlib.Path('tasks').glob('*'))), '道')
+"
+          rm -f b64.txt
+      - name: 跑两臂
+        shell: bash
         working-directory: macfold
         env:
           XOS_CELL: ${{ matrix.os }}
