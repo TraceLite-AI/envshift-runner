@@ -1,0 +1,34 @@
+name: macfold-gate1
+# 门一:参考解三台全满分 + 朴素解只在 macOS 挂(且失败静默)。不花模型钱。
+# 机制:macOS 文件系统把两个只差一个字符的名字折成同一个文件,而 Python 不折叠。
+on:
+  workflow_dispatch:
+    inputs:
+      tasks:
+        default: '["M70-ledger-kelvin","M71-intake-longs","M72-vault-ohm"]'
+      oslist:
+        default: '["ubuntu-24.04","macos-15","windows-2022"]'
+      arms:
+        default: "oracle,naive"
+jobs:
+  gate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.oslist) }}
+        task: ${{ fromJSON(inputs.tasks) }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - shell: bash
+        working-directory: macfold
+        env:
+          XOS_CELL: ${{ matrix.os }}
+        run: |
+          IFS=, read -ra ARMS <<< "${{ inputs.arms }}"
+          for A in "${ARMS[@]}"; do
+            python run_one.py --task "${{ matrix.task }}" --arm "$A" || true
+          done
