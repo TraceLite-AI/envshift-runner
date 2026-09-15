@@ -1,111 +1,75 @@
-name: gui-run
-# GUI 题 × 三系统:装 Chrome/VS Code(+Linux 虚拟显示)→ 准备初始状态 → OpenClaw → 独立评分器。
+name: toolshift30
 on:
   workflow_dispatch:
     inputs:
-      tasks: { description: "gui_tasks.json 里的序号列表(JSON 数组,1 起)", default: '[1]' }
-      oslist: { description: "runner 列表(JSON 数组)", default: '["ubuntu-24.04","macos-15","windows-2022"]' }
-      arm: { description: "openclaw | null(只验初始状态与判分)", default: "openclaw" }
-      channel: { description: "terminal(命令行) | gui(截图+鼠标键盘)", default: "terminal" }
-      suite: { description: "desk(15 道应用状态) | gui30(30 道,GUI 通道用)", default: "desk" }
-      model: { description: "模型名", default: "deepseek-v4-pro" }
-      oc_version: { description: "OpenClaw 版本(默认 2026.6.9,与既有办公/GUI 数据同版本)", default: "2026.6.9" }
-      node_version: { description: "Node 版本(★须满足所选 OpenClaw 的 engines:6.9 要 >=22.19,9.4 要 >=24.16)", default: "22.19.0" }
+      arm: {description: control or agent, default: control}
+      model: {description: existing model, default: gemini-3.5-flash}
+      steps: {description: maximum model actions per trial, default: '60'}
+permissions:
+  contents: read
 jobs:
-  gui:
+  validate:
     strategy:
       fail-fast: false
+      max-parallel: 3
       matrix:
-        task: ${{ fromJSON(inputs.tasks) }}
-        os: ${{ fromJSON(inputs.oslist) }}
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 90
-    env: { PYTHONUTF8: '1', PYTHONIOENCODING: 'utf-8' }
+        slot: [0, 1, 2]
+    runs-on: ${{ inputs.arm == 'control' && fromJSON('["ubuntu-24.04","macos-15","windows-2022"]')[matrix.slot] || 'ubuntu-24.04' }}
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+        with: {persist-credentials: false}
       - uses: actions/setup-python@v5
-        with: { python-version: '3.12' }
-      - name: restore task lists (from secrets, never committed)
+        with: {python-version: '3.12'}
+      - name: Restore isolated private task package
         shell: bash
         env:
-          GUI_TASKS_B64_1: ${{ secrets.GUI_TASKS_B64_1 }}
-          GUI_TASKS_B64_2: ${{ secrets.GUI_TASKS_B64_2 }}
-        run: python restore_gui_tasks.py
-      - uses: actions/setup-node@v4
-        with: { node-version: '${{ inputs.node_version }}' }
-
-      - name: GUI 通道所需(虚拟显示 + 截图/输入库)
-        if: inputs.channel == 'gui'
-        shell: bash
+          TASK_PACKAGE: ${{ secrets.TOOLSHIFT30_20260915_B64 }}
+          EXPECTED_PACKAGE_SHA256: 99f29bbe0b7ab086919f3a8030914a40e61a5191677adda26ad4eaeb6436400b
         run: |
-          pip install -q mss pyautogui pillow
-          if [ "${{ runner.os }}" = "Linux" ]; then
-            sudo apt-get update -qq && sudo apt-get install -y -qq xvfb x11-utils xauth scrot python3-tk
-            touch "$HOME/.Xauthority"; xauth add :99 . $(head -c 16 /dev/urandom | od -An -tx1 | tr -d ' \n') 2>/dev/null || true
-            Xvfb :99 -screen 0 1920x1080x24 -auth "$HOME/.Xauthority" & sleep 3
-            echo "DISPLAY=:99" >> $GITHUB_ENV; echo "XAUTHORITY=$HOME/.Xauthority" >> $GITHUB_ENV
-          fi
-
-      - name: 官方 metrics 的依赖(办公文档题判分侧,与终端通道用同一套)
-        if: inputs.suite == 'gui30'
+          python - <<'PY'
+          import base64,hashlib,io,os,pathlib,tarfile
+          data=base64.b64decode(os.environ['TASK_PACKAGE'],validate=True)
+          assert hashlib.sha256(data).hexdigest()==os.environ['EXPECTED_PACKAGE_SHA256']
+          root=pathlib.Path('toolshift_private');root.mkdir()
+          with tarfile.open(fileobj=io.BytesIO(data),mode='r:gz') as tar:
+              for member in tar.getmembers():
+                  p=pathlib.PurePosixPath(member.name)
+                  assert not p.is_absolute() and '..' not in p.parts and member.isfile()
+                  dest=root.joinpath(*p.parts);dest.parent.mkdir(parents=True,exist_ok=True)
+                  dest.write_bytes(tar.extractfile(member).read())
+          print('Private package verified:',hashlib.sha256(data).hexdigest())
+          PY
+      - name: Execute controls or model trials
         shell: bash
-        run: pip install -q -r office_requirements.txt
-
-      - name: LibreOffice(GUI 通道跑办公文档题时要真的打开它)
-        if: inputs.suite == 'gui30'
-        shell: bash
-        run: |
-          case "${{ runner.os }}" in
-            Linux)   sudo apt-get install -y -qq libreoffice-calc libreoffice-impress || true ;;
-            macOS)   brew install --cask libreoffice 2>/dev/null || true ;;
-            Windows) choco install libreoffice-fresh -y --no-progress || true ;;
-          esac
-
-      - name: 装 Chrome + VS Code
-        shell: bash
-        run: |
-          set -x
-          case "${{ runner.os }}" in
-            Linux)
-              sudo apt-get update -qq
-              sudo apt-get install -y -qq google-chrome-stable xvfb x11-utils || { wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt-get install -y -qq ./google-chrome-stable_current_amd64.deb xvfb x11-utils; }
-              sudo snap install code --classic 2>/dev/null || { wget -qO code.deb "https://update.code.visualstudio.com/latest/linux-deb-x64/stable" && sudo apt-get install -y -qq ./code.deb; }
-              Xvfb :99 -screen 0 1920x1080x24 & sleep 3; echo "DISPLAY=:99" >> $GITHUB_ENV ;;
-            macOS)
-              brew install --cask google-chrome 2>/dev/null || true
-              brew install --cask visual-studio-code 2>/dev/null || true
-              echo "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" >> $GITHUB_PATH ;;
-            Windows)
-              choco install googlechrome -y --no-progress --ignore-checksums || true
-              choco install vscode -y --no-progress || true
-              echo "C:\Program Files\Microsoft VS Code\bin" >> $GITHUB_PATH ;;
-          esac
-
-      - name: OpenClaw(与代码题同版本)
-        if: inputs.arm == 'openclaw'
-        run: npm install -g openclaw@${{ inputs.oc_version }} 2>&1 | tail -1 && openclaw --version
-
-      - name: 跑题(终端通道)
-        if: inputs.channel != 'gui'
-        shell: bash
-        env: { ENVSHIFT_API_KEY: "${{ secrets.ENVSHIFT_API_KEY }}" }
-        run: python gui_run.py "${{ matrix.task }}" --arm ${{ inputs.arm }} --suite ${{ inputs.suite }} --model "${{ inputs.model }}" 2>&1 | tee gui_log_${{ runner.os }}.txt | tail -30
-
-      - name: 跑题(真 GUI 通道:截图+鼠标键盘)
-        if: inputs.channel == 'gui'
-        shell: bash
-        env: { ENVSHIFT_API_KEY: "${{ secrets.ENVSHIFT_API_KEY }}", DISPLAY: ':99' }
-        run: python gui_run.py "${{ matrix.task }}" --arm ${{ inputs.arm }} --suite ${{ inputs.suite }} --model "${{ inputs.model }}" 2>&1 | tee gui_log_${{ runner.os }}.txt | tail -40
-
-      - name: 打包会话记录
+        env:
+          ENVSHIFT_API_KEY: ${{ inputs.arm == 'agent' && secrets.ENVSHIFT_API_KEY || '' }}
+          EXPECTED_PACKAGE_SHA256: 99f29bbe0b7ab086919f3a8030914a40e61a5191677adda26ad4eaeb6436400b
+          ARM: ${{ inputs.arm }}
+          MODEL: ${{ inputs.model }}
+          STEPS: ${{ inputs.steps }}
+          SLOT: ${{ matrix.slot }}
+          PYTHONIOENCODING: utf-8
+        run: python toolshift_private/run_batch.py --arm "$ARM" --shard "$SLOT" --model "$MODEL" --steps "$STEPS" --out toolshift_evidence
+      - name: Encrypt complete evidence
         if: always()
         shell: bash
-        env: { ARTIFACT_PASS: "${{ secrets.ARTIFACT_PASS }}" }
+        env:
+          TOOLSHIFT_ENCRYPTION_KEY: ${{ secrets.TOOLSHIFT30_20260915_KEY }}
         run: |
-          tar czf gui_out.tgz gui_out 2>/dev/null || true
-          OPENSSL=$(command -v openssl || echo /usr/bin/openssl)
-          [ -f gui_out.tgz ] && "$OPENSSL" enc -aes-256-cbc -pbkdf2 -salt -pass env:ARTIFACT_PASS -in gui_out.tgz -out gui_oc.tgz.enc || true
-          rm -rf gui_out gui_out.tgz 2>/dev/null || true
+          python - <<'PY'
+          import hashlib,json,pathlib,tarfile
+          out=pathlib.Path('toolshift_evidence');out.mkdir(exist_ok=True)
+          hashes={p.relative_to(out).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(out.rglob('*')) if p.is_file() and p.name!='EVIDENCE_SHA256.json'}
+          (out/'EVIDENCE_SHA256.json').write_text(json.dumps(hashes,indent=2))
+          with tarfile.open('evidence.tar.gz','w:gz') as tar:tar.add(out,arcname='evidence')
+          PY
+          mkdir -p encrypted_packet
+          openssl enc -aes-256-cbc -salt -pbkdf2 -iter 200000 -md sha256 -in evidence.tar.gz -out encrypted_packet/evidence.enc -pass env:TOOLSHIFT_ENCRYPTION_KEY
       - uses: actions/upload-artifact@v4
         if: always()
-        with: { name: "gui-${{ matrix.os }}-t${{ matrix.task }}", path: "gui_*" }
+        with:
+          name: toolshift30-${{ inputs.arm }}-slot${{ matrix.slot }}
+          path: encrypted_packet/
+          compression-level: 0
+          retention-days: 30
