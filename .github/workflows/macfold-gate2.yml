@@ -51,3 +51,13 @@ jobs:
           DSH_DIR: ${{ github.workspace }}/dsh
           DSH_MAX_TOKENS: "131072"
         run: python run_one.py --task "${{ matrix.task }}" --arm agent --model "${{ inputs.model }}" --timeout ${{ inputs.timeout }} || true
+      - name: 驱动日志尾部(定位 agent 起没起来)
+        if: always()
+        shell: bash
+        working-directory: macfold
+        run: |
+          D="_out/${{ matrix.task }}-agent"
+          echo "---- driver.log 尾部 ----"
+          tail -c 2000 "$D/driver.log" 2>/dev/null || echo "(无 driver.log)"
+          echo "---- 交付物是否被改过 ----"
+          ls -l "$D" 2>/dev/null | head -8
