@@ -9,7 +9,11 @@ on:
       oslist:
         default: '["ubuntu-24.04","macos-15","windows-2022"]'
       model:
-        default: deepseek-v4.1-flash
+        description: "官网 API 只有 deepseek-flash / deepseek-v4-pro;网关别名 deepseek-v4.1-flash 官网不认"
+        default: deepseek-flash
+      base:
+        description: "API 基址。官网 https://api.deepseek.com/v1;网关 https://api.llmgateway.io/v1"
+        default: https://api.deepseek.com/v1
       timeout:
         default: '1200'
       parallel:
@@ -47,10 +51,10 @@ jobs:
         working-directory: macfold
         env:
           XOS_CELL: ${{ matrix.os }}
-          ENVSHIFT_API_KEY: ${{ secrets.ENVSHIFT_API_KEY }}
+          ENVSHIFT_API_KEY: ${{ secrets.DEEPSEEK_API_KEY || secrets.ENVSHIFT_API_KEY }}
           DSH_DIR: ${{ github.workspace }}/dsh
           DSH_MAX_TOKENS: "131072"
-        run: python run_one.py --task "${{ matrix.task }}" --arm agent --model "${{ inputs.model }}" --timeout ${{ inputs.timeout }} || true
+        run: python run_one.py --task "${{ matrix.task }}" --arm agent --model "${{ inputs.model }}" --base "${{ inputs.base }}" --timeout ${{ inputs.timeout }} || true
       - name: 驱动日志尾部(定位 agent 起没起来)
         if: always()
         shell: bash
