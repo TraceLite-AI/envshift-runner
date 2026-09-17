@@ -1,0 +1,21 @@
+name: absl-probe
+# 找「语言内建抽象在撒谎」的地方:语言层给一个答案、真实状态是另一个。
+# 依据:12 道已确认 badcase 全是这个形状(Path('k')==Path('K') 为真而盘上是两个文件);
+# 而针对文件系统状态的题 0/22 命中——agent 对外部状态有防御,对语言抽象没有。
+on:
+  workflow_dispatch:
+    inputs:
+      oslist: { default: '["ubuntu-24.04","macos-15","windows-2022"]' }
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.oslist) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - shell: bash
+        run: python absl_probe.py
