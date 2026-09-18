@@ -25,16 +25,19 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - name: restore bundle (from secrets, never committed)
-        shell: bash
+      - name: restore bundle (from secrets, never committed; shell=python 绕开 MSYS 路径转换)
+        shell: python
         env:
+          BUNDLE_SHA256: ${{ inputs.bundle_sha256 }}
           GUIB_00: ${{ secrets.GUIB_00 }}
           GUIB_01: ${{ secrets.GUIB_01 }}
           GUIB_02: ${{ secrets.GUIB_02 }}
           GUIB_03: ${{ secrets.GUIB_03 }}
           GUIB_04: ${{ secrets.GUIB_04 }}
           GUIB_05: ${{ secrets.GUIB_05 }}
-        run: python guib_restore.py "${{ inputs.bundle_sha256 }}"
+        run: |
+          import runpy
+          runpy.run_path("guib_restore.py", run_name="__main__")
       - name: install harness deps + validate
         shell: bash
         working-directory: guibench
