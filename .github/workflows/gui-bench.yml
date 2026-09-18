@@ -114,6 +114,8 @@ jobs:
               txt = p.read_text(encoding="utf-8", errors="replace")
               import re
               print("GUILOG %s lines=%d http_errs=%s tracebacks=%d last=%r" % (p.parent.name, txt.count(chr(10)), sorted(set(re.findall(r"HTTP[ _/]?(4\d\d|5\d\d)", txt))), txt.count("Traceback"), txt.strip().splitlines()[-1][:120] if txt.strip() else ""))
+              for ln in txt.splitlines():
+                  if "通道故障" in ln or "NO-API-KEY" in ln: print("GUICHAN " + ln[:220])
           PY
       - name: encrypt evidence
         if: always()
