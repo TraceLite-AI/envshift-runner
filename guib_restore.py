@@ -12,7 +12,11 @@ while True:
     parts.append(v); i += 1
 if not parts:
     print("没有 GUIB_00"); sys.exit(2)
-raw = base64.b64decode("".join(parts))
+import re
+joined = "".join(parts)
+bad = sorted(set(re.findall(r"[^A-Za-z0-9+/=]", joined)))
+print("分片长度 %s 非 base64 字符 %r" % ([len(x) for x in parts], bad[:20]))
+raw = base64.b64decode(re.sub(r"[^A-Za-z0-9+/=]", "", joined))
 got = hashlib.sha256(raw).hexdigest()
 want = (sys.argv[1] if len(sys.argv) > 1 else "").strip()
 print("题包指纹 %s (%d 片)" % (got, len(parts)))

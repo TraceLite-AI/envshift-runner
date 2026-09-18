@@ -90,7 +90,7 @@ jobs:
           for p in sorted(pathlib.Path("runs/benchmark").rglob("result.json")):
               r = json.loads(p.read_text(encoding="utf-8"))
               print("GUIRESULT task=%s os=%s mode=%s status=%s reward=%s valid=%s steps=%s err=%s" % (
-                  r.get("task"), "${{ matrix.os }}", r.get("mode"), r.get("status"), r.get("reward"),
+                  r.get("task") or r.get("task_id"), "${{ matrix.os }}", r.get("mode"), r.get("status"), r.get("reward"),
                   r.get("valid_model_run"), r.get("steps"), str(r.get("error") or r.get("errors") or "")[:160]))
           PY
       - name: encrypt evidence
