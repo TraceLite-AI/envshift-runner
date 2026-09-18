@@ -18,6 +18,9 @@ on:
         default: '1200'
       parallel:
         default: '3'
+      bundle_secret:
+        description: "题包所在 secret 名(换题包时用新名字,别覆盖排队中的旧 run)"
+        default: "MACFOLD_B64"
       bundle_sha256:
         required: true
 jobs:
@@ -39,7 +42,7 @@ jobs:
       - name: restore bundle
         shell: bash
         env:
-          MACFOLD_B64: ${{ secrets.MACFOLD_B64 }}
+          MACFOLD_B64: ${{ secrets[inputs.bundle_secret] }}
         run: python macfold_restore.py "${{ inputs.bundle_sha256 }}" macfold
       - name: install DSH
         shell: bash

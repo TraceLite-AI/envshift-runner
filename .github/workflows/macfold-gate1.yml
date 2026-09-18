@@ -8,6 +8,9 @@ on:
         default: '["ubuntu-24.04","macos-15","windows-2022"]'
       arms:
         default: "oracle,naive"
+      bundle_secret:
+        description: "题包所在 secret 名(换题包时用新名字,别覆盖排队中的旧 run)"
+        default: "MACFOLD_B64"
       bundle_sha256:
         description: "题包 sha256,对不上就退出"
         required: true
@@ -27,7 +30,7 @@ jobs:
       - name: restore bundle
         shell: bash
         env:
-          MACFOLD_B64: ${{ secrets.MACFOLD_B64 }}
+          MACFOLD_B64: ${{ secrets[inputs.bundle_secret] }}
         run: python macfold_restore.py "${{ inputs.bundle_sha256 }}" macfold
       - name: run arms
         shell: bash
