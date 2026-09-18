@@ -8,11 +8,11 @@ for _s in (sys.stdout, sys.stderr):
 parts = []
 i = 0
 while True:
-    v = os.environ.get("GUIB_%02d" % i, "").strip()
+    v = os.environ.get("%s_%02d" % (os.environ.get("BUNDLE_PREFIX", "GUIB"), i), "").strip()
     if not v: break
     parts.append(v); i += 1
 if not parts:
-    print("没有 GUIB_00"); sys.exit(2)
+    print("没有 %s_00" % os.environ.get("BUNDLE_PREFIX", "GUIB")); sys.exit(2)
 import re
 joined = "".join(parts)
 bad = sorted(set(re.findall(r"[^A-Za-z0-9+/=]", joined)))

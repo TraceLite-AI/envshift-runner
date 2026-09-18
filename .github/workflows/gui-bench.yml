@@ -10,6 +10,7 @@ on:
       steps: { description: "动作预算,空=各题默认", default: "" }
       parallel: { description: "max-parallel", default: "3" }
       bundle_sha256: { description: "题包 sha256,对不上就退出", required: true }
+      bundle_prefix: { description: "题包 secret 前缀(GUIB | GUIB2),换题包用新前缀,别覆盖排队中的旧 run", default: "GUIB" }
 jobs:
   gui:
     strategy:
@@ -29,6 +30,13 @@ jobs:
         shell: python
         env:
           BUNDLE_SHA256: ${{ inputs.bundle_sha256 }}
+          BUNDLE_PREFIX: ${{ inputs.bundle_prefix }}
+          GUIB2_00: ${{ secrets.GUIB2_00 }}
+          GUIB2_01: ${{ secrets.GUIB2_01 }}
+          GUIB2_02: ${{ secrets.GUIB2_02 }}
+          GUIB2_03: ${{ secrets.GUIB2_03 }}
+          GUIB2_04: ${{ secrets.GUIB2_04 }}
+          GUIB2_05: ${{ secrets.GUIB2_05 }}
           GUIB_00: ${{ secrets.GUIB_00 }}
           GUIB_01: ${{ secrets.GUIB_01 }}
           GUIB_02: ${{ secrets.GUIB_02 }}
