@@ -95,6 +95,17 @@ jobs:
               print("GUIRESULT task=%s os=%s mode=%s status=%s reward=%s valid=%s steps=%s err=%s" % (
                   r.get("task") or r.get("task_id"), "${{ matrix.os }}", r.get("mode"), r.get("status"), r.get("reward"),
                   r.get("valid_model_run"), r.get("steps"), str(r.get("error") or r.get("errors") or "")[:160]))
+          # 装置诊断(只打结构字段,不打题面/模型文本):meta.json 与 loop.json
+          for p in sorted(pathlib.Path("runs").rglob("meta.json")):
+              m = json.loads(p.read_text(encoding="utf-8"))
+              print("GUIMETA " + json.dumps({k: m.get(k) for k in ("task","arm","model_rc","timeout","steps","channel_fail","blind_steps","valid_model_run","reward")}, ensure_ascii=False))
+          for p in sorted(pathlib.Path("runs").rglob("loop.json")):
+              l = json.loads(p.read_text(encoding="utf-8"))
+              print("GUILOOP " + json.dumps({k: l.get(k) for k in ("steps","channel_fail","blind_steps","tool_version","http_errors","errors","stop_reason","finish")}, ensure_ascii=False)[:400])
+          for p in sorted(pathlib.Path("runs").rglob("agent.log")):
+              txt = p.read_text(encoding="utf-8", errors="replace")
+              import re
+              print("GUILOG %s lines=%d http_errs=%s tracebacks=%d last=%r" % (p.parent.name, txt.count(chr(10)), sorted(set(re.findall(r"HTTP[ _/]?(4\d\d|5\d\d)", txt))), txt.count("Traceback"), txt.strip().splitlines()[-1][:120] if txt.strip() else ""))
           PY
       - name: encrypt evidence
         if: always()
