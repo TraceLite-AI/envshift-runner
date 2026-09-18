@@ -26,5 +26,6 @@ if want and got != want:
 dest = pathlib.Path("guibench")
 with tarfile.open(fileobj=io.BytesIO(raw), mode="r:xz") as t:
     t.extractall(".")
-pathlib.Path("gui_export").rename(dest)
+src = next(p for p in pathlib.Path(".").glob("gui_export*") if p.is_dir())
+src.rename(dest)
 print("还原题目 %d 道" % len(list((dest / "tasks").glob("G*"))))
