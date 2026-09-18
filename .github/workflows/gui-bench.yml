@@ -111,7 +111,7 @@ jobs:
         if: always()
         shell: bash
         working-directory: guibench
-        env: { ARTIFACT_PASS: "${{ secrets.ARTIFACT_PASS }}" }
+        env: { ARTIFACT_PASS: "${{ secrets.GUIB_PASS }}" }
         run: |
           tar czf ../runs.tgz runs 2>/dev/null || true
           OPENSSL=$(command -v openssl || echo /usr/bin/openssl)
