@@ -48,7 +48,7 @@ for tag, newname in VARIANTS:
     R[tag] = info
     try:
         if sys.platform == "darwin": subprocess.run(["osascript", "-e", 'tell application "Finder" to close every window'], capture_output=True)
-        elif os.name == "nt": subprocess.run(["taskkill", "/F", "/IM", "explorer.exe"], capture_output=True); time.sleep(2); subprocess.Popen(["explorer.exe"]); time.sleep(3)
+        elif os.name == "nt": pyautogui.hotkey("alt", "f4"); time.sleep(2)   # 只关窗口,别杀 explorer(杀了桌面壳,后续窗口起不来)
         else: subprocess.run(["pkill", "-f", "nautilus"], capture_output=True)
     except Exception: pass
     time.sleep(1)
