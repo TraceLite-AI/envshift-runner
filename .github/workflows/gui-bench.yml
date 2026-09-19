@@ -58,7 +58,7 @@ jobs:
         working-directory: guibench
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq xvfb xauth x11-utils scrot python3-tk openbox dbus-x11
+          sudo apt-get install -y -qq xvfb xauth x11-utils scrot python3-tk openbox dbus-x11 gedit
           if ! command -v google-chrome >/dev/null && ! command -v google-chrome-stable >/dev/null; then
             curl -fsSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o "$RUNNER_TEMP/envshift-chrome.deb"
             sudo apt-get install -y "$RUNNER_TEMP/envshift-chrome.deb"
