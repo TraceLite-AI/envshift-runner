@@ -10,7 +10,7 @@ on:
       steps: { description: "动作预算,空=各题默认", default: "" }
       parallel: { description: "max-parallel", default: "3" }
       bundle_sha256: { description: "题包 sha256,对不上就退出", required: true }
-      bundle_prefix: { description: "题包 secret 前缀(GUIB | GUIB2),换题包用新前缀,别覆盖排队中的旧 run", default: "GUIB" }
+      bundle_prefix: { description: "题包 secret 前缀(GUIB | GUIB2 | GUIB3),换题包用新前缀,别覆盖排队中的旧 run", default: "GUIB" }
 jobs:
   gui:
     strategy:
@@ -31,6 +31,10 @@ jobs:
         env:
           BUNDLE_SHA256: ${{ inputs.bundle_sha256 }}
           BUNDLE_PREFIX: ${{ inputs.bundle_prefix }}
+          GUIB3_00: ${{ secrets.GUIB3_00 }}
+          GUIB3_01: ${{ secrets.GUIB3_01 }}
+          GUIB3_02: ${{ secrets.GUIB3_02 }}
+          GUIB3_03: ${{ secrets.GUIB3_03 }}
           GUIB2_00: ${{ secrets.GUIB2_00 }}
           GUIB2_01: ${{ secrets.GUIB2_01 }}
           GUIB2_02: ${{ secrets.GUIB2_02 }}
@@ -58,7 +62,7 @@ jobs:
         working-directory: guibench
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq xvfb xauth x11-utils scrot python3-tk openbox dbus-x11 gedit
+          sudo apt-get install -y -qq xvfb xauth x11-utils scrot python3-tk openbox dbus-x11 gedit nautilus
           if ! command -v google-chrome >/dev/null && ! command -v google-chrome-stable >/dev/null; then
             curl -fsSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o "$RUNNER_TEMP/envshift-chrome.deb"
             sudo apt-get install -y "$RUNNER_TEMP/envshift-chrome.deb"
