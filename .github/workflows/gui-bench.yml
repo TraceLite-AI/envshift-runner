@@ -31,6 +31,10 @@ jobs:
         env:
           BUNDLE_SHA256: ${{ inputs.bundle_sha256 }}
           BUNDLE_PREFIX: ${{ inputs.bundle_prefix }}
+          GUIB4_00: ${{ secrets.GUIB4_00 }}
+          GUIB4_01: ${{ secrets.GUIB4_01 }}
+          GUIB4_02: ${{ secrets.GUIB4_02 }}
+          GUIB4_03: ${{ secrets.GUIB4_03 }}
           GUIB3_00: ${{ secrets.GUIB3_00 }}
           GUIB3_01: ${{ secrets.GUIB3_01 }}
           GUIB3_02: ${{ secrets.GUIB3_02 }}
