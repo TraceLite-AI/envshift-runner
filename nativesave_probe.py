@@ -26,12 +26,15 @@ def launch():
         p = subprocess.Popen(["gedit", "--new-window"]); time.sleep(5)
     return p
 R = {"platform": sys.platform, "release": platform.platform(), "docs": str(DOCS)}
-for tag, name in (("csv", "probe1.csv"), ("json", "probe2.json"), ("noext", "probe3")):
+TRIALS = [("csv", "probe1.csv"), ("json", "probe2.json"), ("noext", "probe3")]
+if sys.platform == "darwin": TRIALS += [("csv-plain", "probe4.csv"), ("noext-plain", "probe5")]
+for tag, name in TRIALS:
     try:
         proc = launch(); shot(tag + "-0-launched")
         pyautogui.click(600, 400); time.sleep(.5)
+        if tag.endswith("-plain"): pyautogui.hotkey("command", "shift", "t"); time.sleep(1)   # TextEdit: Make Plain Text
         pyautogui.typewrite(TEXT.replace(chr(0xE9), "e"), interval=.03); time.sleep(.5)   # ASCII 输入,避开输入法
-        if sys.platform == "darwin": pyautogui.hotkey("command", "shift", "s")            # TextEdit: Save As
+        if sys.platform == "darwin": pyautogui.hotkey("command", "s")                     # 新文档 Cmd+S 即弹保存表
         else: pyautogui.hotkey("ctrl", "shift", "s") if os.name != "nt" else pyautogui.hotkey("ctrl", "s")
         time.sleep(2.5); shot(tag + "-1-dialog")
         target = str(DOCS / name)
