@@ -14,7 +14,8 @@ R = {"platform": sys.platform}
 VARIANTS = [("full", "data_old.csv"), ("stem", "data_old"), ("newext", "data_old.txt")]
 for tag, newname in VARIANTS:
     for p in D.iterdir(): p.unlink()
-    (D / "data.csv").write_bytes(b"a,b\n1,2\n"); (D / "zz-other.txt").write_bytes(b"x")
+    (D / "data.csv").write_bytes(b"a,b\n1,2\n")
+    if os.name != "nt": (D / "zz-other.txt").write_bytes(b"x")   # Windows 只放一个文件,避免批量改名
     info = {"typed": newname}
     try:
         if sys.platform == "darwin":
@@ -28,8 +29,12 @@ for tag, newname in VARIANTS:
                 pyautogui.press("enter"); time.sleep(1.5); shot(tag + "-4-after-dialog")
         elif os.name == "nt":
             subprocess.Popen(["explorer.exe", str(D)]); time.sleep(5)
-            pyautogui.click(600, 400); time.sleep(.5); pyautogui.hotkey("ctrl", "a"); time.sleep(.3)   # 先全选再点第一项
-            pyautogui.press("home"); time.sleep(.5); shot(tag + "-0-selected")
+            pyautogui.click(600, 400); time.sleep(.5); pyautogui.hotkey("ctrl", "a"); time.sleep(.5); shot(tag + "-0-selected")
+            if tag == "full":
+                import winreg
+                try:
+                    k = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"); info["HideFileExt"] = winreg.QueryValueEx(k, "HideFileExt")[0]
+                except Exception as e: info["HideFileExt"] = str(e)
             pyautogui.press("f2"); time.sleep(1); shot(tag + "-1-editing")
             pyautogui.hotkey("ctrl", "a"); pyautogui.typewrite(newname, interval=.04); time.sleep(.5); shot(tag + "-2-typed"); pyautogui.press("enter"); time.sleep(2); shot(tag + "-3-after")
         else:
