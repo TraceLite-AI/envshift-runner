@@ -63,6 +63,40 @@ jobs:
           DSH_MAX_TOKENS: "131072"
           DSH_THINKING: ${{ inputs.thinking }}
         run: python run_one.py --task "${{ matrix.task }}" --arm agent --model "${{ inputs.model }}" --base "${{ inputs.base }}" --timeout ${{ inputs.timeout }} || true
+      - name: 打包并加密轨迹(driver.log / trace.jsonl / final.json / verifier 日志 / 交付物)
+        # ★此前 gate2 只留 2000 字 driver.log 尾部,53 道 deepseek 题的逐步轨迹没有保住(2026-09-20 发现)。
+        #   从这一步起每格都上传加密产物;口令 = GUIB_PASS(与 GUI 产物同一份 .artifact-pass)。
+        if: always()
+        shell: python
+        working-directory: macfold
+        env:
+          ARTIFACT_PASS: ${{ secrets.GUIB_PASS }}
+          CELL_TASK: ${{ matrix.task }}
+          CELL_OS: ${{ matrix.os }}
+        run: |
+          import os, pathlib, subprocess, tarfile
+          d = pathlib.Path("_out") / (os.environ["CELL_TASK"] + "-agent")
+          if not d.exists():
+              raise SystemExit("no _out dir; setup failure")
+          keep = []
+          for f in ("driver.log", "trace.jsonl", "final.json", "stderr.txt", "verifier.log", "fixture.log", "meta.json"):
+              if (d / f).exists(): keep.append(d / f)
+          keep += list((d / "verifier-log").glob("*")) if (d / "verifier-log").exists() else []
+          with tarfile.open("cell.tgz", "w:gz") as tf:
+              for f in keep: tf.add(f, arcname=f.relative_to(d).as_posix())
+              app = pathlib.Path("_app")
+              if app.exists(): tf.add(app, arcname="delivered")
+          if not os.environ.get("ARTIFACT_PASS"):
+              raise SystemExit("missing GUIB_PASS")
+          subprocess.run(["openssl", "enc", "-aes-256-cbc", "-pbkdf2", "-salt", "-pass", "env:ARTIFACT_PASS", "-in", "cell.tgz", "-out", "cell.enc"], check=True)
+          pathlib.Path("cell.tgz").unlink()
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gate2-${{ matrix.task }}-${{ matrix.os }}-${{ github.run_id }}
+          path: macfold/cell.enc
+          retention-days: 90
+          if-no-files-found: warn
       - name: 驱动日志尾部(定位 agent 起没起来)
         if: always()
         shell: bash
