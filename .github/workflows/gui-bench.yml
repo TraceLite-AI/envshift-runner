@@ -7,6 +7,8 @@ on:
       oslist: { description: "runner 列表(JSON 数组)", default: '["ubuntu-24.04","macos-15","windows-2022"]' }
       mode: { description: "reference | agent", default: "reference" }
       model: { description: "内置 GUI agent 模型", default: "deepseek-flash" }
+      api_base: { description: "OpenAI 兼容 base(deepseek 官网 https://api.deepseek.com;computrix https://maas-api.computrix.ai/v1)", default: "https://api.deepseek.com" }
+      key_secret: { description: "API key 所在 secret 名", default: "DEEPSEEK_API_KEY" }
       steps: { description: "动作预算,空=各题默认", default: "" }
       parallel: { description: "max-parallel", default: "3" }
       bundle_sha256: { description: "题包 sha256,对不上就退出", required: true }
@@ -109,8 +111,9 @@ jobs:
           BENCH_MODEL: ${{ inputs.model }}
           BENCH_STEPS: ${{ inputs.steps }}
           BUNDLE_SHA256: ${{ inputs.bundle_sha256 }}
-          DEEPSEEK_API_KEY: ${{ inputs.mode == 'agent' && secrets.DEEPSEEK_API_KEY || '' }}
-          ENVSHIFT_API_BASE: https://api.deepseek.com
+          DEEPSEEK_API_KEY: ${{ inputs.mode == 'agent' && secrets[inputs.key_secret] || '' }}
+          ENVSHIFT_API_KEY: ${{ inputs.mode == 'agent' && secrets[inputs.key_secret] || '' }}
+          ENVSHIFT_API_BASE: ${{ inputs.api_base }}
           ENVSHIFT_THINKING: enabled
           ENVSHIFT_REASONING_EFFORT: high
           ENVSHIFT_MAX_TOKENS: '8192'

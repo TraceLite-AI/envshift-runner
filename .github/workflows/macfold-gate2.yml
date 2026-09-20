@@ -11,6 +11,7 @@ on:
       model:
         description: "官网 API 只有 deepseek-flash / deepseek-v4-pro;网关别名 deepseek-v4.1-flash 官网不认"
         default: deepseek-flash
+      key_secret: { description: "API key 所在 secret 名(DEEPSEEK_API_KEY | COMPUTRIX_API_KEY | ENVSHIFT_API_KEY)", default: "DEEPSEEK_API_KEY" }
       base:
         description: "API 基址。官网 https://api.deepseek.com/v1;网关 https://api.llmgateway.io/v1"
         default: https://api.deepseek.com/v1
@@ -54,7 +55,7 @@ jobs:
         working-directory: macfold
         env:
           XOS_CELL: ${{ matrix.os }}
-          ENVSHIFT_API_KEY: ${{ secrets.DEEPSEEK_API_KEY || secrets.ENVSHIFT_API_KEY }}
+          ENVSHIFT_API_KEY: ${{ secrets[inputs.key_secret] }}
           DSH_DIR: ${{ github.workspace }}/dsh
           DSH_MAX_TOKENS: "131072"
         run: python run_one.py --task "${{ matrix.task }}" --arm agent --model "${{ inputs.model }}" --base "${{ inputs.base }}" --timeout ${{ inputs.timeout }} || true
