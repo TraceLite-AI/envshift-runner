@@ -13,6 +13,7 @@ on:
       parallel: { description: "max-parallel", default: "3" }
       bundle_sha256: { description: "题包 sha256,对不上就退出", required: true }
       bundle_prefix: { description: "题包 secret 前缀(GUIB | GUIB2 | GUIB3),换题包用新前缀,别覆盖排队中的旧 run", default: "GUIB" }
+      thinking: { description: "enabled(默认,DeepSeek 官网 thinking+effort high)| off(不发 thinking/reasoning_effort 字段;computrix 上跑 gpt/claude 必须 off)", default: "enabled" }
 jobs:
   gui:
     strategy:
@@ -63,6 +64,10 @@ jobs:
           GUIB2_03: ${{ secrets.GUIB2_03 }}
           GUIB2_04: ${{ secrets.GUIB2_04 }}
           GUIB2_05: ${{ secrets.GUIB2_05 }}
+          GUIB9_00: ${{ secrets.GUIB9_00 }}
+          GUIB9_01: ${{ secrets.GUIB9_01 }}
+          GUIB9_02: ${{ secrets.GUIB9_02 }}
+          GUIB9_03: ${{ secrets.GUIB9_03 }}
           GUIB_00: ${{ secrets.GUIB_00 }}
           GUIB_01: ${{ secrets.GUIB_01 }}
           GUIB_02: ${{ secrets.GUIB_02 }}
@@ -114,7 +119,7 @@ jobs:
           DEEPSEEK_API_KEY: ${{ inputs.mode == 'agent' && secrets[inputs.key_secret] || '' }}
           ENVSHIFT_API_KEY: ${{ inputs.mode == 'agent' && secrets[inputs.key_secret] || '' }}
           ENVSHIFT_API_BASE: ${{ inputs.api_base }}
-          ENVSHIFT_THINKING: enabled
+          ENVSHIFT_THINKING: ${{ inputs.thinking }}
           ENVSHIFT_REASONING_EFFORT: high
           ENVSHIFT_MAX_TOKENS: '8192'
         run: |

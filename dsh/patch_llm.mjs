@@ -14,8 +14,10 @@
 // DeepSeek 官网从不发空名增量,这条对官网路径无行为差异。
 import fs from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const here = path.dirname(new URL(import.meta.url).pathname)
+// ★Windows 上 new URL(...).pathname 是 '/D:/a/...',再 path.join 会拼成 'D:\D:\a\...'(冒烟一次坐实);用 fileURLToPath
+const here = path.dirname(fileURLToPath(import.meta.url))
 const target = path.join(here, 'node_modules/@deepseek-ai/dsh-llm-deepseek/lib/index.js')
 const PATCHES = [
   {
