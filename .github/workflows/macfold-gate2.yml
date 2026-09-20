@@ -13,7 +13,7 @@ on:
         default: deepseek-flash
       key_secret: { description: "API key 所在 secret 名(DEEPSEEK_API_KEY | COMPUTRIX_API_KEY | ENVSHIFT_API_KEY)", default: "DEEPSEEK_API_KEY" }
       thinking: { description: "(dsh)on=DeepSeek 官网 thinking+reasoning_effort high(既有结果同请求体);off=两字段不上线(computrix 上跑非 DeepSeek 模型必须 off,见 dsh/patch_llm.mjs)", default: "on" }
-      harness: { description: "agent 用哪套 harness:dsh | openclaw(npm -g 装 OpenClaw,OpenAI 兼容 provider,--thinking off)", default: "dsh" }
+      harness: { description: "agent 用哪套 harness:dsh | openclaw(npm -g 装 OpenClaw) | envshift(自建最小工具循环,随题包 envshift_agent.py,不装任何东西)", default: "dsh" }
       oc_version: { description: "(openclaw)OpenClaw 版本,闸门 2026.9.4;Node 自动用 24.16.0", default: "2026.9.4" }
       base:
         description: "API 基址。官网 https://api.deepseek.com/v1;网关 https://api.llmgateway.io/v1"
@@ -53,7 +53,7 @@ jobs:
         shell: bash
         run: npm install -g openclaw@${{ inputs.oc_version }} 2>&1 | tail -1 && node "$(npm root -g)/openclaw/openclaw.mjs" --version
       - name: install DSH
-        if: ${{ inputs.harness != 'openclaw' }}
+        if: ${{ inputs.harness == 'dsh' }}
         shell: bash
         working-directory: dsh
         env: { NODE_OPTIONS: --max-old-space-size=4096 }
@@ -86,7 +86,7 @@ jobs:
           if not d.exists():
               raise SystemExit("no _out dir; setup failure")
           keep = []
-          for f in ("driver.log", "trace.jsonl", "final.json", "stderr.txt", "verifier.log", "fixture.log", "meta.json", "agent.json", "agent.stderr", "gateway.log"):
+          for f in ("driver.log", "driver.stdout", "trace.jsonl", "final.json", "stderr.txt", "verifier.log", "fixture.log", "meta.json", "agent.json", "agent.stderr", "gateway.log"):
               if (d / f).exists(): keep.append(d / f)
           keep += list((d / "verifier-log").glob("*")) if (d / "verifier-log").exists() else []
           keep += [q for q in (d / "oc-state").rglob("*") if q.is_file()] if (d / "oc-state").exists() else []  # OpenClaw 会话记录(轨迹)
