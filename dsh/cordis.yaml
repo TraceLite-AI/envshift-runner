@@ -3,6 +3,8 @@
 
 - id: llm-deepseek
   name: '@deepseek-ai/dsh-llm-deepseek'
+  # 跑 OpenAI 兼容网关上的非 DeepSeek 模型时用 DSH_THINKING=off 关掉这两个字段的上线(见 patch_llm.mjs);
+  # 这里的配置改不了线上字段,故保持原样,DeepSeek 官网路径与既有结果同请求体。
   config:
     thinking: enabled
     reasoningEffort: high

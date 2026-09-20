@@ -36,6 +36,7 @@ jobs:
         env: { NODE_OPTIONS: --max-old-space-size=4096 }
         run: |
           npm ci --no-audit --no-fund 2>&1 | tail -1
+          node patch_llm.mjs
           mkdir -p ../kit/node/bin && cp bridge.mjs cordis.yaml drive_dsh.py ../kit/ && cp -r node_modules ../kit/ && cp "$(which node)" ../kit/node/bin/node
       - name: assemble OpenClaw kit for this architecture (harness=openclaw, same version as HarnessBench)
         if: ${{ inputs.harness == 'openclaw' }}

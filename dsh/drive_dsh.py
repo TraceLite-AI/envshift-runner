@@ -26,6 +26,8 @@ def main():
         "DSH_PERMISSION_MODE": "danger-full-access",
         "DEEPSEEK_BASE_URL": base_url,
         "DEEPSEEK_API_KEY": api_key,
+        # on(默认)=thinking enabled + reasoning_effort high(DeepSeek 官网);off=两字段都不上线(OpenAI 兼容网关跑其他模型)
+        "DSH_THINKING": os.environ.get("DSH_THINKING", "on"),
     }
     for _k in os.environ.get("ENVSHIFT_PASSTHROUGH", "").split(","):
         _k = _k.strip()

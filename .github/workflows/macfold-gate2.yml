@@ -12,6 +12,7 @@ on:
         description: "官网 API 只有 deepseek-flash / deepseek-v4-pro;网关别名 deepseek-v4.1-flash 官网不认"
         default: deepseek-flash
       key_secret: { description: "API key 所在 secret 名(DEEPSEEK_API_KEY | COMPUTRIX_API_KEY | ENVSHIFT_API_KEY)", default: "DEEPSEEK_API_KEY" }
+      thinking: { description: "on=DeepSeek 官网 thinking+reasoning_effort high(既有结果同请求体);off=两字段不上线(computrix 上跑非 DeepSeek 模型必须 off,见 dsh/patch_llm.mjs)", default: "on" }
       base:
         description: "API 基址。官网 https://api.deepseek.com/v1;网关 https://api.llmgateway.io/v1"
         default: https://api.deepseek.com/v1
@@ -49,7 +50,9 @@ jobs:
         shell: bash
         working-directory: dsh
         env: { NODE_OPTIONS: --max-old-space-size=4096 }
-        run: npm ci --no-audit --no-fund 2>&1 | tail -2
+        run: |
+          npm ci --no-audit --no-fund 2>&1 | tail -2
+          node patch_llm.mjs
       - name: run agent
         shell: bash
         working-directory: macfold
@@ -58,6 +61,7 @@ jobs:
           ENVSHIFT_API_KEY: ${{ secrets[inputs.key_secret] }}
           DSH_DIR: ${{ github.workspace }}/dsh
           DSH_MAX_TOKENS: "131072"
+          DSH_THINKING: ${{ inputs.thinking }}
         run: python run_one.py --task "${{ matrix.task }}" --arm agent --model "${{ inputs.model }}" --base "${{ inputs.base }}" --timeout ${{ inputs.timeout }} || true
       - name: 驱动日志尾部(定位 agent 起没起来)
         if: always()

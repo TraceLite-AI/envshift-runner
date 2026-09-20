@@ -57,7 +57,9 @@ jobs:
         shell: bash
         working-directory: dsh
         env: { NODE_OPTIONS: --max-old-space-size=4096 }
-        run: npm ci --no-audit --no-fund 2>&1 | tail -2
+        run: |
+          npm ci --no-audit --no-fund 2>&1 | tail -2
+          node patch_llm.mjs
       - name: 跑一格
         shell: bash
         working-directory: tb

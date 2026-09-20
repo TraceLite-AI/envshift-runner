@@ -92,7 +92,9 @@ jobs:
         shell: bash
         working-directory: dsh
         env: { NODE_OPTIONS: --max-old-space-size=4096 }
-        run: npm ci --no-audit --no-fund 2>&1 | tail -1
+        run: |
+          npm ci --no-audit --no-fund 2>&1 | tail -1
+          node patch_llm.mjs
       - name: prepare roots
         shell: bash
         run: |
