@@ -90,13 +90,20 @@ for i in range(6):
     if approved and "pending" not in run(["nodes", "status"]).lower():
         break
     time.sleep(6)
+# v3 结论:Linux/Windows 的 node 已宣告 computer.act + screen.snapshot,但 agent 说自己工具集里没有 computer——
+#   批准后 node 要重连、gateway 才把能力算进工具目录;agent 起得太早。等一等,再直接用 CLI 调一次 screen.snapshot 验驱动。
+time.sleep(45)
 run(["nodes", "status"])
-run(["nodes", "status", "--json"])
 run(["nodes", "describe", "--node", "probe-node"])
+run(["nodes", "invoke", "--node", "probe-node", "--command", "screen.snapshot", "--params", "{}"], timeout=120, label="nodes invoke screen.snapshot")
 # 最后:让模型自己用 computer 工具
 prompt = ("You have a `computer` tool. Use it exactly once to take a screenshot of the desktop, then reply with one line: "
           "the screenshot width and height in pixels and the names of any windows you can see. Do not click or type anything.")
-run(["agent", "--session-id", "cu-probe", "--message", prompt, "--thinking", "off", "--timeout", "300", "--json"], timeout=420, label="agent")
+out = run(["agent", "--session-id", "cu-probe", "--message", prompt, "--thinking", "off", "--timeout", "300", "--json"], timeout=420, label="agent")
+if "frameId" not in out and "width" not in out.lower():
+    print("first agent attempt saw no computer tool; waiting 60s and retrying in a fresh session")
+    time.sleep(60); run(["nodes", "describe", "--node", "probe-node"])
+    run(["agent", "--session-id", "cu-probe-2", "--message", prompt, "--thinking", "off", "--timeout", "300", "--json"], timeout=420, label="agent2")
 try:
     aj = (outdir / "agent.log").read_text(encoding="utf-8")
     print("AGENT-USED-COMPUTER-TOOL:", ("computer" in aj and ("screenshot" in aj or "frameId" in aj)))
