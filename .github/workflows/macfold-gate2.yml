@@ -12,7 +12,9 @@ on:
         description: "官网 API 只有 deepseek-flash / deepseek-v4-pro;网关别名 deepseek-v4.1-flash 官网不认"
         default: deepseek-flash
       key_secret: { description: "API key 所在 secret 名(DEEPSEEK_API_KEY | COMPUTRIX_API_KEY | ENVSHIFT_API_KEY)", default: "DEEPSEEK_API_KEY" }
-      thinking: { description: "on=DeepSeek 官网 thinking+reasoning_effort high(既有结果同请求体);off=两字段不上线(computrix 上跑非 DeepSeek 模型必须 off,见 dsh/patch_llm.mjs)", default: "on" }
+      thinking: { description: "(dsh)on=DeepSeek 官网 thinking+reasoning_effort high(既有结果同请求体);off=两字段不上线(computrix 上跑非 DeepSeek 模型必须 off,见 dsh/patch_llm.mjs)", default: "on" }
+      harness: { description: "agent 用哪套 harness:dsh | openclaw(npm -g 装 OpenClaw,OpenAI 兼容 provider,--thinking off)", default: "dsh" }
+      oc_version: { description: "(openclaw)OpenClaw 版本,闸门 2026.9.4;Node 自动用 24.16.0", default: "2026.9.4" }
       base:
         description: "API 基址。官网 https://api.deepseek.com/v1;网关 https://api.llmgateway.io/v1"
         default: https://api.deepseek.com/v1
@@ -38,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: '22.17.0' }
+        with: { node-version: "${{ inputs.harness == 'openclaw' && '24.16.0' || '22.17.0' }}" }
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
       - name: restore bundle
@@ -46,7 +48,12 @@ jobs:
         env:
           MACFOLD_B64: ${{ secrets[inputs.bundle_secret] }}
         run: python macfold_restore.py "${{ inputs.bundle_sha256 }}" macfold
+      - name: install OpenClaw (harness=openclaw)
+        if: ${{ inputs.harness == 'openclaw' }}
+        shell: bash
+        run: npm install -g openclaw@${{ inputs.oc_version }} 2>&1 | tail -1 && node "$(npm root -g)/openclaw/openclaw.mjs" --version
       - name: install DSH
+        if: ${{ inputs.harness != 'openclaw' }}
         shell: bash
         working-directory: dsh
         env: { NODE_OPTIONS: --max-old-space-size=4096 }
@@ -62,7 +69,7 @@ jobs:
           DSH_DIR: ${{ github.workspace }}/dsh
           DSH_MAX_TOKENS: "131072"
           DSH_THINKING: ${{ inputs.thinking }}
-        run: python run_one.py --task "${{ matrix.task }}" --arm agent --model "${{ inputs.model }}" --base "${{ inputs.base }}" --timeout ${{ inputs.timeout }} || true
+        run: python run_one.py --task "${{ matrix.task }}" --arm agent --harness "${{ inputs.harness }}" --model "${{ inputs.model }}" --base "${{ inputs.base }}" --timeout ${{ inputs.timeout }} || true
       - name: 打包并加密轨迹(driver.log / trace.jsonl / final.json / verifier 日志 / 交付物)
         # ★此前 gate2 只留 2000 字 driver.log 尾部,53 道 deepseek 题的逐步轨迹没有保住(2026-09-20 发现)。
         #   从这一步起每格都上传加密产物;口令 = GUIB_PASS(与 GUI 产物同一份 .artifact-pass)。
@@ -79,9 +86,10 @@ jobs:
           if not d.exists():
               raise SystemExit("no _out dir; setup failure")
           keep = []
-          for f in ("driver.log", "trace.jsonl", "final.json", "stderr.txt", "verifier.log", "fixture.log", "meta.json"):
+          for f in ("driver.log", "trace.jsonl", "final.json", "stderr.txt", "verifier.log", "fixture.log", "meta.json", "agent.json", "agent.stderr", "gateway.log"):
               if (d / f).exists(): keep.append(d / f)
           keep += list((d / "verifier-log").glob("*")) if (d / "verifier-log").exists() else []
+          keep += [q for q in (d / "oc-state").rglob("*") if q.is_file()] if (d / "oc-state").exists() else []  # OpenClaw 会话记录(轨迹)
           with tarfile.open("cell.tgz", "w:gz") as tf:
               for f in keep: tf.add(f, arcname=f.relative_to(d).as_posix())
               app = pathlib.Path("_app")
