@@ -25,8 +25,13 @@ ws = outdir / "ws"; ws.mkdir(exist_ok=True)
 cfg = {"models": {"providers": {"gw": {"baseUrl": base, "apiKey": key, "api": "openai-completions", "models": [{"id": model, "name": model}]}}},
        "agents": {"defaults": {"workspace": str(ws).replace("\\", "/"), "model": {"primary": f"gw/{model}"}, "models": {f"gw/{model}": {"alias": model}}}},
        "gateway": {"mode": "local", "bind": "loopback", "port": 18789, "auth": {"mode": "token", "token": token}},
-       "tools": {"alsoAllow": ["computer"], "deny": ["web_search", "web_fetch", "browser"]}}
+       "tools": {"alsoAllow": ["computer"], "deny": ["web_search", "web_fetch", "browser"]},
+       # 直接在配置里启用插件:`openclaw plugins enable` 会改写配置文件,第一版探针里改写后 gateway 报 "missing gateway.mode" 起不来
+       "plugins": {"entries": {"cua-computer": {"enabled": True}}}}
+cfg["agents"]["defaults"]["skipBootstrap"] = True   # 关掉首次运行的"给我起名"bootstrap 回合
 (st / "openclaw.json").write_text(json.dumps(cfg), encoding="utf-8")
+def rewrite_cfg():
+    (st / "openclaw.json").write_text(json.dumps(cfg), encoding="utf-8")
 env = dict(os.environ, HOME=str(home), USERPROFILE=str(home), OPENCLAW_STATE_DIR=str(st), OPENCLAW_CONFIG_PATH=str(st / "openclaw.json"),
            OPENCLAW_CONFIG=str(st / "openclaw.json"), OPENCLAW_WORKSPACE_DIR=str(ws), OPENCLAW_GATEWAY_TOKEN=token,
            OPENCLAW_EXEC_SHELL_SNAPSHOT="off", NO_PROXY="127.0.0.1,localhost", no_proxy="127.0.0.1,localhost")
@@ -54,9 +59,10 @@ def run(args, timeout=120, label=None):
 
 print("PLATFORM", platform.platform(), "| DISPLAY", os.environ.get("DISPLAY"), "| oc", oc[1])
 run(["--version"])
-run(["plugins", "enable", "cua-computer"])
 run(["plugins", "list"])
 run(["doctor", "--lint", "--only", "cua-computer/driver-artifacts"], timeout=300)
+print("config after CLI calls has gateway.mode:", "gateway" in json.loads((st / "openclaw.json").read_text()) and "mode" in json.loads((st / "openclaw.json").read_text())["gateway"])
+rewrite_cfg()
 
 gw = subprocess.Popen(oc + ["gateway", "run", "--bind", "loopback", "--port", "18789", "--auth", "token"],
                       stdout=open(outdir / "gateway.log", "w"), stderr=subprocess.STDOUT, env=env, cwd=str(ws))
