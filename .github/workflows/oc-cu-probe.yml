@@ -1,0 +1,62 @@
+name: oc-cu-probe
+# 探针:OpenClaw 2026.9.4 的 computer 工具(截图+键鼠)在三台 GitHub 托管 runner 上能不能起来。不跑题,不进成绩。
+on:
+  workflow_dispatch:
+    inputs:
+      oslist: { description: "runner 列表", default: '["ubuntu-24.04","macos-15","windows-2022"]' }
+      oc_version: { description: "OpenClaw 版本", default: "2026.9.4" }
+      model: { description: "带视觉的模型", default: "kimi-k3" }
+      base: { description: "OpenAI 兼容基址", default: "https://maas-api.computrix.ai/v1" }
+      key_secret: { description: "key 所在 secret", default: "COMPUTRIX_API_KEY" }
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.oslist) }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    env: { PYTHONUTF8: "1", PYTHONIOENCODING: "utf-8" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24.16.0' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: install OpenClaw
+        shell: bash
+        run: npm install -g openclaw@${{ inputs.oc_version }} 2>&1 | tail -2 && node "$(npm root -g)/openclaw/openclaw.mjs" --version
+      - name: Linux desktop (Xvfb + openbox + dbus, 按 OpenClaw 文档的 X11 rig)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq at-spi2-core dbus-x11 gir1.2-gtk-3.0 jq openbox python3-gi x11-utils xdotool xvfb gedit
+      - name: probe (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        env:
+          ENVSHIFT_API_KEY: ${{ secrets[inputs.key_secret] }}
+        run: |
+          export DISPLAY=:99 XDG_SESSION_TYPE=x11 NO_AT_BRIDGE=0
+          Xvfb "$DISPLAY" -screen 0 1280x800x24 -nolisten tcp &
+          sleep 2; openbox >/tmp/openbox.log 2>&1 &
+          sleep 1; (gedit >/tmp/gedit.log 2>&1 &) ; sleep 3
+          dbus-run-session -- python3 oc_cu_probe.py "${{ inputs.base }}" "${{ inputs.model }}" probe_out 2>&1 | tee probe_${{ matrix.os }}.txt | tail -150
+      - name: probe (macOS / Windows)
+        if: runner.os != 'Linux'
+        shell: bash
+        env:
+          ENVSHIFT_API_KEY: ${{ secrets[inputs.key_secret] }}
+        run: python3 oc_cu_probe.py "${{ inputs.base }}" "${{ inputs.model }}" probe_out 2>&1 | tee probe_${{ matrix.os }}.txt | tail -150
+      - name: encrypt logs
+        if: always()
+        shell: bash
+        env: { ARTIFACT_PASS: "${{ secrets.GUIB_PASS }}" }
+        run: |
+          rm -f probe_out/state/openclaw.json
+          tar czf probe.tgz probe_*.txt probe_out 2>/dev/null || true
+          openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:ARTIFACT_PASS -in probe.tgz -out probe.enc && rm -f probe.tgz
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "oc-cu-probe-${{ matrix.os }}-${{ github.run_id }}", path: probe.enc, if-no-files-found: warn }
