@@ -13,7 +13,7 @@ for _s in (sys.stdout, sys.stderr):
     try: _s.reconfigure(encoding="utf-8", errors="replace")
     except Exception: pass
 
-base, model, outdir = sys.argv[1], sys.argv[2], pathlib.Path(sys.argv[3])
+base, model, outdir = sys.argv[1], sys.argv[2], pathlib.Path(sys.argv[3]).resolve()   # ★必须绝对路径:gateway 的 cwd 是 ws,相对的 OPENCLAW_CONFIG_PATH 解析不到 → "Missing config"(v2 探针三系统全倒在这)
 outdir.mkdir(parents=True, exist_ok=True)
 key = os.environ.get("ENVSHIFT_API_KEY", "")
 if not key:
@@ -60,7 +60,7 @@ def run(args, timeout=120, label=None):
 print("PLATFORM", platform.platform(), "| DISPLAY", os.environ.get("DISPLAY"), "| oc", oc[1])
 run(["--version"])
 run(["plugins", "list"])
-run(["doctor", "--lint", "--only", "cua-computer/driver-artifacts"], timeout=300)
+run(["doctor", "--lint"], timeout=300)   # 文档里的 --only cua-computer/driver-artifacts 在 2026.9.4 报 Unknown health check id,改跑全量 lint 看输出
 print("config after CLI calls has gateway.mode:", "gateway" in json.loads((st / "openclaw.json").read_text()) and "mode" in json.loads((st / "openclaw.json").read_text())["gateway"])
 rewrite_cfg()
 
@@ -78,32 +78,18 @@ if not ok:
 nd = subprocess.Popen(oc + ["node", "run", "--host", "127.0.0.1", "--port", "18789", "--display-name", "probe-node"],
                       stdout=open(outdir / "node.log", "w"), stderr=subprocess.STDOUT, env=env, cwd=str(ws))
 time.sleep(15)
-# 配对:device 请求 → 批准;node 命令面请求 → 批准(各试几轮,输出原文)
-for i in range(4):
-    run(["devices", "list"])
+# 配对:device 请求 → 批准;node 命令面请求 → 批准。requestId 从 CLI 文本里正则抠("Run openclaw nodes approve <uuid>"),
+#      `nodes pending --json` 输出后面带非 JSON 尾巴,直接 json.loads 会失败(本机坐实)。
+import re
+approved = set()
+for i in range(6):
+    txt = run(["devices", "list"]) + run(["nodes", "pending"]) + run(["nodes", "status"])
     run(["devices", "approve", "--latest"])
-    p = run(["nodes", "pending"])
-    for tok in p.replace(",", " ").split():
-        if len(tok) >= 8 and tok.replace("-", "").isalnum() and any(c.isdigit() for c in tok) and tok.lower() not in ("pending",):
-            pass
-    run(["nodes", "pending", "--json"])
-    time.sleep(8)
-# 尝试从 --json 里拿 requestId 批准
-pj = run(["nodes", "pending", "--json"])
-try:
-    data = json.loads(pj[pj.index("{"):]) if "{" in pj else json.loads(pj[pj.index("["):])
-    reqs = []
-    def walk(x):
-        if isinstance(x, dict):
-            if "requestId" in x: reqs.append(x["requestId"])
-            for v in x.values(): walk(v)
-        elif isinstance(x, list):
-            for v in x: walk(v)
-    walk(data)
-    for rid in reqs: run(["nodes", "approve", rid])
-except Exception as e:
-    print("nodes pending --json parse:", type(e).__name__, e)
-time.sleep(5)
+    for rid in set(re.findall(r"nodes approve ([0-9a-f-]{36})", txt)) - approved:
+        run(["nodes", "approve", rid]); approved.add(rid)
+    if approved and "pending" not in run(["nodes", "status"]).lower():
+        break
+    time.sleep(6)
 run(["nodes", "status"])
 run(["nodes", "status", "--json"])
 run(["nodes", "describe", "--node", "probe-node"])
