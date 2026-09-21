@@ -64,6 +64,10 @@ jobs:
           GUIB2_03: ${{ secrets.GUIB2_03 }}
           GUIB2_04: ${{ secrets.GUIB2_04 }}
           GUIB2_05: ${{ secrets.GUIB2_05 }}
+          GUIB10_00: ${{ secrets.GUIB10_00 }}
+          GUIB10_01: ${{ secrets.GUIB10_01 }}
+          GUIB10_02: ${{ secrets.GUIB10_02 }}
+          GUIB10_03: ${{ secrets.GUIB10_03 }}
           GUIB9_00: ${{ secrets.GUIB9_00 }}
           GUIB9_01: ${{ secrets.GUIB9_01 }}
           GUIB9_02: ${{ secrets.GUIB9_02 }}
@@ -138,7 +142,7 @@ jobs:
           # 装置诊断(只打结构字段,不打题面/模型文本):meta.json 与 loop.json
           for p in sorted(pathlib.Path("runs").rglob("meta.json")):
               m = json.loads(p.read_text(encoding="utf-8"))
-              print("GUIMETA " + json.dumps({k: m.get(k) for k in ("task","arm","model_rc","timeout","steps","channel_fail","blind_steps","valid_model_run","reward")}, ensure_ascii=False))
+              print("GUIMETA " + json.dumps({k: m.get(k) for k in ("task","arm","model_rc","timeout","steps","channel_fail","blind_steps","usage","valid_model_run","reward")}, ensure_ascii=False))
           for p in sorted(pathlib.Path("runs").rglob("loop.json")):
               l = json.loads(p.read_text(encoding="utf-8"))
               print("GUILOOP " + json.dumps({k: l.get(k) for k in ("steps","channel_fail","blind_steps","tool_version","http_errors","errors","stop_reason","finish")}, ensure_ascii=False)[:400])
