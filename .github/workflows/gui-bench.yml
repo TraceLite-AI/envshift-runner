@@ -64,6 +64,10 @@ jobs:
           GUIB2_03: ${{ secrets.GUIB2_03 }}
           GUIB2_04: ${{ secrets.GUIB2_04 }}
           GUIB2_05: ${{ secrets.GUIB2_05 }}
+          GUIB16_00: ${{ secrets.GUIB16_00 }}
+          GUIB16_01: ${{ secrets.GUIB16_01 }}
+          GUIB16_02: ${{ secrets.GUIB16_02 }}
+          GUIB16_03: ${{ secrets.GUIB16_03 }}
           GUIB15_00: ${{ secrets.GUIB15_00 }}
           GUIB15_01: ${{ secrets.GUIB15_01 }}
           GUIB15_02: ${{ secrets.GUIB15_02 }}
