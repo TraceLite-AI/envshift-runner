@@ -12,7 +12,7 @@ on:
       steps: { description: "动作预算,空=各题默认", default: "" }
       parallel: { description: "max-parallel", default: "3" }
       bundle_sha256: { description: "题包 sha256,对不上就退出", required: true }
-      bundle_prefix: { description: "题包 secret 前缀(GUIB | GUIB2 | GUIB3),换题包用新前缀,别覆盖排队中的旧 run", default: "GUIB" }
+      bundle_prefix: { description: "题包 secret 前缀(GUIB…GUIB13),换题包用新前缀,别覆盖排队中的旧 run", default: "GUIB" }
       thinking: { description: "enabled(默认,DeepSeek 官网 thinking+effort high)| off(不发 thinking/reasoning_effort 字段;computrix 上跑 gpt/claude 必须 off)", default: "enabled" }
 jobs:
   gui:
@@ -64,6 +64,10 @@ jobs:
           GUIB2_03: ${{ secrets.GUIB2_03 }}
           GUIB2_04: ${{ secrets.GUIB2_04 }}
           GUIB2_05: ${{ secrets.GUIB2_05 }}
+          GUIB13_00: ${{ secrets.GUIB13_00 }}
+          GUIB13_01: ${{ secrets.GUIB13_01 }}
+          GUIB13_02: ${{ secrets.GUIB13_02 }}
+          GUIB13_03: ${{ secrets.GUIB13_03 }}
           GUIB12_00: ${{ secrets.GUIB12_00 }}
           GUIB12_01: ${{ secrets.GUIB12_01 }}
           GUIB12_02: ${{ secrets.GUIB12_02 }}
