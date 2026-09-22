@@ -60,6 +60,13 @@ def open_editor(path=None):
     return True
 
 
+def focus():
+    """照抄 batch9 参考解:打字前必须点一下窗口,否则 mac 上按键全丢。"""
+    pyautogui.click(600, 400); time.sleep(0.8)
+    if SYS == "Darwin":
+        pyautogui.hotkey("command", "shift", "t"); time.sleep(1)   # 强制纯文本,别存成 RTF
+
+
 def type_text(s):
     pyautogui.typewrite(s, interval=0.02)
 
@@ -85,7 +92,7 @@ def check_case_path():
     reset_folder()
     disk = FOLDER / "report.txt"; disk.write_text("line one\n", encoding="utf-8")
     given = FOLDER / "Report.txt"          # 题面会给这个(盘上不存在,只有大小写不同的)
-    open_editor()
+    open_editor(); focus()
     pyautogui.hotkey(MOD, "o"); time.sleep(3)
     if SYS == "Darwin":
         pyautogui.hotkey("command", "shift", "g"); time.sleep(1.5)
@@ -93,6 +100,7 @@ def check_case_path():
         pyautogui.hotkey("ctrl", "l"); time.sleep(1.5)
     type_text(str(given)); time.sleep(0.8); pyautogui.press("enter"); time.sleep(4)
     shot("A-after-open")
+    pyautogui.click(600, 400); time.sleep(0.8)
     # 判断是否真的打开了盘上文件:在窗口里追加一行再原地保存,看 report.txt 是否变化
     marker = "PROBE-A-APPENDED"
     pyautogui.hotkey(MOD, "a"); time.sleep(0.5); pyautogui.press("delete"); time.sleep(0.5)
@@ -116,7 +124,7 @@ def check_trailing_newline():
     reset_folder()
     target = FOLDER / "trail.txt"
     target.write_bytes(b"alpha\nbeta")      # 盘上本来就没有结尾换行
-    open_editor(target); time.sleep(2)
+    open_editor(target); time.sleep(2); focus()
     pyautogui.hotkey(MOD, "a"); time.sleep(0.5); pyautogui.press("delete"); time.sleep(0.5)
     type_text("alpha\nbetaX")               # 仍然不以换行结尾
     time.sleep(1)
@@ -140,7 +148,7 @@ def check_auto_indent():
     target = FOLDER / "indent.yaml"
     body = "root:\n    child: 1\n    other: 2\nend: true\n"
     target.write_bytes(b"placeholder\n")     # 先有文件 → 打开已有文件编辑,mac 保持纯文本
-    open_editor(target); time.sleep(2)
+    open_editor(target); time.sleep(2); focus()
     pyautogui.hotkey(MOD, "a"); time.sleep(0.5); pyautogui.press("delete"); time.sleep(0.5)
     type_text(body)
     time.sleep(1)
