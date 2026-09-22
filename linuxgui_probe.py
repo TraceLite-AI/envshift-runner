@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""探针:找「以 Linux 为目标」的 GUI 机制(现有 20 道 GUI 里 Linux 全是对照,0 道靶子)。
+"""探针 v2:找「以 Linux 为目标」的 GUI 机制(全部走「打开已有 .txt→改→原地保存」,mac 才不会变 RTF)(现有 20 道 GUI 里 Linux 全是对照,0 道靶子)。
 
 只测事实,不下判断;每条都三系统同一套动作,结果人读。四个候选:
   A 大小写路径:盘上是 report.txt,在打开对话框里输 Report.txt —— Win/mac 文件系统不敏感应能打开,Linux GTK 应失败
@@ -111,24 +111,25 @@ def check_case_path():
     log("A", json.dumps(R["checks"]["A_case_path"], ensure_ascii=False))
 
 
-# ---------------- B:保存补尾换行 ----------------
+# ---------------- B:打开已有无尾换行文件,改一处,原地保存 ----------------
 def check_trailing_newline():
     reset_folder()
     target = FOLDER / "trail.txt"
-    open_editor()
-    type_text("alpha\nbeta")      # 故意不以换行结尾
+    target.write_bytes(b"alpha\nbeta")      # 盘上本来就没有结尾换行
+    open_editor(target); time.sleep(2)
+    pyautogui.hotkey(MOD, "a"); time.sleep(0.5); pyautogui.press("delete"); time.sleep(0.5)
+    type_text("alpha\nbetaX")               # 仍然不以换行结尾
     time.sleep(1)
-    save_as(target)
-    shot("B-after-save")
-    raw = target.read_bytes() if target.exists() else b""
-    # Windows 记事本可能补 .txt;找一下实际落盘的文件
+    pyautogui.hotkey(MOD, "s"); time.sleep(4); shot("B-after-save")
     files = {p.name: p.read_bytes() for p in sorted(FOLDER.iterdir()) if p.is_file()}
+    raw = target.read_bytes() if target.exists() else b""
     quit_editor()
     R["checks"]["B_trailing_newline"] = {
-        "typed": "alpha\\nbeta (无结尾换行)",
-        "files": {k: repr(v[:40]) for k, v in files.items()},
-        "target_bytes": repr(raw[:40]),
+        "on_disk_before": "alpha\\nbeta(无尾换行)", "typed": "alpha\\nbetaX(无尾换行)",
+        "files": {k: repr(v[:60]) for k, v in files.items()},
+        "target_bytes": repr(raw[:60]),
         "ends_with_newline": bool(raw) and raw.endswith(b"\n"),
+        "stray_backup": [k for k in files if k.endswith("~") or k.startswith(".")],
     }
     log("B", json.dumps(R["checks"]["B_trailing_newline"], ensure_ascii=False))
 
@@ -138,10 +139,12 @@ def check_auto_indent():
     reset_folder()
     target = FOLDER / "indent.yaml"
     body = "root:\n    child: 1\n    other: 2\nend: true\n"
-    open_editor()
+    target.write_bytes(b"placeholder\n")     # 先有文件 → 打开已有文件编辑,mac 保持纯文本
+    open_editor(target); time.sleep(2)
+    pyautogui.hotkey(MOD, "a"); time.sleep(0.5); pyautogui.press("delete"); time.sleep(0.5)
     type_text(body)
     time.sleep(1)
-    save_as(target)
+    pyautogui.hotkey(MOD, "s"); time.sleep(4)
     shot("C-after-save")
     files = {p.name: p.read_bytes() for p in sorted(FOLDER.iterdir()) if p.is_file()}
     got = None
@@ -152,6 +155,7 @@ def check_auto_indent():
         "typed": body, "files": list(files),
         "saved": got,
         "matches_typed": (got or "").replace("\r\n", "\n").rstrip("\n") == body.rstrip("\n"),
+        "stray_backup": [k for k in files if k.endswith("~")],
     }
     log("C", json.dumps(R["checks"]["C_auto_indent"], ensure_ascii=False))
 
