@@ -12,7 +12,8 @@ while True:
     if not v: break
     parts.append(v); i += 1
 if not parts:
-    print("没有 %s_00" % os.environ.get("BUNDLE_PREFIX", "GUIB")); sys.exit(2)
+    print("没有 %s_00(请求的题包前缀 %s)" % (os.environ.get("BUNDLE_PREFIX", "GUIB"), os.environ.get("BUNDLE_PREFIX_REQUESTED", "?"))); sys.exit(2)
+print("题包前缀", os.environ.get("BUNDLE_PREFIX_REQUESTED", "?"))
 import re
 joined = "".join(parts)
 bad = sorted(set(re.findall(r"[^A-Za-z0-9+/=]", joined)))

@@ -33,79 +33,18 @@ jobs:
         shell: python
         env:
           BUNDLE_SHA256: ${{ inputs.bundle_sha256 }}
-          BUNDLE_PREFIX: ${{ inputs.bundle_prefix }}
-          GUIB8_00: ${{ secrets.GUIB8_00 }}
-          GUIB8_01: ${{ secrets.GUIB8_01 }}
-          GUIB8_02: ${{ secrets.GUIB8_02 }}
-          GUIB8_03: ${{ secrets.GUIB8_03 }}
-          GUIB7_00: ${{ secrets.GUIB7_00 }}
-          GUIB7_01: ${{ secrets.GUIB7_01 }}
-          GUIB7_02: ${{ secrets.GUIB7_02 }}
-          GUIB7_03: ${{ secrets.GUIB7_03 }}
-          GUIB5_00: ${{ secrets.GUIB5_00 }}
-          GUIB5_01: ${{ secrets.GUIB5_01 }}
-          GUIB5_02: ${{ secrets.GUIB5_02 }}
-          GUIB5_03: ${{ secrets.GUIB5_03 }}
-          GUIB6_00: ${{ secrets.GUIB6_00 }}
-          GUIB6_01: ${{ secrets.GUIB6_01 }}
-          GUIB6_02: ${{ secrets.GUIB6_02 }}
-          GUIB6_03: ${{ secrets.GUIB6_03 }}
-          GUIB4_00: ${{ secrets.GUIB4_00 }}
-          GUIB4_01: ${{ secrets.GUIB4_01 }}
-          GUIB4_02: ${{ secrets.GUIB4_02 }}
-          GUIB4_03: ${{ secrets.GUIB4_03 }}
-          GUIB3_00: ${{ secrets.GUIB3_00 }}
-          GUIB3_01: ${{ secrets.GUIB3_01 }}
-          GUIB3_02: ${{ secrets.GUIB3_02 }}
-          GUIB3_03: ${{ secrets.GUIB3_03 }}
-          GUIB2_00: ${{ secrets.GUIB2_00 }}
-          GUIB2_01: ${{ secrets.GUIB2_01 }}
-          GUIB2_02: ${{ secrets.GUIB2_02 }}
-          GUIB2_03: ${{ secrets.GUIB2_03 }}
-          GUIB2_04: ${{ secrets.GUIB2_04 }}
-          GUIB2_05: ${{ secrets.GUIB2_05 }}
-          GUIB17_00: ${{ secrets.GUIB17_00 }}
-          GUIB17_01: ${{ secrets.GUIB17_01 }}
-          GUIB17_02: ${{ secrets.GUIB17_02 }}
-          GUIB17_03: ${{ secrets.GUIB17_03 }}
-          GUIB16_00: ${{ secrets.GUIB16_00 }}
-          GUIB16_01: ${{ secrets.GUIB16_01 }}
-          GUIB16_02: ${{ secrets.GUIB16_02 }}
-          GUIB16_03: ${{ secrets.GUIB16_03 }}
-          GUIB15_00: ${{ secrets.GUIB15_00 }}
-          GUIB15_01: ${{ secrets.GUIB15_01 }}
-          GUIB15_02: ${{ secrets.GUIB15_02 }}
-          GUIB15_03: ${{ secrets.GUIB15_03 }}
-          GUIB14_00: ${{ secrets.GUIB14_00 }}
-          GUIB14_01: ${{ secrets.GUIB14_01 }}
-          GUIB14_02: ${{ secrets.GUIB14_02 }}
-          GUIB14_03: ${{ secrets.GUIB14_03 }}
-          GUIB13_00: ${{ secrets.GUIB13_00 }}
-          GUIB13_01: ${{ secrets.GUIB13_01 }}
-          GUIB13_02: ${{ secrets.GUIB13_02 }}
-          GUIB13_03: ${{ secrets.GUIB13_03 }}
-          GUIB12_00: ${{ secrets.GUIB12_00 }}
-          GUIB12_01: ${{ secrets.GUIB12_01 }}
-          GUIB12_02: ${{ secrets.GUIB12_02 }}
-          GUIB12_03: ${{ secrets.GUIB12_03 }}
-          GUIB11_00: ${{ secrets.GUIB11_00 }}
-          GUIB11_01: ${{ secrets.GUIB11_01 }}
-          GUIB11_02: ${{ secrets.GUIB11_02 }}
-          GUIB11_03: ${{ secrets.GUIB11_03 }}
-          GUIB10_00: ${{ secrets.GUIB10_00 }}
-          GUIB10_01: ${{ secrets.GUIB10_01 }}
-          GUIB10_02: ${{ secrets.GUIB10_02 }}
-          GUIB10_03: ${{ secrets.GUIB10_03 }}
-          GUIB9_00: ${{ secrets.GUIB9_00 }}
-          GUIB9_01: ${{ secrets.GUIB9_01 }}
-          GUIB9_02: ${{ secrets.GUIB9_02 }}
-          GUIB9_03: ${{ secrets.GUIB9_03 }}
-          GUIB_00: ${{ secrets.GUIB_00 }}
-          GUIB_01: ${{ secrets.GUIB_01 }}
-          GUIB_02: ${{ secrets.GUIB_02 }}
-          GUIB_03: ${{ secrets.GUIB_03 }}
-          GUIB_04: ${{ secrets.GUIB_04 }}
-          GUIB_05: ${{ secrets.GUIB_05 }}
+          BUNDLE_PREFIX: BUNDLE
+          BUNDLE_PREFIX_REQUESTED: ${{ inputs.bundle_prefix }}
+          # 只注入本次要用的题包:按 bundle_prefix 动态取 8 个槽。历史上把所有题包分片全塞进 env,
+          # 主池 70+ 个 secret 撞上 macOS 1MB 参数上限 → restore 步骤 'Argument list too long'(2026-09-23 batch13 门一 mac 三格零日志)。
+          BUNDLE_00: ${{ secrets[format('{0}_00', inputs.bundle_prefix)] }}
+          BUNDLE_01: ${{ secrets[format('{0}_01', inputs.bundle_prefix)] }}
+          BUNDLE_02: ${{ secrets[format('{0}_02', inputs.bundle_prefix)] }}
+          BUNDLE_03: ${{ secrets[format('{0}_03', inputs.bundle_prefix)] }}
+          BUNDLE_04: ${{ secrets[format('{0}_04', inputs.bundle_prefix)] }}
+          BUNDLE_05: ${{ secrets[format('{0}_05', inputs.bundle_prefix)] }}
+          BUNDLE_06: ${{ secrets[format('{0}_06', inputs.bundle_prefix)] }}
+          BUNDLE_07: ${{ secrets[format('{0}_07', inputs.bundle_prefix)] }}
         run: |
           import runpy
           runpy.run_path("guib_restore.py", run_name="__main__")
