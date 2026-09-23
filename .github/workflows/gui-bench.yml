@@ -15,6 +15,7 @@ on:
       bundle_prefix: { description: "题包 secret 前缀(GUIB…GUIB13),换题包用新前缀,别覆盖排队中的旧 run", default: "GUIB" }
       thinking: { description: "enabled(默认,DeepSeek 官网 thinking+effort high)| off(不发 thinking/reasoning_effort 字段;computrix 上跑 gpt/claude 必须 off)", default: "enabled" }
       http_timeout: { description: "模型请求读超时秒数,空=循环默认 180(长题/慢通道可拉长)", default: "" }
+      max_completion: { description: "GUI 循环每步回答 token 上限,空=循环默认 300(网关上关不掉思考的模型要放开)", default: "" }
 jobs:
   gui:
     strategy:
@@ -93,6 +94,7 @@ jobs:
           ENVSHIFT_API_BASE: ${{ inputs.api_base }}
           ENVSHIFT_THINKING: ${{ inputs.thinking }}
           ENVSHIFT_HTTP_TIMEOUT: ${{ inputs.http_timeout }}
+          ENVSHIFT_MAX_COMPLETION: ${{ inputs.max_completion }}
           ENVSHIFT_REASONING_EFFORT: high
           ENVSHIFT_MAX_TOKENS: '8192'
         run: |
