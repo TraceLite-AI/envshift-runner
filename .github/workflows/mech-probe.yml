@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       oslist: { default: '["ubuntu-24.04","macos-15","windows-2022"]' }
+      script: { default: 'mech_probe.py' }
 jobs:
   probe:
     strategy:
@@ -22,7 +23,7 @@ jobs:
         if: runner.os == 'Linux'
         shell: bash
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq xvfb xauth x11-utils scrot python3-tk openbox dbus-x11 gedit nautilus libreoffice-writer
+          sudo apt-get update -qq && sudo apt-get install -y -qq xvfb xauth x11-utils scrot python3-tk openbox dbus-x11 gedit nautilus libreoffice-writer wmctrl
           touch "$HOME/.Xauthority"; xauth add :99 . $(head -c 16 /dev/urandom | od -An -tx1 | tr -d ' \n')
           Xvfb :99 -screen 0 1280x900x24 -auth "$HOME/.Xauthority" -nolisten tcp & sleep 3; DISPLAY=:99 openbox & sleep 1
           echo "DISPLAY=:99" >> $GITHUB_ENV; echo "XAUTHORITY=$HOME/.Xauthority" >> $GITHUB_ENV
@@ -33,7 +34,7 @@ jobs:
           if [ "$RUNNER_OS" = macOS ]; then brew install --cask libreoffice 2>/dev/null || true; else choco install libreoffice-fresh -y --no-progress >/dev/null 2>&1 || true; fi
       - shell: bash
         run: |
-          if [ "$RUNNER_OS" = Linux ]; then dbus-run-session -- python mech_probe.py; else python mech_probe.py; fi
+          if [ "$RUNNER_OS" = Linux ]; then dbus-run-session -- python ${{ inputs.script }}; else python ${{ inputs.script }}; fi
       - uses: actions/upload-artifact@v4
         if: always()
-        with: { name: 'mech-${{ matrix.os }}', path: probe_out/, retention-days: 7 }
+        with: { name: 'mech-${{ inputs.script }}-${{ matrix.os }}', path: probe_out/, retention-days: 7 }
