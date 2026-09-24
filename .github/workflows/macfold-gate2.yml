@@ -22,6 +22,7 @@ on:
         default: '1200'
       parallel:
         default: '3'
+      max_tokens: { description: "(envshift)每次模型回复的上限;DeepSeek thinking 在长题上撞 8192 截断", default: "8192" }
       bundle_secret:
         description: "题包所在 secret 名(换题包时用新名字,别覆盖排队中的旧 run)"
         default: "MACFOLD_B64"
@@ -69,6 +70,7 @@ jobs:
           DSH_DIR: ${{ github.workspace }}/dsh
           DSH_MAX_TOKENS: "131072"
           DSH_THINKING: ${{ inputs.thinking }}
+          ENVSHIFT_MAX_TOKENS: ${{ inputs.max_tokens }}
         run: python run_one.py --task "${{ matrix.task }}" --arm agent --harness "${{ inputs.harness }}" --model "${{ inputs.model }}" --base "${{ inputs.base }}" --timeout ${{ inputs.timeout }} || true
       - name: 打包并加密轨迹(driver.log / trace.jsonl / final.json / verifier 日志 / 交付物)
         # ★此前 gate2 只留 2000 字 driver.log 尾部,53 道 deepseek 题的逐步轨迹没有保住(2026-09-20 发现)。
