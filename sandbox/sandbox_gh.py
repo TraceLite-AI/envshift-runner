@@ -25,7 +25,16 @@ V = {
  "gh-bare":      {"expect": {"E2.1.os": "linux"}, "check": "bare"},
  "gh-wsl":       {"expect": {"E2.1.os": "linux"}, "check": "wsl"},
  "gh-vm":        {"expect": {"E2.1.os": "linux"}, "check": "vm"},
+ "gh-microvm":   {"expect": {"E2.1.os": "linux"}, "check": "microvm"},
+ "gh-android":   {"expect": {"E2.1.os": "android"}},
 }
+
+def android_probe(path):
+    """Build probe-shaped readings from adb output (Android has no python): line 1 = release, line 2 = uname -m."""
+    lines = [l.strip() for l in open(path, encoding="utf-8", errors="replace") if l.strip()]
+    arch = {"x86_64": "x86_64", "aarch64": "arm64"}.get(lines[1] if len(lines) > 1 else "", "x-unknown")
+    return {"readings": {"E2.1.os": {"value": "android", "raw": lines[0] if lines else None},
+                         "E1.1.arch": {"value": arch, "raw": lines[1] if len(lines) > 1 else None}}}
 
 def setup(vid):
     out = []
@@ -35,7 +44,7 @@ def setup(vid):
         subprocess.run(["hdiutil", "attach", "/tmp/nfd.dmg"], check=True, stdout=subprocess.DEVNULL)
         os.makedirs("/Volumes/nfdvol/tmp", exist_ok=True); out.append("TMPDIR=/Volumes/nfdvol/tmp")
     if vid == "gh-winmaxpath":
-        subprocess.run('reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem /v LongPathsEnabled /t REG_DWORD /d 0 /f', shell=True, check=True)
+        subprocess.run('reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem /v LongPathsEnabled /t REG_DWORD /d 0 /f', shell=True, check=True, stdout=subprocess.DEVNULL)
     if vid == "gh-winnative":
         py = os.path.dirname(sys.executable)
         out.append(f"SANDBOX_PATH={py};{py}\\Scripts;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\WindowsPowerShell\\v1.0")
@@ -59,7 +68,10 @@ def check(vid, probe_path):
     exp = V[vid]["expect"]; got = {k: pr.get(k, {}).get("value") for k in exp}
     ok = all(got[k] == v for k, v in exp.items())
     note = ""
-    if V[vid].get("check") == "vm":            # read inside the guest, not on the runner (itself an Azure VM)
+    if V[vid].get("check") == "microvm":       # Firecracker guest: KVM-backed, and no PCI bus
+        c = raw.get("virt") in ("kvm", "qemu") and str(raw.get("pci_devices")) == "0"
+        note = f"guest virt={raw.get('virt')} pci_devices={raw.get('pci_devices')}"; ok = ok and c
+    elif V[vid].get("check") == "vm":            # read inside the guest, not on the runner (itself an Azure VM)
         c = raw.get("virt") in ("kvm", "qemu"); note = f"guest systemd-detect-virt={raw.get('virt')}"; ok = ok and c
     elif V[vid].get("check"):
         c, note = extra_check(V[vid]["check"]); ok = ok and c
@@ -73,3 +85,4 @@ if __name__ == "__main__":
     a = sys.argv[1:]
     if a[0] == "setup": print("\n".join(setup(a[1])))
     elif a[0] == "check": sys.exit(check(a[1], a[2]))
+    elif a[0] == "android-probe": print(json.dumps(android_probe(a[1])))
