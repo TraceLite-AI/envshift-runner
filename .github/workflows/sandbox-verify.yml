@@ -123,8 +123,9 @@ jobs:
         shell: bash
         run: |
           set -e
+          set -x
           sudo chmod 666 /dev/kvm
-          sudo apt-get install -y -q squashfs-tools >/dev/null
+          sudo apt-get update -q >/dev/null && sudo apt-get install -y -q squashfs-tools
           A=x86_64; R=https://github.com/firecracker-microvm/firecracker/releases
           L=$(basename $(curl -fsSLI -o /dev/null -w %{url_effective} $R/latest))
           curl -fsSL $R/download/$L/firecracker-$L-$A.tgz | tar -xz; mv release-$L-$A/firecracker-$L-$A fc
@@ -149,6 +150,7 @@ jobs:
           JSON
           sed -i 's/^          //' vm.json
           timeout 300 ./fc --no-api --config-file vm.json > serial.log 2>&1 || true
+          tail -c 3000 serial.log
           python3 -c "import re;s=open('serial.log',errors='ignore').read();m=re.search(r'@@PROBE@@(.*?)@@END@@',s,re.S);open('probe.json','w').write(m.group(1))"
       - name: enable KVM (Android emulator)
         if: env.SKIP != '1' && (matrix.how == 'android')
