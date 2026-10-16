@@ -129,9 +129,13 @@ jobs:
           A=x86_64; R=https://github.com/firecracker-microvm/firecracker/releases
           L=$(basename $(curl -fsSLI -o /dev/null -w %{url_effective} $R/latest))
           curl -fsSL $R/download/$L/firecracker-$L-$A.tgz | tar -xz; mv release-$L-$A/firecracker-$L-$A fc
-          CI=${L%.*}
-          K=$(curl -s "http://spec.ccfc.min.s3.amazonaws.com/?prefix=firecracker-ci/$CI/$A/vmlinux-&list-type=2" | grep -oP "(?<=<Key>)(firecracker-ci/$CI/$A/vmlinux-[0-9]+\.[0-9]+\.[0-9]{1,3})(?=</Key>)" | sort -V | tail -1)
-          U=$(curl -s "http://spec.ccfc.min.s3.amazonaws.com/?prefix=firecracker-ci/$CI/$A/ubuntu-&list-type=2" | grep -oP "(?<=<Key>)(firecracker-ci/$CI/$A/ubuntu-[0-9]+\.[0-9]+\.squashfs)(?=</Key>)" | sort -V | tail -1)
+          K=""; U=""
+          for CI in ${L%.*} v1.16 v1.15 v1.14 v1.13 v1.12 v1.11 v1.10; do
+            K=$(curl -s "http://spec.ccfc.min.s3.amazonaws.com/?prefix=firecracker-ci/$CI/$A/vmlinux-&list-type=2" | grep -oP "(?<=<Key>)(firecracker-ci/$CI/$A/vmlinux-[0-9]+\.[0-9]+\.[0-9]{1,3})(?=</Key>)" | sort -V | tail -1 || true)
+            U=$(curl -s "http://spec.ccfc.min.s3.amazonaws.com/?prefix=firecracker-ci/$CI/$A/ubuntu-&list-type=2" | grep -oP "(?<=<Key>)(firecracker-ci/$CI/$A/ubuntu-[0-9]+\.[0-9]+\.squashfs)(?=</Key>)" | sort -V | tail -1 || true)
+            [ -n "$K" ] && [ -n "$U" ] && break
+          done
+          echo "kernel=$K rootfs=$U"
           curl -fsSL -o vmlinux https://s3.amazonaws.com/spec.ccfc.min/$K
           curl -fsSL -o root.squashfs https://s3.amazonaws.com/spec.ccfc.min/$U
           sudo unsquashfs -q -d rootfs root.squashfs
