@@ -30,8 +30,9 @@ V = {
 def setup(vid):
     out = []
     if vid == "gh-unicode-nfd":
-        subprocess.run(["hdiutil", "create", "-size", "64m", "-fs", "HFS+", "-volname", "nfdvol", "/tmp/nfd.dmg"], check=True)
-        subprocess.run(["hdiutil", "attach", "/tmp/nfd.dmg"], check=True)
+        subprocess.run(["hdiutil", "create", "-size", "64m", "-fs", "HFS+", "-volname", "nfdvol", "/tmp/nfd.dmg"], check=True,
+                       stdout=subprocess.DEVNULL)
+        subprocess.run(["hdiutil", "attach", "/tmp/nfd.dmg"], check=True, stdout=subprocess.DEVNULL)
         os.makedirs("/Volumes/nfdvol/tmp", exist_ok=True); out.append("TMPDIR=/Volumes/nfdvol/tmp")
     if vid == "gh-winmaxpath":
         subprocess.run('reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem /v LongPathsEnabled /t REG_DWORD /d 0 /f', shell=True, check=True)
@@ -46,8 +47,9 @@ def extra_check(kind):
     if kind == "bare":
         cg = open("/proc/1/cgroup").read() if os.path.exists("/proc/1/cgroup") else ""
         return (not os.path.exists("/.dockerenv")) and "docker" not in cg, "no container layer between the agent and the runner OS"
-    if kind == "wsl":
-        v = open("/proc/version").read(); return "microsoft" in v.lower(), v.strip()[:120]
+    if kind == "wsl":   # /proc/version was captured inside WSL by the probe step
+        v = open("wslver.txt", encoding="utf-8", errors="replace").read() if os.path.exists("wslver.txt") else ""
+        return "microsoft" in v.lower(), v.strip()[:120]
     if kind == "vm":
         r = subprocess.run(["systemd-detect-virt"], capture_output=True, text=True); return r.stdout.strip() in ("kvm", "qemu"), r.stdout.strip()
     return True, ""

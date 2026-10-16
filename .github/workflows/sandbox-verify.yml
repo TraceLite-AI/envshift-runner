@@ -58,20 +58,24 @@ jobs:
       - name: probe (pwsh)
         if: env.SKIP != '1' && (matrix.how == 'pwsh')
         shell: pwsh
+        env: {PYTHONIOENCODING: utf-8}   # stdout encoding of the probe only; the system code page is untouched
         run: python sandbox/envstd.py probe | Out-File -Encoding utf8 probe.json
       - name: probe (windows-native PATH)
         if: env.SKIP != '1' && (matrix.how == 'winnative')
         shell: pwsh
+        env: {PYTHONIOENCODING: utf-8}   # stdout encoding of the probe only; the system code page is untouched
         run: |
           $env:PATH = $env:SANDBOX_PATH
           python sandbox/envstd.py probe | Out-File -Encoding utf8 probe.json
       - name: probe (Windows PowerShell 5.1)
         if: env.SKIP != '1' && (matrix.how == 'ps5')
         shell: powershell
+        env: {PYTHONIOENCODING: utf-8}   # stdout encoding of the probe only; the system code page is untouched
         run: python sandbox/envstd.py probe | Out-File -Encoding utf8 probe.json
       - name: probe (cmd)
         if: env.SKIP != '1' && (matrix.how == 'cmd')
         shell: cmd
+        env: {PYTHONIOENCODING: utf-8}   # stdout encoding of the probe only; the system code page is untouched
         run: |
           set PSModulePath=
           python sandbox\envstd.py probe > probe.json
@@ -87,7 +91,8 @@ jobs:
       - name: probe (inside WSL)
         if: env.SKIP != '1' && (matrix.how == 'wsl')
         shell: wsl-bash {0}
-        run: python3 sandbox/envstd.py probe > probe.json
+        env: {PYTHONIOENCODING: utf-8}   # stdout encoding of the probe only; the system code page is untouched
+        run: python3 sandbox/envstd.py probe > probe.json && cat /proc/version > wslver.txt
       - name: probe (QEMU/KVM guest)
         if: env.SKIP != '1' && (matrix.how == 'vm')
         shell: bash
