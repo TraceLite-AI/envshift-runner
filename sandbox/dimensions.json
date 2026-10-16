@@ -1,0 +1,1183 @@
+{
+ "version": "1.0-draft",
+ "layers": {
+  "E1": "平台层",
+  "E2": "系统层",
+  "E3": "软件栈层",
+  "E4": "执行上下文层",
+  "E5": "边界层",
+  "E6": "状态层",
+  "E7": "界面层"
+ },
+ "subdimensions": [
+  {
+   "id": "E1.1.arch",
+   "layer": "E1",
+   "dimension": "CPU 架构",
+   "name": "arch",
+   "values": [
+    "x86_64",
+    "arm64",
+    "riscv64",
+    "emulated-cross-arch"
+   ],
+   "baseline": "x86_64",
+   "status": "core",
+   "settable": "host",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "Runloop `architecture`；SWE-bench `ImageSpec.arch`（amd64 / arm64）",
+   "evidence": "claude-code#84749：Apple Silicon 上跑 amd64 容器，Rosetta 丢掉 argv[0]，靠 argv[0] 分派的做法不成立；OpenHands#17470：aarch64 下 SIGILL，须设 `OPENSSL_armcap=0`；Build-bench 268 个跨架构构建失败",
+   "varied_as_iv": false,
+   "how_to_set": "选宿主或镜像平台：docker --platform linux/arm64；跨架构模拟=在 x86 宿主上 --platform linux/arm64 走 qemu/Rosetta"
+  },
+  {
+   "id": "E1.2.type",
+   "layer": "E1",
+   "dimension": "加速器",
+   "name": "类型",
+   "values": [
+    "none",
+    "nvidia",
+    "amd-rocm",
+    "apple-metal",
+    "virtual-gpu"
+   ],
+   "baseline": "none",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "Modal `gpu`；Harbor `gpus`、`gpu_types`；DSec virtio-gpu；★ MLE-bench 只用 CPU / 1 GPU / 2 GPU",
+   "evidence": "[准入案例表](validity-admission-cases.md) 硬件组；codex#19676",
+   "varied_as_iv": true,
+   "how_to_set": "docker --gpus / 平台 gpu 参数；virtual-gpu=VM 里 virtio-gpu"
+  },
+  {
+   "id": "E1.2.driver",
+   "layer": "E1",
+   "dimension": "加速器",
+   "name": "驱动与 CUDA",
+   "values": [
+    "matched",
+    "driver-only",
+    "major-mismatch"
+   ],
+   "baseline": "matched",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "auto",
+   "scope": "gpu",
+   "platform_params": "—",
+   "evidence": "DL 依赖栈研究：版本不兼容 70.0%",
+   "varied_as_iv": false,
+   "how_to_set": "镜像里 CUDA toolkit 版本与宿主驱动搭配；major-mismatch=镜像 CUDA 主版本高于驱动支持"
+  },
+  {
+   "id": "E1.2.generation",
+   "layer": "E1",
+   "dimension": "加速器",
+   "name": "算力代际",
+   "values": [
+    "current",
+    "old"
+   ],
+   "baseline": "current",
+   "status": "core",
+   "settable": "host",
+   "probe": "auto",
+   "scope": "gpu",
+   "platform_params": "—",
+   "evidence": "[准入案例表](validity-admission-cases.md)",
+   "varied_as_iv": false,
+   "how_to_set": "只能选卡型（平台 gpu_types）"
+  },
+  {
+   "id": "E1.2.count",
+   "layer": "E1",
+   "dimension": "加速器",
+   "name": "数量",
+   "values": [
+    "single",
+    "multi"
+   ],
+   "baseline": "single",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "gpu",
+   "platform_params": "Modal `\"H100:8\"`",
+   "evidence": "[准入案例表](validity-admission-cases.md)；MLE-bench：agent 从未尝试用第二块 GPU",
+   "varied_as_iv": true,
+   "how_to_set": "docker --gpus N / 平台 gpu 数量参数"
+  },
+  {
+   "id": "E2.1.os",
+   "layer": "E2",
+   "dimension": "OS 家族",
+   "name": "os",
+   "values": [
+    "linux",
+    "macos",
+    "windows",
+    "android"
+   ],
+   "baseline": "linux",
+   "status": "core",
+   "settable": "host",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "Daytona `sandbox_class`；Harbor `environment.os`；SWE-bench-Live `--platform`；★ AndroidWorld 两个设备与系统版本",
+   "evidence": "codex#413：模型以为在 WSL，在 PowerShell 里跑 Linux 命令；claude-code#4928：Windows 上写出真文件 `nul`",
+   "varied_as_iv": true,
+   "how_to_set": "选宿主或 runner 镜像（ubuntu / macos / windows）；容器内无法改变"
+  },
+  {
+   "id": "E2.2.isolation",
+   "layer": "E2",
+   "dimension": "隔离方式",
+   "name": "isolation",
+   "values": [
+    "container",
+    "microvm",
+    "vm",
+    "gvisor",
+    "os-sandbox",
+    "wsl",
+    "bare"
+   ],
+   "baseline": "container",
+   "status": "core",
+   "settable": "direct",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "Modal `vm_runtime`；Harbor 30 种后端；OSWorld 12 种 provider",
+   "evidence": "Modal 文档：loop mount 与 dockerd 只在 VM 下可用；OpenHands#8590；SWE-bench-Live：\"docker does not guarantee full isolation\"",
+   "varied_as_iv": false,
+   "how_to_set": "选后端：docker / runsc(gVisor) / Firecracker / 完整 VM / bubblewrap·seatbelt(os-sandbox) / WSL"
+  },
+  {
+   "id": "E2.3.case",
+   "layer": "E2",
+   "dimension": "文件系统语义",
+   "name": "大小写",
+   "values": [
+    "sensitive",
+    "insensitive"
+   ],
+   "baseline": "sensitive",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "ext4 casefold、APFS 大小写可选",
+   "evidence": "claude-code#90524：APFS 上只改大小写的重命名要分两步；FAST'23 大小写冲突研究",
+   "varied_as_iv": false,
+   "how_to_set": "Linux：ext4 casefold（mkfs.ext4 -O casefold + chattr +F 目录）；macOS 默认 insensitive；Windows NTFS 默认 insensitive（可按目录 fsutil setCaseSensitiveInfo）"
+  },
+  {
+   "id": "E2.3.unicode",
+   "layer": "E2",
+   "dimension": "文件系统语义",
+   "name": "Unicode 归一",
+   "values": [
+    "none",
+    "normalization-insensitive",
+    "nfd-normalizing"
+   ],
+   "baseline": "none",
+   "status": "core",
+   "settable": "host",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "—",
+   "evidence": "claude-code#87822：NFC 与 NFD 路径不一致导致会话丢失",
+   "varied_as_iv": false,
+   "how_to_set": "只能选文件系统：APFS=normalization-insensitive，HFS+=nfd-normalizing，ext4/NTFS=none"
+  },
+  {
+   "id": "E2.3.length",
+   "layer": "E2",
+   "dimension": "文件系统语义",
+   "name": "长度上限",
+   "values": [
+    "long",
+    "name-255-bytes",
+    "win-max-path-260"
+   ],
+   "baseline": "long",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "Windows `LongPathsEnabled`",
+   "evidence": "codex#36768：MAX_PATH 须 `\\\\?\\` 前缀；Linux ext4 文件名上限 255 字节（多字节字符约 85 个）",
+   "varied_as_iv": false,
+   "how_to_set": "Linux 文件名 255 字节是内核限制；Windows 路径 260 由 LongPathsEnabled 注册表键与应用 manifest 决定"
+  },
+  {
+   "id": "E2.3.special_names",
+   "layer": "E2",
+   "dimension": "文件系统语义",
+   "name": "保留名与尾部字符",
+   "values": [
+    "posix",
+    "win-reserved"
+   ],
+   "baseline": "posix",
+   "status": "core",
+   "settable": "host",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "—",
+   "evidence": "claude-code#4928：Windows 上写出真文件 `nul`，只能用 `\\\\?\\` 前缀删除；Win32 路径规范化会去掉尾点与尾空格",
+   "varied_as_iv": false,
+   "how_to_set": "只能选 OS：Windows 拒绝 CON/NUL/AUX 等保留名和结尾的点、空格"
+  },
+  {
+   "id": "E2.3.symlink",
+   "layer": "E2",
+   "dimension": "文件系统语义",
+   "name": "符号链接",
+   "values": [
+    "resolved",
+    "symlink-to-other-fs"
+   ],
+   "baseline": "resolved",
+   "status": "core",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "—",
+   "evidence": "codex#43838：经软链 apply_patch 失败，须先解析真实路径",
+   "varied_as_iv": false,
+   "how_to_set": "setup 阶段把工作区放到 symlink 后面，或把 /tmp 指向另一文件系统"
+  },
+  {
+   "id": "E2.4.line_ending",
+   "layer": "E2",
+   "dimension": "系统约定",
+   "name": "换行",
+   "values": [
+    "lf",
+    "crlf"
+   ],
+   "baseline": "lf",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "—",
+   "evidence": "claude-code#56946、#89307、#88114：CRLF 文件上编辑出错，须检测并保留换行",
+   "varied_as_iv": false,
+   "how_to_set": "Windows 默认 crlf；Linux 上可用 git config core.autocrlf=true 检出 + 工具默认输出 crlf 模拟，但系统换行仍是 lf"
+  },
+  {
+   "id": "E2.4.path_sep",
+   "layer": "E2",
+   "dimension": "系统约定",
+   "name": "路径分隔符",
+   "values": [
+    "slash",
+    "backslash"
+   ],
+   "baseline": "slash",
+   "status": "core",
+   "settable": "host",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "—",
+   "evidence": "清单与配置里写死的反斜杠路径在 Linux 与 macOS 上被当成文件名的一部分；OSWorld 与 Windows Agent Arena 分别维护两套路径",
+   "varied_as_iv": false,
+   "how_to_set": "只能选 OS"
+  },
+  {
+   "id": "E2.5.kernel_caps",
+   "layer": "E2",
+   "dimension": "内核与设备能力",
+   "name": "kernel-caps",
+   "values": [
+    "full",
+    "no-nested-virt",
+    "no-fuse",
+    "no-loop-mount"
+   ],
+   "baseline": "full",
+   "status": "candidate",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "Daytona `kvm`；Morph FUSE；GitHub Actions `ubuntu-slim`",
+   "evidence": "平台文档；agent 层记录未找到",
+   "varied_as_iv": false,
+   "how_to_set": "不挂 /dev/kvm、/dev/fuse、loop 设备；或选不支持嵌套虚拟化的后端"
+  },
+  {
+   "id": "E3.1.version",
+   "layer": "E3",
+   "dimension": "语言运行时",
+   "name": "版本",
+   "values": [
+    "current",
+    "old",
+    "future"
+   ],
+   "baseline": "current",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "Modal `python_version`；SWE-bench 按实例 specs",
+   "evidence": "SWE-agent#1179；RustEvo²：训练截止后的 API 32.5% vs 之前 56.1%",
+   "varied_as_iv": false,
+   "how_to_set": "基础镜像选定版本（python:3.8 等）；取值相对任务声明的栈版本"
+  },
+  {
+   "id": "E3.1.entry_name",
+   "layer": "E3",
+   "dimension": "语言运行时",
+   "name": "入口名",
+   "values": [
+    "canonical",
+    "alias-missing"
+   ],
+   "baseline": "canonical",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "—",
+   "evidence": "[准入案例表](validity-admission-cases.md)",
+   "varied_as_iv": false,
+   "how_to_set": "镜像里删掉 python 或 python3 别名、pip 只留 pip3"
+  },
+  {
+   "id": "E3.2.preinstalled",
+   "layer": "E3",
+   "dimension": "依赖与包",
+   "name": "预装情况",
+   "values": [
+    "present",
+    "absent",
+    "partial"
+   ],
+   "baseline": "present",
+   "status": "core",
+   "settable": "direct",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "E2B `apt_install`；Codex setup script；DSec 工作区层",
+   "evidence": "OpenHands#12765：没有 JDK，agent 反复 `pip3 install openjdk` 卡死；Jupyter 研究只有 24.11% 能跑完",
+   "varied_as_iv": false,
+   "how_to_set": "镜像 build 阶段装 / 不装 / 装一半任务依赖"
+  },
+  {
+   "id": "E3.2.package_source",
+   "layer": "E3",
+   "dimension": "依赖与包",
+   "name": "包来源",
+   "values": [
+    "public-registry",
+    "internal-mirror",
+    "unreachable"
+   ],
+   "baseline": "public-registry",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "DSec 按镜像服务放行",
+   "evidence": "hermes-agent#123132：lockfile 写死公网 registry，只能访问内部镜像时须改写 lockfile；DSec §6.4 agent 扫端口找镜像",
+   "varied_as_iv": false,
+   "how_to_set": "PIP_INDEX_URL / npm registry / apt sources 指向内部镜像；unreachable=配 E5.2 挡掉包源"
+  },
+  {
+   "id": "E3.2.build_tools",
+   "layer": "E3",
+   "dimension": "依赖与包",
+   "name": "编译工具",
+   "values": [
+    "present",
+    "absent"
+   ],
+   "baseline": "present",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "—",
+   "evidence": "[准入案例表](validity-admission-cases.md)；Jupyter 研究 8.73%",
+   "varied_as_iv": false,
+   "how_to_set": "镜像装或不装 gcc/make/cmake"
+  },
+  {
+   "id": "E3.3.toolchain",
+   "layer": "E3",
+   "dimension": "系统工具",
+   "name": "工具实现",
+   "values": [
+    "gnu",
+    "bsd",
+    "busybox",
+    "toybox",
+    "windows-native"
+   ],
+   "baseline": "gnu",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "—",
+   "evidence": "claude-code#95705：BSD 上 `sed -i` 静默成功却多出备份文件；claude-code#79862：BusyBox 没有 printenv",
+   "varied_as_iv": false,
+   "how_to_set": "镜像选 GNU coreutils / BusyBox(alpine) / BSD(macOS)；Windows 原生无 sed/grep"
+  },
+  {
+   "id": "E3.3.shell",
+   "layer": "E3",
+   "dimension": "系统工具",
+   "name": "shell",
+   "values": [
+    "bash",
+    "sh-dash",
+    "mksh",
+    "zsh",
+    "fish",
+    "powershell-5",
+    "powershell-7",
+    "cmd"
+   ],
+   "baseline": "bash",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "GitHub Actions `defaults.run.shell`；SWE-bench-Live Windows 用 PowerShell",
+   "evidence": "cline#346、gemini-cli#20773、kilocode#700：PowerShell 5.1 不认 `&&`",
+   "varied_as_iv": false,
+   "how_to_set": "镜像默认 shell 与 harness 调用的 shell（/bin/sh 链接、SHELL、ComSpec、PowerShell 版本）"
+  },
+  {
+   "id": "E3.4.browser_engine",
+   "layer": "E3",
+   "dimension": "浏览器引擎",
+   "name": "browser-engine",
+   "values": [
+    "chromium",
+    "firefox",
+    "webkit"
+   ],
+   "baseline": "chromium",
+   "status": "core",
+   "settable": "direct",
+   "probe": "manual",
+   "scope": "web",
+   "platform_params": "WebArena `playwright==1.32.1`；BrowserGym `playwright==1.44`",
+   "evidence": "[准入案例表](validity-admission-cases.md)",
+   "varied_as_iv": false,
+   "how_to_set": "playwright 选 chromium / firefox / webkit 并钉版本"
+  },
+  {
+   "id": "E4.1.encoding",
+   "layer": "E4",
+   "dimension": "区域",
+   "name": "默认编码",
+   "values": [
+    "utf-8",
+    "cp1252",
+    "gbk",
+    "cp950"
+   ],
+   "baseline": "utf-8",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "SWE-bench-Live Windows 建议 `PYTHONUTF8=1`",
+   "evidence": "claude-code#56946：Edit 把 GBK 文件转成 UTF-8，须检测并保留；codex#32958：`read_text()` 在 cp936 下报 UnicodeDecodeError；PEP 597",
+   "varied_as_iv": false,
+   "how_to_set": "Linux 由 locale 决定（LANG=xx.ISO-8859-1 得到非 UTF-8）；Windows 由代码页决定（chcp、系统区域“Beta: UTF-8”开关）；PYTHONUTF8/PYTHONIOENCODING 只改 Python"
+  },
+  {
+   "id": "E4.1.locale",
+   "layer": "E4",
+   "dimension": "区域",
+   "name": "区域约定",
+   "values": [
+    "C.UTF-8",
+    "en_US",
+    "de_DE",
+    "tr_TR",
+    "zh_CN"
+   ],
+   "baseline": "C.UTF-8",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "BrowserGym `locale`；SWE-bench django 实例写死 `LANG`",
+   "evidence": "[准入案例表](validity-admission-cases.md)；codex#21957",
+   "varied_as_iv": false,
+   "how_to_set": "LANG / LC_ALL，需镜像里 locale-gen 生成对应 locale"
+  },
+  {
+   "id": "E4.1.timezone",
+   "layer": "E4",
+   "dimension": "区域",
+   "name": "时区",
+   "values": [
+    "UTC",
+    "fixed-offset-zone",
+    "dst-zone",
+    "half-hour-offset-zone"
+   ],
+   "baseline": "UTC",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "BrowserGym `timezone_id`；SWE-bench `TZ=Etc/UTC`，R2E-Gym 却是 `America/Los_Angeles`",
+   "evidence": "codex#48436：agent 按系统时区买票造成实际损失，须从用户所在地推时区",
+   "varied_as_iv": false,
+   "how_to_set": "TZ 环境变量或 /etc/localtime；Windows tzutil /s"
+  },
+  {
+   "id": "E4.2.identity",
+   "layer": "E4",
+   "dimension": "进程上下文",
+   "name": "运行身份",
+   "values": [
+    "root",
+    "unprivileged-user"
+   ],
+   "baseline": "root",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "E2B 默认非 root；Harbor `agent.user`；SWE-bench `execute_test_as_nonroot`",
+   "evidence": "[准入案例表](validity-admission-cases.md)：非 root 下系统 pip 不可用，改用 venv",
+   "varied_as_iv": false,
+   "how_to_set": "docker --user / USER 指令；Windows 以非管理员账号运行"
+  },
+  {
+   "id": "E4.2.tty",
+   "layer": "E4",
+   "dimension": "进程上下文",
+   "name": "tty",
+   "values": [
+    "pty",
+    "no-tty"
+   ],
+   "baseline": "pty",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "E2B `pty.create`；Fly `init.tty`",
+   "evidence": "claude-code#237：无 tty 时交互菜单无限挂起，须改非交互参数",
+   "varied_as_iv": false,
+   "how_to_set": "docker -t 与否；harness 用 pty 或管道执行命令"
+  },
+  {
+   "id": "E4.2.env_inherit",
+   "layer": "E4",
+   "dimension": "进程上下文",
+   "name": "环境变量继承",
+   "values": [
+    "inherited",
+    "minimal",
+    "pure"
+   ],
+   "baseline": "inherited",
+   "status": "candidate",
+   "settable": "direct",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "Codex `shell_environment_policy`；Guix `--pure`",
+   "evidence": "codex#37662；AI 编码工具 bug 研究 127 条（多为 harness 层）",
+   "varied_as_iv": false,
+   "how_to_set": "env -i / harness 的环境变量白名单"
+  },
+  {
+   "id": "E5.1.permissions",
+   "layer": "E5",
+   "dimension": "权限",
+   "name": "权限与能力",
+   "values": [
+    "full",
+    "sudo-nopasswd",
+    "no-sudo",
+    "readonly-sys",
+    "restricted-caps"
+   ],
+   "baseline": "full",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "Kubernetes `readOnlyRootFilesystem`、`capabilities`、`seccompProfile`；DSec AppArmor；Windows 只读属性",
+   "evidence": "[准入案例表](validity-admission-cases.md)；Windows 上带只读属性的文件 `os.remove` 与 `rmtree` 报 PermissionError，须先改属性",
+   "varied_as_iv": false,
+   "how_to_set": "sudoers 配置、--read-only、--cap-drop、seccomp、AppArmor；Windows 文件只读属性与 ACL"
+  },
+  {
+   "id": "E5.1.mount",
+   "layer": "E5",
+   "dimension": "权限",
+   "name": "挂载",
+   "values": [
+    "normal",
+    "tmp-noexec",
+    "readonly-workspace"
+   ],
+   "baseline": "normal",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "Firecracker `is_read_only`；OCI `readonlyPaths`",
+   "evidence": "claude-code#26741：/tmp noexec 时 Search 静默返回 0 结果",
+   "varied_as_iv": false,
+   "how_to_set": "--tmpfs /tmp:noexec；工作区只读挂载"
+  },
+  {
+   "id": "E5.2.egress",
+   "layer": "E5",
+   "dimension": "网络",
+   "name": "出网",
+   "values": [
+    "online",
+    "offline",
+    "allowlist",
+    "mirror-only",
+    "proxy-required",
+    "ipv6-only"
+   ],
+   "baseline": "online",
+   "status": "core",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "E2B `allow_out`；Modal `outbound_domain_allowlist`；Harbor `network_mode`；Codex agent 阶段默认关网",
+   "evidence": "codex#376：出网被挡，须预置依赖或离线安装",
+   "varied_as_iv": false,
+   "how_to_set": "--network none / 出网 allowlist（iptables、eBPF、平台参数）/ HTTP(S)_PROXY 必须走代理 / 只开 IPv6"
+  },
+  {
+   "id": "E5.2.dns",
+   "layer": "E5",
+   "dimension": "网络",
+   "name": "DNS",
+   "values": [
+    "normal",
+    "servfail",
+    "sandbox-resolver"
+   ],
+   "baseline": "normal",
+   "status": "candidate",
+   "settable": "direct",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "Fly `dns`",
+   "evidence": "claude-code#72706、codex#16312（多为 harness 层）",
+   "varied_as_iv": false,
+   "how_to_set": "--dns 指向返回 SERVFAIL 的解析器或沙箱内解析器"
+  },
+  {
+   "id": "E5.2.http_methods",
+   "layer": "E5",
+   "dimension": "网络",
+   "name": "HTTP 方法",
+   "values": [
+    "all",
+    "read-only"
+   ],
+   "baseline": "all",
+   "status": "candidate",
+   "settable": "direct",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "Codex Allowed HTTP methods",
+   "evidence": "平台文档",
+   "varied_as_iv": false,
+   "how_to_set": "出网代理只放行 GET/HEAD"
+  },
+  {
+   "id": "E5.3.clock",
+   "layer": "E5",
+   "dimension": "时钟",
+   "name": "时钟偏移",
+   "values": [
+    "synced",
+    "future+1y",
+    "past-1y",
+    "frozen"
+   ],
+   "baseline": "synced",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "auto",
+   "scope": "all",
+   "platform_params": "Firecracker `clock_realtime`；OCI `timeOffsets`；AndroidWorld、AppWorld 冻结时间",
+   "evidence": "[准入案例表](validity-admission-cases.md)：时钟拨快后 apt 与 TLS 证书过期；libfaketime：冻结时钟使等待型程序挂起",
+   "varied_as_iv": false,
+   "how_to_set": "容器共享宿主实时时钟，Linux time namespace 不能偏移 CLOCK_REALTIME；只能用 libfaketime(LD_PRELOAD，对静态二进制无效) 或 VM 设置客户机时钟"
+  },
+  {
+   "id": "E5.4.secret_visibility",
+   "layer": "E5",
+   "dimension": "凭据",
+   "name": "可见性",
+   "values": [
+    "visible",
+    "setup-only",
+    "placeholder"
+   ],
+   "baseline": "visible",
+   "status": "candidate",
+   "settable": "direct",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "Codex secret 只在 setup 阶段可见；Daytona 占位符",
+   "evidence": "平台文档",
+   "varied_as_iv": false,
+   "how_to_set": "secret 只在 setup 阶段注入、agent 阶段前删除；或注入占位符由代理替换"
+  },
+  {
+   "id": "E5.5.limit_enforcement",
+   "layer": "E5",
+   "dimension": "限额执行",
+   "name": "执行语义",
+   "values": [
+    "guaranteed",
+    "overcommit",
+    "hard-kill"
+   ],
+   "baseline": "guaranteed",
+   "status": "candidate",
+   "settable": "direct",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "DSec 超分；cgroup",
+   "evidence": "Anthropic 基础设施噪声实验；claude-code#85639",
+   "varied_as_iv": true,
+   "how_to_set": "cgroup 保证 vs 超分；hard-kill=memory.max 触发 OOM 直接杀"
+  },
+  {
+   "id": "E6.1.residual",
+   "layer": "E6",
+   "dimension": "平台残留",
+   "name": "residual",
+   "values": [
+    "clean",
+    "stale-files",
+    "stale-processes",
+    "leaked-logs"
+   ],
+   "baseline": "clean",
+   "status": "core",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "DSec 清理答案残留；Codex 容器缓存",
+   "evidence": "claude-code#90524、#42269：残留目录与僵尸进程使后续命令失败；DSec §6.4 agent 从日志翻残留答案",
+   "varied_as_iv": false,
+   "how_to_set": "setup 阶段故意留下 / 清理缓存、日志、旧进程"
+  },
+  {
+   "id": "E6.2.settings",
+   "layer": "E6",
+   "dimension": "应用初始状态",
+   "name": "设置与进度",
+   "values": [
+    "default",
+    "non-default-settings",
+    "partially-done"
+   ],
+   "baseline": "default",
+   "status": "core",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "OSWorld `snapshot`、`config[]`；AndroidEnv `setup_steps`",
+   "evidence": "WorldGUI",
+   "varied_as_iv": false,
+   "how_to_set": "快照或 setup 脚本改应用设置、做一半任务"
+  },
+  {
+   "id": "E6.2.window_interference",
+   "layer": "E6",
+   "dimension": "应用初始状态",
+   "name": "窗口与干扰",
+   "values": [
+    "clean",
+    "window-moved",
+    "minimized",
+    "irrelevant-apps-open",
+    "popup"
+   ],
+   "baseline": "clean",
+   "status": "core",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "gui",
+   "platform_params": "★ OSWorld 窗口扰动（下降 60%–80%）；★ macOSWorld 欺骗弹窗",
+   "evidence": "D-GARA：注入弹窗后 AgentCPM-GUI 59.87%→26.97%；browser-use#2276",
+   "varied_as_iv": true,
+   "how_to_set": "setup 阶段移动窗口、最小化、开无关应用、弹窗"
+  },
+  {
+   "id": "E6.3.external_time",
+   "layer": "E6",
+   "dimension": "外部世界",
+   "name": "外部服务时点",
+   "values": [
+    "frozen-snapshot",
+    "live",
+    "drifted"
+   ],
+   "baseline": "frozen-snapshot",
+   "status": "core",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "WebArena 自托管站点；Harbor `mcp_servers`",
+   "evidence": "WebCanvas 一年后 12% 任务过期；Online-Mind2Web 47% 任务无效或过时；claude-code#86440",
+   "varied_as_iv": false,
+   "how_to_set": "自托管快照 / 连真实服务 / 快照与任务标注时点不同"
+  },
+  {
+   "id": "E6.3.api_version",
+   "layer": "E6",
+   "dimension": "外部世界",
+   "name": "接口版本",
+   "values": [
+    "pinned",
+    "evolved"
+   ],
+   "baseline": "pinned",
+   "status": "core",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "—",
+   "evidence": "MCPEvol-Bench 下降 13.7%–14.4%；Deprecated API Usage",
+   "varied_as_iv": false,
+   "how_to_set": "模拟服务钉版本或升级到新版接口"
+  },
+  {
+   "id": "E6.3.service_reliability",
+   "layer": "E6",
+   "dimension": "外部世界",
+   "name": "服务可靠性",
+   "values": [
+    "reliable",
+    "flaky-tools",
+    "rate-limited"
+   ],
+   "baseline": "reliable",
+   "status": "candidate",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "★ Gaia2 Noise `tool_failure_probability=0.1`；ReliabilityBench",
+   "evidence": "ReliabilityBench：限流伤害最大；多数只需重试，结构未必不同",
+   "varied_as_iv": true,
+   "how_to_set": "模拟服务按概率失败或限流"
+  },
+  {
+   "id": "E6.4.user",
+   "layer": "E6",
+   "dimension": "其他行动者",
+   "name": "用户",
+   "values": [
+    "none",
+    "cooperative-sim",
+    "hard-persona",
+    "human"
+   ],
+   "baseline": "none",
+   "status": "core",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "★ τ² No-User / Default / Oracle，Easy 与 Hard 画像；τ `--user-strategy`",
+   "evidence": "τ²：从无用户换到默认用户，gpt-4.1 下降 18%、o4-mini 下降 25%；须主动问询、协调，路径不同",
+   "varied_as_iv": true,
+   "how_to_set": "无用户 / 用户模拟器（配画像）/ 真人"
+  },
+  {
+   "id": "E6.4.peer_agent",
+   "layer": "E6",
+   "dimension": "其他行动者",
+   "name": "其他 agent",
+   "values": [
+    "none",
+    "peer-agent"
+   ],
+   "baseline": "none",
+   "status": "core",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "★ Gaia2 Agent2Agent",
+   "evidence": "Gaia2 A2A 子集",
+   "varied_as_iv": true,
+   "how_to_set": "环境里放另一个 agent"
+  },
+  {
+   "id": "E6.4.async_events",
+   "layer": "E6",
+   "dimension": "其他行动者",
+   "name": "异步事件",
+   "values": [
+    "none",
+    "poisson-events"
+   ],
+   "baseline": "none",
+   "status": "candidate",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "★ Gaia2 `EnvEventsConfig`",
+   "evidence": "Gaia2 Noise 子集（与工具故障混测）",
+   "varied_as_iv": true,
+   "how_to_set": "按泊松过程注入外部事件"
+  },
+  {
+   "id": "E6.5.time_advance",
+   "layer": "E6",
+   "dimension": "时间推进",
+   "name": "思考是否计时",
+   "values": [
+    "paused-while-thinking",
+    "real-time"
+   ],
+   "baseline": "paused-while-thinking",
+   "status": "core",
+   "settable": "setup",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "★ Gaia2 `simulated_generation_time_mode`",
+   "evidence": "Gaia2：Claude 4.0 Sonnet 计生成时间 8.2%，instant 模式 26.7%",
+   "varied_as_iv": true,
+   "how_to_set": "模拟器时钟在模型生成时暂停或照常走"
+  },
+  {
+   "id": "E7.1.channel",
+   "layer": "E7",
+   "dimension": "通道",
+   "name": "观测与动作模态",
+   "values": [
+    "terminal",
+    "gui-screenshot",
+    "a11y-tree",
+    "web-dom",
+    "api"
+   ],
+   "baseline": "terminal",
+   "status": "core",
+   "settable": "direct",
+   "probe": "manual",
+   "scope": "all",
+   "platform_params": "OSWorld `require_a11y_tree`；★ Windows Agent Arena `a11y-backend`（uia / win32）与 `som-origin` 组合对比；★ OpenApps axtree / screenshot",
+   "evidence": "OSWorld 与 Windows Agent Arena 在同一任务上比较了不同观测组合；同一交付物经终端与经 GUI 完成，正确操作序列结构不同",
+   "varied_as_iv": true,
+   "how_to_set": "harness 给终端 / 截图 / 可访问性树 / DOM / API"
+  },
+  {
+   "id": "E7.2.scale",
+   "layer": "E7",
+   "dimension": "显示",
+   "name": "缩放与 DPI",
+   "values": [
+    "100%",
+    "125-200%",
+    "fractional",
+    "page-zoom-70%"
+   ],
+   "baseline": "100%",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "manual",
+   "scope": "gui",
+   "platform_params": "—",
+   "evidence": "browser-use#4571：200% 下点击偏移 2 倍；trycua/cua#3061；GUI-Perturbed",
+   "varied_as_iv": false,
+   "how_to_set": "系统显示缩放（Windows 显示设置、GNOME scaling-factor）或浏览器 zoom"
+  },
+  {
+   "id": "E7.2.resolution",
+   "layer": "E7",
+   "dimension": "显示",
+   "name": "分辨率与视口",
+   "values": [
+    "1920x1080",
+    "small-screen",
+    "tablet-landscape"
+   ],
+   "baseline": "1920x1080",
+   "status": "candidate",
+   "settable": "direct",
+   "probe": "manual",
+   "scope": "gui",
+   "platform_params": "★ OSWorld 截图降采样 0.2–0.8；★ OpenApps 三种分辨率；WebArena 1280×720",
+   "evidence": "VenusBench-Mobile 平板模式降幅最大（与其他因素混测）",
+   "varied_as_iv": true,
+   "how_to_set": "虚拟显示分辨率或浏览器 viewport"
+  },
+  {
+   "id": "E7.2.theme",
+   "layer": "E7",
+   "dimension": "显示",
+   "name": "主题与字体",
+   "values": [
+    "light",
+    "dark",
+    "high-contrast",
+    "hard-to-read-font"
+   ],
+   "baseline": "light",
+   "status": "candidate",
+   "settable": "indirect",
+   "probe": "manual",
+   "scope": "gui",
+   "platform_params": "★ OpenApps `dark_theme`、`challenging_font`",
+   "evidence": "OpenApps：Kimi-VL 跨外观与内容变体 63%→4%（多因素）",
+   "varied_as_iv": true,
+   "how_to_set": "系统或应用深色/高对比主题、替换字体"
+  },
+  {
+   "id": "E7.3.ui_language",
+   "layer": "E7",
+   "dimension": "语言与输入",
+   "name": "界面语言",
+   "values": [
+    "en",
+    "other",
+    "rtl"
+   ],
+   "baseline": "en",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "manual",
+   "scope": "gui",
+   "platform_params": "★ macOSWorld 五种界面语言；★ OpenApps 德语、中文",
+   "evidence": "trycua/cua#3137、#3139：按英文文字找按钮，本地化后找不到；macOSWorld 阿拉伯语下降 28.8%",
+   "varied_as_iv": true,
+   "how_to_set": "系统显示语言或应用语言设置"
+  },
+  {
+   "id": "E7.3.input",
+   "layer": "E7",
+   "dimension": "语言与输入",
+   "name": "输入通道",
+   "values": [
+    "direct",
+    "ime",
+    "remote-desktop"
+   ],
+   "baseline": "direct",
+   "status": "core",
+   "settable": "indirect",
+   "probe": "manual",
+   "scope": "gui",
+   "platform_params": "—",
+   "evidence": "trycua/cua#2083：RDP 里 Unicode 输入静默丢字，须改用扫描码",
+   "varied_as_iv": false,
+   "how_to_set": "启用输入法 / 走远程桌面协议输入"
+  }
+ ],
+ "layer_meta": {
+  "E1": {
+   "owner": "基础设施方",
+   "stage": "provision",
+   "rebuild": "换机器或虚拟硬件"
+  },
+  "E2": {
+   "owner": "基础设施方/沙箱方",
+   "stage": "sandbox-create",
+   "rebuild": "换 OS 镜像或隔离后端"
+  },
+  "E3": {
+   "owner": "镜像构建者",
+   "stage": "build",
+   "rebuild": "重建镜像"
+  },
+  "E4": {
+   "owner": "启动者",
+   "stage": "process-start",
+   "rebuild": "只重启进程"
+  },
+  "E5": {
+   "owner": "沙箱方",
+   "stage": "container-create,可按阶段改",
+   "rebuild": "重建容器"
+  },
+  "E6": {
+   "owner": "出题方设初值,之后由动作/时间/他人改变",
+   "stage": "reset",
+   "rebuild": "只需 reset"
+  },
+  "E7": {
+   "owner": "操作系统与应用",
+   "stage": "every-step",
+   "rebuild": "换显示或输入配置"
+  }
+ },
+ "os_profiles": {
+  "linux": {
+   "E2.3.case": "sensitive",
+   "E2.3.unicode": "none",
+   "E2.3.length": "name-255-bytes",
+   "E2.3.special_names": "posix",
+   "E2.4.line_ending": "lf",
+   "E2.4.path_sep": "slash",
+   "E3.3.toolchain": "gnu",
+   "E3.3.shell": "bash",
+   "E4.1.encoding": "utf-8"
+  },
+  "macos": {
+   "E2.3.case": "insensitive",
+   "E2.3.unicode": "normalization-insensitive",
+   "E2.3.length": "name-255-bytes",
+   "E2.3.special_names": "posix",
+   "E2.4.line_ending": "lf",
+   "E2.4.path_sep": "slash",
+   "E3.3.toolchain": "bsd",
+   "E3.3.shell": "zsh",
+   "E4.1.encoding": "utf-8"
+  },
+  "windows": {
+   "E2.3.case": "insensitive",
+   "E2.3.unicode": "none",
+   "E2.3.length": "win-max-path-260",
+   "E2.3.special_names": "win-reserved",
+   "E2.4.line_ending": "crlf",
+   "E2.4.path_sep": "backslash",
+   "E3.3.toolchain": "windows-native",
+   "E3.3.shell": "powershell-5",
+   "E4.1.encoding": "cp1252"
+  },
+  "android": {
+   "E2.3.case": "sensitive",
+   "E2.3.unicode": "none",
+   "E2.3.length": "name-255-bytes",
+   "E2.3.special_names": "posix",
+   "E2.4.line_ending": "lf",
+   "E2.4.path_sep": "slash",
+   "E3.3.toolchain": "toybox",
+   "E3.3.shell": "mksh",
+   "E4.1.encoding": "utf-8"
+  }
+ },
+ "os_profiles_note": "声明 E2.1.os 后，这些子维度默认取该 OS 的值；可逐项覆盖，但覆盖要写明做法。windows 的 encoding 是美国英语区域的默认 ANSI 代码页，中文区域为 gbk。android 的 shell 实为 mksh，按最接近的 sh-dash 记。",
+ "changes_vs_draft_v1": [
+  "E2.3.unicode 增加取值 normalization-insensitive（APFS：保留原名、比较不分归一形式；HFS+ 才是 nfd-normalizing）",
+  "E3.3.toolchain 增加取值 windows-native，否则 Windows 默认档填不进",
+  "新增 settable 列：param=平台参数直接设 / indirect=只能经环境变量、配置或预加载间接设 / host=只能换宿主或 OS / setup=由 setup 脚本、快照或模拟器设",
+  "新增 os_profiles：声明 OS 即带出 9 个子维度的默认值",
+  "E4.1.timezone 增加取值 fixed-offset-zone（非 UTC、无夏令时，如 Asia/Shanghai；本机实测填不进原取值表）"
+ ]
+}

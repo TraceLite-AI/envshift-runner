@@ -1,0 +1,117 @@
+name: sandbox-verify
+# Realise and verify the OS-level runtime sandbox variants of the TraceLite env-suite with the registry probe.
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "comma-separated variant ids (empty = all)"
+        required: false
+        default: ""
+jobs:
+  verify:
+    if: ${{ inputs.only == '' || contains(format(',{0},', inputs.only), format(',{0},', matrix.id)) }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {id: gh-arm64,       os: ubuntu-24.04-arm, how: plain}
+          - {id: gh-macos,       os: macos-15,        how: plain}
+          - {id: gh-unicode-ni,  os: macos-15,        how: plain}
+          - {id: gh-unicode-nfd, os: macos-15,        how: plain}
+          - {id: gh-bsd,         os: macos-15,        how: plain}
+          - {id: gh-windows,     os: windows-2022,    how: pwsh}
+          - {id: gh-winmaxpath,  os: windows-2022,    how: pwsh}
+          - {id: gh-winreserved, os: windows-2022,    how: pwsh}
+          - {id: gh-backslash,   os: windows-2022,    how: pwsh}
+          - {id: gh-cp1252,      os: windows-2022,    how: pwsh}
+          - {id: gh-winnative,   os: windows-2022,    how: winnative}
+          - {id: gh-ps5,         os: windows-2022,    how: ps5}
+          - {id: gh-cmd,         os: windows-2022,    how: cmd}
+          - {id: gh-wsl,         os: windows-2022,    how: wsl}
+          - {id: gh-kc-full,     os: ubuntu-24.04,    how: plain}
+          - {id: gh-kc-nofuse,   os: ubuntu-24.04,    how: docker, devices: "--device /dev/kvm --device /dev/loop-control"}
+          - {id: gh-kc-noloop,   os: ubuntu-24.04,    how: docker, devices: "--device /dev/kvm --device /dev/fuse"}
+          - {id: gh-bare,        os: ubuntu-24.04,    how: plain}
+          - {id: gh-vm,          os: ubuntu-24.04,    how: vm}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        if: matrix.how != 'wsl' && matrix.how != 'vm' && matrix.how != 'docker'
+        with: {python-version: "3.12"}
+      - name: setup variant
+        shell: bash
+        run: |
+          PYBIN=$(command -v python3 || command -v python)
+          $PYBIN sandbox/sandbox_gh.py setup ${{ matrix.id }} | tee -a "$GITHUB_ENV"
+      # ---------- probe, one way per realisation ----------
+      - name: probe (plain)
+        if: matrix.how == 'plain'
+        shell: bash
+        run: python3 sandbox/envstd.py probe > probe.json
+      - name: probe (pwsh)
+        if: matrix.how == 'pwsh'
+        shell: pwsh
+        run: python sandbox/envstd.py probe | Out-File -Encoding utf8 probe.json
+      - name: probe (windows-native PATH)
+        if: matrix.how == 'winnative'
+        shell: pwsh
+        run: |
+          $env:PATH = $env:SANDBOX_PATH
+          python sandbox/envstd.py probe | Out-File -Encoding utf8 probe.json
+      - name: probe (Windows PowerShell 5.1)
+        if: matrix.how == 'ps5'
+        shell: powershell
+        run: python sandbox/envstd.py probe | Out-File -Encoding utf8 probe.json
+      - name: probe (cmd)
+        if: matrix.how == 'cmd'
+        shell: cmd
+        run: |
+          set PSModulePath=
+          python sandbox\envstd.py probe > probe.json
+      - name: probe (docker, device subset)
+        if: matrix.how == 'docker'
+        shell: bash
+        run: |
+          docker run --rm ${{ matrix.devices }} -v "$PWD/sandbox:/s:ro" python:3.12-slim python3 /s/envstd.py probe > probe.json
+      - name: set up WSL
+        if: matrix.how == 'wsl'
+        uses: Vampire/setup-wsl@v3
+        with: {distribution: Ubuntu-22.04, additional-packages: python3}
+      - name: probe (inside WSL)
+        if: matrix.how == 'wsl'
+        shell: wsl-bash {0}
+        run: python3 sandbox/envstd.py probe > probe.json
+      - name: probe (QEMU/KVM guest)
+        if: matrix.how == 'vm'
+        shell: bash
+        run: |
+          set -e
+          sudo apt-get update -q && sudo apt-get install -y -q qemu-system-x86 qemu-utils cloud-image-utils >/dev/null
+          sudo chmod 666 /dev/kvm
+          curl -fsSL -o base.img https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+          qemu-img create -f qcow2 -F qcow2 -b base.img disk.qcow2 8G >/dev/null
+          B64P=$(base64 -w0 sandbox/envstd.py); B64D=$(base64 -w0 sandbox/dimensions.json)
+          cat > user-data <<UD
+          #cloud-config
+          write_files:
+            - {path: /opt/p/envstd.py, encoding: b64, content: $B64P}
+            - {path: /opt/p/dimensions.json, encoding: b64, content: $B64D}
+          runcmd:
+            - [bash, -c, "cd /opt/p && python3 envstd.py probe > /opt/p/out.json; V=\$(systemd-detect-virt); python3 -c \"import json;d=json.load(open('/opt/p/out.json'));d['virt']='\$V';print('@@PROBE@@'+json.dumps(d)+'@@END@@')\" > /dev/ttyS0; poweroff"]
+          UD
+          sed -i 's/^          //' user-data
+          cloud-localds seed.img user-data
+          timeout 900 qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -nographic -serial file:serial.log -monitor none \
+            -drive file=disk.qcow2,if=virtio -drive file=seed.img,if=virtio,format=raw -netdev user,id=n0 -device virtio-net-pci,netdev=n0 || true
+          python3 -c "import re;s=open('serial.log',errors='ignore').read();m=re.search(r'@@PROBE@@(.*?)@@END@@',s,re.S);open('probe.json','w').write(m.group(1))"
+      - name: check
+        shell: bash
+        run: |
+          PYBIN=$(command -v python3 || command -v python)
+          $PYBIN -c "import io,sys;p='probe.json';b=open(p,'rb').read();b=b[3:] if b.startswith(b'\xef\xbb\xbf') else b;t=b.decode('utf-8','replace');open(p,'w',encoding='utf-8').write(t[t.find('{'):])"
+          $PYBIN sandbox/sandbox_gh.py check ${{ matrix.id }} probe.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "verify-${{ matrix.id }}", path: "verify-*.json", if-no-files-found: ignore}
