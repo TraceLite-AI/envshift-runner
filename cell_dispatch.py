@@ -9,7 +9,7 @@
   python cell_dispatch.py table   --run gate1-gh --results ~/Downloads/cl实验/envsuite/results
 
 dispatch: packs the tasks (deterministic tar.gz -> base64), writes the TASKS_B64_1..12 secrets (unused chunks
-          = "."), waits until every secret reports the new updated_at and a settle delay has passed, prints the
+          = UNUSED), waits until every secret reports the new updated_at and a settle delay has passed, prints the
           bundle fingerprint, dispatches cell-run.yml with that fingerprint and records results/<run>/dispatch.json.
           Refuses to start while another cell-run is queued or running (it would read the new bundle).
 collect:  lists every job with `gh api .../jobs?per_page=100 --paginate`, reads the {"kind":"cell_result"} lines
@@ -25,6 +25,7 @@ REPO = os.environ.get("CELLRUN_REPO", "TraceLite-AI/envshift-runner")
 WORKFLOW = "cell-run.yml"
 NCHUNK, CHUNK = 12, 48000          # 12 secrets x 48 KB = the workflow's 12 chunk steps (~576 KB)
 SKIP = {"__pycache__", ".DS_Store"}
+UNUSED = "~unused-TASKS_B64-chunk~"     # GitHub masks secret values in logs: never a string that occurs in one
 
 
 def log(*a):
@@ -78,7 +79,7 @@ def push_bundle(b64, settle):
     t0 = utcnow()
     time.sleep(1)
     for i in range(NCHUNK):
-        val = chunks[i] if i < len(chunks) else "."
+        val = chunks[i] if i < len(chunks) else UNUSED
         gh(["secret", "set", "TASKS_B64_%d" % (i + 1), "-R", REPO], input=val)
     log("secrets written: %d data chunks + %d empty, waiting until visible" % (len(chunks), NCHUNK - len(chunks)))
     for _ in range(60):
@@ -257,7 +258,7 @@ def cmd_table(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    sp = ap.add_subparsers(dest="cmd")
+    sp = ap.add_subparsers(dest="action")
     d = sp.add_parser("dispatch")
     d.add_argument("--tasks-dir", default="~/Downloads/cl实验/envsuite/tasks_gh"); d.add_argument("--tasks", default="")
     d.add_argument("--cells", default="base,target"); d.add_argument("--modes", default="ref,naive")
@@ -271,9 +272,9 @@ def main():
         c.add_argument("--run", required=True); c.add_argument("--results", default="~/Downloads/cl实验/envsuite/results")
         c.add_argument("--run-id", default=None); c.add_argument("--wait", action="store_true"); c.add_argument("--poll", type=int, default=60)
     a = ap.parse_args()
-    if a.cmd == "dispatch": cmd_dispatch(a)
-    elif a.cmd == "collect": cmd_collect(a)
-    elif a.cmd == "table": cmd_table(a)
+    if a.action == "dispatch": cmd_dispatch(a)
+    elif a.action == "collect": cmd_collect(a)
+    elif a.action == "table": cmd_table(a)
     else: ap.print_help()
 
 

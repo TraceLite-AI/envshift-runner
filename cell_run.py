@@ -91,9 +91,20 @@ def rmtree(p):
     if WIN and not p.startswith("\\\\?\\"):
         p = "\\\\?\\" + os.path.abspath(p)       # reach names Win32 normalisation would hide (con.rec, "a.")
     def onerr(fn, path, exc):
-        try: os.chmod(path, stat.S_IWRITE); fn(path)
+        try: os.chmod(path, os.lstat(path).st_mode | stat.S_IWRITE); fn(path)
         except Exception: pass
-    shutil.rmtree(p, onerror=onerr)
+    if os.path.isdir(p) and not os.path.islink(p):
+        shutil.rmtree(p, onerror=onerr)
+    else:
+        os.unlink(p)
+
+
+def empty_dir(path):
+    """Create a directory or remove everything inside it (the directory itself stays: /workspace's parent is
+    root-owned on the runner)."""
+    os.makedirs(path, exist_ok=True)
+    for c in os.listdir(path):
+        rmtree(os.path.join(path, c))
 
 
 def run_proc(args, timeout, env=None, cwd=None, input=None):
@@ -203,7 +214,7 @@ class LocalBash(Executor):
         self.base_env = base
 
     def reset(self, path):
-        rmtree(path); os.makedirs(path, exist_ok=True)
+        empty_dir(path)
 
     def push(self, local_dir, remote_dir):
         os.makedirs(remote_dir, exist_ok=True)
@@ -257,7 +268,7 @@ class LocalWindows(Executor):
         return "\\".join(parts)
 
     def reset(self, path):
-        rmtree(path); os.makedirs(path, exist_ok=True)
+        empty_dir(path)
 
     def push(self, local_dir, remote_dir):
         os.makedirs(remote_dir, exist_ok=True)
@@ -478,12 +489,16 @@ def make_executor(cell, how, variant, extra_env):
 
 
 # ----------------------------------------------------------------------------------------------- bundle
+# Value of an unused TASKS_B64_n secret. GitHub masks every secret value in job logs, so it must be a string that
+# never occurs in a log line (a "." sentinel turned every "." in the logs into "***").
+UNUSED = "~unused-TASKS_B64-chunk~"
+
 def load_bundle(path):
     """tasks_b64.txt (base64 of tar.gz with tasks/<ID>/...) -> (fingerprint, {task_id: {relpath: (bytes, mode)}})."""
     p = pathlib.Path(path)
     if not p.exists():
         return "none", {}
-    b64 = p.read_text(encoding="ascii").replace(".", "").strip()
+    b64 = p.read_text(encoding="ascii").replace(UNUSED, "").strip()
     if not b64:
         return "none", {}
     fp = hashlib.sha256(b64.encode()).hexdigest()[:16]

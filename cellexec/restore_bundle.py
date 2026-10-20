@@ -2,11 +2,15 @@
 """Check the task bundle restored from the TASKS_B64_* secret chunks.
 
 The chunk steps append each secret to tasks_b64.txt one per step (macOS: 1 MB env+args limit). Unused chunks
-hold "." and are dropped here. Prints BUNDLE_FP=<sha256 prefix> and exits 3 when it differs from the
-fingerprint the dispatcher expects (a secret set just before dispatch may not be visible yet).
+hold UNUSED and are dropped here (GitHub masks secret values in logs, so the sentinel must never occur in a log).
+Prints BUNDLE_FP=<sha256 prefix> and exits 3 when it differs from the fingerprint the dispatcher expects (a
+secret set just before dispatch may not be visible yet).
 The bundle stays base64 on disk; cell_run.py decodes it in memory. No task content is printed.
 """
 import base64, hashlib, io, os, pathlib, sys, tarfile
+
+
+UNUSED = "~unused-TASKS_B64-chunk~"
 
 
 def fingerprint(b64):
@@ -15,7 +19,7 @@ def fingerprint(b64):
 
 def load(path="tasks_b64.txt"):
     p = pathlib.Path(path)
-    b64 = p.read_text(encoding="ascii").replace(".", "").strip() if p.exists() else ""
+    b64 = p.read_text(encoding="ascii").replace(UNUSED, "").strip() if p.exists() else ""
     return b64
 
 
