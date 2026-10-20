@@ -141,6 +141,10 @@ def cmd_dispatch(a):
 LINE = re.compile(r'(\{"kind": "cell_result".*\})\s*$')
 
 
+def result_key(r, sub):
+    return (r.get("task"), r.get("cell"), sub, r.get("variant") if r.get("mode") == "smoke" else None)
+
+
 def jobs_of(run_id):
     out = gh(["api", "repos/%s/actions/runs/%s/jobs?per_page=100" % (REPO, run_id), "--paginate", "--jq", ".jobs[] | tojson"])
     return [json.loads(l) for l in out.splitlines() if l.strip()]
@@ -165,7 +169,7 @@ def decrypt_artifacts(run_id, rd, accepted):
                 tf.extractall(str(enc.parent / "x"))
             for res in (enc.parent / "x" / "out").rglob("result.json"):
                 full = json.loads(res.read_text(encoding="utf-8"))
-                key = (full.get("task"), full.get("cell"), res.parent.name)
+                key = result_key(full, res.parent.name)
                 if key not in accepted:
                     continue
                 dst = accepted[key]
@@ -219,7 +223,7 @@ def cmd_collect(a):
             dst.parent.mkdir(parents=True, exist_ok=True)
             r["accepted"] = True
             dst.write_text(json.dumps(r, indent=1, ensure_ascii=False), encoding="utf-8")
-            accepted[(r.get("task"), r.get("cell"), dst.parent.name)] = dst
+            accepted[result_key(r, dst.parent.name)] = dst
         if not lines:
             tail = [l[29:] if len(l) > 29 else l for l in txt.splitlines()[-25:]]
             (rd / "_jobs").mkdir(exist_ok=True)
