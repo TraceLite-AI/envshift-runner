@@ -1,0 +1,213 @@
+name: cell-run
+# Two-cell env-suite runs on GitHub-hosted runners: each task runs in a base cell (ubuntu-24.04, Python 3.12,
+# LANG=C.UTF-8, TZ=UTC, bash) and in a target cell (the variant's runner and executor, from sandbox-verify.yml).
+# cell_run.py does the work and prints one JSON result line per (task, cell, mode); cell_dispatch.py builds the
+# plan, ships the tasks through the TASKS_B64_* secrets and collects the result lines from the job logs.
+# No task content lives in this repository.
+run-name: cell-run ${{ inputs.tag }}
+on:
+  workflow_dispatch:
+    inputs:
+      plan: {description: "JSON list [{task, variant, cell: base|target, modes, cmd?}] (built by cell_dispatch.py)", required: true}
+      fp: {description: "expected task-bundle fingerprint (empty = smoke only, no bundle)", required: false, default: ""}
+      tag: {description: "run tag; the dispatcher finds the run by it", required: true}
+      model: {description: "model for agent mode", required: false, default: "deepseek-v4.1-flash"}
+      max_parallel: {description: "max concurrent cells (free org: 20 jobs, 5 macOS)", required: false, default: "6"}
+      public_tail: {description: "1 = put the verifier's last line (200 chars) in the public result line", required: false, default: "1"}
+permissions: {contents: read}
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.p.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: p
+        env: {PLAN: "${{ inputs.plan }}"}
+        run: python3 cellexec/plan.py >> "$GITHUB_OUTPUT"
+  cell:
+    needs: plan
+    name: ${{ matrix.label }}
+    strategy:
+      fail-fast: false
+      max-parallel: ${{ fromJSON(inputs.max_parallel) }}
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    env:
+      CELL_FP: ${{ inputs.fp }}
+      CELL_JOB_LABEL: ${{ matrix.label }}
+      CELL_DEVICES: ${{ matrix.devices }}
+      CELL_PUBLIC_TAIL: ${{ inputs.public_tail }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      # one secret per step: macOS rejects a process whose environment + arguments exceed 1 MB
+      - name: bundle chunk 1
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_1 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 2
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_2 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 3
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_3 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 4
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_4 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 5
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_5 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 6
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_6 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 7
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_7 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 8
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_8 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 9
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_9 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 10
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_10 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 11
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_11 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: bundle chunk 12
+        if: inputs.fp != ''
+        shell: python
+        env: {TB: "${{ secrets.TASKS_B64_12 }}"}
+        run: |
+          import os
+          with open("tasks_b64.txt", "a", encoding="ascii", newline="") as f: f.write(os.environ.get("TB", ""))
+      - name: check bundle fingerprint
+        if: inputs.fp != ''
+        shell: python
+        run: |
+          import runpy; runpy.run_path("cellexec/restore_bundle.py", run_name="__main__")
+      - name: setup variant
+        if: matrix.cell == 'target'
+        shell: python
+        env: {VID: "${{ matrix.variant }}"}
+        run: |
+          import os, subprocess, sys
+          out = subprocess.run([sys.executable, "sandbox/sandbox_gh.py", "setup", os.environ["VID"]], check=True, capture_output=True, text=True).stdout
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8", newline="\n") as f: f.write(out)
+          print(out)
+      - name: pull docker image
+        if: matrix.cell == 'target' && matrix.how == 'docker'
+        shell: bash
+        run: docker pull -q python:3.12-slim
+      - name: set up WSL
+        if: matrix.cell == 'target' && matrix.how == 'wsl'
+        uses: Vampire/setup-wsl@v3
+        with: {distribution: Ubuntu-22.04, additional-packages: python3}
+      - name: boot VM
+        if: matrix.cell == 'target' && matrix.how == 'vm'
+        shell: bash
+        run: bash cellexec/vm_boot.sh
+      - name: boot microVM
+        if: matrix.cell == 'target' && matrix.how == 'microvm'
+        shell: bash
+        run: bash cellexec/microvm_boot.sh
+      - name: enable KVM (Android emulator)
+        if: matrix.cell == 'target' && matrix.how == 'android'
+        shell: bash
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - name: run cell
+        if: matrix.cell == 'base' || matrix.how != 'android'
+        shell: python
+        env:
+          T: ${{ matrix.task }}
+          C: ${{ matrix.cell }}
+          V: ${{ matrix.variant }}
+          H: ${{ matrix.how }}
+          M: ${{ matrix.modes }}
+          CMD: ${{ matrix.cmd }}
+          MODEL: ${{ inputs.model }}
+          LLMGATEWAY_API_KEY: ${{ contains(matrix.modes, 'agent') && secrets.LLMGATEWAY_API_KEY || '' }}
+          ANTHROPIC_API_KEY: ${{ contains(matrix.modes, 'agent') && secrets.ANTHROPIC_API_KEY || '' }}
+        run: |
+          import os, subprocess, sys
+          e = os.environ
+          sys.exit(subprocess.call([sys.executable, "cell_run.py", "--task", e["T"], "--cell", e["C"], "--variant", e["V"],
+                                    "--how", e["H"], "--mode", e["M"], "--cmd", e.get("CMD", ""), "--model", e["MODEL"], "--out", "out"]))
+      - name: run cell (Android emulator)
+        if: matrix.cell == 'target' && matrix.how == 'android'
+        uses: reactivecircus/android-emulator-runner@v2
+        env:
+          T: ${{ matrix.task }}
+          C: ${{ matrix.cell }}
+          V: ${{ matrix.variant }}
+          H: ${{ matrix.how }}
+          M: ${{ matrix.modes }}
+          CMD: ${{ matrix.cmd }}
+          MODEL: ${{ inputs.model }}
+          LLMGATEWAY_API_KEY: ${{ contains(matrix.modes, 'agent') && secrets.LLMGATEWAY_API_KEY || '' }}
+          ANTHROPIC_API_KEY: ${{ contains(matrix.modes, 'agent') && secrets.ANTHROPIC_API_KEY || '' }}
+        with:
+          api-level: 34
+          arch: x86_64
+          target: default
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
+          script: python cell_run.py --task "$T" --cell "$C" --variant "$V" --how "$H" --mode "$M" --cmd "$CMD" --model "$MODEL" --out out
+      - name: seal outputs
+        if: always()
+        shell: python
+        env: {ARTIFACT_PASS: "${{ secrets.ARTIFACT_PASS }}"}
+        run: |
+          import runpy, sys; sys.argv = ["seal.py", "out", "out.tgz.enc"]; runpy.run_path("cellexec/seal.py", run_name="__main__")
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "cell-${{ matrix.idx }}", path: out.tgz.enc, if-no-files-found: ignore, retention-days: 14}

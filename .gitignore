@@ -4,3 +4,5 @@ out/
 *.tgz
 *.b64
 __pycache__/
+tasks_b64.txt
+out.tgz.enc
