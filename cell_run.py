@@ -707,8 +707,8 @@ class Run:
                 else: raise ValueError(f"unknown mode {self.mode}")
                 self.verify()
         except Exception as e:
-            self.res.update(error=str(e)[:3000], invalid=True, **{"pass": None})
-            log(f"{self.tid} {self.a.cell} {self.mode}: error {str(e)[:300]}")
+            self.res.update(error=str(e)[:3000], error_kind=error_kind(e), invalid=True, **{"pass": None})
+            log(f"{self.tid} {self.a.cell} {self.mode}: error ({self.res['error_kind']})")
         finally:
             try:
                 if self.ex: self.ex.stop()
@@ -719,16 +719,51 @@ class Run:
         return self.res
 
 
+def public_tail():
+    """Verifier output in the public log is opt-in (CELL_PUBLIC_TAIL=1); the default keeps judge data out."""
+    return os.environ.get("CELL_PUBLIC_TAIL", "0") == "1"
+
+
+def error_kind(e):
+    """Infrastructure-only description of a failure: the text before the first ':' of our own messages (which is
+    never task output), else the exception type. The full message stays in the sealed result.json."""
+    msg = str(e)
+    head = msg.split(":", 1)[0].strip()
+    if isinstance(e, RuntimeError) and head and len(head) <= 80 and "\n" not in head:
+        return head
+    return type(e).__name__
+
+
+def verify_summary(out):
+    """A verifier may print `VERIFY_SUMMARY {"points": int, "total": int, "failed": [int...], "exc": [Name...]}`.
+    Only integers and exception class names survive, so it carries no judge data into the public log."""
+    import re
+    for l in reversed((out or "").splitlines()):
+        if l.startswith("VERIFY_SUMMARY "):
+            try: d = json.loads(l[len("VERIFY_SUMMARY "):])
+            except ValueError: return None
+            ints = lambda x: x if isinstance(x, int) and not isinstance(x, bool) else None
+            return {"points": ints(d.get("points")), "total": ints(d.get("total")),
+                    "failed": [i for i in (d.get("failed") or []) if ints(i) is not None][:40],
+                    "exc": sorted({e for e in (d.get("exc") or []) if isinstance(e, str) and re.fullmatch(r"[A-Z][A-Za-z0-9]{1,40}(Error|Exception|Warning)", e)})[:5]}
+    return None
+
+
 def public_line(r):
-    """The one stdout line per mode. No task text beyond the verifier's last line (200 chars)."""
+    """The one stdout line per mode (public job log). No verifier output, solution output or judge data unless
+    CELL_PUBLIC_TAIL=1: pass/fail, return codes, fingerprint, cell facts and an infrastructure error kind."""
     keep = ("task", "cell", "mode", "variant", "how", "sandbox", "pass", "verify_rc", "solution_rc", "invalid", "fp",
             "runner_os", "run_id", "run_attempt", "job", "cell_facts", "total_wall", "steps", "finish", "usage", "smoke_rc",
             "smoke_out", "deliverable_sha256", "verify_timed_out")
     d = {"kind": "cell_result"}
     d.update({k: r[k] for k in keep if k in r})
-    if r.get("error"): d["error"] = r["error"][:400]
+    if r.get("error"):
+        d["error"] = r["error"][:400] if public_tail() else (r.get("error_kind") or "error")
     vo = [l for l in (r.get("verify_out") or "").strip().splitlines() if l.strip()]
-    if vo and os.environ.get("CELL_PUBLIC_TAIL", "1") == "1": d["verify_tail"] = vo[-1][:200]
+    vs = verify_summary(r.get("verify_out"))
+    if vs: d["verify_summary"] = vs
+    vo = [l for l in vo if not l.startswith("VERIFY_SUMMARY ")]
+    if vo and public_tail(): d["verify_tail"] = vo[-1][:200]
     return json.dumps(d, ensure_ascii=True)
 
 

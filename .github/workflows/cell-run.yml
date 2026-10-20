@@ -13,7 +13,7 @@ on:
       tag: {description: "run tag; the dispatcher finds the run by it", required: true}
       model: {description: "model for agent mode", required: false, default: "deepseek-v4.1-flash"}
       max_parallel: {description: "max concurrent cells (free org: 20 jobs, 5 macOS)", required: false, default: "6"}
-      public_tail: {description: "1 = put the verifier's last line (200 chars) in the public result line", required: false, default: "1"}
+      public_tail: {description: "1 = ALSO put the verifier's last line and error text in the public log (judge data!); default 0", required: false, default: "0"}
 permissions: {contents: read}
 jobs:
   plan:

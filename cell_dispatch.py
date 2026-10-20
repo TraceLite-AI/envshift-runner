@@ -121,7 +121,7 @@ def cmd_dispatch(a):
     print("BUNDLE_FP=%s" % (fp or "none"), flush=True)
     gh(["workflow", "run", WORKFLOW, "-R", REPO, "--ref", a.ref, "-f", "plan=" + json.dumps(plan),
         "-f", "fp=" + fp, "-f", "tag=" + tag, "-f", "model=" + a.model, "-f", "max_parallel=%d" % a.max_parallel,
-        "-f", "public_tail=" + ("0" if a.no_public_tail else "1")])
+        "-f", "public_tail=" + ("1" if a.public_tail else "0")])
     run_id = None
     for _ in range(40):
         time.sleep(5)
@@ -272,7 +272,8 @@ def main():
     d.add_argument("--model", default="deepseek-v4.1-flash"); d.add_argument("--max-parallel", type=int, default=6)
     d.add_argument("--ref", default="main"); d.add_argument("--settle", type=int, default=45)
     d.add_argument("--force", action="store_true")
-    d.add_argument("--no-public-tail", action="store_true", help="keep the verifier's last line out of the public job log")
+    d.add_argument("--public-tail", action="store_true",
+                   help="also print the verifier's last line and error text in the public job log (judge data; off by default)")
     for name in ("collect", "table"):
         c = sp.add_parser(name)
         c.add_argument("--run", required=True); c.add_argument("--results", default="~/Downloads/cl实验/envsuite/results")
