@@ -593,9 +593,10 @@ class Run:
         setup = self.pick("setup")
         if setup:
             path = self.stage_one(setup, self.ex.join(self.ex.stage, "setup"))
-            rc, out, _ = self.ex.run(self.ex.file_cmd(path), 600, env=self.cell_env())
+            rc, out, to = self.ex.run(self.ex.file_cmd(path), 600, env=self.cell_env())
             self.res["setup_out"] = truncate(out, 3000)
-            if rc: raise RuntimeError(f"setup rc={rc}: {out[-1200:]}")
+            if to: raise RuntimeError("setup timed out")
+            if rc != 0: raise RuntimeError(f"setup rc={rc}: {out[-1200:]}")
         self.ex.reset(self.ex.stage)
 
     def run_solution(self, which):
@@ -616,7 +617,11 @@ class Run:
         path = self.stage_one(v, self.ex.stage)
         rc, out, to = self.ex.run(self.ex.file_cmd(path), self.task.get("verify_timeout", 300), env=self.cell_env())
         self.res["pass"] = rc == 0; self.res["verify_rc"] = rc; self.res["verify_out"] = truncate(out, 6000)
-        if to: self.res["verify_timed_out"] = True
+        if to:
+            self.res["verify_timed_out"] = True
+            raise RuntimeError("verifier timed out")
+        if rc is None or rc < 0:
+            raise RuntimeError("verifier did not complete")
         if self.task.get("deliverable"):
             b = self.ex.pull_file(self.ex.join(self.ex.ws, self.task["deliverable"]))
             if b is not None:

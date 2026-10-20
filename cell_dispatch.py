@@ -242,6 +242,41 @@ def cmd_collect(a):
     cmd_table(a)
 
 
+def gate1_flag(r, rec, task, cell, mode):
+    """Only a completed, attributable verifier verdict is Gate 1 evidence.
+
+    A timed-out verifier is an invalid cell, not the desired naive-target failure.
+    Checking the dispatch identity also prevents stale files left in a reused results
+    directory from filling in missing cells in a later run.
+    """
+    if not isinstance(r.get("pass"), bool) or r.get("invalid") or r.get("verify_timed_out"):
+        return "E"
+    if r.get("accepted") is not True or r.get("job_conclusion") != "success":
+        return "E"
+    if (r.get("task"), r.get("cell"), r.get("mode")) != (task, cell, mode):
+        return "E"
+    if r.get("fp") != (rec.get("fp") or "none") or str(r.get("run_id")) != str(rec.get("run_id")):
+        return "E"
+    variant = next((p["variant"] for p in rec.get("plan", []) if p.get("task") == task and p.get("cell") == cell), None)
+    if variant is None or r.get("variant") != variant:
+        return "E"
+    rc = r.get("verify_rc")
+    if not isinstance(rc, int) or isinstance(rc, bool) or rc < 0 or r["pass"] != (rc == 0):
+        return "E"
+    if "verify_summary" in r:
+        summary = r["verify_summary"]
+        if not isinstance(summary, dict):
+            return "E"
+        points, total = summary.get("points"), summary.get("total")
+        if (not isinstance(points, int) or isinstance(points, bool)
+                or not isinstance(total, int) or isinstance(total, bool)
+                or total <= 0 or not 0 <= points <= total):
+            # Migrated verifiers emit null scores when fixture creation fails.
+            # That is infrastructure failure, not a graded naive submission.
+            return "E"
+    return "P" if r["pass"] else "F"
+
+
 def cmd_table(a):
     rd = pathlib.Path(a.results).expanduser() / a.run
     rec = json.loads((rd / "dispatch.json").read_text(encoding="utf-8"))
@@ -249,7 +284,7 @@ def cmd_table(a):
         p = rd / t / c / m / "result.json"
         if not p.exists(): return "-"
         r = json.loads(p.read_text(encoding="utf-8"))
-        return "E" if r.get("invalid") or r.get("pass") is None else ("P" if r["pass"] else "F")
+        return gate1_flag(r, rec, t, c, m)
     print("| task | variant | ref base | ref target | naive base | naive target | gate 1 | run id |")
     print("|---|---|---|---|---|---|---|---|")
     for tid in rec["tasks"]:
