@@ -23,7 +23,10 @@ import sys, tarfile, tempfile, time
 
 REPO = os.environ.get("CELLRUN_REPO", "TraceLite-AI/envshift-runner")
 WORKFLOW = "cell-run.yml"
-NCHUNK, CHUNK = 12, 48000          # 12 secrets x 48 KB = the workflow's 12 chunk steps (~576 KB)
+# 12 secrets = the workflow's 12 chunk steps. GitHub's 48 KB secret limit applies to the encrypted, base64-encoded
+# value (~4/3 of the plaintext): a 48000-char chunk is rejected with HTTP 422, so the usable chunk is ~36 KB
+# and the bundle budget is 12 x 36000 = 432000 base64 chars.
+NCHUNK, CHUNK = 12, 36000
 SKIP = {"__pycache__", ".DS_Store"}
 UNUSED = "~unused-TASKS_B64-chunk~"     # GitHub masks secret values in logs: never a string that occurs in one
 
