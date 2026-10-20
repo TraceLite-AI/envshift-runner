@@ -73,6 +73,9 @@ def truncate(s, n=30000):
 
 
 def decode(b, fallback="utf-8"):
+    if b[:200].count(b"\x00") > 20:          # wsl.exe prints its own messages in UTF-16
+        try: return b.decode("utf-16-le")
+        except UnicodeDecodeError: pass
     try:
         return b.decode("utf-8")
     except UnicodeDecodeError:
@@ -349,7 +352,7 @@ class WSL(Executor):
 
     def __init__(self, cell, variant, extra_env):
         super().__init__(cell, variant, extra_env)
-        self.distro = os.environ.get("CELL_WSL_DISTRO", "Ubuntu-22.04")
+        self.distro = os.environ.get("CELL_WSL_DISTRO")    # default: the distribution setup-wsl set as default
         self.ws, self.stage = "/workspace", "/opt/stage"
         self.wsl = os.path.join(os.environ.get("SystemRoot", r"C:\Windows"), "System32", "wsl.exe")
 
@@ -361,15 +364,17 @@ class WSL(Executor):
     def _sh(self, script, timeout):
         f = self.tmp / f"w-{uuid.uuid4().hex[:8]}.sh"
         with open(f, "w", encoding="utf-8", newline="\n") as fh: fh.write(script)
-        rc, out, to = run_proc([self.wsl, "-d", self.distro, "-u", "root", "-e", "timeout", "-k", "5", str(int(timeout)),
-                                "bash", self.mnt(f)], timeout + 30, env=scrubbed_env())
+        rc, out, to = run_proc([self.wsl] + (["-d", self.distro] if self.distro else []) + ["-u", "root", "-e", "timeout", "-k", "5",
+                                str(int(timeout)), "bash", self.mnt(f)], timeout + 30, env=scrubbed_env())
         f.unlink(missing_ok=True)
         if rc == 124: to = True
         return rc, out, to
 
     def start(self):
         rc, out, _ = self._sh(f"mkdir -p {self.ws} {self.stage}\n", 120)
-        if rc: raise RuntimeError("wsl start: " + decode(out)[-400:])
+        if rc:
+            _, lst, _ = run_proc([self.wsl, "-l", "-v"], 60)
+            raise RuntimeError("wsl start: " + decode(out)[-400:] + " | wsl -l -v: " + decode(lst).replace("\x00", "")[-400:])
 
     def reset(self, path):
         self._sh(f"rm -rf {shlex.quote(path)} && mkdir -p {shlex.quote(path)}\n", 120)
