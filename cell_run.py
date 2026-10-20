@@ -255,13 +255,15 @@ class LocalWindows(Executor):
             self.shell = [os.path.join(os.environ.get("SystemRoot", r"C:\Windows"), "System32", "WindowsPowerShell", "v1.0", "powershell.exe")]
         elif how == "cmd":
             self.shell = [os.path.join(os.environ.get("SystemRoot", r"C:\Windows"), "System32", "cmd.exe")]
-            base.pop("PSModulePath", None)        # as in sandbox-verify: the cell is a plain cmd session
+            for k in [k for k in base if k.upper() == "PSMODULEPATH"]:   # as in sandbox-verify: a plain cmd session
+                base.pop(k)
         else:
             self.shell = [shutil.which("pwsh") or r"C:\Program Files\PowerShell\7\pwsh.exe"]
         if how == "winnative":
             sp = os.environ.get("SANDBOX_PATH")
             if not sp: raise RuntimeError("winnative: SANDBOX_PATH not set (sandbox_gh.py setup gh-winnative)")
-            base["PATH"] = sp; base.pop("Path", None)
+            for k in [k for k in base if k.upper() == "PATH"]: base.pop(k)
+            base["PATH"] = sp
         base.update(BASE_ENV); base.update(self.env)
         self.base_env = base
         import ctypes
